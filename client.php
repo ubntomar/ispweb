@@ -817,7 +817,7 @@ else    {
 				alertify.confirm("Desea enviar mensaje de texto a cliente moroso?",
 			    function(){				    
 					var telefono=$( ".telefono"+id ).val();
-					var smsText="Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta";
+					var smsText="Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión delservicio. www.ispexperts.com";
 					
 					$.post("smst.php",
 					    {
@@ -854,7 +854,7 @@ else    {
 			    function(){
 				    			
 					var telefono=$( ".telefonoAtrasado"+id ).val();
-					var smsText="Estimado Usario su factura de Internet esta vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta";
+					var smsText="Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión delservicio. www.ispexperts.com";
 					$.post("smst.php",
 					    {
 					      telefono: telefono,
@@ -888,7 +888,7 @@ else    {
 				alertify.confirm("Desea enviar mensaje de texto a cliente Corte 15 atrasado?",
 			    function(){
 				    var telefono=$( ".telefonoAtrasadoc15"+id ).val();
-					var smsText="Estimado Usario su factura de Internet esta vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta";
+					var smsText="Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión delservicio. www.ispexperts.com";
 					$.post("smst.php",
 					    {
 					      telefono: telefono,
