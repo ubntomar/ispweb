@@ -1,6 +1,6 @@
 <?php
 
-echo"arranca";
+echo"arranca okg";
 include("login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
