@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Secure-Simple-PHP-LoginSystem</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;Secure-PHP-Login & Registration System&rdquo; Version 4</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;Secure-PHP-Login & Registration System&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 14/07/2013<br>
+					Last Updated:27-Aug-2017<br>
+					By: Jeyaganesh<br>
+					Email: <a href="mailto:vikiganeshgandhi@gmail.com">vikiganeshgandhi@gmail.com</a><br>
+					Website: <a href="http://devlup.com">Devlup</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing my item. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://themeforest.net/user/jeyaganesh89">here</a>. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#filestructure">File Structure</a></li>
+			<li><a href="#logotext">Logo Text</a></li>
+			<li><a href="#db">Database Script</a></li>			
+			<li><a href="#configuration">Configuration</a></li>
+			<li><a href="#errormessages">Error Messages</a></li>
+			<li><a href="#twittersetup">Twitter Setup</a></li>
+			<li><a href="#fbsetup">Facebook Setup</a></li>
+			<li><a href="#googlesetup">Google Setup</a></li>
+			<li><a href="#admin">Admin Options</a></li>
+			<li><a href="#credits">Sources and Credits</a></li>
+			
+			
+		</ol>
+		
+		<hr>
+		
+		<h3 id="filestructure"><strong>A) File Structure</strong> - <a href="#toc">top</a></h3>
+		<p>Login system consists of several PHP,Javascript and CSS files.</p>
+		<p>All the pages are made with the Bootstrap framework so the CSS and Javascript files are same as the Bootstrap.Don't modify the Js and CSS files that may cause some issues.</p>
+		<p><b>CSS</b> <br> 
+		<b>JS  </b>	 <br>
+		<b>Fonts  </b>	<br> 
+		<b>Social  </b>	 <br>
+		<b>img  </b><br>	</p>
+		<p></p>
+		
+		
+		
+		<h3 id="logotext"><strong>B) Logo Text</strong> - <a href="#toc">top</a></h3>
+		<p>You can change the logo text in the db.php file</p>
+		<img src="assets/images/logo.jpg" alt="logo" />
+		<h3 id="db"><strong>C) Database Setup</strong> - <a href="#toc">top</a></h3>
+		<p>You have to create two tables in MySql to begin with.Table creation script is available in the package</p>
+		<p> Execute the below scripts one by one </p>
+		<b>Script1 </b>
+		
+		<pre>	
+			create table users
+			(
+			id int  not null auto_increment primary key,
+			username varchar(50) not null unique key,
+			password varchar(100),
+			email varchar(100),
+			activ_status tinyint(1) default 0,
+			activ_key varchar(1000)
+			);
+
+</pre>
+
+<b>Script2 </b>
+<pre>
+			create table users_social
+			(
+			id int  not null auto_increment primary key,
+			username varchar(100),
+			email varchar(100),
+			source varchar(100)
+			);
+
+		</pre>
+
+		<p>Once the table is created open the db.php file to modify the configuration file.</p>
+
+			<h3 id="configuration"><strong>D) Configuration</strong> - <a href="#toc">top</a></h3>
+			
+		<p>In the configuration file specify the database username,password,table name etc.</p>
+<img src="assets/images/config.jpg" alt="config" />
+<p>$from_address  specifies the from address for sending activation mails.$url specify the url of the login system deployed.</p>
+<p> In the strings section you can modify the text of the messages displayed in the screens</p>
+
+		<h3 id="errormessages"><strong>E) Error Messages</strong> - <a href="#toc">top</a></h3>
+			
+		<p>In the configuration file specify the error messages for login,admin and registration screens</p>
+<img src="assets/images/strings.PNG" alt="errormsgs" />
+<p>Please ensure to escape the single quote in the message should be properly escaped with '\'</p>
+
+
+<h3 id="twittersetup"><strong>F) Twitter Setup</strong> - <a href="#toc">top</a></h3>
+<p>Register a new application in <a href="http://dev.twitter.com/apps">http://dev.twitter.com/apps</a></p>
+<img src="assets/images/register-app.JPG" alt="twitter" />
+<p>Provide application name,description and call back url which is the url of login page</p>
+<p>update the callback url to point to 'twitter_callback.php' with complete url</p>
+<p>Save application and goto settings tab and check the box "Allow this application to be used to Sign in with Twitter" and click update setting</p>
+<p>Now notedown the consumer secret and consumer key and update the db.php file.</p>
+
+<h3 id="fbsetup"><strong>G) Facebook Setup</strong> - <a href="#toc">top</a></h3>
+<p>Goto  <a href="https://developers.facebook.com/apps">https://developers.facebook.com/apps</a></p>
+<p>Click "Add a new app" button and select "website" option</p>
+<p>Enter a name for this facebook app (any name) and click create new facebook app ID</p>
+<img width="700px" src="assets/images/1.PNG" alt="facebook" />
+<p>click "skip quick start" button</p>
+<p>Click "settings" and enter display name,contant email details</p>
+<p> In "app domains" section you have enter your website domain name- example: devlup.com </p>
+<p>In the "Site URL" section you need to enter complete URL of the facebook_connect.php file  for example: http://devlup.com/loginsystem/facebook_connect.php</p>
+<p> After creating application note down the app id and secret key and update the db.php file under facebook configuration section</p>
+
+
+
+<h3 id="googlesetup"><strong>H) Google Setup</strong> - <a href="#toc">top</a></h3>
+
+<p>Goto <a href="https://code.google.com/apis/console">https://code.google.com/apis/console</a> and create a new project and provide a name.</p>
+<p>In the services screen enable access for Google+ API</p>
+<p>In the API access screen, note API key,client id,email address,client secret and redirect uri's</p>
+<p>Update the redirect url to point to 'google_connect.php' with complete url</p>
+<p>Save all the information and update the db.php configuration</p>
+<h3 id="admin"><strong>I) Admin</strong> - <a href="#toc">top</a></h3>
+<p>Admin screen contains the list of users registered in the system along with their activation status.This page can be accessed using the url admin_records.php</p>
+<p>Please note that this page contains secure information and should only made available for administrators.If you dont need this feature kindly remove it while deploying.</p>
+<p>For accessing the admin_records.php page the default user name and password is defined in the db.php configuration file.</p>
+		
+		
+		
+		<h3 id="credits"><strong>I) Sources and Credits</strong> - <a href="#toc">top</a></h3>
+		
+		<p><a href="http://devlup.com">Devlup</a>
+		
+		
+		
+		<hr>
+		
+		<p>Once again, thank you so much for purchasing. As I said at the beginning, 
+		I'd be glad to help you if you have any questions. 
+		but I'll do my best to assist.</p> 
+		<p>If you want any new feature to be added.Please feel free to mail me.</p>
+		<p class="append-bottom alt large"><strong>Jeyaganesh</strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>

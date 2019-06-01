@@ -1,0 +1,281 @@
+body {
+	padding-top: 56px;
+	background: #f2f2f2;
+	font-size: 16px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.texto-subrayado{
+	text-decoration: line-through;
+}
+
+.img-logo img {
+	margin-right: 	10px;
+	width: 20px;
+	opacity: 0.3;	
+}
+/* --- --- NAVBAR --- --- */
+
+
+
+/* --- --- BARRA LATERAL --- --- */
+.barra-lateral {
+	background: #262a34;
+	color: #fff;
+	min-width: 300px;
+	min-height: 100vh;
+	padding: 0;
+}
+
+.barra-lateral a {
+	color: #fff;
+}
+
+/* --- LOGO --- */
+.barra-lateral .logo {
+	background: #0275db;
+	margin-bottom: 2px;
+}
+
+.barra-lateral .logo h2 {
+	font-size: 30px;
+	font-family: 'Roboto', sans-serif;
+	padding: 20px 0;
+	text-align: center;
+	font-weight: 300;
+	margin:0;
+}
+
+/* --- MENU --- */
+.barra-lateral .menu a {
+	display: block;
+	padding: 20px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+.barra-lateral .menu a:hover {
+	background: #35ae6b;
+	text-decoration: none;
+}
+
+.barra-lateral .menu a i {
+	margin-right: 20px;
+	font-weight: normal;
+}
+
+/* --- --- MAIN --- --- */
+.main {
+	padding-top: 40px;
+}
+
+.main .columna {
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.main .titulo {
+	color: #262a34;
+	font-size: 25px;
+	font-weight: 500;
+	font-family: 'Roboto', sans-serif;
+	margin-bottom: 20px;
+}
+
+.main .widget {
+	margin-bottom: 40px;
+}
+
+/* --- Widget Nueva Entrada --- */
+.main .widget form input[type="text"],
+.main .widget form textarea {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 20px;
+	font-family: 'Open Sans', sans-serif;
+	border: none;
+	box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+}
+
+.main .widget form input[type="text"] {
+	font-weight: 400;
+}
+
+.main .widget form textarea {
+	height: 400px;
+	min-height: 200px;
+	max-width: 100%; 
+	min-width: 100%;
+}
+
+.main .widget form button {
+	background: #0275d8;
+	cursor: pointer;
+	color: #fff;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+	font-weight: 500;
+	border: none;
+	display: inline-block;
+	padding: 10px;
+	width: 200px;
+	border-radius: 3px;
+	transition: all .3s ease;
+}
+
+.main .widget form button:hover {
+	background: #025aa5;
+}
+
+/* --- Widget Estadisticas --- */
+.main .estadisticas .contenedor {
+	box-shadow: 0px 1px 1px 0px rgba(0,0,0,.2);
+}
+
+.link-border{
+	border-bottom: 1px solid #5cb85c;
+}
+
+.main .estadisticas .caja {
+	background: #fff;
+	border: 1px solid #e3e3e3;
+	padding: 40px 20px;
+	flex: 1;
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+}
+
+.main .estadisticas .caja h3 {
+	margin-bottom: 10px;
+	color: #35ae6b;
+}
+
+.main .estadisticas .caja p {
+	color: #a8a8a8;
+	margin-bottom: 0;
+}
+
+.main .estadisticas .caja:first-child {
+	border-right: none;
+}
+
+.main .estadisticas .caja:last-child {
+	border-left: none;
+}
+
+/* --- Widget Comentarios --- */
+.main .comentarios .contenedor {
+	box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.2);
+}
+
+.main .comentarios .comentario {
+	background: #fff;
+	padding: 20px;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+.main .comentarios .comentario .foto {
+	width: 64px;
+	height: 64px;
+	overflow: hidden;
+	margin-right: 20px;
+	border-radius: 100px;
+}
+
+.main .comentarios .comentario .foto a {
+	display: inline-block;
+}
+
+.main .comentarios .comentario .foto img {
+	width: 100%;
+}
+
+.main .comentarios .comentario .texto {
+	flex: 1;
+}
+
+.main .comentarios .comentario .texto .texto-comentario {
+	font-size: 14px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.main .comentarios .comentario .botones button {
+	background: none;
+	cursor: pointer;
+	color: #fff;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	border: none;
+	display: inline-block;
+	padding: 5px 10px;
+	border-radius: 3px;
+	transition: all .3s ease;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.main .comentarios .comentario .botones .aprobar {background: #35ae6b;}
+.main .comentarios .comentario .botones .eliminar {background: #b74848;}
+.main .comentarios .comentario .botones .bloquear {color: #acacac;}
+
+.main .comentarios .comentario .botones .aprobar:hover {background: #449d44;}
+.main .comentarios .comentario .botones .eliminar:hover {background: #c9302c;}
+.main .comentarios .comentario .botones .bloquear:hover {
+	background: #acacac;
+	color: #fff;
+}
+
+
+
+/* --- --- MEDIAQUERIES --- --- */
+@media screen and (max-width: 1300px) {
+	.barra-lateral {
+		min-width: auto;
+	}
+
+	.barra-lateral .logo {
+		display: none;
+	}
+
+	.barra-lateral .menu a span {
+		display: none;
+	}
+
+	.barra-lateral .menu a i {
+		margin:0;
+	}
+}
+
+@media screen and (max-width: 575px) {
+	.barra-lateral {
+		min-height: auto;
+	}
+
+	.barra-lateral .menu a {
+		display: inline-block;
+		border-bottom: none;
+	}
+
+	.main .widget form button {
+		width: 100%;
+	}
+
+	.footer-text p {
+		
+		font-size: 10px;
+	}
+	
+}
+
+@media screen and (max-width: 320px) {
+	.main .comentarios .comentario .foto {
+		width: 30px;
+		height: 30px;
+	}
+
+	.main .comentarios .comentario .botones button {
+		width: 100%;
+	}
+}
