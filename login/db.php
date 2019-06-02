@@ -34,7 +34,7 @@ $msg_admin_pwd = 'Incorect password';
 $msg_admin_user = 'Username Doesn\'t exist';
 
 //LOGO text
-$logotxt = "Wisdev";
+$logotxt = "IspExperts";
 
 //Twitter Configuration
 define('CONSUMER_KEY', 'CONSUMER_KEY_HERE');

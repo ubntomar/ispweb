@@ -110,9 +110,11 @@ else    {
 	        								<a class="nav-link " id="cliente_activo" href="#">Clientes  </a>
 	      								</li>
 	      								<li class="nav-item">
-	        								<a class="nav-link " id="mor" href="#">Morosos (SMS)</a>
+	        								<a class="nav-link " id="mor" href="#">Notificaciones vía SMS</a>
 	      								</li>
-
+												<li class="nav-item">
+	        								<a class="nav-link " id="sms_masivos" href="#">SMS Masivos</a>
+	      								</li>
 	      								<li class="nav-item">
 	        								<a class="nav-link disabled" id="edi" href="#">Editar </a>
 	      								</li>
@@ -485,7 +487,9 @@ else    {
 	  									<h4 class="card-title mt-4">Morosos</h4>	
 	  									<table id="morList" class="display compact table text-dark table-bordered table-responsive  table-hover ">
 											<thead  class="bg-primary">
-											<tr><td>Cliente</td>
+											<tr>
+												<td>Id</td>
+												<td>Cliente</td>
 												<td>Dirección</td>
 												<td>Corte</td>
 												<td>Valor Plan</td>
@@ -527,6 +531,7 @@ else    {
 													}
 													if($saldo!=$pago){
 														echo "<tr class=\"text-center small \">";
+														echo "<td>".$idCliente."</td>";	
 														echo "<td>".$cliente."</td>";				
 														echo "<td>".$direccion."</td>";
 														echo "<td>".$corte."</td>";
@@ -817,7 +822,7 @@ else    {
 				alertify.confirm("Desea enviar mensaje de texto a cliente moroso?",
 			    function(){				    
 					var telefono=$( ".telefono"+id ).val();
-					var smsText="Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión delservicio. www.ispexperts.com";
+					var smsText="Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio. www.ispexperts.com";
 					
 					$.post("smst.php",
 					    {
@@ -854,7 +859,7 @@ else    {
 			    function(){
 				    			
 					var telefono=$( ".telefonoAtrasado"+id ).val();
-					var smsText="Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión delservicio. www.ispexperts.com";
+					var smsText="Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio. www.ispexperts.com";
 					$.post("smst.php",
 					    {
 					      telefono: telefono,
@@ -888,7 +893,7 @@ else    {
 				alertify.confirm("Desea enviar mensaje de texto a cliente Corte 15 atrasado?",
 			    function(){
 				    var telefono=$( ".telefonoAtrasadoc15"+id ).val();
-					var smsText="Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión delservicio. www.ispexperts.com";
+					var smsText="Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio. www.ispexperts.com";
 					$.post("smst.php",
 					    {
 					      telefono: telefono,
