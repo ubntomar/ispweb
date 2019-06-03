@@ -99,7 +99,7 @@ else    {
 					<div class="columna col-11">						
 						<div class=" nuevo_contenido">
 							<h3 class="titulo">Configuración de Clientes</h3>
-							<!-- inicio de contenido de pagina -->
+							<!-- inicio de Bootstrap cards -->
 							<div class="card text-center">
 	  							<div class="card-header">
 	    							<ul class="nav nav-tabs card-header-tabs">
@@ -110,53 +110,53 @@ else    {
 	        								<a class="nav-link " id="cliente_activo" href="#">Clientes  </a>
 	      								</li>
 	      								<li class="nav-item">
-	        								<a class="nav-link " id="mor" href="#">Notificaciones vía SMS</a>
+	        								<a class="nav-link " id="notificacion_sms" href="#">Notificaciones vía SMS</a>
 	      								</li>
 												<li class="nav-item">
-	        								<a class="nav-link " id="sms_masivos" href="#">SMS Masivos</a>
+	        								<a class="nav-link " id="masivos_sms" href="#">SMS Masivos</a>
 	      								</li>
 	      								<li class="nav-item">
 	        								<a class="nav-link disabled" id="edi" href="#">Editar </a>
 	      								</li>
 	    						   	</ul>
 	 				 			</div>
-	  							<div class="card-block">
+	  							<div class="card-body d-flex justify-content-center">
 	  								
-	  								<div id="content-1" class="px-3 py-3 text-left">
-	  									<p class="card-text ">#. Nombres.</p>
-		    							<div class="my-3">
+	  								<div id="content-1" class="px-3 py-3 text-left card col-sm-6">
+	  									<p class="card-text ">#. Nombres..</p>
+		    							<div class=" my-3 ">
 		    							   <input class="form-control" type="text" value="" id="name" >
 		    							</div>
 		    							<p class="card-text ">#. Apellidos.</p>
-		    							<div class="my-3">
+		    							<div class=" my-3 ">
 		    							   <input class="form-control" type="text" value="" id="last-name" >
 		    							</div>
 		    							<p class="card-text ">#. Cedula.</p>
-		    							<div class="my-3">
+		    							<div class=" my-3 ">
 		    							   <input class="form-control" type="text" value="" id="cedula" >
 		    							</div>	
 		    							<p class="card-text ">#. Dirección.</p>
-		    							<div class="my-3">
+		    							<div class=" my-3 ">
 		    							   <input class="form-control" type="text" value="" id="address" >
 		    							</div>
 		    							<p class="card-text ">#. Ciudad.</p>
-		    							<div class="my-3">
+		    							<div class=" my-3">
 		    							   <input class="form-control" type="text" value="" id="ciudad" >
 		    							</div>
 		    							<p class="card-text ">#. Departamento.</p>
-		    							<div class="my-3">
+		    							<div class=" my-3">
 		    							   <input class="form-control" type="text" value="" id="departamento" >
 		    							</div>
 		    							<p class="card-text ">#. Telefono.</p>
-		    							<div class="my-3">
+		    							<div class=" my-3">
 		    							   <input class="form-control" type="text" value="" id="phone" >
 		    							</div>
 		    							<p class="card-text ">#. Email.</p>
-		    							<div class="my-3">
+		    							<div class=" my-3">
 		    							   <input class="form-control" type="email" value="" id="email" >
 		    							</div>
 		    							<p class="card-text mt-3 ">#. Corte de facturación.</p>	 
-		    							<div class="my-3">
+		    							<div class=" my-3">
 		    								<select class="custom-select " id="corte">
 											  <option value="1" selected>Corte 1.</option>
 											  <option value="15">Corte 15.</option>								  
@@ -164,14 +164,14 @@ else    {
 		    							</div>		
 		    								
 		    							<p class="card-text mt-3 ">#. Seleccione Tipo de Plan.</p>	 
-		    							<div class="my-3">
+		    							<div class=" my-3">
 		    								<select class="custom-select " id="plan">
 											  <option value="Residencial" selected>Residencial.</option>
 											  <option value="Comercial">Comercial.</option>								  
 											</select>
 		    							</div>
 		    							<p class="card-text mt-3 ">#. Velocidad de Plan.</p>	 
-		    							<div class="my-3">
+		    							<div class=" my-3">
 		    								<select class="custom-select " id="velocidad-plan">
 											  <option value="1" >1 Mbps.</option>
 											  <option value="2" selected >2 Mbps.</option>
@@ -189,33 +189,33 @@ else    {
 		    							</div>  
 		    							
 		    							<p class="card-text ">#. Valor de Plan (Es la mensualidad que queda pagando el cliente Ojo sin  escribir puntos).</p>
-		    							<div class="my-3">
+		    							<div class=" my-3">
 		    							   	<input class="form-control" type="number" value="" id="valor-plan" >
 		    							</div>	
 		    							<p class="card-text ">#. Dirección ip.</p>
 
-		    							<div class="my-3">
+		    							<div class=" my-3">
 		    							   	<input class="form-control" type="text" value="" id="ip-address" >
 		    							</div>		
 		    							<p class="card-text mt-3 ">#. Generar Factura de inmediato ?. (Si necesito que el pago del primer mes quede aparte de lo que van a pagar de afiliación le doy sí. Entonces voy a Registrar Pago y ahí ya le aparece para que genere el primer pago de una vés.)</p>	 
-		    							<div class="my-3">
+		    							<div class=" my-3">
 		    								<select class="custom-select " id="generar-factura">		    								  
 											  <option value="1" >Si.</option>
 											  <option value="0" selected >No.</option>											  
 											</select>	
 		    							</div>
 		    							<p class="card-text mt-3 ">#. Paga el primer mes de servicio con lo que está pagando de afiliación? . Si no sabe , dejarlo en No.</p>	 
-		    							<div class="my-3">
+		    							<div class=" my-3">
 		    								<select class="custom-select " id="standby">		    								  
 											  <option value="1" >Si.</option>
 											  <option value="0" selected >No.</option>											  
 											</select>	
 		    							</div>
 		    							<p class="card-text ">#. Valor de Afiliación a servicio de Internet. 150.000 dentro de Guamal ,180.000 rural simple ,220.000 rural complicada.</p>
-		    							<div class="my-3">
+		    							<div class=" my-3">
 		    							   	<input class="form-control" type="number" value="" id="valorAfiliacion" >
 		    							</div>   	
-		    							<a  class="btn btn-primary" id="save">Guardar</a>  	
+		    							<div class="d-flex justify-content-center"><a  class="btn btn-primary col-sm-6" id="save">Guardar</a></div>  	
 
 	  								</div>
 	  								<div id="content-2" class="px-3 py-3 text-left">
@@ -331,6 +331,75 @@ else    {
 											</tbody>
 										</table>
 										<hr>
+										</div>
+										<!-- inicio de bloque-->				
+	  								<div id="content-3" class="px-3 py-3 text-left">
+	  									<h4 class="card-title mt-4">Morosos</h4>	
+	  									<table id="morList" class="display compact table text-dark table-bordered table-responsive  table-hover ">
+											<thead  class="bg-primary">
+											<tr>
+												<td>Id</td>
+												<td>Cliente</td>
+												<td>Dirección</td>
+												<td>Corte</td>
+												<td>Valor Plan</td>
+												<td>Saldo</td>
+												<td>Velocidad Plan</td>
+												<td>Direccion IP</td>
+												<td>Telefono</td>
+												<td>SMS</td>										
+											</tr>
+											</thead>
+											<tfoot class="py-3 text-right">
+												<tr>
+													
+													<td colspan="3"></td>
+													<td colspan="3"></td>
+													
+												</tr>
+											</tfoot>
+											<tbody >										
+										<?php 					
+											$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,valorf,ip,SUM( saldo )as mysum,`velocidad-plan` FROM `afiliados` INNER JOIN factura ON `afiliados`.`id`=`factura`.`id-afiliado` WHERE factura.periodo !='' AND factura.cerrado=0 AND `afiliados`.`activo`=1 AND suspender !=1  GROUP BY`afiliados`.`id` ORDER BY mysum DESC ";
+											if ($result = $mysqli->query($sql)) {
+												while ($row = $result->fetch_assoc()) {
+													$idCliente=$row["id"];
+													$cliente=$row["cliente"]." ".$row["apellido"];
+													$telefono=$row["telefono"];
+													$direccion=$row["direccion"];
+													$corte=$row["corte"];
+													$pago=$row["valorf"];
+													$saldo=$row["mysum"];
+													$velocidad=$row["velocidad-plan"]." Megas";
+													$ip=$row["ip"];
+													$textTelefono=$telefono;
+													if ($telefono==""){
+														$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefono".$row["id"]." p-0  \" type=\"text\" value=\"\" >";
+														}
+													else{
+														$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefono".$row["id"]." p-0   \" type=\"text\" value=\"$telefono\" id=\"-1\"  >";
+													}
+													if($saldo!=$pago){
+														echo "<tr class=\"text-center small \">";
+														echo "<td>".$idCliente."</td>";	
+														echo "<td>".$cliente."</td>";				
+														echo "<td>".$direccion."</td>";
+														echo "<td>".$corte."</td>";
+														echo "<td>".$pago."</td>";
+														echo "<td>".$saldo."</td>";	
+														echo "<td>".$velocidad."</td>";											
+														echo "<td>".$ip."</td>";
+														echo "<td>".$textTelefono."<button type=\"button\" class=\"btn btn-light updateTel\" id=\"$idCliente\" ><i class=\"icon-arrows-cw text-success\"></i></button></td>";
+														echo "<td><button type=\"button\" class=\"btn btn-light smsclientMoroso\" id=\"$idCliente\" ><i class=\"icon-export text-success\"></i></button></td>";
+														echo "</tr>";
+													}	
+														
+													}
+											    	$result->free();
+												}
+										?>		
+											</tbody>
+										</table>
 										<hr>
 										<h4 class="card-title mt-4">Lista de Clientes de este mes  <strong>Corte 1 retrasados </strong> de pago  </h4>	
 	  									<table id="clientes-retrasados" class="display compact table text-dark table-bordered table-responsive  table-hover ">
@@ -481,75 +550,8 @@ else    {
 										?>		
 											</tbody>
 										</table>	 
-	  								</div>
-
-	  								<div id="content-3" class="px-3 py-3 text-left">
-	  									<h4 class="card-title mt-4">Morosos</h4>	
-	  									<table id="morList" class="display compact table text-dark table-bordered table-responsive  table-hover ">
-											<thead  class="bg-primary">
-											<tr>
-												<td>Id</td>
-												<td>Cliente</td>
-												<td>Dirección</td>
-												<td>Corte</td>
-												<td>Valor Plan</td>
-												<td>Saldo</td>
-												<td>Velocidad Plan</td>
-												<td>Direccion IP</td>
-												<td>Telefono</td>
-												<td>SMS</td>										
-											</tr>
-											</thead>
-											<tfoot class="py-3 text-right">
-												<tr>
-													
-													<td colspan="3"></td>
-													<td colspan="3"></td>
-													
-												</tr>
-											</tfoot>
-											<tbody >										
-										<?php 					
-											$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,valorf,ip,SUM( saldo )as mysum,`velocidad-plan` FROM `afiliados` INNER JOIN factura ON `afiliados`.`id`=`factura`.`id-afiliado` WHERE factura.periodo !='' AND factura.cerrado=0 AND `afiliados`.`activo`=1 AND suspender !=1  GROUP BY`afiliados`.`id` ORDER BY mysum DESC ";
-											if ($result = $mysqli->query($sql)) {
-												while ($row = $result->fetch_assoc()) {
-													$idCliente=$row["id"];
-													$cliente=$row["cliente"]." ".$row["apellido"];
-													$telefono=$row["telefono"];
-													$direccion=$row["direccion"];
-													$corte=$row["corte"];
-													$pago=$row["valorf"];
-													$saldo=$row["mysum"];
-													$velocidad=$row["velocidad-plan"]." Megas";
-													$ip=$row["ip"];
-													$textTelefono=$telefono;
-													if ($telefono==""){
-														$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefono".$row["id"]." p-0  \" type=\"text\" value=\"\" >";
-														}
-													else{
-														$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefono".$row["id"]." p-0   \" type=\"text\" value=\"$telefono\" id=\"-1\"  >";
-													}
-													if($saldo!=$pago){
-														echo "<tr class=\"text-center small \">";
-														echo "<td>".$idCliente."</td>";	
-														echo "<td>".$cliente."</td>";				
-														echo "<td>".$direccion."</td>";
-														echo "<td>".$corte."</td>";
-														echo "<td>".$pago."</td>";
-														echo "<td>".$saldo."</td>";	
-														echo "<td>".$velocidad."</td>";											
-														echo "<td>".$ip."</td>";
-														echo "<td>".$textTelefono."<button type=\"button\" class=\"btn btn-light updateTel\" id=\"$idCliente\" ><i class=\"icon-arrows-cw text-success\"></i></button></td>";
-														echo "<td><button type=\"button\" class=\"btn btn-light smsclientMoroso\" id=\"$idCliente\" ><i class=\"icon-export text-success\"></i></button></td>";
-														echo "</tr>";
-													}	
-														
-													}
-											    	$result->free();
-												}
-										?>		
-											</tbody>
-										</table>	 
+	  								
+										<hr>	 
 	  								</div>
 
 	  							</div>
@@ -674,7 +676,7 @@ else    {
 			echo"
 			$('#new').removeClass(\"active\");
 			$('#content-1').hide();\n
-			$('#mor').removeClass(\"active\");
+			$('#notificacion_sms').removeClass(\"active\");
 			$('#content-3').hide();\n
 			$('#cliente_activo').addClass(\"active\");
 			$('#content-2').show();\n								
@@ -695,7 +697,7 @@ else    {
 			echo"
 			$('#cliente_activo').removeClass(\"active\");
 			$('#content-2').hide();
-			$('#mor').removeClass(\"active\");
+			$('#notificacion_sms').removeClass(\"active\");
 			$('#content-3').hide();
 			$('#new').addClass(\"active\");
 			$('#content-1').show();\n
@@ -707,7 +709,7 @@ else    {
 		$('#cliente_activo').click(function(){
 				$('#new').removeClass("active");
 				$('#content-1').hide();
-				$('#mor').removeClass("active");
+				$('#notificacion_sms').removeClass("active");
 				$('#content-3').hide();
 				$('#cliente_activo').addClass("active");
 				$('#content-2').show();								
@@ -716,31 +718,49 @@ else    {
 				table2.draw();
 				var table2a =$('#clientes-inactivos').DataTable();	
 				table2a.draw();
-				var table2ax =$('#clientes-retrasados').DataTable();	
-				table2ax.draw();
-				var table2ax15 =$('#clientes-retrasadosc15').DataTable();	
-				table2ax15.draw();						
+									
 				});			
 		$('#new').click(function(){
 				$('#cliente_activo').removeClass("active");
 				$('#content-2').hide();
-				$('#mor').removeClass("active");
+				$('#notificacion_sms').removeClass("active");
 				$('#content-3').hide();
 				$('#new').addClass("active");
 				$('#content-1').show();
 				});		
-		$('#mor').click(function(){				
+		$('#notificacion_sms').click(function(){				
 				$('#cliente_activo').removeClass("active");
 				$('#content-2').hide();
 				$('#new').removeClass("active");
 				$('#content-1').hide();
-				$('#mor').addClass("active");
+				$('#notificacion_sms').addClass("active");
 				$('#content-3').show();
 				var table3 =$('#morList').DataTable();
 				table3.order( [ 4, 'desc' ] );
 				table3.draw();
+				var table2ax =$('#clientes-retrasados').DataTable();	
+				table2ax.draw();
+				var table2ax15 =$('#clientes-retrasadosc15').DataTable();	
+				table2ax15.draw();	
 				
 				});	
+
+				$('#masivos_sms').click(function(){				
+				$('#cliente_activo').removeClass("active");
+				$('#content-2').hide();
+				$('#new').removeClass("active");
+				$('#content-1').hide();
+				$('#masivos_sms').addClass("active");
+				$('#content-3').show();
+				var table3 =$('#morList').DataTable();
+				table3.order( [ 4, 'desc' ] );
+				table3.draw();
+				var table2ax =$('#clientes-retrasados').DataTable();	
+				table2ax.draw();
+				var table2ax15 =$('#clientes-retrasadosc15').DataTable();	
+				table2ax15.draw();	
+				
+				});			
 		$('.updateTel').click(function(){// para clientes morosos
 				var id=$(this).attr('id');
 				console.log($(this).attr('id'));
@@ -1021,7 +1041,7 @@ else    {
 									            	
 									            	$('#new').removeClass("active");
 													$('#content-1').hide();
-													$('#mor').removeClass("active");
+													$('#notificacion_sms').removeClass("active");
 													$('#content-3').hide();
 													$('#cliente_activo').addClass("active");
 													$('#content-2').show();

@@ -89,7 +89,7 @@ echo "
 add action=mark-connection chain=prerouting comment=4DSL connection-mark=\
 no-mark in-interface=pppoe-out1 new-connection-mark=FromDSL passthrough=no
 
-add action=mark-routing chain=prerouting comment="Mark DSL Only Users" \
+add action=mark-routing chain=prerouting comment=\"Mark DSL Only Users\" \
 new-routing-mark=DSL passthrough=no src-address-list=UseDSL
 
 add action=mark-routing chain=prerouting comment=4DSL connection-mark=FromDSL \
