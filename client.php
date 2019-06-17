@@ -16,10 +16,12 @@ else    {
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>Wisdev-Administrador ISP</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">    
+	<title>IspExperts-Administrador ISP</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	   
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
-	<link rel="stylesheet" href="bower_components/DataTables/media/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css"> 
+	<link rel="stylesheet" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.min.css"> 
 	<link rel="stylesheet" href="bower_components/alertify/css/alertify.min.css" />
 
 	<link rel="stylesheet" href="bower_components/alertify/css/themes/default.min.css" />
@@ -72,10 +74,10 @@ else    {
 					</ul>
 					<div class="ml-auto">	
 						<ul class="nav navbar-nav   ">
-				            <li class="nav-item ">
-				                <a class="nav-link disabled text-white " ><i class="icon-user"></i><?php echo "Hola ".$_SESSION['username']; ?></a>
-				            </li>       
-				        </ul>	
+							<li class="nav-item ">
+									<a class="nav-link disabled text-white " ><i class="icon-user"></i><?php echo "Hola ".$_SESSION['username']; ?></a>
+							</li>       
+						</ul>	
 					</div>	
 					
 				</div>
@@ -83,8 +85,8 @@ else    {
 		</nav>
 
 		<div class="row">
-			<div class="barra-lateral col-12 col-sm-auto">				
-				<nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
+			<div class="barra-lateral col-12 col-lg-auto">				
+				<nav class="menu d-flex d-lg-block justify-content-center flex-wrap">
 					<a href="tick.php"><i class="icon-pinboard"></i><span>Tickets</span></a>
 					<a href="fact.php"><i class="icon-docs-1"></i><span>Facturas</span></a>
 					<a href="client.php"><i class="icon-users"></i><span>Clientes</span></a>
@@ -94,598 +96,546 @@ else    {
 				</nav>
 			</div>
 
-			<main class="main col">
+			<main class="main col border border-primary">
 				<div class="row">
-					<div class="columna col-11">						
+					<div class=" col-12">						
 						<div class=" nuevo_contenido">
 							<h3 class="titulo">Configuración de Clientes</h3>
 							<!-- inicio de Bootstrap cards -->
 							<div class="card text-center">
-	  							<div class="card-header">
-	    							<ul class="nav nav-tabs card-header-tabs">
-	     								<li class="nav-item">
-	       									 <a class="nav-link active" id="new" href="#">Afiliar Nuevo Cliente </a>
-	      								</li>
-    							  		<li class="nav-item">
-	        								<a class="nav-link " id="cliente_activo" href="#">Clientes  </a>
-	      								</li>
-	      								<li class="nav-item">
-	        								<a class="nav-link " id="notificacion_sms" href="#">Notificaciones vía SMS</a>
-	      								</li>
-												<li class="nav-item">
-	        								<a class="nav-link " id="masivos_sms" href="#">SMS Masivos</a>
-	      								</li>
-	      								<li class="nav-item">
-	        								<a class="nav-link disabled" id="edi" href="#">Editar </a>
-	      								</li>
-	    						   	</ul>
-	 				 			</div>
-	  							<div class="card-body d-flex justify-content-center">
-	  								
-	  								<div id="content-1" class="px-3 py-3 text-left card col-sm-6">
-	  									<p class="card-text ">#. Nombres..</p>
-		    							<div class=" my-3 ">
-		    							   <input class="form-control" type="text" value="" id="name" >
-		    							</div>
-		    							<p class="card-text ">#. Apellidos.</p>
-		    							<div class=" my-3 ">
-		    							   <input class="form-control" type="text" value="" id="last-name" >
-		    							</div>
-		    							<p class="card-text ">#. Cedula.</p>
-		    							<div class=" my-3 ">
-		    							   <input class="form-control" type="text" value="" id="cedula" >
-		    							</div>	
-		    							<p class="card-text ">#. Dirección.</p>
-		    							<div class=" my-3 ">
-		    							   <input class="form-control" type="text" value="" id="address" >
-		    							</div>
-		    							<p class="card-text ">#. Ciudad.</p>
-		    							<div class=" my-3">
-		    							   <input class="form-control" type="text" value="" id="ciudad" >
-		    							</div>
-		    							<p class="card-text ">#. Departamento.</p>
-		    							<div class=" my-3">
-		    							   <input class="form-control" type="text" value="" id="departamento" >
-		    							</div>
-		    							<p class="card-text ">#. Telefono.</p>
-		    							<div class=" my-3">
-		    							   <input class="form-control" type="text" value="" id="phone" >
-		    							</div>
-		    							<p class="card-text ">#. Email.</p>
-		    							<div class=" my-3">
-		    							   <input class="form-control" type="email" value="" id="email" >
-		    							</div>
-		    							<p class="card-text mt-3 ">#. Corte de facturación.</p>	 
-		    							<div class=" my-3">
-		    								<select class="custom-select " id="corte">
-											  <option value="1" selected>Corte 1.</option>
-											  <option value="15">Corte 15.</option>								  
-											</select>
-		    							</div>		
-		    								
-		    							<p class="card-text mt-3 ">#. Seleccione Tipo de Plan.</p>	 
-		    							<div class=" my-3">
-		    								<select class="custom-select " id="plan">
-											  <option value="Residencial" selected>Residencial.</option>
-											  <option value="Comercial">Comercial.</option>								  
-											</select>
-		    							</div>
-		    							<p class="card-text mt-3 ">#. Velocidad de Plan.</p>	 
-		    							<div class=" my-3">
-		    								<select class="custom-select " id="velocidad-plan">
-											  <option value="1" >1 Mbps.</option>
-											  <option value="2" selected >2 Mbps.</option>
-											  <option value="3">3 Mbps.</option>
-											  <option value="4">4 Mbps.</option>
-											  <option value="5">5 Mbps.</option>
-											  <option value="6">6 Mbps.</option>
-											  <option value="7">7 Mbps.</option>					
-											  <option value="8">8 Mbps.</option>
-											  <option value="9">9 Mbps.</option>
-											  <option value="10">10 Mbps.</option>
-											  <option value="15">15 Mbps.</option>
-											  <option value="20">20 Mbps.</option>
-											</select>	
-		    							</div>  
-		    							
-		    							<p class="card-text ">#. Valor de Plan (Es la mensualidad que queda pagando el cliente Ojo sin  escribir puntos).</p>
-		    							<div class=" my-3">
-		    							   	<input class="form-control" type="number" value="" id="valor-plan" >
-		    							</div>	
-		    							<p class="card-text ">#. Dirección ip.</p>
+								<div class="card-header">
+									<ul class="nav nav-tabs card-header-tabs">
+										<li class="nav-item">
+													<a class="nav-link active" id="new_client_registration" href="#">Afiliar Nuevo Cliente </a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link " id="active_client_currently" href="#">Clientes  </a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link " id="sms_notification" href="#">Notificaciones vía SMS</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link " id="massive_notifications" href="#">SMS Masivos</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link disabled" id="edi" href="#">Editar </a>
+											</li>
+										</ul>
+									</div>
+								<div class="card-body   border border-dark ">
+									<div class="d-flex justify-content-center">
+											<div id="new_client_registration_content" class=" px-3 py-3 text-left card col-sm-6 border border-warning">
+													<div >
+														<p class="card-text ">#. Nombres..</p>
+														<div class=" my-3 ">
+															<input class="form-control" type="text" value="" id="name" >
+														</div>
+														<p class="card-text ">#. Apellidos.</p>
+														<div class=" my-3 ">
+															<input class="form-control" type="text" value="" id="last-name" >
+														</div>
+														<p class="card-text ">#. Cedula.</p>
+														<div class=" my-3 ">
+															<input class="form-control" type="text" value="" id="cedula" >
+														</div>	
+														<p class="card-text ">#. Dirección.</p>
+														<div class=" my-3 ">
+															<input class="form-control" type="text" value="" id="address" >
+														</div>
+														<p class="card-text ">#. Ciudad.</p>
+														<div class=" my-3">
+															<input class="form-control" type="text" value="" id="ciudad" >
+														</div>
+														<p class="card-text ">#. Departamento.</p>
+														<div class=" my-3">
+															<input class="form-control" type="text" value="" id="departamento" >
+														</div>
+														<p class="card-text ">#. Telefono.</p>
+														<div class=" my-3">
+															<input class="form-control" type="text" value="" id="phone" >
+														</div>
+														<p class="card-text ">#. Email.</p>
+														<div class=" my-3">
+															<input class="form-control" type="email" value="" id="email" >
+														</div>
+														<p class="card-text mt-3 ">#. Corte de facturación.</p>	 
+														<div class=" my-3">
+															<select class="custom-select " id="corte">
+																<option value="1" selected>Corte 1.</option>
+																<option value="15">Corte 15.</option>								  
+															</select>	
+														</div>		
+															
+														<p class="card-text mt-3 ">#. Seleccione Tipo de Plan.</p>	 
+														<div class=" my-3">
+															<select class="custom-select " id="plan">
+															<option value="Residencial" selected>Residencial.</option>
+															<option value="Comercial">Comercial.</option>								  
+														</select>
+														</div>
+														<p class="card-text mt-3 ">#. Velocidad de Plan.</p>	 
+														<div class=" my-3">
+															<select class="custom-select " id="velocidad-plan">
+															<option value="1" >1 Mbps.</option>
+															<option value="2" selected >2 Mbps.</option>
+															<option value="3">3 Mbps.</option>
+															<option value="4">4 Mbps.</option>
+															<option value="5">5 Mbps.</option>
+															<option value="6">6 Mbps.</option>
+															<option value="7">7 Mbps.</option>					
+															<option value="8">8 Mbps.</option>
+															<option value="9">9 Mbps.</option>
+															<option value="10">10 Mbps.</option>
+															<option value="15">15 Mbps.</option>
+															<option value="20">20 Mbps.</option>
+														</select>	
+														</div>  
+														
+														<p class="card-text ">#. Valor de Plan (Es la mensualidad que queda pagando el cliente Ojo sin  escribir puntos).</p>
+														<div class=" my-3">
+															<input class="form-control" type="number" value="" id="valor-plan" >
+														</div>	
+														<p class="card-text ">#. Dirección ip.</p>
 
-		    							<div class=" my-3">
-		    							   	<input class="form-control" type="text" value="" id="ip-address" >
-		    							</div>		
-		    							<p class="card-text mt-3 ">#. Generar Factura de inmediato ?. (Si necesito que el pago del primer mes quede aparte de lo que van a pagar de afiliación le doy sí. Entonces voy a Registrar Pago y ahí ya le aparece para que genere el primer pago de una vés.)</p>	 
-		    							<div class=" my-3">
-		    								<select class="custom-select " id="generar-factura">		    								  
-											  <option value="1" >Si.</option>
-											  <option value="0" selected >No.</option>											  
-											</select>	
-		    							</div>
-		    							<p class="card-text mt-3 ">#. Paga el primer mes de servicio con lo que está pagando de afiliación? . Si no sabe , dejarlo en No.</p>	 
-		    							<div class=" my-3">
-		    								<select class="custom-select " id="standby">		    								  
-											  <option value="1" >Si.</option>
-											  <option value="0" selected >No.</option>											  
-											</select>	
-		    							</div>
-		    							<p class="card-text ">#. Valor de Afiliación a servicio de Internet. 150.000 dentro de Guamal ,180.000 rural simple ,220.000 rural complicada.</p>
-		    							<div class=" my-3">
-		    							   	<input class="form-control" type="number" value="" id="valorAfiliacion" >
-		    							</div>   	
-		    							<div class="d-flex justify-content-center"><a  class="btn btn-primary col-sm-6" id="save">Guardar</a></div>  	
-
-	  								</div>
-	  								<div id="content-2" class="px-3 py-3 text-left">
-	  									<h4 class="card-title mt-4">Lista de Clientes <strong>Activos</strong> </h4>	
-	  									<table id="egrList" class="display compact table text-dark table-bordered table-responsive  table-hover ">
-											<thead  class="bg-primary">
-											<tr><td>cod</td>
-												<td>Cliente</td>
-												<td>Dirección</td>
-												<td>Corte</td>
-												<td>Pago</td>
-												<td>Velocidad</td>
-												<td>IP</td>	
+														<div class=" my-3">
+															<input class="form-control" type="text" value="" id="ip-address" >
+														</div>		
+														<p class="card-text mt-3 ">#. Generar Factura de inmediato ?. (Si necesito que el pago del primer mes quede aparte de lo que van a pagar de afiliación le doy sí. Entonces voy a Registrar Pago y ahí ya le aparece para que genere el primer pago de una vés.)</p>	 
+														<div class=" my-3">
+															<select class="custom-select " id="generar-factura">		    								  
+																<option value="1" >Si.</option>
+																<option value="0" selected >No.</option>											  
+														</select>	
+														</div>
+														<p class="card-text mt-3 ">#. Paga el primer mes de servicio con lo que está pagando de afiliación? . Si no sabe , dejarlo en No.</p>	 
+														<div class=" my-3">
+															<select class="custom-select " id="standby">		    								  
+																<option value="1" >Si.</option>
+																<option value="0" selected >No.</option>											  
+															</select>	
+														</div>
+														<p class="card-text ">#. Valor de Afiliación a servicio de Internet. 150.000 dentro de Guamal ,180.000 rural simple ,220.000 rural complicada.</p>
+														<div class=" my-3">
+																<input class="form-control" type="number" value="" id="valorAfiliacion" >
+														</div>   	
+														<div class="d-flex justify-content-center"><a  class="btn btn-primary col-sm-6" id="save">Guardar</a></div> 
+													</div>												 
+											</div>
+									</div>		  								
+										<div id="active_client_currently_content" class=" px-3 py-3 text-left    border border-danger">
 												
-												<td>Suspender</td>		
-																					
-											</tr>
-											</thead>
-											<tfoot class="py-3 text-right">
-												<tr>
-													
-													<td colspan="3"></td>
-													<td colspan="3"></td>
-													
-												</tr>
-											</tfoot>
-											<tbody >										
-										<?php 
-											$contPago=0;					
-											$sql = "SELECT * FROM `afiliados` WHERE activo=1 AND suspender=0 ORDER BY `id` DESC ";
-											if ($result = $mysqli->query($sql)) {
-												while ($row = $result->fetch_assoc()) {
-													$cod=$row["id"];
-													$cliente=$row["cliente"]." ".$row["apellido"];
-													$direccion=$row["direccion"];
-													$corte=$row["corte"];
-													$pago=$row["pago"];
-													$contPago+=$pago;
-													$velocidad=$row["velocidad-plan"]." Megas";
-													$activo=$row["activo"];
-													$ip=$row["ip"];
-													echo "<tr class=\"text-center  \">";
-													echo "<td>".$cod."</td>";				
-													echo "<td>".$cliente."</td>";
-													echo "<td>".$direccion."</td>";
-													echo "<td>".$corte."</td>";
-													echo "<td>".$pago."</td>";	
-													echo "<td>".$velocidad."</td>";	
-													echo "<td>".$ip."</td>";										
-													
-													echo "<td><button type=\"button\" class=\"btn btn-primary suspender\" id=\"activo".$cod."\" ><i class=\"icon-scissors text-dark\"></i></button></td>";									
-													echo "</tr>";		
-													}
-											    	$result->free();
-												}
-										?>		
-											</tbody>
-										</table>
-										<h1>Recaudo estimado Agosto : <?php echo " $ $contPago"; ?> </h1>
-										<hr>
-										<hr>
-										<h4 class="card-title mt-4">Lista de Clientes en <strong> SUSPENSIÓN</strong> </h4>	
-	  									<table id="clientes-inactivos" class="display compact table text-dark table-bordered table-responsive  table-hover ">
-											<thead  class="bg-dark text-light">
-											<tr><td>cod</td>
-												<td>Cliente</td>
-												<td>Dirección</td>
-												<td>Corte</td>
-												<td>Pago</td>
-												<td>Velocidad</td>
-												<td>IP</td>	
-												
-												<td>Reconectar</td>		
-																					
-											</tr>
-											</thead>
-											<tfoot class="py-3 text-right">
-												<tr>
-													
-													<td colspan="3"></td>
-													<td colspan="3"></td>
-													
-												</tr>
-											</tfoot>
-											<tbody >										
-										<?php 					
-											$sql = "SELECT * FROM `afiliados` WHERE suspender=1 ORDER BY `id` DESC ";
-											if ($result = $mysqli->query($sql)) {
-												while ($row = $result->fetch_assoc()) {
-													$cod=$row["id"];
-													$cliente=$row["cliente"]." ".$row["apellido"];
-													$direccion=$row["direccion"];
-													$corte=$row["corte"];
-													$pago=$row["pago"];
-													$velocidad=$row["velocidad-plan"]." Megas";
-													$activo=$row["activo"];
-													$ip=$row["ip"];
-													echo "<tr class=\"text-center  \">";
-													echo "<td>".$cod."</td>";				
-													echo "<td>".$cliente."</td>";
-													echo "<td>".$direccion."</td>";
-													echo "<td>".$corte."</td>";
-													echo "<td>".$pago."</td>";	
-													echo "<td>".$velocidad."</td>";	
-													echo "<td>".$ip."</td>";										
-													
-													echo "<td><button type=\"button\" class=\"btn btn-dark reconectar\" id=\"inactivo".$cod."\" ><i class=\"icon-plug text-success\"></i></button></td>";									
-													echo "</tr>";		
-													}
-											    	$result->free();
-												}
-										?>		
-											</tbody>
-										</table>
-										<hr>
+											<div class="  border border-success" >
+												<h4 class="card-title mt-4">Lista de Clientes <strong>Activos</strong> </h4>										
+												<table id="table_active_client"  class="display datatable_table_active_client " cellspacing="0" width="100%">
+														<thead  class="bg-primary">
+														<tr>
+															<td>cod</td>
+															<td>Cliente</td>
+															<td>Dirección</td>
+															<td>Corte</td>
+															<td>Pago</td>
+															<td>Velocidad</td>
+															<td>IP</td>															
+															<td>Suspender</td>																								
+														</tr>
+														</thead>
+														<tfoot class="py-3 text-right">
+															<tr>
+																
+																<td colspan="3"></td>
+																<td colspan="3"></td>
+																
+															</tr>
+														</tfoot>
+														<tbody >										
+															<?php 
+															$contPago=0;					
+															$sql = "SELECT * FROM `afiliados` WHERE activo=1 AND suspender=0 ORDER BY `id` DESC ";
+															if ($result = $mysqli->query($sql)) {
+																while ($row = $result->fetch_assoc()) {
+																	$cod=$row["id"];
+																	$cliente=$row["cliente"]." ".$row["apellido"];
+																	$direccion=$row["direccion"];
+																	$corte=$row["corte"];
+																	$pago=$row["pago"];
+																	$contPago+=$pago;
+																	$velocidad=$row["velocidad-plan"]." Megas";
+																	$activo=$row["activo"];
+																	$ip=$row["ip"];
+																	echo "<tr class=\"text-center  \">";
+																	echo "<td>".$cod."</td>";				
+																	echo "<td>".$cliente."</td>";
+																	echo "<td>".$direccion."</td>";
+																	echo "<td>".$corte."</td>";
+																	echo "<td>".$pago."</td>";	
+																	echo "<td>".$velocidad."</td>";	
+																	echo "<td>".$ip."</td>";										
+																	
+																	echo "<td><button type=\"button\" class=\"btn btn-primary suspender\" id=\"activo".$cod."\" ><i class=\"icon-scissors text-dark\"></i></button></td>";									
+																	echo "</tr>";		
+																	}
+																		$result->free();
+																}
+														?>		
+														</tbody>
+												</table>												
+											</div>
+											<h1>Recaudo estimado Agosto : <?php echo " $ $contPago"; ?> </h1>
+																
+											<div class="  border border-success">
+												<h4 class="card-title mt-4">Lista de Clientes en <strong> SUSPENSIÓN</strong> </h4>	
+												<table id="table_no_active_client" class="display responsive " cellspacing="0" width="100%">
+													<thead  class="bg-dark text-light">
+														<tr><td>cod</td>
+															<td>Cliente</td>
+															<td>Dirección</td>
+															<td>Corte</td>
+															<td>Pago</td>
+															<td>Velocidad</td>
+															<td>IP</td>	
+															
+															<td>Reconectar</td>		
+																								
+														</tr>
+													</thead>
+													<tfoot class="py-3 text-right">
+														<tr>
+															
+															<td colspan="3"></td>
+															<td colspan="3"></td>
+															
+														</tr>
+													</tfoot>
+													<tbody >										
+													<?php 					
+														$sql = "SELECT * FROM `afiliados` WHERE suspender=1 ORDER BY `id` DESC ";
+														if ($result = $mysqli->query($sql)) {
+															while ($row = $result->fetch_assoc()) {
+																$cod=$row["id"];
+																$cliente=$row["cliente"]." ".$row["apellido"];
+																$direccion=$row["direccion"];
+																$corte=$row["corte"];
+																$pago=$row["pago"];
+																$velocidad=$row["velocidad-plan"]." Megas";
+																$activo=$row["activo"];
+																$ip=$row["ip"];
+																echo "<tr class=\"text-center  \">";
+																echo "<td>".$cod."</td>";				
+																echo "<td>".$cliente."</td>";
+																echo "<td>".$direccion."</td>";
+																echo "<td>".$corte."</td>";
+																echo "<td>".$pago."</td>";	
+																echo "<td>".$velocidad."</td>";	
+																echo "<td>".$ip."</td>";										
+																
+																echo "<td><button type=\"button\" class=\"btn btn-dark reconectar\" id=\"inactivo".$cod."\" ><i class=\"icon-plug text-success\"></i></button></td>";									
+																echo "</tr>";		
+																}
+																	$result->free();
+															}
+													?>		
+													</tbody>
+												</table>				
+											</div>				
+																
+											<hr>
 										</div>
 										<!-- inicio de bloque-->				
-	  								<div id="content-3" class="px-3 py-3 text-left">
-	  									<h4 class="card-title mt-4">Morosos</h4>	
-	  									<table id="morList" class="display compact table text-dark table-bordered table-responsive  table-hover ">
-											<thead  class="bg-primary">
-											<tr>
-												<td>Id</td>
-												<td>Cliente</td>
-												<td>Dirección</td>
-												<td>Corte</td>
-												<td>Valor Plan</td>
-												<td>Saldo</td>
-												<td>Velocidad Plan</td>
-												<td>Direccion IP</td>
-												<td>Telefono</td>
-												<td>SMS</td>										
-											</tr>
-											</thead>
-											<tfoot class="py-3 text-right">
+										<div id="sms_notification_content" class="px-3 py-3 text-left">
+											<h4 class="card-title mt-4">Morosos</h4>	
+											<table id="Table_morosos" class="display dataTable_Morosos cell-border" cellspacing="0" width="100%">
+												<thead  class="bg-primary">
 												<tr>
-													
-													<td colspan="3"></td>
-													<td colspan="3"></td>
-													
+													<td>Id</td>
+													<td>Cliente</td>
+													<td>Dirección</td>
+													<td>Corte</td>
+													<td>Valor Plan</td>
+													<td>Saldo</td>
+													<td>Velocidad Plan</td>
+													<td>Direccion IP</td>
+													<td>Telefono</td>
+													<td>SMS</td>										
 												</tr>
-											</tfoot>
-											<tbody >										
-										<?php 					
-											$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,valorf,ip,SUM( saldo )as mysum,`velocidad-plan` FROM `afiliados` INNER JOIN factura ON `afiliados`.`id`=`factura`.`id-afiliado` WHERE factura.periodo !='' AND factura.cerrado=0 AND `afiliados`.`activo`=1 AND suspender !=1  GROUP BY`afiliados`.`id` ORDER BY mysum DESC ";
-											if ($result = $mysqli->query($sql)) {
-												while ($row = $result->fetch_assoc()) {
-													$idCliente=$row["id"];
-													$cliente=$row["cliente"]." ".$row["apellido"];
-													$telefono=$row["telefono"];
-													$direccion=$row["direccion"];
-													$corte=$row["corte"];
-													$pago=$row["valorf"];
-													$saldo=$row["mysum"];
-													$velocidad=$row["velocidad-plan"]." Megas";
-													$ip=$row["ip"];
-													$textTelefono=$telefono;
-													if ($telefono==""){
-														$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefono".$row["id"]." p-0  \" type=\"text\" value=\"\" >";
-														}
-													else{
-														$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefono".$row["id"]." p-0   \" type=\"text\" value=\"$telefono\" id=\"-1\"  >";
-													}
-													if($saldo!=$pago){
-														echo "<tr class=\"text-center small \">";
-														echo "<td>".$idCliente."</td>";	
-														echo "<td>".$cliente."</td>";				
-														echo "<td>".$direccion."</td>";
-														echo "<td>".$corte."</td>";
-														echo "<td>".$pago."</td>";
-														echo "<td>".$saldo."</td>";	
-														echo "<td>".$velocidad."</td>";											
-														echo "<td>".$ip."</td>";
-														echo "<td>".$textTelefono."<button type=\"button\" class=\"btn btn-light updateTel\" id=\"$idCliente\" ><i class=\"icon-arrows-cw text-success\"></i></button></td>";
-														echo "<td><button type=\"button\" class=\"btn btn-light smsclientMoroso\" id=\"$idCliente\" ><i class=\"icon-export text-success\"></i></button></td>";
-														echo "</tr>";
-													}	
+												</thead>
+												<tfoot class="py-3 text-right">
+													<tr>
 														
+														<td colspan="3"></td>
+														<td colspan="3"></td>
+														
+													</tr>
+												</tfoot>
+												<tbody >										
+												<?php 					
+													$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,valorf,ip,SUM( saldo )as mysum,`velocidad-plan` FROM `afiliados` INNER JOIN factura ON `afiliados`.`id`=`factura`.`id-afiliado` WHERE factura.periodo !='' AND factura.cerrado=0 AND `afiliados`.`activo`=1 AND suspender !=1  GROUP BY`afiliados`.`id` ORDER BY mysum DESC ";
+													if ($result = $mysqli->query($sql)) {
+														while ($row = $result->fetch_assoc()) {
+															$idCliente=$row["id"];
+															$cliente=$row["cliente"]." ".$row["apellido"];
+															$telefono=$row["telefono"];
+															$direccion=$row["direccion"];
+															$corte=$row["corte"];
+															$pago=$row["valorf"];
+															$saldo=$row["mysum"];
+															$velocidad=$row["velocidad-plan"]." Megas";
+															$ip=$row["ip"];
+															$textTelefono=$telefono;
+															if ($telefono==""){
+																$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefono".$row["id"]." p-0  \" type=\"text\" value=\"\" >";
+																}
+															else{
+																$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefono".$row["id"]." p-0   \" type=\"text\" value=\"$telefono\" id=\"-1\"  >";
+															}
+															if($saldo!=$pago){
+																echo "<tr class=\"text-center small \">";
+																echo "<td>".$idCliente."</td>";	
+																echo "<td>".$cliente."</td>";				
+																echo "<td>".$direccion."</td>";
+																echo "<td>".$corte."</td>";
+																echo "<td>".$pago."</td>";
+																echo "<td>".$saldo."</td>";	
+																echo "<td>".$velocidad."</td>";											
+																echo "<td>".$ip."</td>";
+																echo "<td>".$textTelefono."<button type=\"button\" class=\"btn btn-light updateTel\" id=\"$idCliente\" ><i class=\"icon-arrows-cw text-success\"></i></button></td>";
+																echo "<td><button type=\"button\" class=\"btn btn-light smsclientMoroso\" id=\"$idCliente\" ><i class=\"icon-export text-success\"></i></button></td>";
+																echo "</tr>";
+															}	
+																
+															}
+																$result->free();
+														}
+												?>		
+												</tbody>
+											</table>
+											<hr>
+											<h4 class="card-title mt-4">Lista de Clientes de este mes  <strong>Corte 1 retrasados </strong> de pago  </h4>	
+	  									<table id="Table_clientes_cte1_retrasados" class="display responsive datatable_Table_clientes_cte1_retrasados cell-border" cellspacing="0" width="100%">
+												<thead  class="bg-danger text-light">
+												<tr>
+													<td>cod</td>
+													<td>Cliente</td>
+													<td>Dirección</td>
+													<td>Corte</td>
+													<td>Pago</td>
+													<td>Velocidad</td>
+													<td>Teléfono</td>														
+													<td>SMS</td>																						
+												</tr>
+												</thead>
+												<tfoot class="py-3 text-right">
+													<tr>
+														
+														<td colspan="3"></td>
+														<td colspan="3"></td>
+														
+													</tr>
+												</tfoot>
+												<tbody >										
+												<?php 					
+													$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`suspender` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =1 ORDER BY `id` DESC ";
+													if ($result = $mysqli->query($sql)) 
+														while ($row = $result->fetch_assoc()) {
+															$cod=$row["id"];
+															$sqlz="SELECT *, COUNT(`factura`.`cerrado`) as counts 
+																FROM `redesagi_facturacion`.`afiliados`     
+																INNER JOIN `factura`
+																				ON `afiliados`.`id` = `factura`.`id-afiliado`
+																WHERE `factura`.`id-afiliado`=$cod AND `factura`.`cerrado`=0 
+																";	
+															if ($resultz = $mysqli->query($sqlz)) {
+																$rowz = $resultz->fetch_assoc(); 
+																$counts=$rowz["counts"];
+																//echo "<p>id:-$cod-:cerrado:".$rowz["cerrado"].":-$counts-</p>";
+																if (($rowz["cerrado"]!="")&&($counts==1)){
+																	$cliente=$rowz["cliente"]." ".$row["apellido"];
+																	$direccion=$rowz["direccion"];
+																	$corte=$rowz["corte"];
+																	$pago=$rowz["pago"];
+																	$velocidad=$rowz["velocidad-plan"]." Megas";
+																	$activo=$rowz["activo"];
+																	$telefono=$rowz["telefono"];
+																	if ($telefono==""){
+																	$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefonoAtrasado".$cod." p-0  \" type=\"text\" value=\"\" >";
+																	}
+																	else{
+																		$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefonoAtrasado".$cod." p-0   \" type=\"text\" value=\"$telefono\" id=\"-1\"  >";
+																	}
+																	echo "<tr class=\"text-center  \">";
+																	echo "<td>".$cod."</td>";				
+																	echo "<td>".$cliente."</td>";
+																	echo "<td>".$direccion."</td>";
+																	echo "<td>".$corte."</td>";
+																	echo "<td>".$pago."</td>";	
+																	echo "<td>".$velocidad."</td>";	
+																	echo "<td>".$textTelefono."<button type=\"button\" class=\"btn btn-light updateTelAtrasado\" id=\"$cod\" ><i class=\"icon-arrows-cw text-success\"></i></button></td>";
+																	echo "<td><button type=\"button\" class=\"btn btn-light smsclientAtrasado\" id=\"$cod\" ><i class=\"icon-export text-success\"></i></button></td>";						
+																	echo "</tr>";																
+																}
+																		
+															}		
+															$resultz->free();
+																
+														}
+														$result->free();
+												?>		
+												</tbody>
+											</table>
+											<hr>
+											<hr>
+											<hr>
+											<h4 class="card-title mt-4">Lista de Clientes de este mes  <strong>Corte 15 retrasados </strong> de pago  </h4>	
+	  									<table id="Table_clientes_cte15_retrasados" class="display datatable_Table_clientes_cte15_retrasados cell-border" cellspacing="0" width="100%">
+												<thead  class="bg-info text-dark">
+												<tr>
+													<td>cod</td>
+													<td>Cliente</td>
+													<td>Dirección</td>
+													<td>Corte</td>
+													<td>Pago</td>
+													<td>Velocidad</td>
+													<td>Teléfono</td>													
+													<td>SMS</td>																					
+												</tr>
+												</thead>
+												<tfoot class="py-3 text-right">
+													<tr>
+														
+														<td colspan="3"></td>
+														<td colspan="3"></td>
+														
+													</tr>
+												</tfoot>
+												<tbody >										
+												<?php 					
+												$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`suspender` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =15 ORDER BY `id` DESC ";
+												if ($result = $mysqli->query($sql)) 
+													while ($row = $result->fetch_assoc()) {
+														$cod=$row["id"];
+														$sqlz="SELECT *, COUNT(`factura`.`cerrado`) as counts 
+															FROM `redesagi_facturacion`.`afiliados`     
+															INNER JOIN `factura`
+																			ON `afiliados`.`id` = `factura`.`id-afiliado`
+															WHERE `factura`.`id-afiliado`=$cod AND `factura`.`cerrado`=0 
+															";	
+														if ($resultz = $mysqli->query($sqlz)) {
+															$rowz = $resultz->fetch_assoc(); 
+															$counts=$rowz["counts"];
+															//echo "<p>id:-$cod-:cerrado:".$rowz["cerrado"].":-$counts-</p>";
+															if (($rowz["cerrado"]!="")&&($counts==1)){
+																$cliente=$rowz["cliente"]." ".$row["apellido"];
+																$direccion=$rowz["direccion"];
+																$corte=$rowz["corte"];
+																$pago=$rowz["pago"];
+																$velocidad=$rowz["velocidad-plan"]." Megas";
+																$activo=$rowz["activo"];
+																$telefono=$rowz["telefono"];
+																if ($telefono==""){
+																$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefonoAtrasadoc15".$cod." p-0  \" type=\"text\" value=\"\" >";
+																}
+																else{
+																	$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefonoAtrasadoc15".$cod." p-0   \" type=\"text\" value=\"$telefono\" id=\"-1\"  >";
+																}
+																echo "<tr class=\"text-center  \">";
+																echo "<td>".$cod."</td>";				
+																echo "<td>".$cliente."</td>";
+																echo "<td>".$direccion."</td>";
+																echo "<td>".$corte."</td>";
+																echo "<td>".$pago."</td>";	
+																echo "<td>".$velocidad."</td>";	
+																echo "<td>".$textTelefono."<button type=\"button\" class=\"btn btn-light updateTelAtrasadoc15\" id=\"$cod\" ><i class=\"icon-arrows-cw text-success\"></i></button></td>";
+																echo "<td><button type=\"button\" class=\"btn btn-light smsclientAtrasadoc15\" id=\"$cod\" ><i class=\"icon-export text-success\"></i></button></td>";						
+																echo "</tr>";																
+															}
+																	
+														}		
+														$resultz->free();											    	
 													}
-											    	$result->free();
-												}
-										?>		
-											</tbody>
-										</table>
-										<hr>
-										<h4 class="card-title mt-4">Lista de Clientes de este mes  <strong>Corte 1 retrasados </strong> de pago  </h4>	
-	  									<table id="clientes-retrasados" class="display compact table text-dark table-bordered table-responsive  table-hover ">
-											<thead  class="bg-danger text-light">
-											<tr><td>cod</td>
-												<td>Cliente</td>
-												<td>Dirección</td>
-												<td>Corte</td>
-												<td>Pago</td>
-												<td>Velocidad</td>
-												<td>Teléfono</td>	
-												
-												<td>SMS</td>		
-																					
-											</tr>
-											</thead>
-											<tfoot class="py-3 text-right">
-												<tr>
-													
-													<td colspan="3"></td>
-													<td colspan="3"></td>
-													
-												</tr>
-											</tfoot>
-											<tbody >										
-										<?php 					
-											$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`suspender` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =1 ORDER BY `id` DESC ";
-											if ($result = $mysqli->query($sql)) 
-												while ($row = $result->fetch_assoc()) {
-													$cod=$row["id"];
-													$sqlz="SELECT *, COUNT(`factura`.`cerrado`) as counts 
-														FROM `redesagi_facturacion`.`afiliados`     
-														INNER JOIN `factura`
-														        ON `afiliados`.`id` = `factura`.`id-afiliado`
-														WHERE `factura`.`id-afiliado`=$cod AND `factura`.`cerrado`=0 
-														";	
-													if ($resultz = $mysqli->query($sqlz)) {
-														$rowz = $resultz->fetch_assoc(); 
-														$counts=$rowz["counts"];
-														//echo "<p>id:-$cod-:cerrado:".$rowz["cerrado"].":-$counts-</p>";
-														if (($rowz["cerrado"]!="")&&($counts==1)){
-															$cliente=$rowz["cliente"]." ".$row["apellido"];
-															$direccion=$rowz["direccion"];
-															$corte=$rowz["corte"];
-															$pago=$rowz["pago"];
-															$velocidad=$rowz["velocidad-plan"]." Megas";
-															$activo=$rowz["activo"];
-															$telefono=$rowz["telefono"];
-															if ($telefono==""){
-															$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefonoAtrasado".$cod." p-0  \" type=\"text\" value=\"\" >";
-															}
-															else{
-																$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefonoAtrasado".$cod." p-0   \" type=\"text\" value=\"$telefono\" id=\"-1\"  >";
-															}
-															echo "<tr class=\"text-center  \">";
-															echo "<td>".$cod."</td>";				
-															echo "<td>".$cliente."</td>";
-															echo "<td>".$direccion."</td>";
-															echo "<td>".$corte."</td>";
-															echo "<td>".$pago."</td>";	
-															echo "<td>".$velocidad."</td>";	
-															echo "<td>".$textTelefono."<button type=\"button\" class=\"btn btn-light updateTelAtrasado\" id=\"$cod\" ><i class=\"icon-arrows-cw text-success\"></i></button></td>";
-															echo "<td><button type=\"button\" class=\"btn btn-light smsclientAtrasado\" id=\"$cod\" ><i class=\"icon-export text-success\"></i></button></td>";						
-															echo "</tr>";																
-														}
-																
-													}		
-													$resultz->free();
-											    	
-												}
-												$result->free();
-										?>		
-											</tbody>
-										</table>
-										<hr>
-										<hr>
-										<hr>
-										<h4 class="card-title mt-4">Lista de Clientes de este mes  <strong>Corte 15 retrasados </strong> de pago  </h4>	
-	  									<table id="clientes-retrasadosc15" class="display compact table text-dark table-bordered table-responsive  table-hover ">
-											<thead  class="bg-info text-dark">
-											<tr><td>cod</td>
-												<td>Cliente</td>
-												<td>Dirección</td>
-												<td>Corte</td>
-												<td>Pago</td>
-												<td>Velocidad</td>
-												<td>Teléfono</td>	
-												
-												<td>SMS</td>		
-																					
-											</tr>
-											</thead>
-											<tfoot class="py-3 text-right">
-												<tr>
-													
-													<td colspan="3"></td>
-													<td colspan="3"></td>
-													
-												</tr>
-											</tfoot>
-											<tbody >										
-										<?php 					
-											$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`suspender` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =15 ORDER BY `id` DESC ";
-											if ($result = $mysqli->query($sql)) 
-												while ($row = $result->fetch_assoc()) {
-													$cod=$row["id"];
-													$sqlz="SELECT *, COUNT(`factura`.`cerrado`) as counts 
-														FROM `redesagi_facturacion`.`afiliados`     
-														INNER JOIN `factura`
-														        ON `afiliados`.`id` = `factura`.`id-afiliado`
-														WHERE `factura`.`id-afiliado`=$cod AND `factura`.`cerrado`=0 
-														";	
-													if ($resultz = $mysqli->query($sqlz)) {
-														$rowz = $resultz->fetch_assoc(); 
-														$counts=$rowz["counts"];
-														//echo "<p>id:-$cod-:cerrado:".$rowz["cerrado"].":-$counts-</p>";
-														if (($rowz["cerrado"]!="")&&($counts==1)){
-															$cliente=$rowz["cliente"]." ".$row["apellido"];
-															$direccion=$rowz["direccion"];
-															$corte=$rowz["corte"];
-															$pago=$rowz["pago"];
-															$velocidad=$rowz["velocidad-plan"]." Megas";
-															$activo=$rowz["activo"];
-															$telefono=$rowz["telefono"];
-															if ($telefono==""){
-															$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefonoAtrasadoc15".$cod." p-0  \" type=\"text\" value=\"\" >";
-															}
-															else{
-																$textTelefono="<input placeholder=\" Telefono\" class=\"form-control my-1 telefonoAtrasadoc15".$cod." p-0   \" type=\"text\" value=\"$telefono\" id=\"-1\"  >";
-															}
-															echo "<tr class=\"text-center  \">";
-															echo "<td>".$cod."</td>";				
-															echo "<td>".$cliente."</td>";
-															echo "<td>".$direccion."</td>";
-															echo "<td>".$corte."</td>";
-															echo "<td>".$pago."</td>";	
-															echo "<td>".$velocidad."</td>";	
-															echo "<td>".$textTelefono."<button type=\"button\" class=\"btn btn-light updateTelAtrasadoc15\" id=\"$cod\" ><i class=\"icon-arrows-cw text-success\"></i></button></td>";
-															echo "<td><button type=\"button\" class=\"btn btn-light smsclientAtrasadoc15\" id=\"$cod\" ><i class=\"icon-export text-success\"></i></button></td>";						
-															echo "</tr>";																
-														}
-																
-													}		
-													$resultz->free();
-											    	
-												}
-												$result->free();
-										?>		
-											</tbody>
-										</table>	 
-	  								
-										<hr>	 
-	  								</div>
-
-	  							</div>
+													$result->free();
+												?>		
+												</tbody>
+											</table>		  								
+											<hr>	 
+										</div>
+										<div id="massive_notifications_content" class="col-12 border border-dark">										
+													<!-- Inicio  de contenido de sms mensual... -->
+													<div class="row">
+														<div class=" border border-warning col-md-8">													
+																<div class="col-12">
+																	<h3>Criterio Personalizado de búsqueda para envia de SMS</h3>
+																</div>
+																<div class=" d-flex flex-column  p-1 border border-danger col-12">
+																		<div class="">
+																			<h1>Criterio Personalizado</h1>
+																			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis libero modi fugiat quam neque eligendi amet vel nobis odio at? Labore, fuga quaerat a culpa quod vitae? Ab, similique exercitationem.</p>
+																		</div>
+																		<div class="">
+																			<h1>Resultado de criterio de busqueda personalizado</h1>
+																			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi, laudantium ad! Nostrum odio velit dolores quidem laudantium qui, similique repudiandae cumque ipsa iure. Voluptates non aliquam nam illum error repudiandae.</p>
+																		</div>
+																</div>
+														</div>
+															<div class=" border border-success col-md-4">
+																<div class="col-12">
+																	<h3>Statics in SMS</h3>
+																</div>
+																<div class=" d-flex flex-column  p-1 border border-danger col-12">
+																		<div class="">
+																			<h1>Últimos enviados</h1>
+																			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis libero modi fugiat quam neque eligendi amet vel nobis odio at? Labore, fuga quaerat a culpa quod vitae? Ab, similique exercitationem.</p>
+																		</div>
+																		<div class="">
+																			<h1>Resumen de tipos de mensajes</h1>
+																			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi, laudantium ad! Nostrum odio velit dolores quidem laudantium qui, similique repudiandae cumque ipsa iure. Voluptates non aliquam nam illum error repudiandae.</p>
+																		</div>
+																</div>
+															</div>
+													</div>
+													<!-- fin de contenido de sms mensual... -->
+										</div>
+								</div>
 							</div>
-							<!-- fin de contenido de pagina -->	
+								
 						</div>
 					</div>
 
-					<div class="columna col-12">
-						<div class="widget estadisticas">
-							<h3 class="titulo">Estadisticas</h3>
-							<div class="contenedor d-flex flex-wrap">
-								<div class="caja">
-									<h3>15,236</h3>
-									<p>Visitas</p>
-								</div>
-								<div class="caja">
-									<h3>1,831</h3>
-									<p>Registros</p>
-								</div>
-								<div class="caja">
-									<h3>$160,548</h3>
-									<p>Ingresos</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="widget comentarios">
-							<h3 class="titulo">Comentarios</h3>
-							<div class="contenedor">
-								<div class="comentario d-flex flex-wrap">
-									<div class="foto">
-										<a href="#">
-											<img src="img/persona1.jpg" width="100" alt="">
-										</a>
-									</div>
-									<div class="texto">
-										<a href="#">Jhon Doe</a>
-										<p>en <a href="#">Mi primer entrada</a></p>
-										<p class="texto-comentario">
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis natus ex inventore provident modi id distinctio non minus, magni quia officiis, vel debitis doloremque ratione, consequuntur omnis hic voluptatem asperiores?
-										</p>
-									</div>
-									<div class="botones d-flex justify-content-start flex-wrap w-100">
-										<button class="aprobar"><i class="icono icon-ok"></i>Aprobar</button>
-										<button class="eliminar"><i class="icono icon-cancel"></i>Eliminar</button>
-										<button class="bloquear"><i class="icono icon-flag"></i>Bloquear Usuario</button>
-									</div>
-								</div>	
-
-								<div class="comentario d-flex flex-wrap">
-									<div class="foto">
-										<a href="#">
-											<img src="img/persona2.jpg" width="100" alt="">
-										</a>
-									</div>
-									<div class="texto">
-										<a href="#">Jhon Doe</a>
-										<p>en <a href="#">Mi primer entrada</a></p>
-										<p class="texto-comentario">
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis natus ex inventore provident modi id distinctio non minus, magni quia officiis, vel debitis doloremque ratione, consequuntur omnis hic voluptatem asperiores?
-										</p>
-									</div>
-									<div class="botones d-flex justify-content-start flex-wrap w-100">
-										<button class="aprobar"><i class="icono icon-ok"></i>Aprobar</button>
-										<button class="eliminar"><i class="icono icon-cancel"></i>Eliminar</button>
-										<button class="bloquear"><i class="icono icon-flag"></i>Bloquear Usuario</button>
-									</div>
-								</div>
-
-								<div class="comentario d-flex flex-wrap">
-									<div class="foto">
-										<a href="#">
-											<img src="img/persona3.jpg" width="100" alt="">
-										</a>
-									</div>
-									<div class="texto">
-										<a href="#">Jhon Doe</a>
-										<p>en <a href="#">Mi primer entrada</a></p>
-										<p class="texto-comentario">
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis natus ex inventore provident modi id distinctio non minus, magni quia officiis, vel debitis doloremque ratione, consequuntur omnis hic voluptatem asperiores?
-										</p>
-									</div>
-									<div class="botones d-flex justify-content-start flex-wrap w-100">
-										<button class="aprobar"><i class="icono icon-ok"></i>Aprobar</button>
-										<button class="eliminar"><i class="icono icon-cancel"></i>Eliminar</button>
-										<button class="bloquear"><i class="icono icon-flag"></i>Bloquear Usuario</button>
-									</div>
-								</div>				
-							</div>
-						</div>
-					</div>
+					
 				</div>
 			</main>
 		</div>
 	</div>
-
-	<div class="container-fluid 	">
-		<div class="row">
-			<div class="col text-light bg-dark py-2 d-flex justify-content-center footer-text">								
-						<p>Copyright ©2014-2017 Wisdev-Administrador ISP - <small>All Rights Reserved.</small></p>	
-									
-			</div>
-		</div>
-		<div class="row">
-			<div class="col text-light bg-dark  d-flex justify-content-center">								
-						
-						<p><i class="icon-facebook-official"></i><i class="icon-twitter-squared"></i></p>				
-			</div>
-		</div>
-
+  <div class="container-fluid border border-danger">
+													
 	</div>
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
+	<script  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+	
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
     <script src="bower_components/Popper/popper.min.js" ></script>  
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script> 
 	<script src="bower_components/alertify/js/alertify.min.js"></script>
 	<script src="bower_components/AutoFormatCurrency/simple.money.format.js"></script>
 	<script type="text/javascript">
+	
 		<?php
 		if($_GET['opc']) {
 			echo"
-			$('#new').removeClass(\"active\");
-			$('#content-1').hide();\n
-			$('#notificacion_sms').removeClass(\"active\");
-			$('#content-3').hide();\n
-			$('#cliente_activo').addClass(\"active\");
-			$('#content-2').show();\n								
-			var table2 =$('#egrList').DataTable();
+			$('#new_client_registration').removeClass(\"active\");
+			$('#new_client_registration_content').hide();\n
+			$('#sms_notification').removeClass(\"active\");
+			$('#sms_notification_content').hide();\n
+			$('#massive_notifications').removeClass(\"active\");
+			$('#massive_notifications_content').hide();
+			$('#active_client_currently').addClass(\"active\");
+			$('#active_client_currently_content').show();\n								
+			var table2 =$('#table_active_client').DataTable();
 			table2.order( [ 0, 'desc' ] );
 			table2.draw();
-			var table2a =$('#clientes-inactivos').DataTable();			
-			var table2ax =$('#clientes-retrasados').DataTable();	
-			var table2ax15 =$('#clientes-retrasadosc15').DataTable();
+			var table2a =$('#table_no_active_client').DataTable();			
+			var table2ax =$('#Table_clientes_cte1_retrasados').DataTable();	
+			var table2ax15 =$('#Table_clientes_cte15_retrasados').DataTable();
 			table2a.draw();
 			table2ax.draw();
 			table2ax15.draw();\n
@@ -695,98 +645,122 @@ else    {
 		} 
 		else{
 			echo"
-			$('#cliente_activo').removeClass(\"active\");
-			$('#content-2').hide();
-			$('#notificacion_sms').removeClass(\"active\");
-			$('#content-3').hide();
-			$('#new').addClass(\"active\");
-			$('#content-1').show();\n
+			$('#active_client_currently').removeClass(\"active\");
+			$('#active_client_currently_content').hide();
+			$('#sms_notification').removeClass(\"active\");
+			$('#sms_notification_content').hide();
+			$('#massive_notifications').removeClass(\"active\");
+			$('#massive_notifications_content').hide();
+			$('#new_client_registration').addClass(\"active\");
+			$('#new_client_registration_content').show();\n
 			\n";
 			
 		}
 		echo "\n";
 		?>
-		$('#cliente_activo').click(function(){
-				$('#new').removeClass("active");
-				$('#content-1').hide();
-				$('#notificacion_sms').removeClass("active");
-				$('#content-3').hide();
-				$('#cliente_activo').addClass("active");
-				$('#content-2').show();								
-				var table2 =$('#egrList').DataTable();
-				table2.order( [ 0, 'desc' ] );
-				table2.draw();
-				var table2a =$('#clientes-inactivos').DataTable();	
-				table2a.draw();
-									
-				});			
-		$('#new').click(function(){
-				$('#cliente_activo').removeClass("active");
-				$('#content-2').hide();
-				$('#notificacion_sms').removeClass("active");
-				$('#content-3').hide();
-				$('#new').addClass("active");
-				$('#content-1').show();
+		$('#new_client_registration').click(function(){
+					$('#active_client_currently').removeClass("active");
+					$('#active_client_currently_content').hide();
+					$('#sms_notification').removeClass("active");
+					$('#sms_notification_content').hide();
+					$('#massive_notifications').removeClass("active");
+					$('#massive_notifications_content').hide();	
+					$('#new_client_registration').addClass("active");
+					$('#new_client_registration_content').show();
 				});		
-		$('#notificacion_sms').click(function(){				
-				$('#cliente_activo').removeClass("active");
-				$('#content-2').hide();
-				$('#new').removeClass("active");
-				$('#content-1').hide();
-				$('#notificacion_sms').addClass("active");
-				$('#content-3').show();
-				var table3 =$('#morList').DataTable();
-				table3.order( [ 4, 'desc' ] );
-				table3.draw();
-				var table2ax =$('#clientes-retrasados').DataTable();	
-				table2ax.draw();
-				var table2ax15 =$('#clientes-retrasadosc15').DataTable();	
-				table2ax15.draw();	
-				
-				});	
-
-				$('#masivos_sms').click(function(){				
-				$('#cliente_activo').removeClass("active");
-				$('#content-2').hide();
-				$('#new').removeClass("active");
-				$('#content-1').hide();
-				$('#masivos_sms').addClass("active");
-				$('#content-3').show();
-				var table3 =$('#morList').DataTable();
-				table3.order( [ 4, 'desc' ] );
-				table3.draw();
-				var table2ax =$('#clientes-retrasados').DataTable();	
-				table2ax.draw();
-				var table2ax15 =$('#clientes-retrasadosc15').DataTable();	
-				table2ax15.draw();	
-				
-				});			
-		$('.updateTel').click(function(){// para clientes morosos
-				var id=$(this).attr('id');
-				console.log($(this).attr('id'));
-				$(this).toggleClass( "btn-light" );
-				var telefono=$( ".telefono"+id ).val(); 
-				if($.isNumeric(telefono)&&(telefono.length==10)){
-		        	if ( (telefono).match(/^\d+$/) ) {
-   						//alertify.success("Número Telefónico actualizado correctamente.");
-		        		$.ajax({
-					            type : 'post',
-					            url : 'edit_cli.php', 
-					            data: {id:id,telefono:telefono } ,
-					            success : function(data){	       	
-					            	alertify.success(data);            	
-				            	}
-					        	});	
+		$('#active_client_currently').click(function(){
+					$('#new_client_registration').removeClass("active");
+					$('#new_client_registration_content').hide();
+					$('#sms_notification').removeClass("active");
+					$('#sms_notification_content').hide();
+					$('#massive_notifications').removeClass("active");
+					$('#massive_notifications_content').hide();	
+					$('#active_client_currently').addClass("active");
+					$('#active_client_currently_content').show();			
+					var table_active_client =$('#table_active_client').DataTable({
+								"responsive": true,
+								"paging":   true,
+								"searching": true,								
+								"info":     false
 						}
-		        	else{
-		        		alertify.error('telefono invalido, tiene puntos decimales!!');
-		        	}
-		        }
-		        else{
-		        		alertify.error('telefono invalido!!');
-		        	}
-				});	
-		$('.updateTelAtrasado').click(function(){//corte 1
+					);
+					table_active_client.order( [ 0, 'desc' ] );
+					table_active_client.draw();						
+					var table_no_active_client =$('#table_no_active_client').DataTable();	
+					table_no_active_client.draw();
+				});			
+		$('#sms_notification').click(function(){				
+					$('#active_client_currently').removeClass("active");
+					$('#active_client_currently_content').hide();
+					$('#new_client_registration').removeClass("active");
+					$('#new_client_registration_content').hide();
+					$('#massive_notifications').removeClass("active");
+					$('#massive_notifications_content').hide();	
+					$('#sms_notification').addClass("active");
+					$('#sms_notification_content').show();
+					var tableMorosos =$('#Table_morosos').DataTable({
+								"responsive": true,
+								"paging":   true,
+								"searching": true,								
+								"info":     false
+						});				
+					tableMorosos.order( [ 4, 'desc' ] );
+					tableMorosos.draw();
+					var Table_clientes_cte1_retrasados =$('#Table_clientes_cte1_retrasados').DataTable({
+								"responsive": true,
+								"paging":   true,
+								"searching": true,								
+								"info":     false
+						});	
+					Table_clientes_cte1_retrasados.draw();
+					var Table_clientes_cte15_retrasados =$('#Table_clientes_cte15_retrasados').DataTable({
+								"responsive": true,
+								"paging":   true,
+								"searching": true,								
+								"info":     false
+						});	
+					Table_clientes_cte15_retrasados.draw();						
+					});	
+		$(".dataTable_Morosos").on('click','.updateTel', function () { 				
+			console.log("clic en update telefono");
+			var id=$(this).attr('id');
+			console.log($(this).attr('id'));
+			$(this).toggleClass( "btn-light" );
+			var telefono=$( ".telefono"+id ).val(); 
+			if($.isNumeric(telefono)&&(telefono.length==10)){
+						if ( (telefono).match(/^\d+$/) ) {
+						//alertify.success("Número Telefónico actualizado correctamente.");
+							$.ajax({
+										type : 'post',
+										url : 'edit_cli.php', 
+										data: {id:id,telefono:telefono } ,
+										success : function(data){	       	
+											alertify.success(data);            	
+										}
+									});	
+					}
+						else{
+							alertify.error('telefono invalido, tiene puntos decimales!!');
+						}
+					}
+					else{
+							alertify.error('telefono invalido!!');
+						}
+			});
+				
+		$('#massive_notifications').click(function(){				
+			$('#active_client_currently').removeClass("active");
+			$('#active_client_currently_content').hide();
+			$('#sms_notification').removeClass("active");
+			$('#sms_notification_content').hide();
+			$('#new_client_registration').removeClass("active");
+			$('#new_client_registration_content').hide();
+			$('#massive_notifications').addClass("active");
+			$('#massive_notifications_content').show();	
+					
+		});
+		
+		$(".datatable_Table_clientes_cte1_retrasados").on('click','.updateTelAtrasado', function () { 		
 				var id=$(this).attr('id');
 				console.log($(this).attr('id'));
 				$(this).toggleClass( "btn-light" );
@@ -811,7 +785,7 @@ else    {
 		        		alertify.error('telefono invalido!!');
 		        	}
 				});
-		$('.updateTelAtrasadoc15').click(function(){
+		$(".datatable_Table_clientes_cte15_retrasados").on('click','.updateTelAtrasadoc15', function () { 			
 				var id=$(this).attr('id');
 				console.log($(this).attr('id'));
 				$(this).toggleClass( "btn-light" );
@@ -835,8 +809,8 @@ else    {
 		        else{
 		        		alertify.error('telefono invalido!!');
 		        	}
-				});									
-		$('.smsclientMoroso').click(function(){//clientes morosos
+				});
+		$(".dataTable_Morosos").on('click','.smsclientMoroso', function () { 													
 				console.log($(this).attr('id'));
 				var id=$(this).attr('id');
 				alertify.confirm("Desea enviar mensaje de texto a cliente moroso?",
@@ -846,33 +820,33 @@ else    {
 					
 					$.post("smst.php",
 					    {
-					      telefono: telefono,
-					      msj: smsText
-					    },
-					    function(data,status){
-					      var res = data.substring(0,2);
-					      console.log("status"+status);
-						  if (res=="ok"){
-						  		alertify.success("Mensaje ha sido enviado con éxito a cliente moroso");
-						  		 
-						  	}
-					      		else if (res=="no"){
-					      			alertify.error("Información enviada contiene errores a cliente moroso");
-					      								      			
-					      		}
-					      			else {
-					      				alertify.alert("Fordibben from morosos scheme ");
-					      									      				
-					      			} 			      
-					    });
+								telefono: telefono,
+								msj: smsText
+							},
+							function(data,status){
+								var res = data.substring(0,2);
+								console.log("status"+status);
+							if (res=="ok"){
+									alertify.success("Mensaje ha sido enviado con éxito a cliente moroso");
+										
+								}
+										else if (res=="no"){
+											alertify.error("Información enviada contiene errores a cliente moroso");
+																						
+										}
+											else {
+												alertify.alert("Fordibben from morosos scheme ");
+																								
+											} 			      
+							});
 					
 
-			    	},
+					},
 			    function(){
 			    alertify.error('Cancel');
 			    });
 				});	
-		$('.smsclientAtrasado').click(function(){//corte 1 
+		$(".datatable_Table_clientes_cte1_retrasados").on('click','.smsclientAtrasado', function () { 		
 				console.log("id:"+$(this).attr('id'));
 				var id=$(this).attr('id');
 				alertify.confirm("Desea enviar mensaje de texto a cliente atrasado cliente corte 1 ?",
@@ -906,8 +880,8 @@ else    {
 			    function(){
 			    alertify.error('Cancel');
 			    });
-				});			
-		$('.smsclientAtrasadoc15').click(function(){
+				});	
+		$(".datatable_Table_clientes_cte15_retrasados").on('click','.smsclientAtrasadoc15', function () { 						
 				console.log("id:"+$(this).attr('id'));
 				var id=$(this).attr('id');
 				alertify.confirm("Desea enviar mensaje de texto a cliente Corte 15 atrasado?",
@@ -941,8 +915,8 @@ else    {
 			    function(){
 			    alertify.error('Cancel');
 			    });
-				});															
-		$('.suspender').click(function(){
+				});
+		$(".datatable_table_active_client").on('click','.suspender', function () { 																		
 				console.log("id:"+$(this).attr('id'));
 				var x=$(this).attr('id');
 				var idCli = x.match(/\d+/); // 123456	
@@ -1039,12 +1013,12 @@ else    {
 								            	}
 								            	else{					            		
 									            	
-									            	$('#new').removeClass("active");
-													$('#content-1').hide();
-													$('#notificacion_sms').removeClass("active");
-													$('#content-3').hide();
-													$('#cliente_activo').addClass("active");
-													$('#content-2').show();
+									            	$('#new_client_registration').removeClass("active");
+													$('#new_client_registration_content').hide();
+													$('#sms_notification').removeClass("active");
+													$('#sms_notification_content').hide();
+													$('#active_client_currently').addClass("active");
+													$('#active_client_currently_content').show();
 								            	}
 
 								            }

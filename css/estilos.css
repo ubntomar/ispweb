@@ -230,21 +230,14 @@ body {
 
 
 /* --- --- MEDIAQUERIES --- --- */
-@media screen and (max-width: 1300px) {
-	.barra-lateral {
-		min-width: auto;
+@media screen and (max-width: 320px) {
+	.main .comentarios .comentario .foto {
+		width: 30px;
+		height: 30px;
 	}
 
-	.barra-lateral .logo {
-		display: none;
-	}
-
-	.barra-lateral .menu a span {
-		display: none;
-	}
-
-	.barra-lateral .menu a i {
-		margin:0;
+	.main .comentarios .comentario .botones button {
+		width: 100%;
 	}
 }
 
@@ -268,14 +261,33 @@ body {
 	}
 	
 }
-
-@media screen and (max-width: 320px) {
-	.main .comentarios .comentario .foto {
-		width: 30px;
-		height: 30px;
+@media screen and (max-width: 992px) {
+	.barra-lateral {
+		min-height: auto;
 	}
 
-	.main .comentarios .comentario .botones button {
-		width: 100%;
+	.barra-lateral .menu a {
+		display: inline-block;
+		border-bottom: none;
 	}
 }
+@media screen and (max-width: 1300px) {
+	.barra-lateral {
+		min-width: auto;
+	}
+
+	.barra-lateral .logo {
+		display: none;
+	}
+
+	.barra-lateral .menu a span {
+		display: none;
+	}
+
+	.barra-lateral .menu a i {
+		margin:0;
+	}
+}
+
+
+
