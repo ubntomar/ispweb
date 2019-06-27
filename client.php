@@ -27,6 +27,7 @@ else    {
 	<link rel="stylesheet" href="bower_components/alertify/css/themes/default.min.css" />
 	<link rel="stylesheet" href="css/fontello.css">
 	<link rel="stylesheet" href="css/estilos.css">
+	<link rel="stylesheet" href="css/dataTables.checkboxes.css">
 	<style>
 		.caja {
 			border-bottom: 1px solid #000;
@@ -561,33 +562,134 @@ else    {
 													<!-- Inicio  de contenido de sms mensual... -->
 													<div class="row">
 														<div class=" border border-warning col-md-8">													
-																<div class="col-12">
+																<!-- <div class="col-12">
 																	<h3>Criterio Personalizado de búsqueda para envia de SMS</h3>
-																</div>
-																<div class=" d-flex flex-column  p-1 border border-danger col-12">
-																		<div class="">
-																			<h1>Criterio Personalizado</h1>
-																			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis libero modi fugiat quam neque eligendi amet vel nobis odio at? Labore, fuga quaerat a culpa quod vitae? Ab, similique exercitationem.</p>
+																</div> -->
+																<div class=" d-flex flex-column     col-12">
+																		<div class="" id="criterios_content">
+																			<div>																			
+																				<h1 class="bg-dark text-white rounded p-1 my-1">Criterio Personalizado</h1>
+																			</div>
+																			<div class="text-justify">
+																				<p class="p-2">En simples pasos a continuación selecciona los clientes a los que les vas a enviar los mensajes de texto y/o por email segú tu necesidad.</p>
+																			</div>
+																			<div class="row d-flex justify-content-center border border-secondary rounded">
+																					<div class="   d-flex flex-wrap justify-content-sm-center justify-content-xl-around flex-column flex-sm-row p-1">	
+																						
+																							<div class="form-group px-1 border border-success rounded mx-1 my-3">
+																								<label for="">Nombres </label>
+																								<input type="text" class="form-control  " id="sms_masive_name" aria-describedby="" placeholder="Ingrese Nombres">
+																								<small id="" class="form-text text-muted">Por defecto se busca para cualquier nombre.</small>
+																							</div>
+																							<div class="form-group px-1 border border-success rounded mx-1 my-3">
+																								<label for="">Dirección </label>
+																								<input type="text" class="form-control " id="sms_masive_address" aria-describedby="" placeholder="Ingrese Dirección">
+																								<small id="" class="form-text text-muted">Por defecto se busca para cualquier dirección.</small>
+																							</div>
+																							<div class="form-group px-1 border border-success rounded mx-1 my-3">
+																								<label for="">Ciudad </label>
+																								<select class="form-control" id="sms_masive_city">
+																								<option value="" selected>Cualquier ciudad</option>
+																									<option value="Guamal">Guamal</option>
+																									<option value="Castilla">Castilla</option>
+																									<option value="San Martin"  >San Martin</option>
+																									<option value="Cubarral" >Cubarral</option>
+																									<option value="Acacias">Acacias</option>
+																									<option value="Granada"  >Granada</option>
+																									<option value="El Castillo" >El Castillo</option>
+																									<option value="El Dorado">El Dorado</option>
+																									<option value="Villavicencio"  >Villavicencio</option>
+																																																			
+																							</select>
+																								<small id="" class="form-text text-muted">Por defecto se buscan clientes de cualquier ciudad.</small>
+																							</div>
+																							<div class="form-group px-1 border border-success rounded mx-1 my-3">
+																								<label for="sel1">Fecha de Pago </label>
+																								<select class="form-control" id="payment_date">
+																									<option value="1">1 de cada mes</option>
+																									<option value="15">15 de cada mes</option>
+																									<option value="" selected >Cualquier fecha de pago</option>																									
+																							</select>
+																								<small id="" class="form-text text-muted">Por defecto se buscan clientes de cualquier fecha de pago.</small>
+																							</div>
+																							<div class="form-group px-1 border border-success rounded mx-1 my-3">
+																								<label for="sel1">Estado de cuenta del cliente </label>
+																								<select class="form-control" id="client_state">
+																									<option value="1">Facturación al día</option>
+																									<option value="-1">Facturación en mora</option>
+																									<option value="0" selected >Cualquier estado de cuenta</option>																									
+																							</select>
+																								<small id="" class="form-text text-muted">Por defecto se buscan clientes de cualquier estado de cuenta.</small>
+																							</div>
+																							
+																					</div>
+																							<div>
+																								<button type="text" class="btn btn-primary mb-2" id="sms_masivo_btn_buscar">Buscar</button>
+																								
+																							</div>
+																			</div>
 																		</div>
-																		<div class="">
-																			<h1>Resultado de criterio de busqueda personalizado</h1>
-																			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi, laudantium ad! Nostrum odio velit dolores quidem laudantium qui, similique repudiandae cumque ipsa iure. Voluptates non aliquam nam illum error repudiandae.</p>
+																		
+																		<div class="border border-primary p-1 m-1 rounded" id="sms_masivo_container_buscar">
+																			<h3>Resultado de criterio de busqueda personalizado</h3>
+																			
+																			
 																		</div>
+																		<div class="form-group px-1 border border-success rounded mx-1 my-3" id="message_box">
+																								<label for="sel1">Escriba el mensaje que será enviado a los  clientes que ha seleccionado </label>
+																								<textarea class="form-control" id="sms_text_content" rows="3" placeholder="Ingrese el mensaje a enviar"></textarea>
+																								<small id="" class="form-text text-muted">Campo obligatorio.</small>
+																		</div>
+																		<div><button type="text" class="btn btn-primary mb-2" id="btn_enviar">Enviar</button></div>		
+																		
+																		
 																</div>
 														</div>
 															<div class=" border border-success col-md-4">
-																<div class="col-12">
-																	<h3>Statics in SMS</h3>
+																<div class="col-12 px-0 ">
+																	<h1 class="bg-dark text-white rounded py-1 px-0 my-1">Statistics</h1>
 																</div>
+
 																<div class=" d-flex flex-column  p-1 border border-danger col-12">
-																		<div class="">
-																			<h1>Últimos enviados</h1>
-																			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis libero modi fugiat quam neque eligendi amet vel nobis odio at? Labore, fuga quaerat a culpa quod vitae? Ab, similique exercitationem.</p>
+																		<div class="p-1">
+																			<div class="card">
+																					<div class="card-header">
+																						Últimos sms enviados
+																					</div>
+																					<div class="card-body" id="div_sms_statistics">
+																						<!-- <h5 class="card-title">Descripción</h5> -->
+																						<!-- <p class="card-text text-justify ">{$row['smscontent']}</p> -->
+
+																						
+																						<!-- <a href="#" class="btn btn-primary">Editar</a> -->
+																					</div>
+																			</div>	
 																		</div>
-																		<div class="">
-																			<h1>Resumen de tipos de mensajes</h1>
-																			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi, laudantium ad! Nostrum odio velit dolores quidem laudantium qui, similique repudiandae cumque ipsa iure. Voluptates non aliquam nam illum error repudiandae.</p>
-																		</div>
+																		<!--  --> 
+																		<?php 
+																			$sql_msj_types="select * from redesagi_facturacion.smscontent where 1 ";
+																			$result_sms = mysqli_query($mysqli, $sql_msj_types) or die('error');
+																			while($row = $result_sms->fetch_assoc()){
+																				
+																				echo "
+																				<div class=\"p-1\">
+																					<div class=\"card\">
+																						<div class=\"card-header\">
+																							Mensaje Tipo {$row['idtipo']}
+																						</div>
+																						<div class=\"card-body\">
+																							<h5 class=\"card-title\">Descripción</h5>
+																							<p class=\"card-text text-justify \">{$row['smscontent']}</p>
+																							<a href=\"#\" class=\"btn btn-primary\">Editar</a>
+																						</div>
+																					</div>	
+																				</div>
+																				" ;
+
+																			}
+																		?>
+																		<!--  -->
+																		
 																</div>
 															</div>
 													</div>
@@ -617,6 +719,8 @@ else    {
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script> 
 	<script src="bower_components/alertify/js/alertify.min.js"></script>
 	<script src="bower_components/AutoFormatCurrency/simple.money.format.js"></script>
+	<script src="js/dataTables.checkboxes.min.js"></script>
+	
 	<script type="text/javascript">
 	
 		<?php
@@ -658,6 +762,7 @@ else    {
 		}
 		echo "\n";
 		?>
+									
 		$('#new_client_registration').click(function(){
 					$('#active_client_currently').removeClass("active");
 					$('#active_client_currently_content').hide();
@@ -676,18 +781,21 @@ else    {
 					$('#massive_notifications').removeClass("active");
 					$('#massive_notifications_content').hide();	
 					$('#active_client_currently').addClass("active");
-					$('#active_client_currently_content').show();			
-					var table_active_client =$('#table_active_client').DataTable({
-								"responsive": true,
-								"paging":   true,
-								"searching": true,								
-								"info":     false
-						}
-					);
-					table_active_client.order( [ 0, 'desc' ] );
-					table_active_client.draw();						
-					var table_no_active_client =$('#table_no_active_client').DataTable();	
-					table_no_active_client.draw();
+					$('#active_client_currently_content').show();	
+					if ( ! $.fn.DataTable.isDataTable( '#table_active_client' ) ) {
+						var table_active_client =$('#table_active_client').DataTable({
+									"responsive": true,
+									"paging":   true,
+									"searching": true,								
+									"info":     false
+							}
+						);
+						table_active_client.order( [ 0, 'desc' ] );
+						table_active_client.draw();						
+						var table_no_active_client =$('#table_no_active_client').DataTable();	
+						table_no_active_client.draw();
+							
+					}		
 				});			
 		$('#sms_notification').click(function(){				
 					$('#active_client_currently').removeClass("active");
@@ -698,28 +806,31 @@ else    {
 					$('#massive_notifications_content').hide();	
 					$('#sms_notification').addClass("active");
 					$('#sms_notification_content').show();
-					var tableMorosos =$('#Table_morosos').DataTable({
-								"responsive": true,
-								"paging":   true,
-								"searching": true,								
-								"info":     false
-						});				
-					tableMorosos.order( [ 4, 'desc' ] );
-					tableMorosos.draw();
-					var Table_clientes_cte1_retrasados =$('#Table_clientes_cte1_retrasados').DataTable({
-								"responsive": true,
-								"paging":   true,
-								"searching": true,								
-								"info":     false
-						});	
-					Table_clientes_cte1_retrasados.draw();
-					var Table_clientes_cte15_retrasados =$('#Table_clientes_cte15_retrasados').DataTable({
-								"responsive": true,
-								"paging":   true,
-								"searching": true,								
-								"info":     false
-						});	
-					Table_clientes_cte15_retrasados.draw();						
+					if ( ! $.fn.DataTable.isDataTable( '#Table_morosos' ) ) {
+						var tableMorosos =$('#Table_morosos').DataTable({
+									"responsive": true,
+									"paging":   true,
+									"searching": true,								
+									"info":     false
+							});				
+						tableMorosos.order( [ 4, 'desc' ] );
+						tableMorosos.draw();
+						var Table_clientes_cte1_retrasados =$('#Table_clientes_cte1_retrasados').DataTable({
+									"responsive": true,
+									"paging":   true,
+									"searching": true,								
+									"info":     false
+							});	
+						Table_clientes_cte1_retrasados.draw();
+						var Table_clientes_cte15_retrasados =$('#Table_clientes_cte15_retrasados').DataTable({
+									"responsive": true,
+									"paging":   true,
+									"searching": true,								
+									"info":     false
+							});	
+						Table_clientes_cte15_retrasados.draw();						
+						
+					}
 					});	
 		$(".dataTable_Morosos").on('click','.updateTel', function () { 				
 			console.log("clic en update telefono");
@@ -757,7 +868,25 @@ else    {
 			$('#new_client_registration_content').hide();
 			$('#massive_notifications').addClass("active");
 			$('#massive_notifications_content').show();	
-					
+			$('#sms_masivo_container_buscar').hide();
+			$('#message_box').hide();
+			$('#btn_enviar').hide();
+			$.ajax({
+				url: "sms_statistics.php", 
+				success: function(result){
+					$("#div_sms_statistics").html(result);
+					if ( ! $.fn.DataTable.isDataTable( '#table_statistics' ) ) {
+						var statistics =$('#table_statistics').DataTable({
+											"responsive": true,
+											"paging":   true,
+											"searching": false,								
+											"info":     true
+									});
+						
+					}
+				}
+			});
+			
 		});
 		
 		$(".datatable_Table_clientes_cte1_retrasados").on('click','.updateTelAtrasado', function () { 		
@@ -1037,6 +1166,82 @@ else    {
             		}						 
 				
 		});	
+		
+		
+		var ct=0;
+		$('#sms_masivo_btn_buscar').click(function(){
+			//$('#criterios_content').hide();
+			$('#btn_enviar').show();
+			$('#sms_masivo_container_buscar').show();	
+			$('#message_box').show();				
+			var name=$("#sms_masive_name").val();	
+			var address=$("#sms_masive_address").val();
+			var ciudad=$("#sms_masive_city").val();		
+			var corte=$("#payment_date").val();
+			var criterioFacturacion=$("#client_state").val();
+			
+			ct+=1;
+			console.log('Nombres='+name+' -direccion='+address+' -ciudad='+ciudad+' -Corte='+corte+'-cont='+ct);
+			$.ajax({
+				type : 'post',
+				url : 'tableMasiveSms.php', 
+				data: {name:name,address:address,ciudad:ciudad,corte:corte,criterioFacturacion:criterioFacturacion } ,
+				success : function(data){	       	
+					alertify.success("Información en la tabla ha sido actualizada"); 
+					//console.log(data);
+					$('#sms_masivo_container_buscar').html(data);
+					var table = $('#table_client_to_sms').DataTable({
+					"responsive": true,
+					"paging":   true,
+					"searching": true,								
+					"info":     true	,
+					'columnDefs': [
+						{
+								'targets': 0,
+								'checkboxes': true
+						}
+					],
+					'order': [[1, 'asc']]
+					});   
+					
+					
+				  $('#btn_enviar').click(function(){
+						var message=$('#sms_text_content').val();				
+						var rows_selected = table.column(0).checkboxes.selected();
+						$.each(rows_selected, function(index, rowId){
+						console.log("Seleccionado:"+rowId+"-texto: "+message);
+						table.column(0).checkboxes.deselect();						
+      			});
+						var iddata=rows_selected.join(",");
+						if(iddata&&message){
+							console.log("datos con formato:"+iddata);
+							$.ajax({
+								type: 'post' ,
+								url:  'smsender.php',
+								data: {datos:iddata,message:message} , 
+								success: function(data){
+									console.log('Respuesta:'+data);
+									alertify.dismissAll();
+									alertify.success('Solicitud ha procesada');	
+								}
+							});	
+						}
+						else 
+							console.log('No has seleccionado nada!');	
+							alertify.dismissAll();
+							if(!message)
+								alertify.error('No has seleccionado mensaje para enviar!');		
+						  if (!iddata) 
+								alertify.error('No has seleccionado clientes!');
+					});	    	
+				}
+			});	
+			
+		
+		});	
+		
+		
+
 
 		function validEmail(email) {
          	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

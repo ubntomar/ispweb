@@ -17,8 +17,9 @@
 		                  ); 
 		echo "ok";
 		} catch (Twilio\Exceptions\RestException $e) {
-	        echo "no";
-	        $status = 'invalid';
+			$status = 'invalid';
+			echo "no";
+	        
 	    }
 
 	} else { 

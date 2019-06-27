@@ -228,6 +228,10 @@ body {
 }
 
 
+.sumTotal  {		
+	display: none;
+}
+
 
 /* --- --- MEDIAQUERIES --- --- */
 @media screen and (max-width: 320px) {
@@ -260,6 +264,7 @@ body {
 		font-size: 10px;
 	}
 	
+	
 }
 @media screen and (max-width: 992px) {
 	.barra-lateral {
@@ -269,6 +274,27 @@ body {
 	.barra-lateral .menu a {
 		display: inline-block;
 		border-bottom: none;
+	}
+	
+}
+@media screen and (max-width: 1163px) {
+	.barra-lateral {
+		min-width: auto;
+	}
+
+	.barra-lateral .logo {
+		display: none;
+	}
+
+	.barra-lateral .menu a span {
+		display: none;
+	}
+	
+	.barra-lateral .menu a i {
+		margin:0;
+	}
+	.sumTotal  {		
+		display: inline-block;
 	}
 }
 @media screen and (max-width: 1300px) {
@@ -283,7 +309,7 @@ body {
 	.barra-lateral .menu a span {
 		display: none;
 	}
-
+	
 	.barra-lateral .menu a i {
 		margin:0;
 	}
