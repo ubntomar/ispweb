@@ -16,15 +16,18 @@ else    {
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>Wisdev-Administrador ISP</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">    
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
-	<link rel="stylesheet" href="bower_components/DataTables/media/css/jquery.dataTables.min.css">
+	<title>Isp Experts-Administrador ISP</title>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css"> 
+	<link rel="stylesheet" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.min.css"> 
 	<link rel="stylesheet" href="bower_components/alertify/css/alertify.min.css" />
 
 	<link rel="stylesheet" href="bower_components/alertify/css/themes/default.min.css" />
 	<link rel="stylesheet" href="css/fontello.css">
 	<link rel="stylesheet" href="css/estilos.css">
+	<link rel="stylesheet" href="css/dataTables.checkboxes.css">
 	
 </head>
 <body>
@@ -42,6 +45,7 @@ else    {
 		$year=date("Y");
 		$today= date("j");
 		$hour=date("H:i");
+		$last_day=date("t", strtotime('now'));
 	?>	
 	<div class="container-fluid px-0">		
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top   ">		
@@ -140,7 +144,7 @@ else    {
 		    							echo"</div>";
 		    				  
 		    				?>			
-							<table id="clientList2" class="display compact table text-dark table-bordered table-responsive  table-hover ">
+							<table id="clientList2" class="display dataTable_Morosos cell-border" cellspacing="0" width="100%">
 								<thead  class="bg-success">
 									<tr>
 										<td>Nombre</td>
@@ -212,115 +216,77 @@ else    {
 							<h5 class="my-3 pb-2 caja border-primary">Transacciones <?php  echo $month_name." de ".$year; ?>.</h5>
 							<!-- inicio de contenido de pagina -->
 							<p class="mt-3 ">Seleccione Cajero.</p>	 
-		    							<div class="my-3">
-		    								<select class="custom-select " id="ventas-mes">
-											  <option value="todos" selected >Todos</option>	
-							<?php
-							$sqlcajero="SELECT DISTINCT `transacciones`.`cajero` FROM `transacciones` ";
-							if ($result = $mysqli->query($sqlcajero)) {
-								while ($row = $result->fetch_assoc()) {
-									$cajero=$row["cajero"];
-									echo"<option value=\"$cajero\">$cajero</option>";
+							<div class="form-group px-1 border border-success rounded mx-1 my-3">
+								<select class="form-control" id="transacciones-mes">
+								<option value="todos" selected >Todos</option>	
+								<?php
+								$sqlcajero="SELECT DISTINCT `transacciones`.`cajero` FROM `transacciones` ";
+								if ($result = $mysqli->query($sqlcajero)) {
+									while ($row = $result->fetch_assoc()) {
+										$cajero=$row["cajero"];
+										echo"<option value=\"$cajero\">$cajero</option>";
+									}
 								}
-							}
-							?>											  
-											</select>	
-		    							</div>  
-							<form style="display: hidden" action="printable.php" method="POST" id="form">
-							 	 <input type="hidden" id="idt" name="idt" value="0"/>
-							 	 <input type="hidden" id="rpp" name="rpp" value="register-pay"/>
-							</form>
-							<table id="clientList" class="display compact table text-dark table-bordered table-responsive  table-hover ">
-								<thead  class="bg-primary">
-									<tr>
-										<td>Nombre</td>
-										<td>Dirección</td>
-										<td>Pago</td>
-										<td>Fecha</td>
-										<td><i class=" icon-print  "></i></td>
-									</tr>
-								</thead>
-								<tfoot>
-									<tr>
-										<td>Nombre</td>
-										<td>Dirección</td>
-										<td>Pago</td>
-										<td>Fecha</td>
-										<td><i class=" icon-print  "></i></td>
-									</tr>
-								</tfoot>
-								<tbody >
-										
-										<?php 					
-											$sql = "SELECT * FROM `transacciones` WHERE MONTH(fecha) = $month AND YEAR(fecha) = $year $sqlcaj ORDER BY `transacciones`.`idtransaccion` DESC ";
-											if ($result = $mysqli->query($sql)) {
-												$recaudo=0;
-												$cnt=0;
+								?>											  
+									</select>	
+						</div> 
+						<div class="form-group px-1 border border-success rounded mx-1 my-3">
+							<label for="">Desde </label>
+							<input type="text" class="form-control  " id="from-month-day" aria-describedby="" value=" <?php echo"$year/$month/01";  ?> ">
+							<small id="" class="form-text text-muted">Desde el día ...</small>
+						</div>
+						<div class="form-group px-1 border border-success rounded mx-1 my-3">
+							<label for="">Hasta </label>
+							<input type="text" class="form-control " id="to-month-day" aria-describedby="" value="  <?php echo"$year/$month/$today";  ?>  ">
+							<small id="" class="form-text text-muted">Hasta el día...</small>
+						</div>
+						<div>
+							<button type="text" class="btn btn-primary mb-2" id="btn_enviar">
+								<span class=" spinner-border-sm" role="status" aria-hidden="true" id="spinner-enviar"></span>
+								Enviar
+							</button>
+						</div>	
+									 
+						<div id="table-month-content">
 
-												while ($row = $result->fetch_assoc()) {
-													$cnt+=1;
-													$idtransaccion=$row["idtransaccion"];
-													$idafi=$row["id-cliente"];
-													$sqlafi="SELECT * FROM `afiliados` WHERE `id` = $idafi  ";
-													$resultafi = $mysqli->query($sqlafi);
-													$rowafi = $resultafi->fetch_assoc();
-													$recaudo+=$row["valor-a-pagar"];
-													echo "<tr class=\"text-center  \">";				
-													echo "<td>".$rowafi["cliente"]." ".$rowafi["apellido"]."</td>";
-													echo "<td>".$rowafi["direccion"]."</td>";
-													echo "<td>".$row["valor-a-pagar"]."</td>";
-													echo "<td class=\" align-middle \">".$row["fecha"]." ".$row["hora"]."</td>";
-													echo "<td class=\" align-middle \"><a href=\"printable.php?idt=$idtransaccion&rpp=0\" class=\"text-primary icon-client \" ><i class=\" icon-print  \"></i></a></td>";
-													echo "</tr>";		
-													}
-											    	$result->free();
-												}
-										?>	
-										<!-- Modal -->
-										<div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-										  <div class="modal-dialog" role="document">
-										    <div class="modal-content">
-										      <div class="modal-header">
-										        <h5 class="modal-title" id="exampleModalLabel">Detalles de Pago</h5>
-										        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										          <span aria-hidden="true">&times;</span>
-										        </button>
-										      </div>
-										      
-										      <div class="modal-body">
-										      <div class="fetched-data"></div>  
-										        
-										      </div>
-										      <div class="modal-footer">
-										        <button type="button" id="cancelbutton" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-										        <button type="button" id="paybutton" class="btn btn-primary">Pagar</button>
-										      </div>
-										    </div>
-										  </div>
-										</div>									
-									
-								</tbody>
-							</table>
+						</div>	
+						
 							<!-- fin de contenido de pagina -->	
 						</div>
 
 						
 
 					</div>
-
-					<div class="columna col-lg-5">
-						<div class="widget estadisticas">
-							<h3 class="titulo">Transacciones</h3>
-							<div class="contenedor d-flex flex-wrap">
-								<div class="caja">
-									<h3><?php 	echo $cnt ?></h3>
+					
+					<?php 					
+											$sql = "SELECT * FROM `transacciones` WHERE MONTH(fecha) = $month AND YEAR(fecha) = $year  ORDER BY `transacciones`.`idtransaccion` DESC ";
+											if ($result = $mysqli->query($sql)) {
+												$recaudo=0;
+												$registros=$result->num_rows;
+												$cnt=0;
+												$sum=0;
+												while ($row = $result->fetch_assoc()) {
+													$cnt+=1;
+													$idtransaccion=$row["idtransaccion"];
+													$idafi=$row["id-cliente"];												
+													$recaudo+=$row["valor-a-pagar"];											
+												}
+											    	$result->free();
+												}
+										
+					echo "<div class=\"columna col-lg-5\">
+						<div class=\"widget estadisticas\">
+							<h3 class=\"titulo\">Transacciones $month_name </h3>
+							<div class=\"contenedor d-flex flex-wrap\">
+								<div class=\"caja\">
+									<h3>$registros </h3>
 									<p>Total</p>
 								</div>
-								<div class="caja">
-									<h3><i class="icon-beaker "></i></h3>
+								<div class=\"caja\">
+									<h3><i class=\"icon-beaker \"></i></h3>
 									<p>Hoy</p>
 								</div>
-								<?php
+								";
 								if($user=="Omar")
 									$txt="$".number_format($recaudo);
 								else
@@ -457,33 +423,67 @@ else    {
 	</div>
 
 	
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
-    <script src="bower_components/Popper/popper.min.js" ></script>  
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script> 
+	<script  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+	
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
+  <script src="bower_components/Popper/popper.min.js" ></script>  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="bower_components/alertify/js/alertify.min.js"></script>
 	<script src="bower_components/AutoFormatCurrency/simple.money.format.js"></script>
+	<script src="js/dataTables.checkboxes.min.js"></script>
 
     <script type="text/javascript">
     	$(document).ready(function(){
 
-    		$('#ventas-dia').change(function() {
-    			console.log($(this).val());// $(this).val() will work here
-    			window.location.href = 'transacciones.php?cajero='+$(this).val();
-				});
-    		$('#ventas-mes').change(function() {
-    			console.log($(this).val());// $(this).val() will work here
-				});
-			$('#clientList').DataTable();
-			var table = $('#clientList').DataTable(); 
-			// Sort by columns 1 and 2 and redraw
-			table.order( [ 3, 'desc' ] );
-			table.draw();	
-			$('#clientList2').dataTable( {  "lengthMenu": [ 25, 50, 75, 100 ]} );
-			var table2 = $('#clientList2').DataTable(); 
-			table2.order( [ 3, 'desc' ] );
-			table2.draw();
+			$('#ventas-dia').change(function() {
+				console.log($(this).val());// $(this).val() will work here
+				window.location.href = 'transacciones.php?cajero='+$(this).val();
+			});
+			$('#btn_enviar').on('click', function() {
+				$('#spinner-enviar').addClass('spinner-border');
+				var cajero=$('#transacciones-mes').val();	
+				var from=$('#from-month-day').val();		
+				var to=$('#to-month-day').val();		
+				console.log(cajero+":"+from+":"+to);
+				$.ajax({
+								type : 'post',
+								url : 'transacciones_mes.php', 
+								data: {cajero:cajero,from:from,to:to } ,
+								success : function(data){	       	
+									$("#table-month-content").html(data);
+									var Table_transacciones_month =$('#clientList').DataTable({
+									"responsive": true,
+									"paging":   true,
+									"searching": true,								
+									"info":     true
+									});	
+								Table_transacciones_month.order( [ 3, 'desc' ] );
+								Table_transacciones_month.draw();	
+								$('#spinner-enviar').removeClass('spinner-border');        	
+								}
+							});	
+			});
+
+		
+			
+
+			var Table_transacciones_today =$('#clientList2').DataTable({
+									"responsive": true,
+									"paging":   true,
+									"searching": true,								
+									"info":     true
+							});				
+			Table_transacciones_today.order( [ 3, 'desc' ] );
+			Table_transacciones_today.draw();	
+
+
 		    		
+
+
+
 		});
     </script>
 </body>

@@ -47,11 +47,13 @@ echo "
             <th>Id</th>
             <th>Cliente</th>
             <th>Dirección</th>
-            <th>Ciudad</th>
+            
             <th>Corte</th>
             <th>Valor Plan</th>
-            <th>teléfono</th>
+            
             <th>Saldo a hoy</th>
+            <th>teléfono</th>
+            <th>Ciudad</th>
         </tr>
     </thead>
     <tbody>";
@@ -59,44 +61,49 @@ echo "
     while($row = $result->fetch_assoc()) {
 
         $day=date('d');
-        $sqlSaldo="SELECT SUM(saldo) saldo FROM redesagi_facturacion.factura where `id-afiliado`={$row['id']} and cerrado=0 ;";            
+        $sqlSaldo="SELECT SUM(saldo) saldo,valorf FROM redesagi_facturacion.factura where `id-afiliado`={$row['id']} and cerrado=0 ;";            
        
         if ($resultsaldo = $mysqli->query($sqlSaldo)) {
             $rowsaldo = $resultsaldo->fetch_assoc();
             $saldo=$rowsaldo["saldo"];  
-            
+            $valor_factura=$rowsaldo["valorf"];
             $resultsaldo->free();
             }
+        $dias_plazo=5;    
         if ($criterioFacturacion=="1") {
-            if ($saldo==0 || ($day<=$row['corte'])  ) {
+            if (($saldo<=$valor_factura) && ($day<= ( $row['corte'] +$dias_plazo) )  ) {
                 $saldoTotal+=$saldo; 
                 echo"<tr>
                 
                 <td>{$row['id']}</td>
                 <td>{$row['cliente']} {$row['apellido']}</td>
                 <td>{$row['direccion']}</td>
-                <td>{$row['ciudad']}</td>
+                
                 <td>{$row['corte']}</td>
                 <td>{$row['pago']}</td>
-                <th>{$row['telefono']}</th>
+                
                 <td>$$saldo</td>
+                <th>{$row['telefono']}</th>
+                <td>{$row['ciudad']}</td>
                 </tr>" ;
             }
         
-        }
+        } 
         if ($criterioFacturacion=="-1"   ) {
-            if ($saldo>0 && ($day>$row['corte']) ) {
+            if (($saldo>0) && ($day> ( $row['corte'] +$dias_plazo) ) ) {
                 $saldoTotal+=$saldo; 
                 echo"<tr>
                 
                 <td>{$row['id']}</td>
                 <td>{$row['cliente']} {$row['apellido']}</td>
                 <td>{$row['direccion']}</td>
-                <td>{$row['ciudad']}</td>
+                
                 <td>{$row['corte']}</td>
                 <td>{$row['pago']}</td>
-                <th>{$row['telefono']}</th>
+                
                 <td>$$saldo</td>
+                <th>{$row['telefono']}</th>
+                <td>{$row['ciudad']}</td>
                 </tr>" ;
             }
         
@@ -108,11 +115,13 @@ echo "
                 <td>{$row['id']}</td>
                 <td>{$row['cliente']} {$row['apellido']}</td>
                 <td>{$row['direccion']}</td>
-                <td>{$row['ciudad']}</td>
+                
                 <td>{$row['corte']}</td>
                 <td>{$row['pago']}</td>
-                <th>{$row['telefono']}</th>
+                
                 <td>$$saldo</td>
+                <th>{$row['telefono']}</th>
+                <td>{$row['ciudad']}</td>
                 </tr>" ;
         }      
         
@@ -126,9 +135,11 @@ echo "
             <th>Id</th>
             <th>Cliente</th>
             <th>Dirección</th>
-            <th>Ciudad</th>
+            
             <th>Corte</th>
             <th></th>
+            
+            <th>Ciudad</th>
             <th>teléfono</th>
             <th class=\" rounded text-light bg-dark\">$".number_format($saldoTotal,0)." </th>
         </tr>

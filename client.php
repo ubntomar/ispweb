@@ -17,9 +17,9 @@ else    {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>IspExperts-Administrador ISP</title>
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-	   
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css"> 
 	<link rel="stylesheet" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.min.css"> 
 	<link rel="stylesheet" href="bower_components/alertify/css/alertify.min.css" />
@@ -624,7 +624,10 @@ else    {
 																							
 																					</div>
 																							<div>
-																								<button type="text" class="btn btn-primary mb-2" id="sms_masivo_btn_buscar">Buscar</button>
+																								<button type="text" class="btn btn-primary mb-2" id="sms_masivo_btn_buscar">
+																								<span class=" spinner-border-sm" role="status" aria-hidden="true" id="spinner-buscar"></span>
+  																							Buscar
+																								</button>
 																								
 																							</div>
 																			</div>
@@ -640,7 +643,12 @@ else    {
 																								<textarea class="form-control" id="sms_text_content" rows="3" placeholder="Ingrese el mensaje a enviar"></textarea>
 																								<small id="" class="form-text text-muted">Campo obligatorio.</small>
 																		</div>
-																		<div><button type="text" class="btn btn-primary mb-2" id="btn_enviar">Enviar</button></div>		
+																		<div>
+																			<button type="text" class="btn btn-primary mb-2" id="btn_enviar">
+																				<span class=" spinner-border-sm" role="status" aria-hidden="true" id="spinner-enviar"></span>
+																				Enviar
+																			</button>
+																		</div>		
 																		
 																		
 																</div>
@@ -715,8 +723,8 @@ else    {
 	
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
-    <script src="bower_components/Popper/popper.min.js" ></script>  
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script> 
+  <script src="bower_components/Popper/popper.min.js" ></script>  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="bower_components/alertify/js/alertify.min.js"></script>
 	<script src="bower_components/AutoFormatCurrency/simple.money.format.js"></script>
 	<script src="js/dataTables.checkboxes.min.js"></script>
@@ -787,7 +795,7 @@ else    {
 									"responsive": true,
 									"paging":   true,
 									"searching": true,								
-									"info":     false
+									"info":     true
 							}
 						);
 						table_active_client.order( [ 0, 'desc' ] );
@@ -811,7 +819,7 @@ else    {
 									"responsive": true,
 									"paging":   true,
 									"searching": true,								
-									"info":     false
+									"info":     true
 							});				
 						tableMorosos.order( [ 4, 'desc' ] );
 						tableMorosos.draw();
@@ -819,14 +827,14 @@ else    {
 									"responsive": true,
 									"paging":   true,
 									"searching": true,								
-									"info":     false
+									"info":     true
 							});	
 						Table_clientes_cte1_retrasados.draw();
 						var Table_clientes_cte15_retrasados =$('#Table_clientes_cte15_retrasados').DataTable({
 									"responsive": true,
 									"paging":   true,
 									"searching": true,								
-									"info":     false
+									"info":     true
 							});	
 						Table_clientes_cte15_retrasados.draw();						
 						
@@ -1074,7 +1082,37 @@ else    {
 					  })
 					  ;
 				});											
-	
+
+		$("#table_no_active_client").on('click','.reconectar', function () { 																		
+		console.log("id:"+$(this).attr('id'));
+		var x=$(this).attr('id');
+		var idCli = x.match(/\d+/); // 123456	
+		var idc=idCli*1;
+		console.log("Id del usauario a reconectar:"+idc);		
+		var source="reconectar";
+		alertify.prompt("Escriba razón de reconexión del servicio.Gracias", "",
+				function(evt, value ){
+					var detalle=value;
+					$("#"+x).removeClass("btn-primary");
+					$("#"+x).addClass("disabled");
+					$("#"+x+" > i").removeClass("text-dark");
+					$("#"+x+" > i").addClass("text-danger");
+					$.ajax({
+									type : 'post',
+									url : 'upd_cli.php', 
+									data: { idClient:idc,detalle:detalle,source:source } ,
+									success : function(data){	       	
+										alertify.success(data); 
+										window.location.href = 'client.php?opc=reload';           	
+									}
+								});	
+				},
+				function(){
+					alertify.error('Cancel');
+				})
+				;
+		});	
+
 		$('#save').click(function(){
 
 					if ( validEmail( $("#email").val() ) ) {
@@ -1171,9 +1209,11 @@ else    {
 		var ct=0;
 		$('#sms_masivo_btn_buscar').click(function(){
 			//$('#criterios_content').hide();
+			$('#spinner-buscar').addClass('spinner-border');			
 			$('#btn_enviar').show();
 			$('#sms_masivo_container_buscar').show();	
-			$('#message_box').show();				
+			$('#message_box').show();	
+			$('#spinner-enviar').removeClass('spinner-border');				
 			var name=$("#sms_masive_name").val();	
 			var address=$("#sms_masive_address").val();
 			var ciudad=$("#sms_masive_city").val();		
@@ -1203,9 +1243,10 @@ else    {
 					],
 					'order': [[1, 'asc']]
 					});   
-					
+					$('#spinner-buscar').removeClass('spinner-border');
 					
 				  $('#btn_enviar').click(function(){
+						$('#spinner-enviar').addClass('spinner-border');
 						var message=$('#sms_text_content').val();				
 						var rows_selected = table.column(0).checkboxes.selected();
 						$.each(rows_selected, function(index, rowId){
@@ -1222,17 +1263,20 @@ else    {
 								success: function(data){
 									console.log('Respuesta:'+data);
 									alertify.dismissAll();
-									alertify.success('Solicitud ha procesada');	
+									alertify.success('Solicitud ha procesada');
+									$('#spinner-enviar').removeClass('spinner-border');	
 								}
 							});	
 						}
-						else 
-							console.log('No has seleccionado nada!');	
+						else{
+							$('#spinner-enviar').removeClass('spinner-border');	
 							alertify.dismissAll();
 							if(!message)
 								alertify.error('No has seleccionado mensaje para enviar!');		
 						  if (!iddata) 
 								alertify.error('No has seleccionado clientes!');
+
+						} 
 					});	    	
 				}
 			});	

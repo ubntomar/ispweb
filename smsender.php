@@ -23,8 +23,8 @@ $debug=0;
 
 require_once '/home/ubuntu/vendor/autoload.php'; 
 use Twilio\Rest\Client; 
-$sid    = "AC6dffc6d75f3fe13e5ab0cfe1f6180b57"; 
-$token  = "b6bcf5d638adfc032d2ab7f4ed35baf3"; 
+$sid    = "AC2d3e6348e8de3d0017220504f47bb303"; 
+$token  = "4529ede3e6fd635a9a8b56f718ce81be"; 
 $twilio = new Client($sid, $token); 
 if($_POST['datos']) {
     $idarray=explode(",",$_POST['datos']);
@@ -39,7 +39,7 @@ if($_POST['datos']) {
         try{		
             $message = $twilio->messages->create("+57".$telefono."", // to 
                 array( 
-                    "from" => "+18508055304",       
+                    "from" => "+14157989292",       
                     "body" => $msj 
                 ) 
                 );                

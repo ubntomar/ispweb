@@ -30,18 +30,31 @@ if($_POST['idClient']) {
 				$valorPlan=$rowf["pago"];
 				$sqlInsert="INSERT INTO `redesagi_facturacion`.`activaciones` (`id`, `id-cliente`, `accion`, `fecha`, `detalle`, `user`, `valor-plan`) VALUES (NULL, '$idClient', '$source', '$today', '$detalle', '$usuario', '$valorPlan');";					
 				if ($result = $mysqli->query($sqlInsert)) {
-					$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`=1 WHERE `afiliados`.`id`=$idClient";
-					//echo $sqlUpd;
-					if($result2 = $mysqli->query($sqlUpd)){						
-						echo "Actualizado con éxito!!";	
+					if($source=="suspender"){
+						$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`=1 WHERE `afiliados`.`id`=$idClient";
+						//echo $sqlUpd;
+						if($result2 = $mysqli->query($sqlUpd)){						
+							echo "Suspendido con éxito!!";	
+						}
+						else{
+							echo "Error al actualizar cliente(Udpate suspender.)";	
+						}
+
 					}
-					else{
-						echo "Error al actualizar cliente(Udpate suspender.)";	
-					}
+					elseif($source=="reconectar"){
+						$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`=0 WHERE `afiliados`.`id`=$idClient";
+						//echo $sqlUpd;
+						if($result2 = $mysqli->query($sqlUpd)){						
+							echo "Reconexión con éxito!!";	
+						}
+						else{
+							echo "Error al actualizar cliente(Udpate reconectar.)";	
+						}	
+					}	
 				}
 
 				else{
-					echo "Error al actualizar cliente(Insertar Activación)";
+					echo "Error al actualizar cliente(Insertar registro de  Activación)";
 				}
 			}
 			else{
