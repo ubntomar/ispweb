@@ -18,7 +18,7 @@ $activo=1;
 $suspender=0;
 $criterioFacturacion=$_POST["criterioFacturacion"];
 if (($_POST["corte"]==1 || $_POST["corte"]==15 )) {
-    $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? and `ciudad` like ? and `corte` = ? and  (`activo` = 1) and (`suspender` = 0)";
+    $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? and `ciudad` like ? and `corte` = ? and  (`activo` = 1) and (`eliminar` = 0)";
     $stmt = $mysqli->prepare($sqlprepared);
     $direccion="%{$_POST["address"]}%";
     $name="%{$_POST["name"]}%";
@@ -27,7 +27,7 @@ if (($_POST["corte"]==1 || $_POST["corte"]==15 )) {
     $stmt->bind_param("ssssi",$name,$name,$direccion,$ciudad,$corte);
 }
 if  ($_POST["corte"]=="") { 
-    $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados  where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? and `ciudad` like ?  and  (`activo` = 1) and (`suspender` = 0)";
+    $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados  where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? and `ciudad` like ?  and  (`activo` = 1) and (`eliminar` = 0)";
     $stmt = $mysqli->prepare($sqlprepared);
     $direccion="%{$_POST["address"]}%";
     $name="%{$_POST["name"]}%";

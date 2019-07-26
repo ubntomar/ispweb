@@ -130,7 +130,18 @@ else    {
 													$idCliente=$row["id"];
 													$cedula=$row["cedula"];
 													$telefono=$row["telefono"];
-
+													if($row["eliminar"]==1){
+														$statusText="Inactivo";
+														$style="border-dark text-secundary ";	
+													}
+													else{
+														$statusText="Activo";			
+														$style="border-primary text-success ";	
+													}	
+													if($row["suspender"]==1){
+														$statusText="Cortado";
+														$style="border-info text-danger ";	
+													}
 													$textCedula=$cedula;
 													if ($cedula==0){
 														$textCedula="<input class=\"form-control cedula".$row["id"]." p-0\" type=\"text\" value=\"\" >";
@@ -149,7 +160,7 @@ else    {
 
 													$telefono=$row["telefono"];
 													echo "<tr class=\"text-center  \">";				
-													echo "<td>".$row["cliente"]." ".$row["apellido"]."</td>";
+													echo "<td> {$row["cliente"]}  {$row["apellido"]} <small class=\"px-1 border $style rounded \">$statusText</small></td>";
 													echo "<td>".$row["direccion"]."</td>";
 													echo "<td class=\" align-middle \">".$row["corte"]."</td>";
 													echo "<td class=\" align-middle \">$textCedula</td>";

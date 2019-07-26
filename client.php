@@ -50,7 +50,7 @@ else    {
 				<!-- Nos sirve para agregar un logotipo al menu -->
 				<a href="main.php" class="navbar-brand ">Wisdev</a>
 				
-				<!-- Nos permite usar el componente collapse para dispositivos moviles -->
+				<!-- Nos permite usar el componente collapse para dispositivos moviles . ...-->
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Menu de Navegacion">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -58,7 +58,7 @@ else    {
 				<div class="collapse navbar-collapse " id="navbar">
 					<ul class="navbar-nav  navclass ">
 						<li class="nav-item ">
-							<a href="#" class="nav-link"><i class="icon-money"></i>Cierre de caja <span class="sr-only">(Actual)</span></a>
+							<a href="#" class="nav-link"><i class="icon-down-open"></i>Cierre de caja <span class="sr-only">(Actual)</span></a>
 						</li>
 						<li class="nav-item">
 							<a href="register-pay.php" class="nav-link "><i class="icon-money"></i>Registrar Pago</a>
@@ -236,8 +236,9 @@ else    {
 															<td>Corte</td>
 															<td>Pago</td>
 															<td>Velocidad</td>
-															<td>IP</td>															
-															<td>Suspender</td>																								
+															<td>IP</td>
+															<td>Suspender</td>																
+															<td>Eliminar</td>																								
 														</tr>
 														</thead>
 														<tfoot class="py-3 text-right">
@@ -251,7 +252,7 @@ else    {
 														<tbody >										
 															<?php 
 															$contPago=0;					
-															$sql = "SELECT * FROM `afiliados` WHERE activo=1 AND suspender=0 ORDER BY `id` DESC ";
+															$sql = "SELECT * FROM `afiliados` WHERE activo=1 AND eliminar=0 ORDER BY `id` DESC ";
 															if ($result = $mysqli->query($sql)) {
 																while ($row = $result->fetch_assoc()) {
 																	$cod=$row["id"];
@@ -271,8 +272,8 @@ else    {
 																	echo "<td>".$pago."</td>";	
 																	echo "<td>".$velocidad."</td>";	
 																	echo "<td>".$ip."</td>";										
-																	
-																	echo "<td><button type=\"button\" class=\"btn btn-primary suspender\" id=\"activo".$cod."\" ><i class=\"icon-scissors text-dark\"></i></button></td>";									
+																	echo "<td><button type=\"button\" class=\"btn btn-warning suspender\" id=\"suspender".$cod."\" ><i class=\"icon-scissors text-dark\"></i></button></td>";									
+																	echo "<td><button type=\"button\" class=\"btn btn-primary eliminar\" id=\"activo".$cod."\" ><i class=\"icon-scissors text-dark\"></i></button></td>";									
 																	echo "</tr>";		
 																	}
 																		$result->free();
@@ -295,7 +296,7 @@ else    {
 															<td>Velocidad</td>
 															<td>IP</td>	
 															
-															<td>Reconectar</td>		
+															<td>Reactivar</td>		
 																								
 														</tr>
 													</thead>
@@ -309,7 +310,7 @@ else    {
 													</tfoot>
 													<tbody >										
 													<?php 					
-														$sql = "SELECT * FROM `afiliados` WHERE suspender=1 ORDER BY `id` DESC ";
+														$sql = "SELECT * FROM `afiliados` WHERE eliminar=1 ORDER BY `id` DESC ";
 														if ($result = $mysqli->query($sql)) {
 															while ($row = $result->fetch_assoc()) {
 																$cod=$row["id"];
@@ -329,7 +330,7 @@ else    {
 																echo "<td>".$velocidad."</td>";	
 																echo "<td>".$ip."</td>";										
 																
-																echo "<td><button type=\"button\" class=\"btn btn-dark reconectar\" id=\"inactivo".$cod."\" ><i class=\"icon-plug text-success\"></i></button></td>";									
+																echo "<td><button type=\"button\" class=\"btn btn-dark reactivar\" id=\"inactivo".$cod."\" ><i class=\"icon-plug text-success\"></i></button></td>";									
 																echo "</tr>";		
 																}
 																	$result->free();
@@ -369,7 +370,7 @@ else    {
 												</tfoot>
 												<tbody >										
 												<?php 					
-													$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,valorf,ip,SUM( saldo )as mysum,`velocidad-plan` FROM `afiliados` INNER JOIN factura ON `afiliados`.`id`=`factura`.`id-afiliado` WHERE factura.periodo !='' AND factura.cerrado=0 AND `afiliados`.`activo`=1 AND suspender !=1  GROUP BY`afiliados`.`id` ORDER BY mysum DESC ";
+													$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,valorf,ip,SUM( saldo )as mysum,`velocidad-plan` FROM `afiliados` INNER JOIN factura ON `afiliados`.`id`=`factura`.`id-afiliado` WHERE factura.periodo !='' AND factura.cerrado=0 AND `afiliados`.`activo`=1 AND eliminar !=1  GROUP BY`afiliados`.`id` ORDER BY mysum DESC ";
 													if ($result = $mysqli->query($sql)) {
 														while ($row = $result->fetch_assoc()) {
 															$idCliente=$row["id"];
@@ -434,7 +435,7 @@ else    {
 												</tfoot>
 												<tbody >										
 												<?php 					
-													$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`suspender` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =1 ORDER BY `id` DESC ";
+													$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`eliminar` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =1 ORDER BY `id` DESC ";
 													if ($result = $mysqli->query($sql)) 
 														while ($row = $result->fetch_assoc()) {
 															$cod=$row["id"];
@@ -509,7 +510,7 @@ else    {
 												</tfoot>
 												<tbody >										
 												<?php 					
-												$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`suspender` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =15 ORDER BY `id` DESC ";
+												$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`eliminar` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =15 ORDER BY `id` DESC ";
 												if ($result = $mysqli->query($sql)) 
 													while ($row = $result->fetch_assoc()) {
 														$cod=$row["id"];
@@ -1053,43 +1054,73 @@ else    {
 			    alertify.error('Cancel');
 			    });
 				});
-		$(".datatable_table_active_client").on('click','.suspender', function () { 																		
+		$(".datatable_table_active_client").on('click','.eliminar', function () { 																		
 				console.log("id:"+$(this).attr('id'));
 				var x=$(this).attr('id');
 				var idCli = x.match(/\d+/); // 123456	
 				var idc=idCli*1;
-				console.log("Id del usauario a suspender:"+idc);		
-				var source="suspender";
-				alertify.prompt("Escriba razón de suspensión del servicio.Gracias", "",
-					  function(evt, value ){
-					  	var detalle=value;
-					  	$("#"+x).removeClass("btn-primary");
-					  	$("#"+x).addClass("disabled");
-					  	$("#"+x+" > i").removeClass("text-dark");
-					  	$("#"+x+" > i").addClass("text-danger");
-					    $.ajax({
-					            type : 'post',
-					            url : 'upd_cli.php', 
-					            data: { idClient:idc,detalle:detalle,source:source } ,
-					            success : function(data){	       	
-					            	alertify.success(data); 
-					            	window.location.href = 'client.php?opc=reload';           	
-				            	}
-					        	});	
-					  },
-					  function(){
-					    alertify.error('Cancel');
-					  })
-					  ;
-				});											
+				console.log("Id del usauario a eliminar:"+idc);		
+				var source="eliminar";
+				alertify.prompt("Escriba razón de eliminar usuario del servicio .Gracias", "",
+						function(evt, value ){
+							var detalle=value;
+							$("#"+x).removeClass("btn-primary");
+							$("#"+x).addClass("disabled");
+							$("#"+x+" > i").removeClass("text-dark");
+							$("#"+x+" > i").addClass("text-danger");
+							$.ajax({
+											type : 'post',
+											url : 'upd_cli.php', 
+											data: { idClient:idc,detalle:detalle,source:source } ,
+											success : function(data){	       	
+												alertify.success(data); 
+												window.location.href = 'client.php?opc=reload';           	
+											}
+										});	
+						},
+						function(){
+							alertify.error('Cancel');
+						})
+						;
+				});		
 
-		$("#table_no_active_client").on('click','.reconectar', function () { 																		
+		$(".datatable_table_active_client").on('click','.suspender', function () { 																		
 		console.log("id:"+$(this).attr('id'));
 		var x=$(this).attr('id');
 		var idCli = x.match(/\d+/); // 123456	
 		var idc=idCli*1;
-		console.log("Id del usauario a reconectar:"+idc);		
-		var source="reconectar";
+		console.log("Id del usauario a suspender:"+idc);		
+		var source="suspender";
+		alertify.prompt("Escriba razón de suspensión del servicio.Gracias", "",
+				function(evt, value ){
+					var detalle=value;
+					$("#"+x).removeClass("btn-primary");
+					$("#"+x).addClass("disabled");
+					$("#"+x+" > i").removeClass("text-dark");
+					$("#"+x+" > i").addClass("text-danger");
+					$.ajax({
+									type : 'post',
+									url : 'upd_cli.php', 
+									data: { idClient:idc,detalle:detalle,source:source } ,
+									success : function(data){	       	
+										alertify.success(data); 
+										window.location.href = 'client.php?opc=reload';           	
+									}
+								});	
+				},
+				function(){
+					alertify.error('Cancel');
+				})
+				;
+		});	
+
+		$("#table_no_active_client").on('click','.reactivar', function () { 																		
+		console.log("id:"+$(this).attr('id'));
+		var x=$(this).attr('id');
+		var idCli = x.match(/\d+/); // 123456	
+		var idc=idCli*1;
+		console.log("Id del usauario a reactivar:"+idc);		
+		var source="reactivar";
 		alertify.prompt("Escriba razón de reconexión del servicio.Gracias", "",
 				function(evt, value ){
 					var detalle=value;

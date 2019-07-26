@@ -23,7 +23,7 @@
     transform: rotate(359deg);
   }
 }
-@-webkit-keyframes spin {
+@-webkit-keyframes spin { 
   0% {
     -moz-transform: rotate(0deg);
     -o-transform: rotate(0deg);

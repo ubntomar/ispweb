@@ -30,27 +30,49 @@ if($_POST['idClient']) {
 				$valorPlan=$rowf["pago"];
 				$sqlInsert="INSERT INTO `redesagi_facturacion`.`activaciones` (`id`, `id-cliente`, `accion`, `fecha`, `detalle`, `user`, `valor-plan`) VALUES (NULL, '$idClient', '$source', '$today', '$detalle', '$usuario', '$valorPlan');";					
 				if ($result = $mysqli->query($sqlInsert)) {
-					if($source=="suspender"){
-						$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`=1 WHERE `afiliados`.`id`=$idClient";
+					if($source=="eliminar"){
+						$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`eliminar`=1 WHERE `afiliados`.`id`=$idClient";
 						//echo $sqlUpd;
 						if($result2 = $mysqli->query($sqlUpd)){						
 							echo "Suspendido con éxito!!";	
 						}
 						else{
-							echo "Error al actualizar cliente(Udpate suspender.)";	
+							echo "Error al actualizar cliente(Udpate eliminar.)";	
 						}
 
+					}
+					elseif($source=="reactivar"){
+						$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`eliminar`=0 WHERE `afiliados`.`id`=$idClient";
+						//echo $sqlUpd;
+						if($result2 = $mysqli->query($sqlUpd)){						
+							echo "Reactivación con éxito!!";	
+						}
+						else{
+							echo "Error al actualizar cliente(Udpate reactivar.)";	
+						}	
+					}	
+					
+					elseif($source=="suspender"){
+						$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`=1 WHERE `afiliados`.`id`=$idClient";
+						//echo $sqlUpd;
+						if($result2 = $mysqli->query($sqlUpd)){						
+							echo "Suspensión de servicio con éxito!!";	
+						}
+						else{
+							echo "Error al actualizar cliente(Udpate reactivar.)";	
+						}	
 					}
 					elseif($source=="reconectar"){
 						$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`=0 WHERE `afiliados`.`id`=$idClient";
 						//echo $sqlUpd;
 						if($result2 = $mysqli->query($sqlUpd)){						
-							echo "Reconexión con éxito!!";	
+							echo "Reconexión de servicio con éxito!!";	
 						}
 						else{
-							echo "Error al actualizar cliente(Udpate reconectar.)";	
+							echo "Error al actualizar cliente(Udpate Reconexión.)";	
 						}	
 					}	
+
 				}
 
 				else{
