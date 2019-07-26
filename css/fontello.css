@@ -17,7 +17,7 @@
     font-family: 'fontello';
     src: url('../font/fontello.svg?29852747#fontello') format('svg');
   }
-}
+} 
 */
  
  [class^="icon-"]:before, [class*=" icon-"]:before {

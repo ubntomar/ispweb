@@ -58,7 +58,7 @@ else    {
 				<div class="collapse navbar-collapse " id="navbar">
 					<ul class="navbar-nav  navclass ">
 						<li class="nav-item ">
-							<a href="#" class="nav-link"><i class="icon-down-open"></i>Cierre de caja <span class="sr-only">(Actual)</span></a>
+							<a href="#" class="nav-link"><i class="icon-print"></i>Cierre de caja <span class="sr-only">(Actual)</span></a>
 						</li>
 						<li class="nav-item">
 							<a href="register-pay.php" class="nav-link "><i class="icon-money"></i>Registrar Pago</a>
