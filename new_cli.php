@@ -39,7 +39,7 @@ if($_POST['valorPlan']){
 	$sql="INSERT INTO `redesagi_facturacion`.`afiliados` (`id`, `cliente`, `apellido`, `cedula`, `direccion`, `ciudad`, `departamento`, `mail`, `telefono`, `pago`, `ultimopago`, `pagoactual`, `corte`, `mesenmora`, `recibo_generado`, `orden_reparto`, `velocidad-plan`, `tipo-cliente`, `registration-date`, `source`, `activo`, `ip`, `standby`, `valorAfiliacion`) VALUES (NULL, '$name', '$lastName', '$cedula', '$address', '$ciudad', '$departamento', '$email', '$phone', '$valorPlan', '', '', '$corte', '$nextPay', '', '999', '$velocidadPlan', '$plan', '$today', 'ispdev', '1', '$ipAddress', '$standby', '$valorAfiliacion');";								
 	if ($mysqli->query($sql) === TRUE) {
 			$last_id = $mysqli->insert_id;
-			if($generarFactura==1){
+			if($generarFactura==1){//
 				$idafiliado=$mysqli->insert_id;
 				$fechaPago='0000/00/00';
 				$iva=19;

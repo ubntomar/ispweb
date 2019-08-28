@@ -47,7 +47,7 @@ if($_POST['rowid']) {
 				$multiplicador=$row["mesenmora"];
 			$registration=$row["registration-date"];
 			$corte=$row["corte"];
-			$varHtml="<table class=\"table\">
+			$varHtml="<table class=\"table table-striped\">
 						<tr>
 					  		<td><small>Cod. Cliente:</small></td><td><small>017000</small><small  id=\"id-client\">".$id."</small></td>
 						</tr>
@@ -87,7 +87,9 @@ if($_POST['rowid']) {
 							$abonado=$rowf["abonar"];
 							$vendedor=$rowf["vendedor"];
 							$formatted_date = date('d-m-Y', strtotime($pagoAnterior));
-							$varHtml.="<td class=\"small\">Pago Anterior:</td><td class=\"small\">$formatted_date  ($periodo-Pagó:$pagado-Abonó:$abonado--$vendedor)</td>"; 	
+							$varHtml.="<td class=\"\">Pago Anterior:</td><td class=\"\"><span  class=\" border border-primary rounded  text-dark p-1  m-1 \">$formatted_date  </span> <span  class=\"btn btn-secondary btn-sm \" id=\"btn-paym\" ><i class=\"icon-down-open  \" id=\"icon-down-open\"></i><small>Más...</small></span>";
+							
+							$varHtml.="</td>";  	
 							}
 						else{
 							$varHtml.="<td>Pago Anterior:</td><td>00/00/0000</td>"; 	
@@ -103,7 +105,19 @@ if($_POST['rowid']) {
 			}
 			$result->free();         	
 			          	
-			$varHtml.="  </tr>
+			$varHtml.="  
+						</tr>
+						
+						<tr  >
+							<td colspan=\"2\">
+								<div id=\"payment-div\" class=\"d-flex flex-wrap py-1  justify-content-center\">
+									<div id=\"payment\">
+																	
+									</div>
+								</div>	
+							</td>
+						</tr>
+
 			          	<tr>
 			          		<td>Hoy:</td><td>".$convertdate."</td>
 			          	</tr>
@@ -118,7 +132,7 @@ if($_POST['rowid']) {
 		          		<td>";
 		    $sql = "SELECT * FROM `factura`  WHERE `factura`.`id-afiliado`='$id' AND `factura`.`cerrado`='0'  ORDER BY `factura`.`id-factura` DESC";
 		    $vtotal=0;
-		    $varHtml.="<select class=\"form-control\" id=\"sel1\">";
+		    $varHtml.="<select class=\"form-control form-control-sm \" id=\"sel1\">";
 		    $cont=0;
 		    if ($result = $mysqli->query($sql)) {
 				while ($rowf = $result->fetch_assoc()) {	
@@ -127,11 +141,11 @@ if($_POST['rowid']) {
 					$periodo=$rowf["periodo"];
 					$saldo=$rowf["saldo"];
 					$vtotal+=$saldo;
-					$varHtml.="<option>Cod:".$idFactura."-".$periodo."-Valor:$".number_format($saldo)."</option>";	
+					$varHtml.="<option  >Cod:".$idFactura."-".$periodo."-Valor:$".number_format($saldo)."</option>";	
 					}
 			    	$result->free();
 				}  	
-			if($cont==0)$varHtml.="<option>No hay facturas pendientes.</option>";    		
+			if($cont==0)$varHtml.="<option>No hay pddtes.</option>";    		
 			$varHtml.="</select>";		
 			
 			$varHtml.="</td>
@@ -140,7 +154,7 @@ if($_POST['rowid']) {
 			          		<td>Total:</td><td id=\"valor-pago\" >$".number_format($vtotal)."</td>
 			          	</tr>
 			          	<tr id=\"tr-chkb-abonar\">
-			          		<td>Abonar:</td><td><input class=\"form-control\" id=\"checkbox-abonar\" type=\"checkbox\" value=\"1\"></td>
+			          		<td>Abonar:</td><td><input class=\"form-check-input\" id=\"checkbox-abonar\" type=\"checkbox\" value=\"1\"></td>
 			          	</tr>
 			          	<tr id=\"tr-valor-abonar\">
 			          		<td>Valor:</td><td><input class=\"form-control\" id=\"valor-abonar\"  value=\"\" placeholder=\"Cuanto abona?\"><span class=\"bg-info text-white px-1 ml-1\">$<small class=\" money\"></small></span></td>

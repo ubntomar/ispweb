@@ -266,7 +266,7 @@ body {
 	
 	
 }
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 992px) { 
 	.barra-lateral {
 		min-height: auto;
 	}

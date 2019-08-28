@@ -19,6 +19,7 @@ $suspender=0;
 $criterioFacturacion=$_POST["criterioFacturacion"];
 if (($_POST["corte"]==1 || $_POST["corte"]==15 )) {
     $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? and `ciudad` like ? and `corte` = ? and  (`activo` = 1) and (`eliminar` = 0)";
+    //echo $sqlprepared;
     $stmt = $mysqli->prepare($sqlprepared);
     $direccion="%{$_POST["address"]}%";
     $name="%{$_POST["name"]}%";
@@ -36,7 +37,8 @@ if  ($_POST["corte"]=="") {
 }
 $stmt->execute();
 $result = $stmt->get_result();
-if($result->num_rows === 0) exit("No hay resultados....");
+if($result->num_rows === 0) {exit("No hay resultados....");echo "<h1>no hay resultados</h1>"; }
+else $response_ok;
 
 echo "
 <div class=\"card-header\">	Seleccione una lista de clientes</div>
@@ -70,6 +72,7 @@ echo "
             $resultsaldo->free();
             }
         $dias_plazo=5;    
+        //echo "1:$criterioFacturacion 2:$saldo 3:$valor_factura 4:$day 5:{$row['corte']} 6:$dias_plazo <br>";
         if ($criterioFacturacion=="1") {
             if (($saldo<=$valor_factura) && ($day<= ( $row['corte'] +$dias_plazo) )  ) {
                 $saldoTotal+=$saldo; 
@@ -90,7 +93,7 @@ echo "
         
         } 
         if ($criterioFacturacion=="-1"   ) {
-            if (($saldo>0) && ($day> ( $row['corte'] +$dias_plazo) ) ) {
+            if (( ($saldo>0) && ($day> ( $row['corte'] +$dias_plazo) )) || ( ($day<=($row['corte']+$dias_plazo))&&($saldo>$valor_factura) )) {
                 $saldoTotal+=$saldo; 
                 echo"<tr>
                 
