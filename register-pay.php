@@ -214,7 +214,7 @@ else    {
 													$telefono=$row["telefono"];
 													echo "<tr class=\"text-center  \">";				
 													echo "<td> {$row["cliente"]}  {$row["apellido"]} <small class=\"px-1 border $style rounded \">$statusText</small></td>";
-													echo "<td><small>{$row["direccion"]} {$row["ciudad"]} </small></td>";
+													echo "<td><small>{$row["direccion"]} {$row["ciudad"]} -{$row['id']}</small></td>"; 
 													echo "<td>$diff</td>";
 													echo "<td><small 	$style_cell >$$vtotal</small></td>";
 													echo "<td><small>$registration_date</small></td>";

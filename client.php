@@ -197,10 +197,51 @@
 																					<div class="card-body bg-light">
 																						<div class="form-row">
 																							<div class="form-group col-md-4 ">
-																								<small>Facturación.</small>
+																								<small>Factura </small>
 																								<select class="custom-select " id="corte">
-																									<option value="1" selected>Corte 1.</option>
-																									<option value="15">Corte 15.</option>
+																									<?php 
+																									$day = date("j");
+																									if(($day>0 && $day<=10 )||($day>=19 && $day<= 31)){
+																										echo"<option selected value=\"1\" >Corte 1.</option>";
+																										echo"<option value=\"15\">Corte 15.</option>";
+																									}	
+																									else {
+																										echo"<option  value=\"1\" >Corte 1.</option>";
+																										echo"<option selected value=\"15\">Corte 15.</option>";
+																									}																						
+
+																									?>
+																								</select>
+																							</div>
+																							<div class="form-group col-md-4 ">
+																								<small>A partir de:</small>
+																								<select class="custom-select " id="corte-mes">
+																									<?php
+																									$mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+																									$monthn = date("n");
+																									$day = date("j");
+																									if ($day>0 && $day<=18) {
+																										for ($x=0;$x<=12;$x++){
+																											if ($x==$monthn) {
+																												echo "<option SELECTED value=\"$x\" >{$mes[$x]}</option>";
+																											} else {
+																												echo "<option value=\"$x\" >{$mes[$x]}</option>";
+																											}
+																											
+																										}																									
+																									}
+																									else {
+																										for ($x=0;$x<=12;$x++){
+																											if ($x==$monthn+1) {
+																												echo "<option SELECTED value=\"$x\" >{$mes[$x]}</option>";
+																											} else {
+																												echo "<option value=\"$x\" >{$mes[$x]}</option>";
+																											}
+																											
+																										}
+																									}
+																									?>
+																									
 																								</select>
 																							</div>
 																							<div class="form-group col-md-4 ">
@@ -214,8 +255,8 @@
 																								<small>Velocidad Plan.</small>
 																								<select class="custom-select " id="velocidad-plan">
 																									<option value="1">1 Mbps.</option>
-																									<option value="2" selected>2 Mbps.</option>
-																									<option value="3">3 Mbps.</option>
+																									<option value="2" >2 Mbps.</option>
+																									<option value="3" selected>3 Mbps.</option>
 																									<option value="4">4 Mbps.</option>
 																									<option value="5">5 Mbps.</option>
 																									<option value="6">6 Mbps.</option>
@@ -228,15 +269,15 @@
 																								</select>
 																							</div>
 				
-																							<div class="form-group col-md-6 ">
+																							<div class="form-group col-md-4 ">
 																								<small>Valor de Plan.</small>
-																								<input class="form-control" type="number" value="" id="valor-plan">
+																								<input class="form-control" type="number" value="50000" id="valor-plan">
 																							</div>
 																							<!-- <div class="form-group col-md-4 "> -->
 																								<!-- <small>Dirección ip.</small>				 -->
 																								<input class="form-control" type="hidden" value="" id="ip-address">
 																							<!-- </div> -->
-																							<div class="form-group col-md-6 ">
+																							<div class="form-group col-md-4 ">
 																								<small>Generar Factura</small>
 																								<select disabled class="custom-select " id="generar-factura">
 																									<option value="1" selected>Si.</option>
@@ -1271,13 +1312,14 @@
 							var phone = $("#phone").val();
 							var email = $("#email").val();
 							var corte = $("#corte").val();
+							var corteMes = $("#corte-mes").val();
 							var plan = $("#plan").val();
 							var velocidadPlan = $("#velocidad-plan").val();
 							var ipAddress = $("#ip-address").val();
 							var generarFactura = $("#generar-factura").val();
 							var valorAfiliacion = $("#valorAfiliacion").val();
 							var standby = $("#standby").val();
-							console.log('valor-plan=' + valorPlan + ' -plan=' + plan + ' -velocidadPlan=' + velocidadPlan + ' -Corte=' + corte + ' -Standby=' + standby);
+							console.log('valor-plan=' + valorPlan + ' -plan=' + plan + ' -velocidadPlan=' + velocidadPlan + ' -Corte=' + corte +'valorAfiliacion'+valorAfiliacion+ ' -Standby=' + standby);
 							alertify.confirm("Desea imprimir recibo?",
 								function() {
 									recibo = 1;
@@ -1295,6 +1337,7 @@
 											phone: phone,
 											email: email,
 											corte: corte,
+											corteMes: corteMes,
 											plan: plan,
 											velocidadPlan: velocidadPlan,
 											cedula: cedula,
@@ -1336,13 +1379,15 @@
 											phone: phone,
 											email: email,
 											corte: corte,
+											corteMes: corteMes,
 											plan: plan,
 											velocidadPlan: velocidadPlan,
 											cedula: cedula,
 											generarFactura: generarFactura,
 											ipAddress: ipAddress,
 											standby: standby,
-											recibo: recibo
+											recibo: recibo,
+											valorAfiliacion: valorAfiliacion
 										},
 										success: function(data) {
 											var result = data.split(':');

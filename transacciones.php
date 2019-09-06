@@ -181,7 +181,7 @@ else    {
 													$rowafi = $resultafi->fetch_assoc();
 													$recaudo+=$row["valor-a-pagar"];
 													echo "<tr class=\"text-center  \">";				
-													echo "<td>".$rowafi["cliente"]." ".$rowafi["apellido"]."</td>";
+													echo "<td>".$rowafi["cliente"]." ".$rowafi["apellido"]."-{$row["descripcion"]}</td>";
 													echo "<td>".$rowafi["direccion"]."</td>";
 													echo "<td>".$row["valor-a-pagar"]."</td>";
 													echo "<td class=\" align-middle \">".$row["fecha"]." ".$row["hora"]."</td>";
