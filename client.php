@@ -22,7 +22,7 @@
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
 		<link rel="stylesheet" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.min.css">
 		<link rel="stylesheet" href="bower_components/alertify/css/alertify.min.css" />
-
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css">
 		<link rel="stylesheet" href="bower_components/alertify/css/themes/default.min.css" />
 		<link rel="stylesheet" href="css/fontello.css">
 		<link rel="stylesheet" href="css/estilos.css">
@@ -42,6 +42,8 @@
 			echo "Failed to connect to MySQL: " . $mysqli->connect_error;
 		}
 		mysqli_set_charset($mysqli, "utf8");
+		$today = date("Y-m-d");
+		$hoy = date("d-m-Y");
 		?>
 		<div class="container-fluid px-0">
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top   ">
@@ -184,7 +186,7 @@
 																<div class="card" id="business-info">
 																	<!-- Modal -->
 																	<div class="modal fade" id="ClientModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-																		<div class="modal-dialog" role="document">
+																		<div class="modal-dialog modal-lg" role="document">
 																			<div class="modal-content">
 																				<div class="modal-header">
 																					<h5 class="modal-title" id="ModalLabel"></h5>
@@ -196,66 +198,71 @@
 																					<h5 class="card-header text-white bg-primary"><i class="icon-network"></i>Información de Servicio a contratar</h5>
 																					<div class="card-body bg-light">
 																						<div class="form-row">
-																							<div class="form-group col-md-4 ">
+																							<div class="form-group col-md-3 ">
+																								<small>Hoy </small>
+																								<input disabled class="form-control" type="text" value="<?php echo $hoy;  ?>" id="date-today">
+																							</div>
+																							<div class="form-group col-md-3 " data-toggle="tooltip" data-placement="top" title="Ingresa fecha de pago mensual a partir del día en que los técnicos instalen el servicio">
+																								<small id="cada-txt">Servicio mensual cada: </small>
+																								<input class="form-control" type="text" va id="date-picker">
+																							</div>
+																							<div class="form-group col-md-3 ">
 																								<small>Factura </small>
-																								<select class="custom-select " id="corte">
-																									<?php 
+
+																								<select disabled class="custom-select " id="corte">
+																									<?php
 																									$day = date("j");
-																									if(($day>0 && $day<=10 )||($day>=19 && $day<= 31)){
-																										echo"<option selected value=\"1\" >Corte 1.</option>";
-																										echo"<option value=\"15\">Corte 15.</option>";
-																									}	
-																									else {
-																										echo"<option  value=\"1\" >Corte 1.</option>";
-																										echo"<option selected value=\"15\">Corte 15.</option>";
-																									}																						
+																									if (($day > 0 && $day <= 10) || ($day >= 19 && $day <= 31)) {
+																										echo "<option selected value=\"1\" >Corte 1</option>";
+																										echo "<option value=\"15\">Corte 15</option>";
+																									} else {
+																										echo "<option  value=\"1\" >Corte 1</option>";
+																										echo "<option selected value=\"15\">Corte 15</option>";
+																									}
 
 																									?>
 																								</select>
 																							</div>
-																							<div class="form-group col-md-4 ">
+																							<div class="form-group col-md-3 ">
 																								<small>A partir de:</small>
 																								<select class="custom-select " id="corte-mes">
 																									<?php
-																									$mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+																									$mes = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 																									$monthn = date("n");
 																									$day = date("j");
-																									if ($day>0 && $day<=18) {
-																										for ($x=0;$x<=12;$x++){
-																											if ($x==$monthn) {
+																									if ($day > 0 && $day <= 18) {
+																										for ($x = 0; $x <= 12; $x++) {
+																											if ($x == $monthn) {
 																												echo "<option SELECTED value=\"$x\" >{$mes[$x]}</option>";
 																											} else {
 																												echo "<option value=\"$x\" >{$mes[$x]}</option>";
 																											}
-																											
-																										}																									
-																									}
-																									else {
-																										for ($x=0;$x<=12;$x++){
-																											if ($x==$monthn+1) {
+																										}
+																									} else {
+																										for ($x = 0; $x <= 12; $x++) {
+																											if ($x == $monthn + 1) {
 																												echo "<option SELECTED value=\"$x\" >{$mes[$x]}</option>";
 																											} else {
 																												echo "<option value=\"$x\" >{$mes[$x]}</option>";
 																											}
-																											
 																										}
 																									}
 																									?>
-																									
+
 																								</select>
 																							</div>
-																							<div class="form-group col-md-4 ">
+																							<div class="form-group col-md-3 ">
 																								<small>Tipo de Plan.</small>
 																								<select class="custom-select " id="plan">
 																									<option value="Residencial" selected>Residencial.</option>
 																									<option value="Comercial">Comercial.</option>
 																								</select>
 																							</div>
-																							<div class="form-group col-md-4 ">
+																							<div class="form-group col-md-3 ">
 																								<small>Velocidad Plan.</small>
 																								<select class="custom-select " id="velocidad-plan">
 																									<option value="1">1 Mbps.</option>
-																									<option value="2" >2 Mbps.</option>
+																									<option value="2">2 Mbps.</option>
 																									<option value="3" selected>3 Mbps.</option>
 																									<option value="4">4 Mbps.</option>
 																									<option value="5">5 Mbps.</option>
@@ -268,16 +275,16 @@
 																									<option value="20">20 Mbps.</option>
 																								</select>
 																							</div>
-				
-																							<div class="form-group col-md-4 ">
+
+																							<div class="form-group col-md-3 ">
 																								<small>Valor de Plan.</small>
 																								<input class="form-control" type="number" value="50000" id="valor-plan">
 																							</div>
 																							<!-- <div class="form-group col-md-4 "> -->
-																								<!-- <small>Dirección ip.</small>				 -->
-																								<input class="form-control" type="hidden" value="" id="ip-address">
+																							<!-- <small>Dirección ip.</small>				 -->
+																							<input class="form-control" type="hidden" value="" id="ip-address">
 																							<!-- </div> -->
-																							<div class="form-group col-md-4 ">
+																							<div class="form-group col-md-3 ">
 																								<small>Generar Factura</small>
 																								<select disabled class="custom-select " id="generar-factura">
 																									<option value="1" selected>Si.</option>
@@ -286,9 +293,9 @@
 																							</div>
 																							<div class="form-group col-md-6 ">
 																								<small>Valor de Afiliación</small>
-																								<input class="form-control" type="number" value="" id="valorAfiliacion">
+																								<input class="form-control" type="number" value="0" id="valorAfiliacion">
 																							</div>
-																							
+
 																							<div class="form-group col-md-6 ">
 																								<small>Incluye primer mes de servicio?</small>
 																								<select class="custom-select " id="standby">
@@ -297,7 +304,46 @@
 																								</select>
 																							</div>
 																						</div>
-																					</div>																					
+																						<div id="date-info" class="alert alert-secondary" role="alert">
+																							<div class="table-responsive">
+																								<table class="table table-striped table-hover table-bordered rounded" id="table-afi">
+																									<thead class="bg-primary text-light">
+																										<tr>
+																											<th>Item</th>
+																											<th>Descripción</th>
+																											<th>Valor</th>
+																											<th>Importe(Iva)</th>
+																											<th>Subtotal</th>
+																										</tr>
+																									</thead>
+																									<tbody>
+																										<tr>
+																											<td>Afiliación</th>
+																											<td id="td-afiliacion">Instalación servicio de Internet B Ancha ,equipos en alquiler.Paga los 1 de cada mes.Suspensión 6 de cada mes.</td>
+																											<td id="td-valorAfiliacion">$0</td>
+																											<td id="td-importeAfiliacion">0%</td>
+																											<td id="td-subtotalAfiliacion">$0</td>
+																										</tr>
+																										<tr id="tr-servicio">
+																											<td>Servicio</th>
+																											<td id="td-servicio">Plan mensual SEPTIEMBRE 3Mbps-Down 1Mbps-Up megas de Internet -Primer mes.</td>
+																											<td id="td-valorServicio">$0</td>
+																											<td id="td-importeServicio">0%</td>
+																											<td id="td-subtotalServicio">$0</td>
+																										</tr>
+																										<tr>
+																											<td colspan="4">
+																												<p class="text-right">Total:</p>
+																												</th>
+
+																											<td class="bg-primary text-white rounded " id="td-total"></td>
+																										</tr>
+
+																									</tbody>
+																								</table>
+																							</div>
+																						</div>
+																					</div>
 																				</div>
 																				<div class="modal-footer">
 																					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -804,7 +850,7 @@
 
 		</div>
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
 		<script src="bower_components/Popper/popper.min.js"></script>
@@ -1008,6 +1054,84 @@
 													$("#email-confirmar").addClass("border border-success");
 													$("#business-info").show();
 													$('#ClientModal').modal('toggle');
+													$("#date-picker").datepicker({
+															dateFormat: 'dd/mm/yy',
+															onSelect: function(dateText) {
+																console.log("Selected date: " + dateText);
+																var day = dateText.split('/');
+																var periodo = $("#corte-mes").val();
+																var month = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+																var vPlan = $("#velocidad-plan").val();
+																var vAfiliacion = $("#valorAfiliacion").val();
+																var percentValue = 19;
+																var valorPlan = $("#valor-plan").val();
+																var stdby = $("#standby").val();
+																if (day[0] >= 15) {
+																	$("#corte").val('15');
+																	$("#td-afiliacion").html('Instalación servicio de Internet B Ancha ,equipos en alquiler.Paga los 15 de cada mes.Suspensión 20 de cada mes.');
+																	$("#td-servicio").html('Plan mensual ' + month[periodo].toUpperCase() + ' ' + vPlan + ' Mbps Down 1.5 Up-Primer mes de servicio.');
+
+																}
+																if (day[0] >= 1 && day[0] < 15) {
+																	$("#corte").val('1');
+																	$("#td-afiliacion").html('Instalación servicio de Internet B Ancha ,equipos en alquiler.Paga los 1 de cada mes.Suspensión 6 de cada mes.');
+																	$("#td-servicio").html('Plan mensual desde  ' + month[periodo].toUpperCase() + ' -' + vPlan + ' Mbps Down 1.5 Mbps Up-Primer mes de servicio.');
+																}
+
+																if (stdby == 1) { //se pagan ambas cosas de una ves, pero se discriminan en la factura.
+																	var importeAfiliacion = (parseInt(vAfiliacion) - parseInt(valorPlan)) * (percentValue / 100); //Iva
+																	var baseGravableAfiliacion = parseInt(vAfiliacion) - parseInt(valorPlan) - importeAfiliacion;
+																	var subtotalAfiliacion = importeAfiliacion + baseGravableAfiliacion;
+																	var importeServicio = parseInt(valorPlan) * (percentValue / 100); //Iva
+																	var baseGravableServicio = parseInt(valorPlan) - importeServicio;
+																	var subtotalServicio = baseGravableServicio + importeServicio;
+																	
+
+																	if(vAfiliacion==0 && valorPlan>0){
+																	$("#td-valorAfiliacion").html('$0');
+																	$("#td-importeAfiliacion").html("%");
+																	$("#td-subtotalAfiliacion").html("$0");
+																	$("#td-valorServicio").html("$" + baseGravableServicio);
+																	$("#td-importeServicio").html(percentValue+"% $"+importeServicio); 
+																	$("#td-subtotalServicio").html("$" + subtotalServicio);
+																	$("#tr-servicio").removeClass("table-danger");
+																	var valorTotal = parseInt(vAfiliacion);																	
+																	$("#td-total").html("$" + valorPlan);
+																	}
+																	if(vAfiliacion>0){																	
+																	$("#td-valorAfiliacion").html('$' + baseGravableAfiliacion);
+																	$("#td-importeAfiliacion").html(percentValue+"% $"+importeAfiliacion);
+																	$("#td-subtotalAfiliacion").html("$" + subtotalAfiliacion);
+																	$("#td-valorServicio").html("$" + baseGravableServicio);
+																	$("#td-importeServicio").html(percentValue+"% $"+importeServicio); 
+																	$("#td-subtotalServicio").html("$" + subtotalServicio);
+																	$("#tr-servicio").removeClass("table-danger");
+																	var valorTotal = parseInt(vAfiliacion);																	
+																	$("#td-total").html("$" + valorTotal);	
+																	}
+																}
+																if (stdby == 0) {
+																	var valorTotal = parseInt(vAfiliacion);																	
+																	$("#td-total").html("$" + valorTotal);
+																	var importeAfiliacion = parseInt(vAfiliacion) * (percentValue / 100); //Iva
+																	var baseGravableAfiliacion = parseInt(vAfiliacion) - importeAfiliacion;
+																	var subtotalAfiliacion = importeAfiliacion + baseGravableAfiliacion;
+																	var importeServicio = parseInt(valorPlan) * (percentValue / 100); //Iva
+																	var baseGravableServicio = parseInt(valorPlan) - importeServicio;
+																	var subtotalServicio = baseGravableServicio + importeServicio;																	
+																	if(vAfiliacion>0){
+																	$("#td-valorAfiliacion").html('$' + baseGravableAfiliacion);
+																	$("#td-importeAfiliacion").html(percentValue+"% $"+importeAfiliacion);
+																	$("#td-subtotalAfiliacion").html("$" + subtotalAfiliacion);
+																	$("#td-valorServicio").html("$" + baseGravableServicio);
+																	$("#td-importeServicio").html(percentValue+"% $"+importeServicio);
+																	$("#td-subtotalServicio").html("$"+subtotalServicio + " Pendiente de pago");
+																	$("#tr-servicio").addClass("table-danger");
+																	}
+																}
+
+																}
+															});
 												} else {
 													alertify.error('Confirmación de email incorrecto');
 													$("#email-confirmar").addClass("border border-danger");
@@ -1044,7 +1168,8 @@
 					alertify.error('Nombre incorrecto');
 					$("#name").addClass("border border-danger");
 				}
-			})
+			}) 
+			
 			$(".datatable_Table_clientes_cte1_retrasados").on('click', '.updateTelAtrasado', function() {
 				var id = $(this).attr('id');
 				console.log($(this).attr('id'));
@@ -1319,7 +1444,7 @@
 							var generarFactura = $("#generar-factura").val();
 							var valorAfiliacion = $("#valorAfiliacion").val();
 							var standby = $("#standby").val();
-							console.log('valor-plan=' + valorPlan + ' -plan=' + plan + ' -velocidadPlan=' + velocidadPlan + ' -Corte=' + corte +'valorAfiliacion'+valorAfiliacion+ ' -Standby=' + standby);
+							console.log('valor-plan=' + valorPlan + ' -plan=' + plan + ' -velocidadPlan=' + velocidadPlan + ' -Corte=' + corte + 'valorAfiliacion' + valorAfiliacion + ' -Standby=' + standby);
 							alertify.confirm("Desea imprimir recibo?",
 								function() {
 									recibo = 1;
