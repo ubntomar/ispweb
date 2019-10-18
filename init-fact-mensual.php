@@ -11,7 +11,7 @@ $today = date("Y-m-d");
 $convertdate= date("d-m-Y" , strtotime($today));
 $mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 $monthn = date("n");//******************IMPORTANTE****Y REVISAR LOS STAND BY*****************************************---------
-$periodo=$mes[9];// hoy 02 de Septiembre  de 2019 aquí pongo el mes al que le voy a crear la tanda de facturas a todos los afiliados.
+$periodo=$mes[10];// hoy 01 de Octubre  de 2019 aquí pongo el mes al que le voy a crear la tanda de facturas a todos los afiliados.
 															//28 02 2017 agrago and activo  31 05 2018 OJO revisar los stand by antiguos para pasarlos a 0
 $sql = "SELECT * FROM `afiliados` WHERE `mesenmora` != -1 AND `activo`=1 AND `suspender`!=1 AND `eliminar`!=1 AND `standby`!=1 ORDER BY `id` ASC ";
 if ($result = $mysqli->query($sql)) {

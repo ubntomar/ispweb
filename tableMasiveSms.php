@@ -98,7 +98,7 @@ echo "
                 echo"<tr>
                 
                 <td>{$row['id']}</td>
-                <td>{$row['cliente']} {$row['apellido']}</td>
+                <td>{$row['cliente']} {$row['apellido']}({$row['id']})</td>
                 <td>{$row['direccion']}</td>
                 
                 <td>{$row['corte']}</td>

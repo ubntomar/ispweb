@@ -198,18 +198,22 @@
 																					<h5 class="card-header text-white bg-primary"><i class="icon-network"></i>Información de Servicio a contratar</h5>
 																					<div class="card-body bg-light">
 																						<div class="form-row">
-																							<div class="form-group col-md-3 ">
+																							<div class="form-group col-md-2    ">
 																								<small>Hoy </small>
 																								<input disabled class="form-control" type="text" value="<?php echo $hoy;  ?>" id="date-today">
-																							</div>
-																							<div class="form-group col-md-3 " data-toggle="tooltip" data-placement="top" title="Ingresa fecha de pago mensual a partir del día en que los técnicos instalen el servicio">
-																								<small id="cada-txt">Servicio mensual cada: </small>
-																								<input class="form-control" type="text" va id="date-picker">
-																							</div>
-																							<div class="form-group col-md-3 ">
-																								<small>Factura </small>
 
-																								<select disabled class="custom-select " id="corte">
+																							</div>
+																							<div class="form-group col-md-6  border border-info rounded " id="div-sm" data-toggle="tooltip" data-placement="top" title="Ingresa fecha de pago mensual a partir del día en que los técnicos instalen el servicio">
+																								<small id="cada-txt">Servicio mensual cada: </small>
+																								<input class="form-control" type="text" id="date-picker">
+																								<div class="form-group form-check">
+																									<input type="checkbox" class="form-check-input" id="left-day">
+																									<small class="text-info" id="left-day-text"></small>
+																								</div>
+																							</div>
+																							<div class="form-group col-md-2   ">
+																								<small>Factura </small>
+																								<select class="custom-select " id="corte">
 																									<?php
 																									$day = date("j");
 																									if (($day > 0 && $day <= 10) || ($day >= 19 && $day <= 31)) {
@@ -222,27 +226,33 @@
 
 																									?>
 																								</select>
+
 																							</div>
-																							<div class="form-group col-md-3 ">
+																							<div class="form-group col-md-2   ">
 																								<small>A partir de:</small>
 																								<select class="custom-select " id="corte-mes">
 																									<?php
 																									$mes = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-																									$monthn = date("n");
+																									$month = date("n");
+																									if ($month == 12)
+																										$nexxtMonth = 1;
+																									else $nexxtMonth = $month + 1;
 																									$day = date("j");
 																									if ($day > 0 && $day <= 18) {
 																										for ($x = 0; $x <= 12; $x++) {
-																											if ($x == $monthn) {
+																											if ($x == $month) {
 																												echo "<option SELECTED value=\"$x\" >{$mes[$x]}</option>";
-																											} else {
+																											}
+																											if ($x == $nexxtMonth) {
 																												echo "<option value=\"$x\" >{$mes[$x]}</option>";
 																											}
 																										}
 																									} else {
 																										for ($x = 0; $x <= 12; $x++) {
-																											if ($x == $monthn + 1) {
+																											if ($x == $month + 1) {
 																												echo "<option SELECTED value=\"$x\" >{$mes[$x]}</option>";
-																											} else {
+																											}
+																											if ($x == $month) {
 																												echo "<option value=\"$x\" >{$mes[$x]}</option>";
 																											}
 																										}
@@ -250,6 +260,7 @@
 																									?>
 
 																								</select>
+
 																							</div>
 																							<div class="form-group col-md-3 ">
 																								<small>Tipo de Plan.</small>
@@ -277,7 +288,7 @@
 																							</div>
 
 																							<div class="form-group col-md-3 ">
-																								<small>Valor de Plan.</small>
+																								<small>Valor de Plan mensual.</small>
 																								<input class="form-control" type="number" value="50000" id="valor-plan">
 																							</div>
 																							<!-- <div class="form-group col-md-4 "> -->
@@ -291,17 +302,27 @@
 																									<option value="0">No.</option>
 																								</select>
 																							</div>
-																							<div class="form-group col-md-6 ">
+																							<div class="form-group col-md-3 border border-info rounded">
 																								<small>Valor de Afiliación</small>
 																								<input class="form-control" type="number" value="0" id="valorAfiliacion">
+																								<div class="form-group form-check mb-0" id="standbyDiv">
+																									<input type="checkbox" class="form-check-input" value="0" id="standby">
+																									<small class="text-info">Valor afililiación incluye valor factura de servicio?.</small>
+																								</div>
+																								
+																							</div>
+																							<div class="form-group col-md-3 border border-info rounded ml-1">
+																								<small>Total Prorrateo </small>
+																								<input class="form-control" type="number" value="" id="valorProrrateo">
 																							</div>
 
-																							<div class="form-group col-md-6 ">
-																								<small>Incluye primer mes de servicio?</small>
-																								<select class="custom-select " id="standby">
-																									<option value="1">Si.(#StandBy=1)</option>
-																									<option value="0" selected>No.(#StandBy=0)</option>
-																								</select>
+																							<div class="form-group col-md-3 border border-info rounded ml-1">
+																								<small>Valor adicional de Servicio </small>
+																								<input class="form-control" type="number" value="" id="valorAdicionalServicio">
+																							</div>
+																							<div class="form-group col-md-3 border border-info rounded ml-1">
+																								<small>Total de la factura </small>
+																								<input class="form-control" type="number" value="" id="valorA-pagar">
 																							</div>
 																						</div>
 																						<div id="date-info" class="alert alert-secondary" role="alert">
@@ -309,6 +330,7 @@
 																								<table class="table table-striped table-hover table-bordered rounded" id="table-afi">
 																									<thead class="bg-primary text-light">
 																										<tr>
+																											<th></th>
 																											<th>Item</th>
 																											<th>Descripción</th>
 																											<th>Valor</th>
@@ -318,21 +340,31 @@
 																									</thead>
 																									<tbody>
 																										<tr>
-																											<td>Afiliación</th>
+																											<td></td>
+																											<td>Afiliación</td>
 																											<td id="td-afiliacion">Instalación servicio de Internet B Ancha ,equipos en alquiler.Paga los 1 de cada mes.Suspensión 6 de cada mes.</td>
 																											<td id="td-valorAfiliacion">$0</td>
 																											<td id="td-importeAfiliacion">0%</td>
 																											<td id="td-subtotalAfiliacion">$0</td>
 																										</tr>
 																										<tr id="tr-servicio">
-																											<td>Servicio</th>
-																											<td id="td-servicio">Plan mensual SEPTIEMBRE 3Mbps-Down 1Mbps-Up megas de Internet -Primer mes.</td>
+																											<td></td>
+																											<td>Servicio</td>
+																											<td id="td-servicio">Plan mensual 3Mbps-Down 1Mbps-Up megas de Internet -Primer mes.</td>
 																											<td id="td-valorServicio">$0</td>
 																											<td id="td-importeServicio">0%</td>
 																											<td id="td-subtotalServicio">$0</td>
 																										</tr>
+																										<tr id="tr-prorrateo" class="table-danger">
+																											<td class="px-1"></td>
+																											<td>Días de Servicio</td>
+																											<td id="td-servicio-prorrateo">12 Dias desde 18 Septiembre a 30 de Septiembre</td>
+																											<td id="td-valorServicio-prorrateo">$12150</td>
+																											<td id="td-importeServicio-prorrateo">19% $2850</td>
+																											<td id="td-subtotalServicio-prorrateo">$15000</td>
+																										</tr>
 																										<tr>
-																											<td colspan="4">
+																											<td colspan="5">
 																												<p class="text-right">Total:</p>
 																												</th>
 
@@ -1054,84 +1086,7 @@
 													$("#email-confirmar").addClass("border border-success");
 													$("#business-info").show();
 													$('#ClientModal').modal('toggle');
-													$("#date-picker").datepicker({
-															dateFormat: 'dd/mm/yy',
-															onSelect: function(dateText) {
-																console.log("Selected date: " + dateText);
-																var day = dateText.split('/');
-																var periodo = $("#corte-mes").val();
-																var month = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-																var vPlan = $("#velocidad-plan").val();
-																var vAfiliacion = $("#valorAfiliacion").val();
-																var percentValue = 19;
-																var valorPlan = $("#valor-plan").val();
-																var stdby = $("#standby").val();
-																if (day[0] >= 15) {
-																	$("#corte").val('15');
-																	$("#td-afiliacion").html('Instalación servicio de Internet B Ancha ,equipos en alquiler.Paga los 15 de cada mes.Suspensión 20 de cada mes.');
-																	$("#td-servicio").html('Plan mensual ' + month[periodo].toUpperCase() + ' ' + vPlan + ' Mbps Down 1.5 Up-Primer mes de servicio.');
-
-																}
-																if (day[0] >= 1 && day[0] < 15) {
-																	$("#corte").val('1');
-																	$("#td-afiliacion").html('Instalación servicio de Internet B Ancha ,equipos en alquiler.Paga los 1 de cada mes.Suspensión 6 de cada mes.');
-																	$("#td-servicio").html('Plan mensual desde  ' + month[periodo].toUpperCase() + ' -' + vPlan + ' Mbps Down 1.5 Mbps Up-Primer mes de servicio.');
-																}
-
-																if (stdby == 1) { //se pagan ambas cosas de una ves, pero se discriminan en la factura.
-																	var importeAfiliacion = (parseInt(vAfiliacion) - parseInt(valorPlan)) * (percentValue / 100); //Iva
-																	var baseGravableAfiliacion = parseInt(vAfiliacion) - parseInt(valorPlan) - importeAfiliacion;
-																	var subtotalAfiliacion = importeAfiliacion + baseGravableAfiliacion;
-																	var importeServicio = parseInt(valorPlan) * (percentValue / 100); //Iva
-																	var baseGravableServicio = parseInt(valorPlan) - importeServicio;
-																	var subtotalServicio = baseGravableServicio + importeServicio;
-																	
-
-																	if(vAfiliacion==0 && valorPlan>0){
-																	$("#td-valorAfiliacion").html('$0');
-																	$("#td-importeAfiliacion").html("%");
-																	$("#td-subtotalAfiliacion").html("$0");
-																	$("#td-valorServicio").html("$" + baseGravableServicio);
-																	$("#td-importeServicio").html(percentValue+"% $"+importeServicio); 
-																	$("#td-subtotalServicio").html("$" + subtotalServicio);
-																	$("#tr-servicio").removeClass("table-danger");
-																	var valorTotal = parseInt(vAfiliacion);																	
-																	$("#td-total").html("$" + valorPlan);
-																	}
-																	if(vAfiliacion>0){																	
-																	$("#td-valorAfiliacion").html('$' + baseGravableAfiliacion);
-																	$("#td-importeAfiliacion").html(percentValue+"% $"+importeAfiliacion);
-																	$("#td-subtotalAfiliacion").html("$" + subtotalAfiliacion);
-																	$("#td-valorServicio").html("$" + baseGravableServicio);
-																	$("#td-importeServicio").html(percentValue+"% $"+importeServicio); 
-																	$("#td-subtotalServicio").html("$" + subtotalServicio);
-																	$("#tr-servicio").removeClass("table-danger");
-																	var valorTotal = parseInt(vAfiliacion);																	
-																	$("#td-total").html("$" + valorTotal);	
-																	}
-																}
-																if (stdby == 0) {
-																	var valorTotal = parseInt(vAfiliacion);																	
-																	$("#td-total").html("$" + valorTotal);
-																	var importeAfiliacion = parseInt(vAfiliacion) * (percentValue / 100); //Iva
-																	var baseGravableAfiliacion = parseInt(vAfiliacion) - importeAfiliacion;
-																	var subtotalAfiliacion = importeAfiliacion + baseGravableAfiliacion;
-																	var importeServicio = parseInt(valorPlan) * (percentValue / 100); //Iva
-																	var baseGravableServicio = parseInt(valorPlan) - importeServicio;
-																	var subtotalServicio = baseGravableServicio + importeServicio;																	
-																	if(vAfiliacion>0){
-																	$("#td-valorAfiliacion").html('$' + baseGravableAfiliacion);
-																	$("#td-importeAfiliacion").html(percentValue+"% $"+importeAfiliacion);
-																	$("#td-subtotalAfiliacion").html("$" + subtotalAfiliacion);
-																	$("#td-valorServicio").html("$" + baseGravableServicio);
-																	$("#td-importeServicio").html(percentValue+"% $"+importeServicio);
-																	$("#td-subtotalServicio").html("$"+subtotalServicio + " Pendiente de pago");
-																	$("#tr-servicio").addClass("table-danger");
-																	}
-																}
-
-																}
-															});
+													vistaModal();
 												} else {
 													alertify.error('Confirmación de email incorrecto');
 													$("#email-confirmar").addClass("border border-danger");
@@ -1168,8 +1123,8 @@
 					alertify.error('Nombre incorrecto');
 					$("#name").addClass("border border-danger");
 				}
-			}) 
-			
+			})
+
 			$(".datatable_Table_clientes_cte1_retrasados").on('click', '.updateTelAtrasado', function() {
 				var id = $(this).attr('id');
 				console.log($(this).attr('id'));
@@ -1422,132 +1377,140 @@
 				var afiliacion = $("#valorAfiliacion").val();
 				if ($.isNumeric(afiliacion)) {
 					$('#valorAfiliacion').removeClass("border border-danger");
-					if (validEmail($("#email").val())) {
-						$('#mail').removeClass("border border-danger");
-						var valorPlan = $("#valor-plan").val();
-						if ($.isNumeric(valorPlan) && (valorPlan != "")) {
-							$("#valor-plan").removeClass("border border-danger");
-							var recibo = 0;
-							var name = $("#name").val();
-							var lastName = $("#last-name").val();
-							var cedula = $("#cedula").val();
-							var address = $("#address").val();
-							var ciudad = $("#ciudad").val();
-							var departamento = $("#departamento").val();
-							var phone = $("#phone").val();
-							var email = $("#email").val();
-							var corte = $("#corte").val();
-							var corteMes = $("#corte-mes").val();
-							var plan = $("#plan").val();
-							var velocidadPlan = $("#velocidad-plan").val();
-							var ipAddress = $("#ip-address").val();
-							var generarFactura = $("#generar-factura").val();
-							var valorAfiliacion = $("#valorAfiliacion").val();
-							var standby = $("#standby").val();
-							console.log('valor-plan=' + valorPlan + ' -plan=' + plan + ' -velocidadPlan=' + velocidadPlan + ' -Corte=' + corte + 'valorAfiliacion' + valorAfiliacion + ' -Standby=' + standby);
-							alertify.confirm("Desea imprimir recibo?",
-								function() {
-									recibo = 1;
+					var valorPlan = $("#valor-plan").val();
+					var fecha = $("#date-picker").val();
+					if (validDate(fecha)) {
+						$("#date-picker").removeClass("border border-danger");
+						var standby = $("#standby").val();
 
-									$.ajax({
-										type: 'post',
-										url: 'new_cli.php',
-										data: {
-											valorPlan: valorPlan,
-											name: name,
-											lastName: lastName,
-											address: address,
-											ciudad: ciudad,
-											departamento: departamento,
-											phone: phone,
-											email: email,
-											corte: corte,
-											corteMes: corteMes,
-											plan: plan,
-											velocidadPlan: velocidadPlan,
-											cedula: cedula,
-											generarFactura: generarFactura,
-											ipAddress: ipAddress,
-											standby: standby,
-											recibo: recibo,
-											valorAfiliacion: valorAfiliacion
-										},
-										success: function(data) {
-											var result = data.split(':');
-											var idCl = result[0];
-											var messag = result[1];
-											alertify.success(messag);
-											if (recibo == 1) {
-												if (idCl != 'Error') {
-													window.location.href = 'recibo_new_cli.php?rpp=1&idc=' + idCl;
+						if (subtotal()) {
+							if ($.isNumeric(valorPlan) && (valorPlan != "0")) {
+								$("#valor-plan").removeClass("border border-danger");
+								var recibo = 0;
+								var name = $("#name").val();
+								var lastName = $("#last-name").val();
+								var cedula = $("#cedula").val();
+								var address = $("#address").val();
+								var ciudad = $("#ciudad").val();
+								var departamento = $("#departamento").val();
+								var phone = $("#phone").val();
+								var email = $("#email").val();
+								var corte = $("#corte").val();
+								var corteMes = $("#corte-mes").val();
+								var plan = $("#plan").val();
+								var velocidadPlan = $("#velocidad-plan").val();
+								var ipAddress = $("#ip-address").val();
+								var generarFactura = $("#generar-factura").val();
+								var valorAfiliacion = $("#valorAfiliacion").val();
+								var standby = $("#standby").val();
+								console.log('valor-plan=' + valorPlan + ' -plan=' + plan + ' -velocidadPlan=' + velocidadPlan + ' -Corte=' + corte + 'valorAfiliacion' + valorAfiliacion + ' -Standby=' + standby);
+								alertify.confirm("Desea imprimir recibo?",
+									function() {
+										recibo = 1;
+
+										$.ajax({
+											type: 'post',
+											url: 'new_cli.php',
+											data: {
+												valorPlan: valorPlan,
+												name: name,
+												lastName: lastName,
+												address: address,
+												ciudad: ciudad,
+												departamento: departamento,
+												phone: phone,
+												email: email,
+												corte: corte,
+												corteMes: corteMes,
+												plan: plan,
+												velocidadPlan: velocidadPlan,
+												cedula: cedula,
+												generarFactura: generarFactura,
+												ipAddress: ipAddress,
+												standby: standby,
+												recibo: recibo,
+												valorAfiliacion: valorAfiliacion
+											},
+											success: function(data) {
+												var result = data.split(':');
+												var idCl = result[0];
+												var messag = result[1];
+												alertify.success(messag);
+												if (recibo == 1) {
+													if (idCl != 'Error') {
+														window.location.href = 'recibo_new_cli.php?rpp=1&idc=' + idCl;
+													}
 												}
+
+
 											}
+										});
 
+									},
+									function() {
+										recibo = 1;
 
-										}
-									});
-
-								},
-								function() {
-									recibo = 1;
-
-									$.ajax({
-										type: 'post',
-										url: 'new_cli.php',
-										data: {
-											valorPlan: valorPlan,
-											name: name,
-											lastName: lastName,
-											address: address,
-											ciudad: ciudad,
-											departamento: departamento,
-											phone: phone,
-											email: email,
-											corte: corte,
-											corteMes: corteMes,
-											plan: plan,
-											velocidadPlan: velocidadPlan,
-											cedula: cedula,
-											generarFactura: generarFactura,
-											ipAddress: ipAddress,
-											standby: standby,
-											recibo: recibo,
-											valorAfiliacion: valorAfiliacion
-										},
-										success: function(data) {
-											var result = data.split(':');
-											var idCl = result[0];
-											var messag = result[1];
-											alertify.success(messag);
-											if (recibo != 1) {
-												if (idCl != 'Error') {
-													window.location.href = 'recibos.php?rpp=1&idc=' + idCl;
+										$.ajax({
+											type: 'post',
+											url: 'new_cli.php',
+											data: {
+												valorPlan: valorPlan,
+												name: name,
+												lastName: lastName,
+												address: address,
+												ciudad: ciudad,
+												departamento: departamento,
+												phone: phone,
+												email: email,
+												corte: corte,
+												corteMes: corteMes,
+												plan: plan,
+												velocidadPlan: velocidadPlan,
+												cedula: cedula,
+												generarFactura: generarFactura,
+												ipAddress: ipAddress,
+												standby: standby,
+												recibo: recibo,
+												valorAfiliacion: valorAfiliacion
+											},
+											success: function(data) {
+												var result = data.split(':');
+												var idCl = result[0];
+												var messag = result[1];
+												alertify.success(messag);
+												if (recibo != 1) {
+													if (idCl != 'Error') {
+														window.location.href = 'recibos.php?rpp=1&idc=' + idCl;
+													}
+												} else {
+													$('#ClientModal').modal('hide');
+													$('#new_client_registration').removeClass("active");
+													$('#new_client_registration_content').hide();
+													$('#sms_notification').removeClass("active");
+													$('#sms_notification_content').hide();
+													$('#active_client_currently').addClass("active");
+													$('#active_client_currently_content').show();
 												}
-											} else {
-												$('#ClientModal').modal('hide');
-												$('#new_client_registration').removeClass("active");
-												$('#new_client_registration_content').hide();
-												$('#sms_notification').removeClass("active");
-												$('#sms_notification_content').hide();
-												$('#active_client_currently').addClass("active");
-												$('#active_client_currently_content').show();
-											}
 
-										}
-									});
-								}
-							).set('labels', {
-								ok: 'Sí',
-								cancel: 'No'
-							});
+											}
+										});
+									}
+								).set('labels', {
+									ok: 'Sí',
+									cancel: 'No'
+								});
+							} else {
+								$("#valor-plan").addClass("border border-danger");
+
+							}
 						} else {
-							$("#valor-plan").addClass("border border-danger");
-							alertify.error("valor Incorrecto");
+							alertify.error("valor Afiliación no puede ser menor que el valor del plan en este caso!");
 						}
 					} else {
-						$("#email").addClass("border border-danger");
-						alertify.error("Email Incorrecto");
+						$("#date-picker").addClass("border border-danger");
+						alertify.error("Fecha servicio incorrecta");
 					}
+
 				} else {
 					$("#valorAfiliacion").addClass("border border-danger");
 					alertify.error("valor Afiliacion Incorrecto");
@@ -1556,7 +1519,6 @@
 			});
 
 
-			var ct = 0;
 			$('#sms_masivo_btn_buscar').click(function() {
 				//$('#criterios_content').hide();
 				$('#spinner-buscar').addClass('spinner-border');
@@ -1570,8 +1532,7 @@
 				var corte = $("#payment_date").val();
 				var criterioFacturacion = $("#client_state").val();
 
-				ct += 1;
-				console.log('Nombres=' + name + ' -direccion=' + address + ' -ciudad=' + ciudad + ' -Corte=' + corte + '-cont=' + ct);
+				console.log('Nombres=' + name + ' -direccion=' + address + ' -ciudad=' + ciudad + ' -Corte=' + corte);
 				$.ajax({
 					type: 'post',
 					url: 'tableMasiveSms.php',
@@ -1643,12 +1604,443 @@
 
 			});
 
+			$("#corte-mes").on('change', function() {
+				console.log($("#corte-mes").val());
+				invoicegenerator();
+			});
+			$("#standby").on('change', function() {
+				if ($('#standby').is(":checked")) {
+					$("#standby").val(1);
+					$('#afiliacionProrrateoDiv').show();
+				} else {
+					$("#standby").val(0);
+					$('#afiliacionProrrateoDiv').hide();
+				}
+				console.log("standby checbox:" + $("#standby").val());
+				invoicegenerator();
+			});
+			$("#left-day").on('change', function() {
+				if ($("#left-day").is(":checked")) {
+					prorrateorow();
+					$("#tr-prorrateo").show();
+					$("#afiliacion-prorrateo").show();
 
 
+
+				} else {
+					prorrateorow();
+					$("#tr-prorrateo").hide();
+					$("#afiliacion-prorrateo").hide();
+					$("#valorA-pagar").val($('#valorAfiliacion').val());
+					$("#valorProrrateo").val(0);
+
+				}
+
+			});
+			$("#afiliacion-prorrateo").on('change', function() {
+				if ($('#afiliacion-prorrateo').is(":checked")) {
+					$("#afiliacion-prorrateo").val(1);
+				} else {
+					$("#afiliacion-prorrateo").val(0);
+				}
+				console.log("afiliacion-prorrateo checbox:" + $("#afiliacion-prorrateo").val());
+				invoicegenerator();
+			});
+			$("#plan").on('change', function() {
+				invoicegenerator();
+			});
+			$("#velocidad-plan").on('change', function() {
+				invoicegenerator();
+			});
+			$("#valor-plan").keyup(function() {
+				var valorPlan = $("#valor-plan").val();
+				if (parseInt(valorPlan)) {					
+					invoicegenerator();
+				} else {
+					$("#valor-plan").val("");
+					alertify.error("Solo se adminten valores numéricos en el valor del plan!")
+				}
+			});
+			$("#valorAfiliacion").keyup(function() {
+				afiliacionDivItems();
+				invoicegenerator();
+			});
+
+			function afiliacionDivItems() {
+				var afiliacion = parseInt($("#valorAfiliacion").val());
+				var valorPlan = parseInt($("#valor-plan").val());
+				var fecha = $("#date-picker").val();
+				console.log("valor afiliacion:" + afiliacion + " valor plan :" + valorPlan + "fecha:" + fecha);
+				if (afiliacion >= valorPlan) {
+					if (fecha != "") {
+						$("#standbyDiv").show();
+					}
+
+				} else if (afiliacion < valorPlan) {
+					$("#standbyDiv").hide();
+
+
+				}
+			}
+
+			function subtotal() {
+				var valorPlan = $("#valor-plan").val();
+				var vAfiliacion = $("#valorAfiliacion").val();
+				var percentValue = iva();
+				var importeAfiliacion = (parseInt(vAfiliacion) - parseInt(valorPlan)) * (percentValue / 100); //Iva
+				var baseGravableAfiliacion = parseInt(vAfiliacion) - parseInt(valorPlan) - importeAfiliacion;
+				var subtotalAfiliacion = importeAfiliacion + baseGravableAfiliacion;
+				var standby = $("#standby").val();
+				if (standby == 0)
+					return true;
+				if (standby == 1 && subtotalAfiliacion >= 0)
+					return true;
+				return false;
+			}
+
+			function vistaModal() {
+				var date = new Date();
+				var currentDay = parseInt(date.getDate());
+				var minDay = (currentDay - 1) * -1;
+				$("#tr-prorrateo").hide();
+				$("#left-day").hide();
+				$("#afiliacionProrrateoDiv").hide();
+				$("#div-sm").toggleClass("border");
+				afiliacionDivItems();
+				$("#date-picker").datepicker({
+					dateFormat: 'dd/mm/yy',
+					minDate: minDay,
+					maxDate: 30,
+					onSelect: function(dateText) {
+						prorrateorow();
+						invoicegenerator();
+					}
+				});
+			}
+
+			function invoicegenerator() {
+				var vPlan = $("#velocidad-plan").val();
+				var dateText = $("#date-picker").val();
+				afiliacionDivItems();
+				//prorrateorow();
+				var day = dateText.split('/');
+				var periodo = $("#corte-mes").val();
+				var month = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+				if (parseInt($("#corte").val()) == 15) {
+					$("#td-afiliacion").html('Instalación servicio de Internet B Ancha ,equipos en alquiler.<br><strong>Paga los 15 de cada mes</strong>.<br>Suspensión 20 de cada mes.');
+					$("#td-servicio").html('Plan mensual ' + month[periodo].toUpperCase() + ' ' + vPlan + ' Mbps Download <br>1.5 Upload <br>Primer mes de servicio.');
+
+				}
+				if (parseInt($("#corte").val()) == 1) {
+					$("#td-afiliacion").html('Instalación servicio de Internet B Ancha ,equipos en alquiler.<br><strong>Paga los 1 de cada mes</strong>.<br>Suspensión 6 de cada mes.');
+					$("#td-servicio").html('Plan mensual  ' + month[periodo].toUpperCase() + '<br>' + vPlan + ' Mbps Download <br>1.5 Mbps Upload <br>Primer mes de servicio.');
+				}
+				var vAfiliacion = $("#valorAfiliacion").val();
+				var percentValue = iva();
+				var valorPlan = $("#valor-plan").val();
+				if ($('#standby').is(":checked")) {
+					var stdby = 1;
+				}
+				else{
+					var stdby = 0;
+				}
+				
+				if (stdby == 1) { //se pagan ambas cosas de una ves, pero se discriminan en la factura.
+					var importeAfiliacion = (parseInt(vAfiliacion) - parseInt(valorPlan)) * (percentValue / 100); //Iva
+					var baseGravableAfiliacion = parseInt(vAfiliacion) - parseInt(valorPlan) - importeAfiliacion;
+					var subtotalAfiliacion = importeAfiliacion + baseGravableAfiliacion;
+					var importeServicio = parseInt(valorPlan) * (percentValue / 100); //Iva
+					var baseGravableServicio = parseInt(valorPlan) - importeServicio;
+					var subtotalServicio = baseGravableServicio + importeServicio;
+
+
+					if (vAfiliacion == 0 && valorPlan > 0) {
+						$("#td-valorAfiliacion").html('$0');
+						$("#td-importeAfiliacion").html("%");
+						$("#td-subtotalAfiliacion").html("$0");
+						$("#td-valorServicio").html("$" + baseGravableServicio);
+						$("#td-importeServicio").html(percentValue + "% $" + importeServicio);
+						$("#td-subtotalServicio").html("$" + subtotalServicio);
+						$("#tr-servicio").removeClass("table-danger");
+						var valorTotal = parseInt(vAfiliacion);
+						$("#td-total").html("$" + valorPlan);
+						$("#valorA-pagar").val(valorPlan);
+						//$("#valorServicio").val(subtotalServicio);
+
+					}
+					if (vAfiliacion > 0) {
+						$("#td-valorAfiliacion").html('$' + baseGravableAfiliacion);
+						$("#td-importeAfiliacion").html(percentValue + "% $" + importeAfiliacion);
+						$("#td-subtotalAfiliacion").html("$" + subtotalAfiliacion);
+						$("#td-valorServicio").html("$" + baseGravableServicio);
+						$("#td-importeServicio").html(percentValue + "% $" + importeServicio);
+						$("#td-subtotalServicio").html("$" + subtotalServicio);
+						$("#tr-servicio").removeClass("table-danger");
+						var valorTotal = parseInt(vAfiliacion);
+						$("#td-total").html("$" + valorTotal);
+						$("#valorA-pagar").val(valorTotal);
+						
+					}
+				}
+				if (stdby == 0) {
+					var valorTotal = parseInt(vAfiliacion);
+					$("#td-total").html("$" + valorTotal);
+					$("#valorA-pagar").val(valorTotal);
+					var importeAfiliacion = parseInt(vAfiliacion) * (percentValue / 100); //Iva
+					var baseGravableAfiliacion = parseInt(vAfiliacion) - importeAfiliacion;
+					var subtotalAfiliacion = importeAfiliacion + baseGravableAfiliacion;
+					var importeServicio = parseInt(valorPlan) * (percentValue / 100); //Iva
+					var baseGravableServicio = parseInt(valorPlan) - importeServicio;
+					var subtotalServicio = baseGravableServicio + importeServicio;
+					if (vAfiliacion == 0) {
+						$("#td-valorAfiliacion").html('$0');
+						$("#td-importeAfiliacion").html("%");
+						$("#td-subtotalAfiliacion").html("$0");
+						$("#td-valorServicio").html("$" + baseGravableServicio);
+						$("#td-importeServicio").html(percentValue + "% $" + importeServicio);
+						$("#td-subtotalServicio").html("$" + subtotalServicio + "<br><strong>Pendiente de pago</strong>");
+						$("#tr-servicio").addClass("table-danger");
+					}
+					if (vAfiliacion > 0) {
+						$("#td-valorAfiliacion").html('$' + baseGravableAfiliacion);
+						$("#td-importeAfiliacion").html(percentValue + "% $" + importeAfiliacion);
+						$("#td-subtotalAfiliacion").html("$" + subtotalAfiliacion);
+						$("#td-valorServicio").html("$" + baseGravableServicio);
+						$("#td-importeServicio").html(percentValue + "% $" + importeServicio);
+						$("#td-subtotalServicio").html("$" + subtotalServicio + "<br><strong>Pendiente de pago</strong>");
+						$("#tr-servicio").addClass("table-danger");
+					}
+				}
+				if ($("#left-day").is(":checked")) {
+					prorrateorow();
+				}
+			}
+
+			function prorrateorow() {
+				var valorPlan = $("#valor-plan").val();
+				var dateText = $("#date-picker").val();
+				var dateArray = dateText.split('/');
+				var daySelected = parseInt(dateArray[0]);
+				var monthSelected = parseInt(dateArray[1]);
+				var yearSelected = dateArray[2];
+				var increasedMonth = monthSelected;
+				var corte = 0;
+				var days = daysInMonth(monthSelected, yearSelected);
+				var leftDays = days - daySelected;
+				var monthN = monthName(monthSelected);
+
+
+				$("#left-day").hide();
+				$("#left-day-text").hide();
+				$("#div-sm").addClass("border");
+				if (daySelected >= 1 && daySelected <= 10) {
+					corte = 1;
+					if (daySelected > 1 && daySelected <= 10) {
+						$("#left-day").show();
+						$("#left-day-text").show();
+						$("#afiliacion-prorrateo").show();
+						$("#left-day-text").html("Cobrar " + leftDays + " días desde " + daySelected + " de " + monthN + " hasta " + days + " de " + monthN);
+						tdProrrateo(leftDays, daySelected, monthN, days, valorPlan, monthN);
+						if ($("#left-day").is(":checked")) {
+							$("#tr-servicio").hide();
+
+
+						} else {
+							$("#tr-servicio").show();
+
+						}
+					}
+				}
+				if (daySelected > 10 && daySelected < 20) {
+					corte = 15;
+					if (daySelected > 10 && daySelected < 15) {
+						var lfdayc15 = 15 - daySelected;
+						var serviceValueFlag = false;
+						if ($("#left-day").is(":checked")) {
+							var serviceValueFlag = true;
+						}
+						$("#left-day").show();
+						$("#left-day-text").show();
+						$("#afiliacion-prorrateo").show();
+						$("#left-day-text").html("Cobrar " + lfdayc15 + " días desde " + daySelected + " de " + monthN + " hasta 15 de " + monthN);
+						tdProrrateo(lfdayc15, daySelected, monthN, days, valorPlan, monthN, serviceValueFlag);
+						$("#tr-servicio").show();
+
+					}
+					if (daySelected > 15 && daySelected < 20) {
+						var lfdayc15 = leftDays + 15;
+						var monthNc15 = monthName(parseInt(monthSelected) + 1);
+
+						$("#left-day").show();
+						$("#left-day-text").show();
+						$("#afiliacion-prorrateo").show();
+						$("#left-day-text").html("Cobrar " + lfdayc15 + " días desde " + daySelected + " de " + monthN + " hasta 15 de " + monthNc15);
+						tdProrrateo(lfdayc15, daySelected, monthN, days, valorPlan, monthNc15);
+						if ($("#left-day").is(":checked")) {
+							$("#tr-servicio").hide();
+
+						} else {
+							$("#tr-servicio").show();
+
+						}
+					}
+				}
+				if (daySelected >= 20 && leftDays != 0) {
+					corte = 1;
+					var serviceValueFlag = false;
+					if ($("#left-day").is(":checked")) {
+						var serviceValueFlag = true;
+					}
+					$("#left-day").show();
+					$("#left-day-text").show();
+					$("#left-day-text").html("Cobrar " + leftDays + " días desde " + daySelected + " de " + monthN + " hasta " + days + " de " + monthN);
+					if (monthSelected != 12)
+						increasedMonth += 1;
+					if (monthSelected == 12)
+						increasedMonth = 1;
+					tdProrrateo(leftDays, daySelected, monthN, days, valorPlan, monthN, serviceValueFlag);
+					$("#tr-servicio").show();
+				}
+				$("#corte").val(corte);
+				$("#corte-mes").val(increasedMonth);
+				console.log("corte:" + corte + "--montselected:" + monthSelected + "--indfreasedmonth" + increasedMonth);
+			}
+
+			function tdProrrateo(leftDays, daySelected, monthN, days, valorPlan, monthN2, serviceValueFlag) {
+				$("#td-servicio-prorrateo").html(leftDays + " días desde " + daySelected + " de " + monthN + " a " + days + " de " + monthN2);
+				var varlorDiasProrrateo = (parseInt(valorPlan) / days) * leftDays;
+				var result = invoiceValues(varlorDiasProrrateo);
+				var vAp = 0;
+				var ServiceToPay = 0;
+				var valorPLan = $("#valor-plan").val();
+				var standBy = $("#standby").val();
+				$("#td-valorServicio-prorrateo").html("$" + result.baseValue);
+				$("#td-importeServicio-prorrateo").html(result.percent + "% " + result.ivaValue);
+				
+				
+				vAp = parseInt($("#valorAfiliacion").val());
+				if (serviceValueFlag) { //  only to date between   11-15 && 21-31
+					console.log("agrefanfo a servicio.... fech 11-1a5");
+					if ($('#standby').is(":checked")) {
+						if ($("#left-day").is(":checked")) {
+							ServiceToPay = vAp;
+							$("#valorA-pagar").val(ServiceToPay);
+							$("#td-total").html("$" + ServiceToPay);
+							$("#td-subtotalServicio-prorrateo").html("$" + result.subtotalValue);
+							$("#valorAdicionalServicio").val(0);
+							$("#valorProrrateo").val(result.subtotalValue);
+							$("#tr-prorrateo").removeClass("table-danger");
+							//$("#tr-prorrateo").addClass("table-success"); 
+							afiliacionTrView(ServiceToPay-valorPLan-result.subtotalValue);
+						}
+						else{
+							ServiceToPay = vAp;
+							$("#valorA-pagar").val(ServiceToPay);
+							$("#td-total").html("$" + ServiceToPay);
+							$("#td-subtotalServicio-prorrateo").html("$" + result.subtotalValue);
+							$("#valorAdicionalServicio").val(result.subtotalValue);
+							$("#valorProrrateo").val(result.subtotalValue);
+							$("#tr-prorrateo").removeClass("table-danger");
+							$("#tr-prorrateo").addClass("table-success");
+							afiliacionTrView(ServiceToPay-valorPLan);
+
+						}
+					} 
+					else {
+						if ($("#left-day").is(":checked")) {
+							ServiceToPay = vAp;
+							$("#valorA-pagar").val(ServiceToPay);
+							$("#td-total").html("$" + ServiceToPay);
+							$("#td-subtotalServicio-prorrateo").html("$" + result.subtotalValue+ " <br><strong>Pendienete de Pago</strong>");
+							$("#valorAdicionalServicio").val(result.subtotalValue);
+							$("#tr-prorrateo").removeClass("table-success");
+							$("#tr-prorrateo").addClass("table-danger");
+							afiliacionTrView(vAp);
+						}
+						else{
+							ServiceToPay = vAp;
+							$("#valorA-pagar").val(ServiceToPay);
+							$("#td-total").html("$" + ServiceToPay);
+							$("#valorAdicionalServicio").val(0);
+							
+							
+						}
+
+					}
+				}
+				if (!serviceValueFlag) {
+					if ($("#left-day").is(":checked")) {						
+						if ($('#standby').is(":checked")) {
+							var total = vAp - result.subtotalValue;
+							afiliacionTrView(total);
+							$("#td-total").html("$" + vAp);
+							$("#valorA-pagar").val(vAp);
+							$("#tr-prorrateo").removeClass("table-danger");
+							$("#td-subtotalServicio-prorrateo").html("$" + result.subtotalValue );
+							$("#valorProrrateo").val(0);
+							$("#valorAdicionalServicio").val(0);
+							afiliacionTrView(vAp-result.subtotalValue);
+						} 
+						else {
+							$("#td-total").html("$"+vAp);
+							$("#valorA-pagar").val(vAp);
+							$("#td-subtotalServicio-prorrateo").html("$" + result.subtotalValue+ "<br><strong>Pendienete de Pago</strong>");
+							$("#valorAdicionalServicio").val(result.subtotalValue);
+							$("#valorProrrateo").val(result.subtotalValue);
+							$("#tr-prorrateo").removeClass("table-success"); 
+							$("#tr-prorrateo").addClass("table-danger");
+							
+						}
+					} 
+					else {
+						
+						if ($('#standby').is(":checked")) {
+							ServiceToPay = vAp;
+							$("#valorAdicionalServicio").val(0);
+							$("#valorProrrateo").val(0);
+							$("#valorA-pagar").val(ServiceToPay);
+							$("#td-total").html("$" + ServiceToPay);
+							afiliacionTrView(vAp-valorPLan);
+						}
+						else{
+							ServiceToPay = vAp;
+							$("#valorAdicionalServicio").val(0);
+							$("#valorProrrateo").val(0);
+							$("#valorA-pagar").val(ServiceToPay);
+							$("#td-total").html("$" + ServiceToPay);							
+						}
+					}
+				}
+			}
+
+			function afiliacionTrView(total) {
+				console.log("  subtotsl de afiliacion    "+total); 
+				var percentValue = iva();
+				var importeAfiliacion = parseInt(total * (percentValue / 100));
+				console.log("importeAfiliacion :   "+importeAfiliacion); 
+				var baseGravableAfiliacion = parseInt(total) - importeAfiliacion;
+				var subtotalAfiliacion = total;
+				$("#td-valorAfiliacion").html('$' + baseGravableAfiliacion);
+				$("#td-importeAfiliacion").html(percentValue + "% $" + importeAfiliacion);
+				$("#td-subtotalAfiliacion").html("$" + subtotalAfiliacion);
+			}
+
+			function daysInMonth(month, year) {
+				if (parseInt(month) == 13)
+					var newMonth = 1;
+				else
+					var newMonth = month;
+				return new Date(year, newMonth, 0).getDate();
+			}
 
 			function validEmail(email) {
 				var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 				return re.test(email);
+			}
+
+			function validDate(date) {
+				var dateRegex = /^(?=\d)(?:(?:31(?!.(?:0?[2469]|11))|(?:30|29)(?!.0?2)|29(?=.0?2.(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))(?:\x20|$))|(?:2[0-8]|1\d|0?[1-9]))([-.\/])(?:1[012]|0?[1-9])\1(?:1[6-9]|[2-9]\d)?\d\d(?:(?=\x20\d)\x20|$))?(((0?[1-9]|1[012])(:[0-5]\d){0,2}(\x20[AP]M))|([01]\d|2[0-3])(:[0-5]\d){1,2})?$/;
+				return dateRegex.test(date);
 			}
 
 			function allLetter(inputtxt) {
@@ -1684,6 +2076,34 @@
 					return false;
 				}
 				return true;
+				$("#valorA-pagar").val($("#valorA-pagar").val());
+			}
+
+			function monthName(month) {
+				if (parseInt(month) == 13)
+					var newMonth = 1;
+				else
+					var newMonth = month;
+				var months = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+				return months[newMonth];
+			}
+
+			function invoiceValues(total) {
+				var percentIva = iva();
+				var ivaV = (parseInt(total) * percentIva) / 100;
+				var base = parseInt(total - ivaV);
+				var subtotal = parseInt(total);
+				return {
+					percent: percentIva,
+					ivaValue: ivaV,
+					baseValue: base,
+					subtotalValue: subtotal
+				};
+			}
+
+			function iva() { 
+				var iva = 19;
+				return iva;
 			}
 		</script>
 
