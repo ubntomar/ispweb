@@ -1,2 +1,2 @@
-text to help to other developers.
-starting 
+Sistema de Gestión de Clientes WISP, empresa prestadora de servicio de internet inalámbrico.
+Proyecto que permite registrar, tarifar, cortar servicio , enviar notificaciones email y sms entre otros...
