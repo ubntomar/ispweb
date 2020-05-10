@@ -34,20 +34,9 @@ if ($_POST['datos']) {
         }
         else
             $telefono .= ",57".$db_field['telefono'];
-
-        // echo "$cont : $id : $user : $role : {$db_field['telefono']} : {$db_field['cliente']} : $message \n";
-        // try{		
-
-        //     $sqlinsert="insert into redesagi_facturacion.sent_messages (id,tipo,fecha,hora,status,user,personalized_content,id_client) values (null,5,'$today','$hourMin','ok','$user','$msj',$id)";
-        //     mysqli_query($mysqli,$sqlinsert);
-        //     echo "$cont-ok \n";
-        //     } catch (Twilio\Exceptions\RestException $e) {
-        //         $status = 'invalid';
-        //         $sqlinsert="insert into redesagi_facturacion.sent_messages (id,tipo,fecha,hora,status,user,personalized_content) values (null,5,'$today','$hourMin','no','$user','$msj')";
-        //         mysqli_query($mysqli,$sqlinsert);
-        //         echo "$cont-no \n";                
-        //     }
-        //omar gómez :3142079452
+            
+        $sqlinsert="insert into redesagi_facturacion.sent_messages (id,tipo,fecha,hora,status,user,personalized_content,id_client) values (null,5,'$today','$hourMin','ok','$user','$msj',$id)";
+        mysqli_query($mysqli,$sqlinsert) or die('error');         
 
     }
     $url = 'https://api.hablame.co/sms/envio/';

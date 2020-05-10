@@ -31,6 +31,22 @@
 			.caja {
 				border-bottom: 1px solid #000;
 			}
+			#table_client_to_sms{
+				font-size:10px;
+			}
+			.btn {
+				background-color: DodgerBlue; /* Blue background */
+				border: none; /* Remove borders */
+				color: white; /* White text */
+				padding: 5px 5px; /* Some padding */
+				font-size: 10px; /* Set a font size */
+				cursor: pointer; /* Mouse pointer on hover */
+			}
+
+			/* Darker background on mouse-over */ 
+			.btn:hover {
+			background-color: RoyalBlue;
+			}
 		</style>
 	</head>
 
@@ -52,7 +68,7 @@
 				<div class="container img-logo ">
 					<img src="img/wisp.png">
 					<!-- Nos sirve para agregar un logotipo al menu -->
-					<a href="main.php" class="navbar-brand ">Wisdev hoy: <?php echo "$today  $hourMin  "; ?></a> 
+					<a href="main.php" class="navbar-brand ">Wisdev</a> 
 
 					<!-- Nos permite usar el componente collapse para dispositivos moviles . ...-->
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Menu de Navegacion">
@@ -456,7 +472,7 @@
 																echo "<td>" . $pago . "</td>";
 																echo "<td>" . $velocidad . "</td>";
 																echo "<td>" . $ip . "</td>";
-																echo "<td><button type=\"button\" class=\"btn btn-warning suspender\" id=\"suspender" . $cod . "\" ><i class=\"icon-scissors text-dark\"></i></button></td>";
+																echo "<td><button type=\"button\" disabled class=\"btn btn-warning suspender\" id=\"suspender" . $cod . "\" ><i class=\"icon-scissors text-dark\"></i></button></td>";
 																echo "<td><button type=\"button\" class=\"btn btn-primary eliminar\" id=\"activo" . $cod . "\" ><i class=\"icon-scissors text-dark\"></i></button></td>";
 																echo "</tr>";
 															}
@@ -533,7 +549,7 @@
 											<table id="Table_morosos" class="display dataTable_Morosos cell-border" cellspacing="0" width="100%">
 												<thead class="bg-primary">
 													<tr>
-														<td>Id</td>
+														<td style="width:20px;">Id</td>
 														<td>Cliente</td>
 														<td>Dirección</td>
 														<td>Corte</td>
@@ -741,9 +757,7 @@
 											<!-- Inicio  de contenido de sms mensual... -->
 											<div class="row">
 												<div class=" border border-warning col-md-8">
-													<!-- <div class="col-12">
-																	<h3>Criterio Personalizado de búsqueda para envia de SMS</h3>
-																</div> -->
+													
 													<div class=" d-flex flex-column     col-12">
 														<div class="" id="criterios_content">
 															<div>
@@ -817,17 +831,9 @@
 
 
 														</div>
-														<div class="form-group px-1 border border-success rounded mx-1 my-3" id="message_box">
-															<label for="sel1">Escriba el mensaje que será enviado a los clientes que ha seleccionado </label>
-															<textarea class="form-control" id="sms_text_content" rows="3" placeholder="Ingrese el mensaje a enviar"></textarea>
-															<small id="" class="form-text text-muted">Campo obligatorio.</small>
-														</div>
-														<div>
-															<button type="text" class="btn btn-primary mb-2" id="btn_enviar">
-																<span class=" spinner-border-sm" role="status" aria-hidden="true" id="spinner-enviar"></span>
-																Enviar
-															</button>
-														</div>
+														
+
+														
 
 
 													</div>
@@ -840,15 +846,21 @@
 													<div class=" d-flex flex-column  p-1 border border-danger col-12">
 														<div class="p-1">
 															<div class="card">
-																<div class="card-header">
-																	Últimos sms enviados
+																<div class="card-header bg-info">
+																	Last Ip Shut-Off
+																</div>
+																<div class="card-body" id="divIpShutOff">
+																	
+																</div>
+																
+															</div>
+															<div class="card mt-3">
+																
+																<div class="card-header bg-info ">
+																	last sms sent
 																</div>
 																<div class="card-body" id="div_sms_statistics">
-																	<!-- <h5 class="card-title">Descripción</h5> -->
-																	<!-- <p class="card-text text-justify ">{$row['smscontent']}</p> -->
-
-
-																	<!-- <a href="#" class="btn btn-primary">Editar</a> -->
+																	
 																</div>
 															</div>
 														</div>
@@ -1049,8 +1061,8 @@
 				$('#massive_notifications').addClass("active");
 				$('#massive_notifications_content').show();
 				$('#sms_masivo_container_buscar').hide();
-				$('#message_box').hide();
-				$('#btn_enviar').hide();
+							
+				$('#btn_enviar').hide();   
 				$.ajax({
 					url: "sms_statistics.php",
 					success: function(result) {
@@ -1060,7 +1072,24 @@
 								"responsive": true,
 								"paging": true,
 								"searching": false,
-								"info": true
+								"info": true,
+								"order": [[ 3, "desc" ]]
+							});
+
+						}
+					}
+				});
+				$.ajax({
+					url: "shutoff_statistics.php",   
+					success: function(result) {
+						$("#divIpShutOff").html(result);
+						if (!$.fn.DataTable.isDataTable('#table_ip_shutoff')) {
+							var statistics = $('#table_ip_shutoff').DataTable({
+								"responsive": true,
+								"paging": true,
+								"searching": false,
+								"info": true,
+								"order": [[ 1, "desc" ]]
 							});
 
 						}
@@ -1541,11 +1570,9 @@
 
 
 			$('#sms_masivo_btn_buscar').click(function() {
-				//$('#criterios_content').hide();
 				$('#spinner-buscar').addClass('spinner-border');
 				$('#btn_enviar').show();
-				$('#sms_masivo_container_buscar').show();
-				$('#message_box').show();
+				$('#sms_masivo_container_buscar').show();				
 				$('#spinner-enviar').removeClass('spinner-border');
 				var name = $("#sms_masive_name").val();
 				var address = $("#sms_masive_address").val();
@@ -1567,27 +1594,113 @@
 						alertify.success("Información en la tabla ha sido actualizada");
 						$('#sms_masivo_container_buscar').html(data);
 						var table = $('#table_client_to_sms').DataTable({
-							"responsive": true,
+							responsive: {
+								details: {
+									type: 'column',
+									target: 'tr'
+								}
+							},
+							"order": [[ 5, "desc" ]],
 							"paging": true,
 							"searching": true,
 							"info": true,
 							'columnDefs': [{
 								'targets': 0,
-								'checkboxes': true
-							}],
-							'order': [
-								[1, 'asc']
-							]
+								'checkboxes': {
+									'selectRow': true,
+									'selectCallback': function(nodes, selected){										
+											selectedIpValidator(table);						
+													
+									}									
+								}
+							}]
+							
 						});
-						$('#spinner-buscar').removeClass('spinner-border');
+						table.on( 'draw', function () {
+							console.log( 'Redraw occurred at: '+new Date().getTime() );
+							var info = table.page.info();
+							console.log( 'Showing page: '+info.page+' of '+info.pages );
+						 	selectedIpValidator(table);	
 
-						$('#btn_enviar').click(function() {
+						} );	
+						// $('#table_client_to_sms').on( 'page.dt', function () {
+						// 	var info = table.page.info();
+						// 	console.log( 'Showing page: '+info.page+' of '+info.pages );
+							
+						// });	
+
+						$('#spinner-buscar').removeClass('spinner-border');
+						$('#message_box').hide();
+						$('#sendsmsbutton').hide();
+						$('#cutServiceButton').hide();
+						$("input[name=options]").change(function () {	 
+							if($(this).val()==1 ){
+								$('#message_box').show();
+								$('#sendsmsbutton').show();
+								$('#cutServiceButton').hide();
+							}
+							else{
+								$('#message_box').hide();
+								$('#sendsmsbutton').hide();
+								$('#cutServiceButton').show();
+							}
+						});	 				
+
+						$('#table_client_to_sms').on('focusout', '.inputIp', function(){
+							let id=this.id.split('--')[1];
+							let dsb='#dsb-'+id;
+							let ipstr= '#'+this.id;
+							let pstr='#p-'+this.id;
+							let ip=$(ipstr).val();
+							if(ValidateIPaddress(ip)){
+								$(ipstr).removeClass('bg-danger');								
+								$.ajax({
+									type: 'post',
+									url: 'ipupdater.php',
+									data: {
+										id: this.id.split('--')[1],
+										ip: ip
+									},
+									success: function(data) {
+										if(data){
+											console.log(data);
+											let tr='#tr-'+id;
+											if(data==1){
+												$(ipstr).addClass('bg-success text-dark');	
+												$(dsb).val('');
+												$(pstr).removeClass('border border-danger rounded');
+												$(tr).removeClass('bg-warning');
+												$(tr+' td:first-child + td ').removeClass('bg-warning');
+												$(tr+' td:first-child input ').prop('disabled', false);
+												//alertify.success('Ip actualizada con éxito');		
+											}
+											else{												
+												alertify.error('ups '+data,10);
+												$(dsb).val(id);
+												$(ipstr).addClass('bg-danger text-dark');
+												$(tr+' td:first-child input ').prop('disabled', true);
+											}
+
+										}
+										else
+											alertify.error('Error al actializar la ip!');								
+									}
+								});
+
+							}
+							else{
+								$(dsb).val(id);
+								$(ipstr).removeClass('bg-success ');
+								$(ipstr).addClass('bg-danger text-dark');
+							}						
+
+						});
+
+
+						$('#btn_send_sms').click(function() {							
 							$('#spinner-enviar').addClass('spinner-border');
 							var message = $('#sms_text_content').val();
-							var rows_selected = table.column(0).checkboxes.selected();
-							$.each(rows_selected, function(index, rowId) {
-								table.column(0).checkboxes.deselect();
-							});
+							var rows_selected = table.column(0).checkboxes.selected();							
 							var iddata = rows_selected.join(",");
 							if (iddata && message) {
 								$.ajax({
@@ -1601,6 +1714,7 @@
 										alertify.dismissAll();
 										alertify.success('Solicitud ha procesada');
 										$('#spinner-enviar').removeClass('spinner-border');
+										
 									}
 								});
 							} else {
@@ -1612,6 +1726,67 @@
 									alertify.error('No has seleccionado clientes!');
 							}
 						});
+
+						/** */
+						$('#btn_cut_service').click(function() {							
+							$('#spinner-enviar').addClass('spinner-border');							
+							var rows_selected = table.column(0).checkboxes.selected();
+							let invalid= [];
+							$.each(rows_selected, function(index, rowId) {
+								let dsb='#dsb-'+rowId;
+								let idSelectedFlag=$(dsb).val();
+								let tr='#tr-'+rowId;
+								if(idSelectedFlag!=""){
+									invalid.push(rowId);
+								}
+								$(tr+' td:first-child input ').prop('disabled', false);
+								$(tr).removeClass('bg-warning');
+								$(tr+' td:first-child + td ').removeClass('bg-warning');
+								table.column(0).checkboxes.deselect();
+
+							});
+							var iddata = rows_selected.join(",");
+							let temp = invalid.join(",");
+							let valid= array_diff(rows_selected,invalid);
+							let validIdData=valid.join(",");
+							console.log("Selected:"+iddata+"  Invalid: "+temp  +"  Valid Array:"+validIdData);
+							if (validIdData) {
+								$.ajax({
+									type: 'post',
+									url: 'removeclientservice.php',
+									data: {
+										datos: validIdData										
+									},
+									success: function(data) {
+										alertify.dismissAll();
+										alertify.success(data);
+										$('#spinner-enviar').removeClass('spinner-border');
+										$.ajax({
+											url: "shutoff_statistics.php",   
+											success: function(result) {
+												$("#divIpShutOff").html(result);
+												if (!$.fn.DataTable.isDataTable('#table_ip_shutoff')) { 
+													var statistics = $('#table_ip_shutoff').DataTable({
+														"responsive": true,
+														"paging": true,
+														"searching": false,
+														"info": true,
+														"order": [[ 1, "desc" ]]
+													});
+
+												}
+											}
+										});										
+									}
+								 });
+							} else {
+								$('#spinner-enviar').removeClass('spinner-border');
+								alertify.dismissAll();								
+								if (!validIdData)
+									alertify.error('No has seleccionado clientes con Ip válida!');
+							}
+						});
+						/** */
 					}
 				});
 
@@ -2168,6 +2343,100 @@
 				var iva = 19;
 				return iva;
 			}
+			function ValidateIPaddress(inputText)
+			{
+				var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+				if(inputText!=null){
+					if(inputText.match(ipformat))
+					{					
+						return true;
+					}
+					else
+					{
+						
+						return false;					
+					}
+				}
+				return false;
+			}
+			function array_diff (a1, a2) {
+				var a = [], diff = [];
+				for (var i = 0; i < a1.length; i++) {
+					a[a1[i]] = true;
+				}
+				for (var i = 0; i < a2.length; i++) {
+					if (a[a2[i]]) {
+						delete a[a2[i]];
+					} else {
+						a[a2[i]] = true;
+					}
+				}
+				for (var k in a) {
+					diff.push(k);
+				}
+				return diff;
+			}
+			function selectedIpValidator(table){
+				var rows_selected = table.column(0).checkboxes.selected();											
+				$.each(rows_selected, function(index, rowId){
+					if(rowId){
+						console.log("el rowId:"+rowId);
+						let ipstr= '#ip--'+rowId;
+						let pstr='#p-'+rowId;
+						let tr='#tr-'+rowId;
+						let dsb='#dsb-'+rowId;
+						let ip=$(ipstr).val();
+						let id=rowId;
+						if(ValidateIPaddress(ip)){
+							$.ajax({
+							type: 'post',
+							url: 'ipupdater.php',
+							data: {
+								id: id,
+								ip: ip
+							},
+							success: function(data) {
+								if(data){
+									let tr='#tr-'+id;
+									if(data==1){
+										$(ipstr).addClass('bg-success text-dark');	
+										$(dsb).val('');
+										$(pstr).html('');
+										$(pstr).removeClass('border border-danger rounded');
+										$(tr).removeClass('bg-warning');
+										$(tr+' td:first-child + td ').removeClass('bg-warning');
+										$(tr+' td:first-child input ').prop('disabled', false);
+												
+									}
+									else{												
+										alertify.error('ups '+data,10);
+										$(dsb).val(id);
+										$(ipstr).addClass('bg-danger text-dark');
+										//$(tr+' td:first-child input ').prop('disabled', true);
+										$(pstr).html(data);
+										$(pstr).addClass('border border-danger rounded');
+									}
+
+								}
+								else
+									alertify.error('Error al actializar la ip!');								
+							}
+						});
+						}
+						else{
+							$(dsb).val(rowId);			
+							$(tr).addClass('bg-warning');
+							$(tr+' + tr .child ').addClass('bg-info');
+							$(tr+' td:first-child + td ').addClass('bg-warning');
+							$(tr+' td:first-child input ').prop('disabled', true);
+							
+						}
+
+					}
+					
+				});	
+			}
+
 		</script>
 
 	</body>

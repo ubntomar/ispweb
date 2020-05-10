@@ -1,15 +1,1 @@
-vendor/guzzlehttp/guzzle
-vendor/guzzlehttp/guzzle
-vendor/guzzlehttp/promises
-vendor/guzzlehttp/promises
-vendor/guzzlehttp/guzzle
-vendor/guzzlehttp/psr7
-vendor/lcobucci/jwt
-vendor/nexmo/client
-vendor/php-http/guzzle6-adapter
-vendor/php-http/httplug
-vendor/php-http/promise
-vendor/psr/http-factory
-vendor/psr/http-message
-vendor/ralouphie/getallheaders
-vendor/zendframework/zend-diactoros
+

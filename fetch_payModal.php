@@ -44,15 +44,22 @@ if($_POST['rowid']) {
 			if($row["mesenmora"]==0)
 				$multiplicador=1;
 			else
-				$multiplicador=$row["mesenmora"];
+			$multiplicador=$row["mesenmora"];
 			$registration=$row["registration-date"];
 			$corte=$row["corte"];
+			$date1 = new DateTime($today);
+			$date2 = new DateTime($row["suspenderFecha"]);
+			$days  = $date2->diff($date1)->format('%a');
+			$style = "border-info text-info ";
+			if($row["suspender"]==1){
+				$statusText = "<div class=\"d-flex justify-content-center\" > <p class=\"border-top border-primary px-0 \"><small class=\"p-0 my-1 text-info\">Cortado-[ $days días ]</small> <small>Reconectar servicio <input class=\" ml-1 mt-1 \"  id=\"checkbox-reconectar\" type=\"checkbox\" checked value=\"1\"></small></p></div>";
+			}
 			$varHtml="<table class=\"table table-striped\">
 						<tr>
 					  		<td><small>Cod. Cliente:</small></td><td><small>017000</small><small  id=\"id-client\">".$id."</small></td>
 						</tr>
 						<tr>
-					  		<td>Cliente:</td><td>".$row["cliente"]."  ".$row["apellido"]."</td>
+					  		<td colspan='2' align='center'>Cliente: {$row['cliente']} {$row['apellido']} $statusText </td>
 						</tr>
 						<tr>
 			          		<td>Direccion:</td><td>".$row["direccion"]."</td>
@@ -61,7 +68,7 @@ if($_POST['rowid']) {
 			$sql = "SELECT * FROM `factura`  WHERE `factura`.`id-afiliado`='$id' AND `factura`.`fecha-pago`!= '0000-00-00'   ORDER BY `factura`.`id-factura` DESC";
 			//echo $sql;
 			if($result = $mysqli->query($sql)){
-				$rowf = $result->fetch_assoc();  
+				$rowf = $result->fetch_assoc();   
 				$idFactura=$rowf["id-factura"];	
 				$periodo=$rowf["periodo"];
 				if($idFactura)
@@ -125,7 +132,7 @@ if($_POST['rowid']) {
 			          		<td>Plan:</td><td>".$row["velocidad-plan"]." Megas.</td>
 			          	</tr>
 			          	<tr>
-			          		<td>Valor Plan:</td><td>$".number_format($row["pago"])."</td>
+			          		<td>Valor Plan:</td><td><strong id=\"valor-plan\" >$".number_format($row["pago"])."</strong></td>
 			          	</tr>
 			          	<tr>
 			          		<td>Facturas:</td>
@@ -145,19 +152,22 @@ if($_POST['rowid']) {
 					}
 			    	$result->free();
 				}  	
-			if($cont==0)$varHtml.="<option>No hay pddtes.</option>";    		
+			if($cont==0)$varHtml.="<option>No hay pddtes.</option>";     		
 			$varHtml.="</select>";		
 			
 			$varHtml.="</td>
 			          	</tr>
 			          	<tr>
-			          		<td>Total:</td><td id=\"valor-pago\" >$".number_format($vtotal)."</td>
+			          		<td>Total:</td><td><div class=\"d-flex\" ><div class=\"border border-info rounded px-1\"><strong id=\"valor-pago\">$".number_format($vtotal)."</strong></div> <div id=\"nuevo-saldo\" class=\"ml-1 border border-info rounded pb-1 px-2\"><small>   Nuevo saldo:</small><strong class=\"ml-1\" >$</strong><strong  id=\"valor-nuevo-saldo\">$vtotal</strong></div></div></td>
 			          	</tr>
-			          	<tr id=\"tr-chkb-abonar\">
-			          		<td>Abonar:</td><td><input class=\"form-check-input\" id=\"checkbox-abonar\" type=\"checkbox\" value=\"1\"></td>
+			          	<tr  id=\"tr-chkb-abonar\">
+			          		<td >Abonar<input class=\" ml-1 mt-1 \"  id=\"checkbox-abonar\" type=\"checkbox\" value=\"1\"> </td><td> Descontar<input class=\" ml-1 mt-1 \" id=\"checkbox-descontar\" type=\"checkbox\"  value=\"1\"> </td>
 			          	</tr>
 			          	<tr id=\"tr-valor-abonar\">
-			          		<td>Valor:</td><td><input class=\"form-control\" id=\"valor-abonar\"  value=\"\" placeholder=\"Cuanto abona?\"><span class=\"bg-info text-white px-1 ml-1\">$<small class=\" money\"></small></span></td>
+			          		<td>Valor abonar:</td><td><input class=\"form-control\" id=\"valor-abonar\"  value=\"\" placeholder=\"Cuanto abona?\"><span class=\"bg-info text-white px-1 ml-1\">$<small class=\" money-abonar\"></small></span></td>
+						  </tr>
+						<tr id=\"tr-valor-descontar\">
+			          		<td>Valor descontar:</td><td><input class=\"form-control\" id=\"valor-descontar\"  value=\"\" placeholder=\"Cuanto descuenta?\"><span class=\"bg-info text-white px-1 ml-1\">$<small class=\" money-descontar\"></small></span></td>
 			          	</tr>
 			          	
 			          </table>";

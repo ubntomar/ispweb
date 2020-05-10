@@ -1,13 +1,18 @@
 <?php
 session_start();
-if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-    header('Location: login/index.php');
-    exit;
-} else {
-    $user = $_SESSION['username'];
-    $role = $_SESSION["role"];
+$debug = true;
+if(!$debug){
+    if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+        header('Location: login/index.php');
+        exit;
+    } else {
+        $user = $_SESSION['username'];
+        $role = $_SESSION["role"];
+    }
 }
 include("login/db.php");
+require 'Mkt.php'; 
+require 'vpnConfig.php';
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -17,50 +22,30 @@ date_default_timezone_set('America/Bogota');
 $today = date("Y-m-d");
 $convertdate = date("d-m-Y", strtotime($today));
 $hourMin = date('H:i');
-$debug = 0;
-
-if ($_POST['datos']) {
-    $idarray = explode(",", $_POST['datos']);
-    $msj = $_POST['message'];
-    $telefono = "";
-    $cont=0;
+$pass=false;
+if ($_POST['datos']||$debug) {
+    if($debug)
+        $idarray[]=363;//Hernando Monguívvvv
+    else
+        $idarray  = explode(",", $_POST['datos']);  
+    
     foreach ($idarray as $id) {
-        $cont += 1;
-        $sql_client_telefono = "select * from redesagi_facturacion.afiliados where `id`=$id ";
-        $result = mysqli_query($mysqli, $sql_client_telefono) or die('error');
-        $db_field = mysqli_fetch_assoc($result);
-        if ($cont==1) {
-            $telefono .= "57".$db_field['telefono'].",";
+        //suspender=1
+        //shutoffpending=1
+        $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='1'  WHERE `afiliados`.`id`='$id'";
+        if($result2 = $mysqli->query($sqlUpd)){					
         }
-        else
-            $telefono .= ",57".$db_field['telefono'];
-
-        
-
+        else{
+            echo "\nError al actualizar cliente Mysql `shutoffpending`=1\n";	
+        }
+        $sql_client = "select * from redesagi_facturacion.afiliados where `id`=$id ";
+        $result = mysqli_query($mysqli, $sql_client) or die('error encontrando el cliente');
+        $db_field = mysqli_fetch_assoc($result);
+        $ip=$db_field['ip'];
+        if($db_field['shutoffpending'])
+            print "Cliente $ip para suspender en el cron";
+        $sqlinsert="insert into redesagi_facturacion.service_shut_off (id,tipo,fecha,hora,status,user,ip,id_client) values (null,5,'$today','$hourMin','ok','$user','$ip',$id)";
+        mysqli_query($mysqli,$sqlinsert) or die('error ingresando a suspendidos tb');
     }
-    $url = 'https://api.hablame.co/sms/envio/';
-    $data = array(
-        'cliente' => 10015263, //Numero de cliente
-        'api' => '0CGog61aGGgTn0dCFzgwjqPtlARGCp', //Clave API suministrada
-        'numero' => $telefono, //numero o numeros telefonicos a enviar el SMS (separados por una coma ,)
-        'sms' => $msj, //Mensaje de texto a enviar
-        'fecha' => '', //(campo opcional) Fecha de envio, si se envia vacio se envia inmediatamente (Ejemplo: 2017-12-31 23:59:59)
-        'referencia' => 'Referenca Envio Hablame', //(campo opcional) Numero de referencio ó nombre de campaña
-    );
-
-    $options = array(
-        'http' => array(
-            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-            'method'  => 'POST',
-            'content' => http_build_query($data)
-        )
-    );
-    $context  = stream_context_create($options);
-    $result = json_decode((file_get_contents($url, false, $context)), true);
-
-    if ($result["resultado"] === 0) {
-        echo 'Se ha enviado el SMS exitosamente';
-    } else {
-        echo json_encode($result);
-    }
+     
 }

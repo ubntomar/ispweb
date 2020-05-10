@@ -51,7 +51,11 @@ if($_POST['valorPlan']){
 	$monthn = date("n");
 	$sql="INSERT INTO `redesagi_facturacion`.`afiliados` (`id`, `cliente`, `apellido`, `cedula`, `direccion`, `ciudad`, `departamento`, `mail`, `telefono`, `pago`, `ultimopago`, `pagoactual`, `corte`, `mesenmora`, `recibo_generado`, `orden_reparto`, `velocidad-plan`, `tipo-cliente`, `registration-date`, `source`, `activo`, `ip`, `standby`, `valorAfiliacion`,`stdbymcount`) VALUES (NULL, '$name', '$lastName', '$cedula', '$address', '$ciudad', '$departamento', '$email', '$phone', '$valorPlan', '', '', '$corte', '$nextPay', '', '999', '$velocidadPlan', '$plan', '$today', 'ispdev', '1', '$ipAddress', '$standby', '$AfiliacionItemValue', '$standby');";
 	if ($mysqli->query($sql) === TRUE) {
-			$last_id = $mysqli->insert_id;			
+			$last_id = $mysqli->insert_id;
+			$sqlping = "INSERT INTO `redesagi_facturacion`.`liveinfo` (`id`, `id-cliente`, `fecha`, `descripcion`) VALUES (NULL,'$last_id','$today', 'Batch of invoices')  ";
+			if($mysqli->query($sqlping)==true)
+				echo "";
+			else echo "Error-liveinfo";				
 			if($mergeItems==1){//First internet service bill is already payed and the other one  Afiliación bill is already payed. b   valorAdicionalServicio    leftDays = days - daySelected;  new_cli  AfiliacionItemValue  $("#AfiliacionItemValue").val(0);   si Valor adicional de Servicio==0 && Standar service flag==0 ==>Total Prorrateo definevalor de servicio
 				$idafiliado=$mysqli->insert_id;
 				$fechaPago=$today;

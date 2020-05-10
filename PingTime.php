@@ -22,9 +22,4 @@ class PingTime {
 
 }
 
-$deviceOne=New PingTime("192.168.21.100");
-if($time=$deviceOne->time()) print $time;
-else print "error!";
-
-
 ?>  

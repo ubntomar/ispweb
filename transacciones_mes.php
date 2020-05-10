@@ -56,7 +56,7 @@ echo "
     </tfoot>
     <tbody > 
 ";
-    $sql = "SELECT * FROM redesagi_facturacion.transacciones where redesagi_facturacion.transacciones.fecha >='$from' AND redesagi_facturacion.transacciones.fecha <='$to' $txt_cajero   ;";
+    $sql = "SELECT * FROM redesagi_facturacion.transacciones where redesagi_facturacion.transacciones.fecha >='$from'  AND redesagi_facturacion.transacciones.fecha <='$to' $txt_cajero   ;";
     if ($result = $mysqli->query($sql)) {
         $recaudo=0;
         $cnt=0;
@@ -68,11 +68,23 @@ echo "
             $sqlafi="SELECT * FROM `afiliados` WHERE `id` = $idafi  ";
             $resultafi = $mysqli->query($sqlafi);
             $rowafi = $resultafi->fetch_assoc();
-            $recaudo+=$row["valor-a-pagar"];
+            $pagado=$row["valor-a-pagar"]-$row["descontar"];
+            $recaudo+=$pagado;
+            if($row["descontar"]!=0){
+                $p= "
+                <p class='border border-info rounded p-1 text-danger' >
+                <small>Descuento:</small>
+                {$row["descontar"]}
+                </p>
+                ";
+            }
+            else{
+                $p="";
+            }
             echo "<tr class=\"text-center  \">";				
             echo "<td>".$rowafi["cliente"]." ".$rowafi["apellido"]."</td>";
             echo "<td>".$rowafi["direccion"]."</td>";
-            echo "<td>".$row["valor-a-pagar"]."</td>";
+            echo "<td>$pagado $p</td>";
             echo "<td class=\" align-middle \">".$row["fecha"]." ".$row["hora"]."</td>";
             echo "<td class=\" align-middle \"> {$row["cajero"]} </td>";
             echo "<td class=\" align-middle \"><a href=\"printable.php?idt=$idtransaccion&rpp=0\" class=\"text-primary icon-client \" ><i class=\" icon-print  \"></i></a></td>";

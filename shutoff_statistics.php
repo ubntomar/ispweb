@@ -21,24 +21,24 @@ echo "
 <table id=\"table_ip_shutoff\" class=\"display\" cellspacing=\"0\" width=\"100%\">
     <thead>
         <tr>
-            <th>Status</th>
+            
             <th>Nombres</th>
-            <th>Id</th>
+            
             <th>fecha</th>
             
         </tr>
     </thead>
     <tbody>";
-$sql_sent_sms=  "SELECT *, redesagi_facturacion.afiliados.cliente,redesagi_facturacion.afiliados.apellido FROM redesagi_facturacion.sent_messages INNER JOIN redesagi_facturacion.afiliados
-                ON redesagi_facturacion.sent_messages.`id_client`=redesagi_facturacion.afiliados.id ";
+$sql_sent_sms=  "SELECT *, redesagi_facturacion.afiliados.cliente,redesagi_facturacion.afiliados.apellido FROM redesagi_facturacion.service_shut_off INNER JOIN redesagi_facturacion.afiliados
+                ON redesagi_facturacion.service_shut_off.`id_client`=redesagi_facturacion.afiliados.id ";
 $result = mysqli_query($mysqli, $sql_sent_sms) or die('error');
 while($db_field = mysqli_fetch_assoc($result)){
     echo"    
             <tr>            
-                <td>{$db_field['status']}</td>
-                <td>{$db_field['cliente']} {$db_field['apellido']} <br><small><cite>\"{$db_field['personalized_content']}\"</cite></small> </td>
-                <td>{$db_field['id_client']}</td>
-                <td>{$db_field['fecha']}</td>
+                
+                <td>{$db_field['cliente']} {$db_field['apellido']} <br><small><cite class=\" m-1 p-1 border border-success\">{$db_field['ip']}</cite></small> </td>
+               
+                <td>{$db_field['fecha']}</td> 
             </tr>
         ";
 
@@ -49,9 +49,9 @@ echo"
     </tbody>
     <tfoot>
         <tr>        
-            <th>Status</th>
+            
             <th>Nombres</th>
-            <th>Id</th>
+           
             <th>fecha</th>
         </tr>
     </tfoot>

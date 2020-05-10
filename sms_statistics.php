@@ -36,7 +36,7 @@ while($db_field = mysqli_fetch_assoc($result)){
     echo"    
             <tr>            
                 <td>{$db_field['status']}</td>
-                <td>{$db_field['cliente']} {$db_field['apellido']} </td>
+                <td>{$db_field['cliente']} {$db_field['apellido']} <br><small><cite>\"{$db_field['personalized_content']}\"</cite></small> </td>
                 <td>{$db_field['id_client']}</td>
                 <td>{$db_field['fecha']}</td>
             </tr>
@@ -45,7 +45,7 @@ while($db_field = mysqli_fetch_assoc($result)){
 }  
 
 
-echo"        
+echo"         
     </tbody>
     <tfoot>
         <tr>        

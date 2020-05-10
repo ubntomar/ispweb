@@ -1,9 +1,9 @@
 <?php
-//Database configuration
-$server = 'ispdevinstance.cvfeq4s0dnnx.us-east-1.rds.amazonaws.com';
-$db_user = 'root';
-$db_pwd = 'ubnt123456';
-$db_name = 'redesagi_facturacion';
+//Database configuration   'ispdevinstance-cluster.cluster-cvfeq4s0dnnx.us-east-1.rds.amazonaws.com'
+$server = 'localhost';
+$db_user = 'mikrotik';
+$db_pwd = 'Agwist1.';
+$db_name = 'redesagi_facturacion';//redesagi_facturacion 
 $table_name = 'users';
 $table_name_social = 'users_social';
 $table_name_settings= 'admin_settings';

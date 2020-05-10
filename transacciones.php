@@ -180,10 +180,22 @@ else    {
 													$resultafi = $mysqli->query($sqlafi);
 													$rowafi = $resultafi->fetch_assoc();
 													$recaudo+=$row["valor-a-pagar"];
+													if($row["descontar"]!=0 ){
+														$tclass="class= 'text-info' ";
+														$descontar=$row["descontar"];
+														$subtotalDesc=$row["valor-a-pagar"]-$row["descontar"];
+														$descHtml="<p class=' text-danger p-0 m-0'>Descuento:</p><p class='text-danger p-0 m-0 border-bottom border-primary' ><strong>$descontar</strong></p><p class=' p-0 m-0' >Subtotal: <strong>$subtotalDesc</strong></p>";
+														$sum-=$descontar;
+													}
+													else{
+														$tclass="class= '' ";
+														$descHtml="";
+													}
+													
 													echo "<tr class=\"text-center  \">";				
-													echo "<td>".$rowafi["cliente"]." ".$rowafi["apellido"]."-{$row["descripcion"]}</td>";
+													echo "<td>".$rowafi["cliente"]." ".$rowafi["apellido"]."-{$row["idtransaccion"]}</td>";
 													echo "<td>".$rowafi["direccion"]."</td>";
-													echo "<td>".$row["valor-a-pagar"]."</td>";
+													echo "<td><strong $tclass >{$row["valor-a-pagar"]}</strong>$descHtml</td>";
 													echo "<td class=\" align-middle \">".$row["fecha"]." ".$row["hora"]."</td>";
 													echo "<td class=\" align-middle \"><a href=\"printable.php?idt=$idtransaccion&rpp=0\" class=\"text-success icon-client \" ><i class=\" icon-print  \"></i></a></td>";
 													echo "</tr>";
@@ -193,7 +205,7 @@ else    {
 														echo "<tr class=\"text-center  \">";				
 														echo "<td></td>";
 														echo "<td class=\" text-right \">Total:</td>";
-														echo "<td>$$formatSum</td>";
+														echo "<td><strong>$$formatSum</strong></td>";
 														echo "<td></td>";
 														echo "<td></td>";
 														echo "</tr>";
@@ -315,7 +327,7 @@ else    {
 											  </thead>
 											  <tbody>";
 											for( $x=1; $x<=count($caje); $x++ ){
-												$sqltotCaj="SELECT  SUM(`valor-a-pagar`) AS subtotal FROM `transacciones` WHERE `transacciones`.`cajero` LIKE  '".$caje[$x]."' AND MONTH(fecha) = $month AND YEAR(fecha) = $year AND DAY(fecha) = $today ";
+												$sqltotCaj="SELECT  SUM(`valor-a-pagar`) AS subtotal FROM `transacciones` WHERE `transacciones`.`cajero` LIKE  '".$caje[$x]."' AND MONTH(fecha) = $month AND YEAR(fecha) = $year AND DAY(fecha) = $today AND `transacciones`.`descontar` = '0' ";
 												if ($result = $mysqli->query($sqltotCaj)){
 													$rowcj = $result->fetch_assoc();
 													$subt=$rowcj["subtotal"];							
