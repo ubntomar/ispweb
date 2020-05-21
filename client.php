@@ -1,7 +1,5 @@
 	<?php
 	session_start();
-
-
 	if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 		header('Location: login/index.php');
 		exit;
@@ -11,7 +9,6 @@
 	?>
 	<!DOCTYPE html>
 	<html lang="es">
-
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -43,7 +40,7 @@
 				cursor: pointer; /* Mouse pointer on hover */
 			}
 
-			/* Darker background on mouse-over */ 
+			/* Darker background on mouse-over */
 			.btn:hover {
 			background-color: RoyalBlue;
 			}
@@ -571,7 +568,7 @@
 												</tfoot>
 												<tbody>
 													<?php
-													$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,valorf,ip,SUM( saldo )as mysum,`velocidad-plan` FROM `afiliados` INNER JOIN factura ON `afiliados`.`id`=`factura`.`id-afiliado` WHERE factura.periodo !='' AND factura.cerrado=0 AND `afiliados`.`activo`=1 AND eliminar !=1  GROUP BY`afiliados`.`id` ORDER BY mysum DESC ";
+													$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,any_value(valorf),ip,SUM( saldo )as mysum,`velocidad-plan` FROM `afiliados` INNER JOIN factura ON `afiliados`.`id`=`factura`.`id-afiliado` WHERE factura.periodo !='' AND factura.cerrado=0 AND `afiliados`.`activo`=1 AND eliminar !=1  GROUP BY`afiliados`.`id` ORDER BY mysum DESC ";
 													if ($result = $mysqli->query($sql)) {
 														while ($row = $result->fetch_assoc()) {
 															$idCliente = $row["id"];
@@ -634,17 +631,17 @@
 												</tfoot>
 												<tbody>
 													<?php
-													$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`eliminar` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =1 ORDER BY `id` DESC ";
-													if ($result = $mysqli->query($sql))
+													$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,activo,`velocidad-plan`,ip,pago FROM `redesagi_facturacion`.`afiliados` WHERE `afiliados`.`eliminar` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =1 ORDER BY `id` DESC ";
+                                                    if ($result = $mysqli->query($sql))
 														while ($row = $result->fetch_assoc()) {
 															$cod = $row["id"];
-															$sqlz = "SELECT *, COUNT(`factura`.`cerrado`) as counts 
+															$sqlz = "SELECT id,cliente,apellido,telefono,direccion,corte,activo,`velocidad-plan`,ip,pago,cerrado, COUNT(`factura`.`cerrado`) as counts 
 																FROM `redesagi_facturacion`.`afiliados`     
 																INNER JOIN `factura`
 																				ON `afiliados`.`id` = `factura`.`id-afiliado`
 																WHERE `factura`.`id-afiliado`=$cod AND `factura`.`cerrado`=0 
-																";
-															if ($resultz = $mysqli->query($sqlz)) {
+                                                                ";
+                                                            if ($resultz = $mysqli->query($sqlz)) {
 																$rowz = $resultz->fetch_assoc();
 																$counts = $rowz["counts"];
 																//echo "<p>id:-$cod-:cerrado:".$rowz["cerrado"].":-$counts-</p>";
@@ -706,11 +703,11 @@
 												</tfoot>
 												<tbody>
 													<?php
-													$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`eliminar` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =15 ORDER BY `id` DESC ";
+													$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,activo,`velocidad-plan`,ip,pago FROM `redesagi_facturacion`.`afiliados` WHERE `afiliados`.`eliminar` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =15 ORDER BY `id` DESC ";
 													if ($result = $mysqli->query($sql))
 														while ($row = $result->fetch_assoc()) {
 															$cod = $row["id"];
-															$sqlz = "SELECT *, COUNT(`factura`.`cerrado`) as counts 
+															$sqlz = "SELECT id,cliente,apellido,telefono,direccion,corte,activo,`velocidad-plan`,ip,pago,cerrado,  COUNT(`factura`.`cerrado`) as counts 
 															FROM `redesagi_facturacion`.`afiliados`     
 															INNER JOIN `factura`
 																			ON `afiliados`.`id` = `factura`.`id-afiliado`
@@ -745,7 +742,7 @@
 																	echo "</tr>";
 																}
 															}
-															$resultz->free();
+															//$resultz->free();
 														}
 													$result->free();
 													?>
@@ -917,8 +914,10 @@
 		<script src="bower_components/AutoFormatCurrency/simple.money.format.js"></script>
 		<script src="js/dataTables.checkboxes.min.js"></script>
 
-		<script type="text/javascript">
+		<script>
+		console.log('holaaaaaa')
 			<?php
+			
 			if ($_GET['opc']) {
 				echo "
 			$('#new_client_registration').removeClass(\"active\");
@@ -955,7 +954,7 @@
 			}
 			echo "\n";
 			?>
-
+			console.log('hola mundo')
 			$('#new_client_registration').click(function() {
 				$('#active_client_currently').removeClass("active");
 				$('#active_client_currently_content').hide();
@@ -968,6 +967,7 @@
 				$("#business-info").hide();
 			});
 			$('#active_client_currently').click(function() {
+				console.log("voy a mostrar clientes")
 				$('#new_client_registration').removeClass("active");
 				$('#new_client_registration_content').hide();
 				$('#sms_notification').removeClass("active");
@@ -977,6 +977,7 @@
 				$('#active_client_currently').addClass("active");
 				$('#active_client_currently_content').show();
 				if (!$.fn.DataTable.isDataTable('#table_active_client')) {
+					console.log('voy a dibujar la tabla')
 					var table_active_client = $('#table_active_client').DataTable({
 						"responsive": true,
 						"paging": true,
@@ -1474,6 +1475,7 @@
 												valorAdicionalServicio:valorAdicionalServicio
 											},
 											success: function(data) {
+												console.log('los dato devuletos:'+data)
 												var result = data.split(':');
 												var idCl = result[0];
 												var messag = result[1];
@@ -1592,6 +1594,7 @@
 					},
 					success: function(data) {
 						alertify.success("Información en la tabla ha sido actualizada");
+						console.log(data)
 						$('#sms_masivo_container_buscar').html(data);
 						var table = $('#table_client_to_sms').DataTable({
 							responsive: {

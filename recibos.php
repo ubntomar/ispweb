@@ -396,6 +396,8 @@ $mysqli->query($ultimo_recibo);
 $infoafiliado=$afilia->fetch_assoc();
 date_default_timezone_set("America/Bogota");
 $hoy=date("d/m/Y");
+$today=date("d/m/Y");
+$todayDb=date("Y-m-d");
 $cliente=$infoafiliado['cliente']."  ".$infoafiliado['apellido'];
 $corte=$infoafiliado['corte'];
 $direccion=$infoafiliado['direccion'];
@@ -501,17 +503,42 @@ $codigo=300+$id;
 $year=date("Y"); 
 $countDay=cal_days_in_month(CAL_GREGORIAN,$month,$year);
 if($corte==1){
-	$periodo="1 de $month_name a $countDay de $month_name de $year";
+	$periodo="Pagar servicio 1 de cada mes";
 	$paguehasta="5 DE $month_name";
 	$suspension="7 DE $month_name";
 }
 if($corte==15){
-	$periodo="15 de $month_name a 14 de $month_name2 de $year";
+	$periodo="Pagar servicio 15 de cada mes";
 	$paguehasta="20 DE $month_name";
 	$suspension="22 DE $month_name";
 }
 
-
+$sql = "SELECT * FROM `transacciones` WHERE MONTH(fecha) = $month AND YEAR(fecha) = $year AND `id-cliente`='$id' ORDER BY `transacciones`.`idtransaccion` DESC ";
+//echo $sql;
+    if ($result = $mysqli->query($sql)) {
+		$recaudo=0;
+		$recaudoToday=0;
+        $registros=$result->num_rows;
+        $cnt=0;
+        $descontar=0;
+        while ($row = $result->fetch_assoc()) {
+            $cnt+=1;
+            $idtransaccion=$row["idtransaccion"];
+            if($row["descontar"]!=0 ){
+				$descontar+=$row["descontar"];
+                
+			}
+			else{
+				$recaudo+=$row["valor-a-pagar"];  
+				if($todayDb==$row["fecha"]){
+					$recaudoToday+=$row["valor-a-pagar"];
+				}
+			}
+            	
+            
+        }
+            $result->free();
+        }
 
 ?>
 
@@ -564,7 +591,7 @@ if($corte==15){
   <tr valign="bottom">
     <td class="col1f6">101</td>
     <td class="col2f6"></td>
-    <td  colspan="2" class="col3f6" style="font-size:10px;text-align:left;font-style:italic;">SERVICIO INTENET BANDA ANCHA</td>
+    <td  colspan="2" class="col3f6" style="font-size:10px;text-align:left;font-style:italic;">SERVICIO INTENET BANDA ANCHA MES DE  <strong><?php echo strtoupper($month_name);?></strong></td>
     
     <td style="font-size:10px;text-align:left;" class="col5f6">$<?php echo number_format($pago,0);?></td>
     <td class="col6f6"></td>
@@ -576,8 +603,8 @@ if($corte==15){
     <td class="col2f7"></td>
     <td  colspan="2" class="col3f7" style="font-size:10px;text-align:left;font-style:bold;">FACTURAS VENCIDAS</td>
     
-    <td style="text-align:left;font-size:10px;" class="col5f7">$<?php echo number_format($saldoenmora,0);?></td>
-    <td class="col6f7"></td>
+    <td style="text-align:left;font-size:10px;" class="col5f7">$<?php echo number_format($saldoenmora+$descontar,0);?></td>
+    <td class="col6f7"><strong>Descuento:$<?php echo number_format($descontar,0);?> </strong></td>
     <td style="text-align:right;font-size:10px;" class="col7f7">$<?php echo number_format($saldoenmora,0);?></td>
     <td class="col8f7"></td>
   </tr>
@@ -590,7 +617,7 @@ if($corte==15){
     <td class="col8f8"></td>
   </tr>
   <tr>
-    <td colspan="6" class="col1f9"></td>
+    <td colspan="6" class="col1f9" style="text-align:right;font-size:14px;"><?php if($recaudo) echo "*Ha pagado este mes: $<strong>".number_format($recaudo,0);if($recaudoToday)echo "</strong>*Cliente PAGA <strong>HOY   $today :  $".number_format($recaudoToday,0)."</strong>*Nuevo Saldo--->";?> </td>
     
     <td style="text-align:right;font-size:12px;font-weight: bold;" class="col7f9">$<?php echo number_format($totalfactura,0);?></td>
     <td class="col8f9"></td>
@@ -640,7 +667,7 @@ if($corte==15){
   <tr>
     <td class="col1f6">101</td>
     <td class="col2f6"></td>
-    <td  colspan="2" class="col3f6" style="font-size:10px;text-align:left;font-style:italic">SERVICIO INTENET BANDA ANCHA</td>
+    <td  colspan="2" class="col3f6" style="font-size:10px;text-align:left;font-style:italic">SERVICIO INTENET BANDA ANCHA MES DE  <strong><?php echo strtoupper($month_name);?></strong></td>
     
     <td style="font-size:10px;text-align:left;" class="col5f6">$<?php echo number_format($pago,0);?></td>
     <td class="col6f6"></td>
@@ -652,8 +679,8 @@ if($corte==15){
     <td class="col2f7"></td>
     <td  colspan="2" class="col3f7" style="font-size:10px;text-align:left;">FACTURAS VENCIDAS</td>
     
-    <td style="text-align:left;font-size:10px;" class="col5f7">$<?php echo number_format($saldoenmora,0);?></td>
-    <td class="col6f7"></td>
+    <td style="text-align:left;font-size:10px;" class="col5f7">$<?php echo number_format($saldoenmora+$descontar,0);?></td>
+    <td class="col6f7"><strong>Descuento:$<?php echo number_format($descontar,0);?> </strong></td>
     <td style="text-align:right;font-size:10px;" class="col7f7">$<?php echo number_format($saldoenmora,0);?></td>
     <td class="col8f7"></td>
   </tr>
@@ -666,7 +693,7 @@ if($corte==15){
     <td class="col8f8"></td>
   </tr>
   <tr>
-    <td colspan="6" class="col1f9"></td>
+	<td colspan="6" class="col1f9" style="text-align:right;font-size:14px;"><?php if($recaudo) echo "*Ha pagado este mes: $<strong>".number_format($recaudo,0);if($recaudoToday)echo "</strong>*Cliente PAGA <strong>HOY   $today :  $".number_format($recaudoToday,0)."</strong>*Nuevo Saldo--->";?> </td>
     
     <td style="text-align:right;font-size:12px;font-weight: bold;" class="col7f9">$<?php echo number_format($totalfactura,0);?></td>
     <td class="col8f9"></td>

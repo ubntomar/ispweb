@@ -1,7 +1,5 @@
 <?php 
 session_start();
-
-
 if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
 		{
 		header('Location: login/index.php');
@@ -145,32 +143,54 @@ else    {
             <div class="columna col-lg-7">
               <div class=" nuevo_contenido p-2 border border-info rounded">
 				  <div class="d-flex justify-content-center">
-					  <h3 class="titulo">Estado de Clientes Suspendidos</h3>
+					  <h3 class="titulo">Estado de conexión de Clientes</h3>
 				  </div>
 
                 <div id="app">
-                  <table class="table ">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <div class="d-flex align-items-center">
+                    <div></div><div><input type="text" value="" id="search"  class="form-control form-control-sm ml-1" v-model="searchString"></div><div><button class="icon-search form-control form-control-sm " v-on:click="searchFn" ></button></div>
+                  </div>
+                  <div>
+                    <select name="filter" id="filter" class="form-control form-control-sm">
+                      <option value="todos">Todos</option>
+                      <option value="cortado">Cortado</option>
+                      <option value="pingOk">Ping OK</option>
+                      <option value="down">Ping Down</option> 
+                    </select>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table striped table-hover table-sm">
                     <thead>
-                      <th>Nombre</th>
-                      <th>IP Address</th>
-					  <th>Ping Response</th>
-					  <th>Response Time</th>
+                      <th>Nombre {{searchString}} <i class="icon-users"></i></th>
+                      <th>IP Address <i class="icon-exchange"></i> </th>
+					  <th>Ping <i class="icon-clock"></i></th>
+					  <th> <i class="icon-signal"></i></th>
                     </thead>
                     <tbody>
-                      <tr v-for="cliente in clientes" >
-                        <td class="font-weight-bold">{{cliente.name}}</td>
+                      <tr v-for="cliente in clientes"  v-bind:class="{'table-warning':!cliente.pingStatus}" >
+                        <td class="font-weight-bold">{{cliente.name}}
+                        <div class="timeElapsded border  rounded d-flex justify-content-center pl-1 font-italic w-50" v-bind:class="{'border-danger':cliente.suspender}" ><small>{{cliente.suspender}}</small></div>
+                        </td>
                         <td>{{cliente.ipAddress}}</td>
-						<td class="text-success ">{{cliente.pingStatus}}</td>
-						<td>{{cliente.responseTime}} ms</td>
+						<td><strong v-if="cliente.responseTime">{{cliente.responseTime}} ms</strong>
+              <div class="timeElapsded border border-info rounded d-flex justify-content-center px-1 font-italic" v-if="cliente.elapsedTime" >
+                <small v-if="cliente.elapsedTime!='Hoy'" >  Hace {{cliente.elapsedTime}}</small>
+                <small v-if="cliente.elapsedTime=='Hoy'" >   {{cliente.elapsedTime}}</small>
+                </div>
+            </td>
+						<td class="" v-bind:class="{'text-success':cliente.pingStatus=='up','text-danger':cliente.pingStatus=='down'}" >{{cliente.pingStatus}}<i class="" v-bind:class="{'icon-smile':cliente.pingStatus=='up','icon-emo-unhappy':cliente.pingStatus=='down'}" ></td>
                       </tr>
                     </tbody>
 				  </table>
+                </div>
 				  <div class="d-flex justify-content-center">
 					  <div class="d-inline  mx-1">
 							<input class="rounded-circle border-0 h2" type="button" name="previus" value='<'>
 					  </div>
 					  <div class="d-inline mx-1">
-							<input class="rounded-circle border-0 h2" type="button" id='nexxt' value='>'>
+							<input v-on:click="getUser()" class="rounded-circle border-0 h2" type="button" id='nexxt' value='>'>
 					  </div>
 				  </div>
                 </div>
@@ -343,15 +363,50 @@ else    {
     <script src="bower_components/AutoFormatCurrency/simple.money.format.js"></script>
     <script src="js/dataTables.checkboxes.min.js"></script>
     <script>
+    console.log('hola mundo')
       var app = new Vue({
         el: "#app",
         data: {
-		  message: "Hello Vue!",
-		  clientes: [
-			  {name:'Omar H',ipAddress:'192.168.25.52',pingStatus:'Active',responseTime:'25.0'},
-			  {name:'Juan D',ipAddress:'192.168.0.2',pingStatus:'Inactive',responseTime:'54.2'}
-		]
-        }
+          stat:false,
+          message: "Hello Vue!",  
+          thename: "", 
+          id: "1",
+          clientes: [],
+          searchString: "",
+          searchOption: ""
+            },
+        methods: {
+          getUser: function(){
+            axios.get('fetchUsers.php',{
+              params: {
+                id: this.id,
+                searchString: this.searchString,
+                searchOption: this.searchOption
+
+              }
+            }).then(response=>{
+              console.log( 'respuesta'+response)
+              this.clientes=response.data
+             
+              
+            }).catch( e=>{
+              console.log(e)
+            })
+          },
+          searchFn: function(){
+            this.getUser()
+            console.log("Voy a buscar en la Bd")
+            this.clearSearch()
+            
+          },
+          clearSearch: function(){
+            this.searchString=""
+          }
+         
+        },
+        mounted() {
+          this.getUser()
+        },
       });
     </script>
   </body>

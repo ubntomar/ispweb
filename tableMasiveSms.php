@@ -2,8 +2,8 @@
 session_start();
 if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
         {
-        header('Location: login/index.php');
-        exit;
+        //header('Location: login/index.php');
+        //exit;
         }
 else    {
         $user=$_SESSION['username'];
@@ -35,6 +35,7 @@ if (($_POST["corte"]==1 || $_POST["corte"]==15 )) {
 }
 if  ($_POST["corte"]=="") { 
     $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados  where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? and `ciudad` like ?  and  (`activo` = 1) and (`eliminar` = 0)";
+    echo $sqlprepared;
     $stmt = $mysqli->prepare($sqlprepared);
     $direccion="%{$_POST["address"]}%";
     $name="%{$_POST["name"]}%";
@@ -69,7 +70,7 @@ echo "
     $saldoTotal=0; 
     while($row = $result->fetch_assoc()) {
         $id=$row["id"];
-        $sql="select * from `sent_messages` where `fecha` >= '$yesterday' and `fecha` <= '$today' and `id_client`= '$id'";    
+        $sql="select * from `redesagi_facturacion`.`sent_messages` where `fecha` >= '$yesterday' and `fecha` <= '$today' and `id_client`= '$id'";    
         if ($res = $mysqli->query($sql)) {
             $row_cnt = $res->num_rows;
             if($row_cnt>0){
@@ -85,7 +86,8 @@ echo "
         if($row["shutoffpending"]==1)$text2="<p class='border border-warning bg-info text-white'>en proceso...</p>";
         else $text2="";
         $day=date('d');
-        $sqlSaldo="SELECT SUM(saldo) saldo,valorf FROM redesagi_facturacion.factura where `id-afiliado`={$row['id']} and cerrado=0 ;";         
+        $sqlSaldo="SELECT SUM(saldo) saldo,ANY_VALUE(valorf) FROM redesagi_facturacion.factura where `id-afiliado`={$row['id']} and cerrado=0 ;";   
+        //echo $sqlSaldo;      
         if ($resultsaldo = $mysqli->query($sqlSaldo)) {
             $rowsaldo = $resultsaldo->fetch_assoc();
             $saldo=$rowsaldo["saldo"];  

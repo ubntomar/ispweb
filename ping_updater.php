@@ -12,7 +12,7 @@ $today = date("Y-m-d");
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i');
 $sqlSearch="SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1 ";
-if ($result = $mysqli->query($sqlSearch)&&false) {
+if ($result = $mysqli->query($sqlSearch)) {
     while($row = $result->fetch_assoc()) {
         $id=$row["id"];
         $ipAddress=$row['ip'];
@@ -20,7 +20,7 @@ if ($result = $mysqli->query($sqlSearch)&&false) {
         if($device->ping($ipAddress)){
             $timeResponse=new PingTime($ipAddress); 
             if($time=$timeResponse->time()){
-                $sqlupdate="UPDATE `redesagi_facturacion`.`afiliados` SET `ping` = '$time' WHERE (`id` = '$id');";
+                $sqlupdate="UPDATE `redesagi_facturacion`.`afiliados` SET `ping` = '$time' , `pingDate` = '$today' WHERE (`id` = '$id');";
                 $updateresult=$mysqli->query($sqlupdate);
                 //print "UPDATE `redesagi_facturacion`.`afiliados` SET `ping` = '$time' WHERE (`id` = '$id')";
             }

@@ -1,76 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Interracción con Mikrotik</title>
-</head>
-<?php 
+<?php
 
-?>
-<body>
-<?php 
-// ///aws ubuntu server:  sbin/ip route add 192.168.xx.0/24 via 192.168.42.10 dev ppp0     paste in /etc/ppp/ip-up
-// require 'Mkt.php';    
-// if($mkobj=new Mkt('192.168.21.99','agingenieria','agwist2017')){
-//     print "estoy conectado a la rb";
-//     if(false)removeIp($mkobj->remove_ip('192.168.88.100','morosos'));
-//     if(false)listAllIp($mkobj->list_all());
-//     if(false)addIP($mkobj->add_address('192.168.88.100','morosos','idUserNumber:xxx'));
-//     if(true)listneighbor($mkobj->neighbor());
-// }
-// else print "No fue posible conectar a la Rboard";
+/**
+ * Get human readable time difference between 2 dates
+ *
+ * Return difference between 2 dates in year, month, hour, minute or second
+ * The $precision caps the number of time units used: for instance if
+ * $time1 - $time2 = 3 days, 4 hours, 12 minutes, 5 seconds
+ * - with precision = 1 : 3 days
+ * - with precision = 2 : 3 days, 4 hours
+ * - with precision = 3 : 3 days, 4 hours, 12 minutes
+ * 
+ * From: http://www.if-not-true-then-false.com/2010/php-calculate-real-differences-between-two-dates-or-timestamps/
+ *
+ * @param mixed $time1 a time (string or timestamp)
+ * @param mixed $time2 a time (string or timestamp)
+ * @param integer $precision Optional precision 
+ * @return string time difference
+ */
+function get_date_diff( $time1, $time2, $precision = 2 ) {
+	// If not numeric then convert timestamps
+	if( !is_int( $time1 ) ) {
+		$time1 = strtotime( $time1 );
+	}
+	if( !is_int( $time2 ) ) {
+		$time2 = strtotime( $time2 );
+	}
 
-// function removeIp($remove){
-//     if($remove==1){
-//         print "Ip removida con éxito";
-//     }
-//     if($remove==2){
-//         print "Dirección Ip o Lista no existe ";
-//     }     
-// }
-// function listAllIp($responses){
-//     $json = json_encode($responses, JSON_PRETTY_PRINT);
-//     print  "\n".$json."\n";    
-// }
-// function addIp($response){
-//     if($response){
-//         print "Ip agregada con éxito";
-//     }
-//     else{
-//         print "Problemas al ingresar la Ip a la Rboard";
-//     }
-// }
-// function listneighbor($responses){
-//     print " \nresponse:";
-//     $json = json_encode($responses, JSON_PRETTY_PRINT);
-//     print  "\n".$json."\n";    
-// }
+	// If time1 > time2 then swap the 2 values
+	if( $time1 > $time2 ) {
+		list( $time1, $time2 ) = array( $time2, $time1 );
+	}
 
-// $date = new DateTime('NOW');
-// $date->format('Y/m/d');
-// $today=$date->format('Y/m/d');
-// $date->modify('-25 day');
-// $yesterday=$date->format('Y/m/d');
-// print "Today:$today  and Yesterday $yesterday";
-$password = 'agwist2017';
-$crypted = password_hash($password, PASSWORD_DEFAULT);
-print $crypted."\n";
+	// Set up intervals and diffs arrays
+	$intervals = array( 'year', 'month', 'day', 'hour', 'minute', 'second' );
+	$diffs = array();
 
+	foreach( $intervals as $interval ) {
+		// Create temp time from time1 and interval
+		$ttime = strtotime( '+1 ' . $interval, $time1 );
+		// Set initial values
+		$add = 1;
+		$looped = 0;
+		// Loop until temp time is smaller than time2
+		while ( $time2 >= $ttime ) {
+			// Create new temp time from time1 and interval
+			$add++;
+			$ttime = strtotime( "+" . $add . " " . $interval, $time1 );
+			$looped++;
+		}
 
-// See the password_hash() example to see where this came from.
-$hash = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq';
+		$time1 = strtotime( "+" . $looped . " " . $interval, $time1 );
+		$diffs[ $interval ] = $looped;
+	}
 
-if (password_verify('agwist2017', $crypted)) {
-    echo 'Password is valid!';
-} else {
-    echo 'Invalid password.';
+	$count = 0;
+	$times = array();
+	foreach( $diffs as $interval => $value ) {
+		// Break if we have needed precission
+		if( $count >= $precision ) {
+			break;
+		}
+		// Add value and interval if value is bigger than 0
+		if( $value > 0 ) {
+			if( $value != 1 ){
+				$interval .= "s";
+			}
+			// Add value and interval to times array
+			$times[] = $value . " " . $interval;
+			$count++;
+		}
+	}
+
+	// Return string with times
+	return implode( ", ", $times );
 }
 
 
 
+$t  = '2013-11-28';
+$t2 = '2013-11-29';
+ 
+if($datePing=get_date_diff( $t, $t2, 2 ));
+else $datePing="Hoy"; 
+echo $datePing;
 
 ?>
-</body>
-</html>

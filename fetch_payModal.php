@@ -108,12 +108,17 @@ if($_POST['rowid']) {
 						}	
 				}
 			if($fl==0){
-				$varHtml.="<td class=\"small\">Pago Anterior:</td><td>Ninguno. Afiliación:$registration Corte:$corte</td>"; 	
+				$varHtml.="<td class=\"small\">Pago Anterior:</td><td>Ninguno.<a href='factura_new_cli.php?rpp=1&idc=$id' target='_blank'> Afiliación:</a>$registration Corte:$corte</td>
+				</tr>"; 	
+			}
+			else{
+				$varHtml.="</tr><tr><td class=\"small\">Contrato de afiliación:</td><td><a href='factura_new_cli.php?rpp=1&idc=$id' target='_blank'> Afiliación:</a></td></tr>"; 	
+
 			}
 			$result->free();         	
 			          	
 			$varHtml.="  
-						</tr>
+						
 						
 						<tr  >
 							<td colspan=\"2\">

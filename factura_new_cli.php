@@ -1,8 +1,8 @@
 <?php
 session_start();
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-    header('Location: login/index.php');
-    exit;
+    //header('Location: login/index.php');
+    //exit;
 } else {
     $user = $_SESSION['username'];
 }
@@ -226,7 +226,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
         $fecha_recibo = $date['year'] . '/' . $date['mon'] . '/' . $date['mday'];
         //echo "Fecha de impresion de recibo :$fecha_recibo ";
         $hoy = date("d/m/Y");
-        $query = "SELECT * FROM afiliados WHERE id=" . $id . "";
+        $query = "SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE id=" . $id . "";
         if ($result = $mysqli->query($query)) {
             $row = $result->fetch_assoc();
             $cliente = $row['cliente'] . "  " . $row['apellido'];
@@ -240,6 +240,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
             $email = $row['mail'];
             $registrationDate = $row['registration-date'];
             $velocidad = $row['velocidad-plan'];
+            $cajero= $row['cajero'];
             
         }
         $ultimopago = "";
@@ -298,6 +299,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
                             <h2 class="name">SN1688-GMC</h2>
                             <div class="date">Fecha de Factura: <?php echo $registrationDate;  ?></div>
                             <div class="date">Vence: <?php echo $registrationDate;  ?></div>
+                            <div class="date">Cajero: <?php echo $cajero;  ?></div>
                         </div>
                     </div>
                     <table border="0" cellspacing="0" cellpadding="0">
@@ -313,8 +315,10 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
                         <tbody>
                             
                                 <?php
-                                $sql = "SELECT * FROM redesagi_facturacion.factura where `id-afiliado` = '$id' ORDER BY `id-factura`  DESC ";
+                                $sql = "SELECT * FROM `redesagi_facturacion`.`factura` where `id-afiliado` = '$id' AND (`notas` LIKE '%1er Mes%' OR `notas` LIKE '%Afiliacion%') ORDER BY `id-factura` ASC";
+                                //echo "<p>$sql</p>";
                                 $total=0;
+                                $cont=0;
                                 if ($result = $mysqli->query($sql)) {
                                     while ($row = $result->fetch_assoc()) {
                                         $cont+=1;
