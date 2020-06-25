@@ -1,5 +1,4 @@
 <?php
-
 echo"arranca okg";
 include("login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
@@ -11,7 +10,7 @@ $today = date("Y-m-d");
 $convertdate= date("d-m-Y" , strtotime($today));
 $mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 $monthn = date("n");//****************** IMPORTANTE****Y REVISAR LOS STAND BY*****************************************----------
-$periodo=$mes[5];// hoy 07  de Mayo de 2020 aquí pongo el mes al que le voy a crear la tanda de facturas a todos los afiliados.  AND `suspender`!=1
+$periodo=$mes[6];// hoy 01  de Junio de 2020 aquí pongo el mes al que le voy a crear la tanda de facturas a todos los afiliados.  AND `suspender`!=1
 $cont=0;																
 $sql = "SELECT * FROM `afiliados` WHERE `mesenmora` != -1 AND `activo`=1  AND `eliminar`!=1 AND `standby`!=1 ORDER BY `id` ASC ";
 if ($result = $mysqli->query($sql)) {

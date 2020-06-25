@@ -525,16 +525,14 @@ $sql = "SELECT * FROM `transacciones` WHERE MONTH(fecha) = $month AND YEAR(fecha
             $cnt+=1;
             $idtransaccion=$row["idtransaccion"];
             if($row["descontar"]!=0 ){
-				$descontar+=$row["descontar"];
-                
-			}
-			else{
-				$recaudo+=$row["valor-a-pagar"];  
-				if($todayDb==$row["fecha"]){
-					$recaudoToday+=$row["valor-a-pagar"];
-				}
-			}
-            	
+							$descontar+=$row["descontar"];
+						}
+						$recaudo+=$row["valor-a-pagar"]-$row["descontar"];  
+						if($todayDb==$row["fecha"]){
+							$recaudoToday+=$row["valor-a-pagar"]-$row["descontar"];
+						}
+						
+										
             
         }
             $result->free();
@@ -617,7 +615,7 @@ $sql = "SELECT * FROM `transacciones` WHERE MONTH(fecha) = $month AND YEAR(fecha
     <td class="col8f8"></td>
   </tr>
   <tr>
-    <td colspan="6" class="col1f9" style="text-align:right;font-size:14px;"><?php if($recaudo) echo "*Ha pagado este mes: $<strong>".number_format($recaudo,0);if($recaudoToday)echo "</strong>*Cliente PAGA <strong>HOY   $today :  $".number_format($recaudoToday,0)."</strong>*Nuevo Saldo--->";?> </td>
+    <td colspan="6" class="col1f9" style="text-align:right;font-size:14px;"><?php if($recaudo) echo "*Ha pagado este mes: $<strong>".number_format($recaudo,0);if($recaudoToday)echo "</strong>*Cliente PAGA <strong>HOY   $today :  $".number_format($recaudoToday,0)."</strong>";?>*Nuevo Saldo---></td>
     
     <td style="text-align:right;font-size:12px;font-weight: bold;" class="col7f9">$<?php echo number_format($totalfactura,0);?></td>
     <td class="col8f9"></td>
@@ -693,7 +691,7 @@ $sql = "SELECT * FROM `transacciones` WHERE MONTH(fecha) = $month AND YEAR(fecha
     <td class="col8f8"></td>
   </tr>
   <tr>
-	<td colspan="6" class="col1f9" style="text-align:right;font-size:14px;"><?php if($recaudo) echo "*Ha pagado este mes: $<strong>".number_format($recaudo,0);if($recaudoToday)echo "</strong>*Cliente PAGA <strong>HOY   $today :  $".number_format($recaudoToday,0)."</strong>*Nuevo Saldo--->";?> </td>
+	<td colspan="6" class="col1f9" style="text-align:right;font-size:14px;"><?php if($recaudo) echo "*Ha pagado este mes: $<strong>".number_format($recaudo,0);if($recaudoToday)echo "</strong>*Cliente PAGA <strong>HOY   $today :  $".number_format($recaudoToday,0)."</strong>";?>*Nuevo Saldo---></td>
     
     <td style="text-align:right;font-size:12px;font-weight: bold;" class="col7f9">$<?php echo number_format($totalfactura,0);?></td>
     <td class="col8f9"></td>

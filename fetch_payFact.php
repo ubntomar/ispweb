@@ -19,6 +19,14 @@ $convertdate = date("d-m-Y", strtotime($today));
 $hourMin = date('H:i');
 $usuario = $_SESSION['username'];
 $debug = 0;
+									// idc: idcRow,
+									// vap: vapRow,
+									// vaa: vaaRow,
+									// vre: vreRow,
+									// cam: cambioRow,
+									// vad: vadRow,
+									// vpl: vplanRow,
+									// rec: rec
 if($_POST["rec"]){
 	$rec = mysqli_real_escape_string($mysqli, $_REQUEST['rec']);
 	if($rec){
@@ -124,12 +132,14 @@ if (($_POST['vap'] >= 0) || ($debug == 1)) { //paga todo	//paga todo   //paga to
 if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar //abonar //abonar //abonar //abonar //abonar //abonar 
 	if ($debug != 2) {
 			$idc = mysqli_real_escape_string($mysqli, $_REQUEST['idc']);
-			$vna = mysqli_real_escape_string($mysqli, $_REQUEST['vaa']);
+			$vna = mysqli_real_escape_string($mysqli, $_REQUEST['vaa']);//Vna es valor a abonar antes de descontar
 			$vre = mysqli_real_escape_string($mysqli, $_REQUEST['vre']);
 			$cam = mysqli_real_escape_string($mysqli, $_REQUEST['cam']);
 			$vad = mysqli_real_escape_string($mysqli, $_REQUEST['vad']);
 			$vpl = mysqli_real_escape_string($mysqli, $_REQUEST['vpl']);
+			if($vna=="") $vna=0;
 		}
+
 	if ($debug == 2) {
 		$idc = 11;
 		$vaa = 60000;
@@ -139,7 +149,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 		$descontar=$vad;
 		$numFactsAffectedTmp=$descontar/$vpl;
 		echo "descontar:$descontar y numFactsAffectedTmp: $numFactsAffectedTmp";
-		$temp2=$descontar%$vpl;
+		$residuo=$descontar%$vpl;
 		$numFactsAffected=0;
 		$descCompletas=0;
 		$descIncompletas=0;
@@ -147,11 +157,11 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 			$numFactsAffected=1;
 			$descIncompletas=1;
 		}
-		if($temp2==0){
+		if($residuo==0){
 			$numFactsAffected=$descontar/$vpl;
 			$descCompletas=$numFactsAffected;
 		}
-		if($temp2>0){
+		if($residuo>0){
 			$numFactsAffected=intval($numFactsAffectedTmp)+1;
 			$descCompletas=intval($numFactsAffectedTmp);
 			$descIncompletas=1;

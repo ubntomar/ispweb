@@ -1,6 +1,6 @@
 <?php
 session_start();
-$debug = true;
+$debug = false;
 if(!$debug){
     if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
         header('Location: login/index.php');

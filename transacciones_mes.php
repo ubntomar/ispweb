@@ -33,7 +33,7 @@ echo "
         <input type=\"hidden\" id=\"idt\" name=\"idt\" value=\"0\"/>
         <input type=\"hidden\" id=\"rpp\" name=\"rpp\" value=\"register-pay\"/>
 </form>
-<table id=\"clientList\" class=\"display dataTable_Morosos cell-border\" cellspacing=\"0\" width=\"100%\">
+<table id=\"clientList\" class=\"display compact dataTable_Morosos cell-border\" cellspacing=\"0\" width=\"100%\">
     <thead  class=\"bg-primary\">
         <tr>
             <td>Nombre</td>
@@ -41,6 +41,7 @@ echo "
             <td>Pago</td>
             <td>Fecha</td>
             <td>Cajero</td>				
+            <td><i class=\" icon-print  \"></i></td>
             <td><i class=\" icon-print  \"></i></td>
         </tr>
     </thead>
@@ -51,6 +52,7 @@ echo "
             <td>Pago</td>
             <td>Fecha</td>
             <td>Cajero</td>
+            <td><i class=\" icon-print  \"></i></td>
             <td><i class=\" icon-print  \"></i></td>
         </tr>
     </tfoot>
@@ -85,9 +87,10 @@ echo "
             echo "<td>".$rowafi["cliente"]." ".$rowafi["apellido"]."</td>";
             echo "<td>".$rowafi["direccion"]."</td>";
             echo "<td>$pagado $p</td>";
-            echo "<td class=\" align-middle \">".$row["fecha"]." ".$row["hora"]."</td>";
+            echo "<td class=\" align-middle \"><small>".$row["fecha"]." ".$row["hora"]."</small> </td>";
             echo "<td class=\" align-middle \"> {$row["cajero"]} </td>";
             echo "<td class=\" align-middle \"><a href=\"printable.php?idt=$idtransaccion&rpp=0\" class=\"text-primary icon-client \" ><i class=\" icon-print  \"></i></a></td>";
+            echo "<td class=\" align-middle \"><a href=\"recibos.php?idc=$idafi&rpp=0\" class=\"text-info icon-client \" target=\"_blank\" ><i class=\" icon-print  \"></i></a></td>";
             echo "</tr>";		
             }
             $result->free();

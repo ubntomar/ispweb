@@ -50,6 +50,7 @@
 	<body>
 		<?php
 		include("login/db.php");
+		include("pingTime.php");
 		$mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 		if ($mysqli->connect_errno) {
 			echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -1648,7 +1649,38 @@
 								$('#cutServiceButton').show();
 							}
 						});	 				
-
+						$('#table_client_to_sms').on('click', '.checkPing', function(){ 
+							let id=this.id.split('-')[1];
+							let ipstr= '#ip--'+id;
+							let ip=$(ipstr).val();
+							let strButton="checkPing-"+id
+							let textCheckPing="textCheckPing-"+id
+							$("#"+strButton+" i").removeClass("icon-arrows-ccw")
+							$("#"+strButton+" i").addClass("icon-clock bg-warning")
+							$("#"+textCheckPing+" h6 small ").html("<i class=\" text-info\">Esperando</i>")
+							console.log("La ip es:"+ip+" el id es:"+id)
+							$.ajax({
+								type: 'post',
+								url: 'devicePingResponse.php',
+								data: {
+									ip: ip						
+								},
+								success: function(data) {
+									console.log(JSON.stringify(data))							
+									let obj =JSON.parse(data)
+									console.log("el dato es:"+obj.time)
+									$("#"+strButton+" i").removeClass("icon-clock bg-warning")
+									$("#"+strButton+" i").addClass("icon-arrows-ccw")
+									if(obj.time){
+										$("#"+textCheckPing+" h6 small ").html("<i class=\"icon-smile text-primary\">Ping:"+obj.time+"ms</i>")
+									}
+									else{
+										$("#"+textCheckPing+" h6 small ").html("<i class=\"icon-emo-unhappy text-danger\">No-ping</i>")
+									}
+								}
+								})
+							
+						})
 						$('#table_client_to_sms').on('focusout', '.inputIp', function(){
 							let id=this.id.split('--')[1];
 							let dsb='#dsb-'+id;

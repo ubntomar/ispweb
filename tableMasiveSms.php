@@ -9,7 +9,11 @@ else    {
         $user=$_SESSION['username'];
         }
 include("login/db.php");
+include("dateHuman.php");
+date_default_timezone_set('America/Bogota');
 $date = new DateTime('NOW');
+$date->format('Y-m-d');
+$hoy=$date->format('Y-m-d');
 $date->format('Y/m/d');
 $today=$date->format('Y/m/d');
 $date->modify('-3 day');
@@ -35,7 +39,7 @@ if (($_POST["corte"]==1 || $_POST["corte"]==15 )) {
 }
 if  ($_POST["corte"]=="") { 
     $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados  where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? and `ciudad` like ?  and  (`activo` = 1) and (`eliminar` = 0)";
-    echo $sqlprepared;
+    //echo $sqlprepared;
     $stmt = $mysqli->prepare($sqlprepared);
     $direccion="%{$_POST["address"]}%";
     $name="%{$_POST["name"]}%";
@@ -70,6 +74,8 @@ echo "
     $saldoTotal=0; 
     while($row = $result->fetch_assoc()) {
         $id=$row["id"];
+        $ping=$row["ping"];
+        $pingDate=$row["pingDate"];
         $sql="select * from `redesagi_facturacion`.`sent_messages` where `fecha` >= '$yesterday' and `fecha` <= '$today' and `id_client`= '$id'";    
         if ($res = $mysqli->query($sql)) {
             $row_cnt = $res->num_rows;
@@ -94,7 +100,10 @@ echo "
             $valor_factura=$rowsaldo["valorf"];
             $resultsaldo->free();
             }
-        $dias_plazo=5;    
+        $dias_plazo=5;   
+        if(($sincedexDays=get_date_diff( $pingDate, $hoy, 2 ))=="") $sinceString="Ultimo ping: Hoy"; else $sinceString="Hace $sincedexDays Dias";
+        if($pingDate) $iconPing="<div class=\"d-flex align-items-center justify-content-between\"><div id=\"textCheckPing-$id\" class=\"border border-1 border-success rounded m-1 p-1 \"><h6 class=\"mb-0\"><small><i class=\"icon-smile text-success\">Ping O.K</i></small></h6><small class=\"font-italic\"><b class=\"text-uppercase\">$sinceString</b></small></div><button class=\"checkPing\" id=\"checkPing-$id\" class=\"m-1 border border-rounded\"><i class=\"icon-arrows-ccw\"></i></button></div>"; 
+        else $iconPing="<div class=\"d-flex align-items-center justify-content-between\"><div id=\"textCheckPing-$id\"><h6 class=\"mb-0\"><small><i class=\"icon-emo-unhappy text-danger\">No ping</i></small></h6></div><button class=\"checkPing\" id=\"checkPing-$id\" class=\"m-1 border border-rounded\"><i class=\"icon-arrows-ccw\"></i></button></div>";  
         //echo "1:$criterioFacturacion 2:$saldo 3:$valor_factura 4:$day 5:{$row['corte']} 6:$dias_plazo <br>";
         if ($criterioFacturacion=="1") {
             if (($saldo<=$valor_factura) && ($day<= ( $row['corte'] +$dias_plazo) )  ) {
@@ -102,7 +111,7 @@ echo "
                 echo"<tr class=\"\"   id='tr-{$row['id']}' >
                 
                 <td>{$row['id']}  </td>
-                <td>{$row['cliente']} {$row['apellido']} $smsFlag<input type='hidden' size='3' id='dsb-{$row['id']}' value='' > <input size='11' class=\"inputIp font-weight-bold\" type='text'   id='ip--{$row['id']}' value='{$row['ip']}'  > <p  id='p-{$row['id']}' ></p> $text1 $text2 </td>
+                <td>{$row['cliente']} {$row['apellido']} $smsFlag<input type='hidden' size='3' id='dsb-{$row['id']}' value='' > <input size='11' class=\"inputIp font-weight-bold\" type='text'   id='ip--{$row['id']}' value='{$row['ip']}' > $iconPing <p  id='p-{$row['id']}' ></p> $text1 $text2 </td>
                 <td>{$row['direccion']}</td>
                 
                 <td>{$row['corte']}</td>
@@ -116,13 +125,13 @@ echo "
             }
         
         } 
-        if ($criterioFacturacion=="-1"   ) {
+        if ($criterioFacturacion=="-1"   ) {   
             if (( ($saldo>0) && ($day> ( $row['corte'] +$dias_plazo) )) || ( ($day<=($row['corte']+$dias_plazo))&&($saldo>$valor_factura) )) { 
                 $saldoTotal+=$saldo; 
                 echo"<tr class=\"\"   id='tr-{$row['id']}' > 
                 
                 <td>{$row['id']}  </td>
-                <td>{$row['cliente']} {$row['apellido']}({$row['id']})$smsFlag<input type='hidden' size='3' id='dsb-{$row['id']}' value='' > <input size='11' class=\"inputIp font-weight-bold\" type='text'   id='ip--{$row['id']}' value='{$row['ip']}' > <p  id='p-{$row['id']}' ></p> $text1 $text2 </td>
+                <td>{$row['cliente']} {$row['apellido']}({$row['id']})$smsFlag<input type='hidden' size='3' id='dsb-{$row['id']}' value='' > <input size='11' class=\"inputIp font-weight-bold\" type='text'   id='ip--{$row['id']}' value='{$row['ip']}'> $iconPing <p  id='p-{$row['id']}' ></p> $text1 $text2 </td>
                 <td>{$row['direccion']}</td>
                 
                 <td>{$row['corte']}</td>
@@ -141,7 +150,7 @@ echo "
             echo"<tr class=\"\"   id='tr-{$row['id']}' >
                 
                 <td>{$row['id']}  </td>
-                <td>{$row['cliente']} {$row['apellido']} $smsFlag<input type='hidden' size='3' id='dsb-{$row['id']}' value='' > <input size='11' class=\"inputIp font-weight-bold\" type='text'   id='ip--{$row['id']}' value='{$row['ip']}' > <p  id='p-{$row['id']}' ></p> $text1 $text2 </td>
+                <td>{$row['cliente']} {$row['apellido']} $smsFlag<input type='hidden' size='3' id='dsb-{$row['id']}' value='' > <input size='11' class=\"inputIp font-weight-bold\" type='text'   id='ip--{$row['id']}' value='{$row['ip']}'> $iconPing <p  id='p-{$row['id']}' ></p> $text1 $text2 </td>
                 <td>{$row['direccion']}</td>
                 
                 <td>{$row['corte']}</td>

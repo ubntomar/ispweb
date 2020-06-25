@@ -1,7 +1,5 @@
 <?php 
 session_start();
-
-
 if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
 		{
 		header('Location: login/index.php');
@@ -144,18 +142,20 @@ else    {
 		    							echo"</div>";
 		    				  
 		    				?>			
-							<table id="clientList2" class="display dataTable_Morosos cell-border" cellspacing="0" width="100%">
+							<table id="clientList2" class="display compact dataTable_Morosos cell-border " cellspacing="0" width="100%">
 								<thead  class="bg-success">
 									<tr>
 										<td>Nombre</td>
 										<td>Dirección</td>
 										<td>Pago</td>
 										<td>Fecha</td>
-										<td><i class=" icon-print  "></i></td>
+										<td>Ticket</td>
+										<td>Recibo</td>
 									</tr>
 								</thead>
 								<tfoot class="bg-success">
 									<tr>
+										<td></td>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -196,8 +196,10 @@ else    {
 													echo "<td>".$rowafi["cliente"]." ".$rowafi["apellido"]."-{$row["idtransaccion"]}</td>";
 													echo "<td>".$rowafi["direccion"]."</td>";
 													echo "<td><strong $tclass >{$row["valor-a-pagar"]}</strong>$descHtml</td>";
-													echo "<td class=\" align-middle \">".$row["fecha"]." ".$row["hora"]."</td>";
+													echo "<td class=\" align-middle \"><small>".$row["fecha"]." ".$row["hora"]."</small></td>";
 													echo "<td class=\" align-middle \"><a href=\"printable.php?idt=$idtransaccion&rpp=0\" class=\"text-success icon-client \" ><i class=\" icon-print  \"></i></a></td>";
+													echo "<td class=\" align-middle \"><a href=\"recibos.php?idc=$idafi&rpp=0\" class=\"text-info icon-client \" target=\"_blank\" ><i class=\" icon-print  \"></i></a></td>";
+
 													echo "</tr>";
 													$sum+=$row["valor-a-pagar"];	
 													if($cnt==$registros){
@@ -208,6 +210,8 @@ else    {
 														echo "<td><strong>$$formatSum</strong></td>";
 														echo "<td></td>";
 														echo "<td></td>";
+														echo "<td></td>";
+
 														echo "</tr>";
 													}		
 												}
@@ -327,7 +331,8 @@ else    {
 											  </thead>
 											  <tbody>";
 											for( $x=1; $x<=count($caje); $x++ ){
-												$sqltotCaj="SELECT  SUM(`valor-a-pagar`) AS subtotal FROM `transacciones` WHERE `transacciones`.`cajero` LIKE  '".$caje[$x]."' AND MONTH(fecha) = $month AND YEAR(fecha) = $year AND DAY(fecha) = $today AND `transacciones`.`descontar` = '0' ";
+												$sqltotCaj="SELECT  SUM(`valor-a-pagar`-`descontar`) AS subtotal FROM `redesagi_facturacion`.`transacciones` WHERE `redesagi_facturacion`.`transacciones`.`cajero` LIKE  '".$caje[$x]."' AND MONTH(fecha) = $month AND YEAR(fecha) = $year AND DAY(fecha) = $today ";
+												//echo $sqltotCaj;
 												if ($result = $mysqli->query($sqltotCaj)){
 													$rowcj = $result->fetch_assoc();
 													$subt=$rowcj["subtotal"];							

@@ -650,27 +650,34 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 				$("#tr-chkb-abonar").hide();
 			}
 			$('#paybutton').click(function() {
-				alertify.prompt("Ingreso de Efectivo", "Efectivo: ", "",
+				let strPrompt1="Ingreso de Efectivo";
+				let strPrompt2="Efectivo:";
+				if(!$('#checkbox-abonar').is(":checked") && $('#checkbox-descontar').is(":checked")) {
+					strPrompt1="Presione enter para continuar";
+					strPrompt2="";
+				}
+				alertify.prompt(strPrompt1, strPrompt2, "",
 					function(evt, value) {
 						var vplanRow=parseInt($("#valor-plan").html().replace(/[^0-9]/gi,''));
 						console.log("valor del plan:"+vplanRow);
 						var pass = 0;
 						var cambio = 0;
-						if ($('#checkbox-abonar').is(":checked") || $("#checkbox-descontar").is(":checked") ) {
-							let tmp1=0;
-							let tmp2=0;
+						if($('#checkbox-descontar').is(":checked")){
+							pass=1;
+						} 
+						if ($('#checkbox-abonar').is(":checked")) {
+							let tmp1=0;							
 							if($("#valor-abonar").val())
-								tmp1=parseInt($("#valor-abonar").val());
-							if($("#valor-descontar").val())
-								tmp2=parseInt($("#valor-descontar").val());
-							var vaa = tmp1 + tmp2;
+								tmp1=parseInt($("#valor-abonar").val());							
+								var vaa = tmp1;
 							if (value >= parseInt(vaa)) {
 								pass = 1;
 								cambio = value - parseInt(vaa);
 							} else
 								pass = 0;
 							
-						} else {
+						}
+						if(!$('#checkbox-abonar').is(":checked") && !$('#checkbox-descontar').is(":checked")) {
 							var vap = $("#valor-pago").text();
 							var intvap = vap.replace(/[^0-9]/gi, '');
 							if (value >= parseInt(intvap)) {

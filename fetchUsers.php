@@ -11,7 +11,6 @@ else    {
 header('Content-Type: application/json');
 require 'vendor/autoload.php';
 require 'dateHuman.php';
-
 include("login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
@@ -23,26 +22,122 @@ $today = date("Y-m-d");
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i');
 $ping = array();
-$sqlSearch="SELECT `id`,`cliente`,`apellido`,`ip`,`ping`,`pingDate`,`suspender` FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1  limit 1 "; 
-if ($result = $mysqli->query($sqlSearch)) {
-    while($row = $result->fetch_assoc()) {
-        $id=$row['id'];
-        $name=strtoupper($row["cliente"]." ".$row['apellido']);
-        $ipAddress=$row["ip"];
-        ($row["ping"]) ? $pingStatus='up':$pingStatus='down';
-        $responseTime=$row["ping"];
-        ($row["suspender"])? $suspender="cortado":$suspender="";
-        $pingDate=$row["pingDate"];
-        if($pingDate){
-            if($elapsedTime=get_date_diff( $pingDate, $today, 2 ));
-            else $elapsedTime="Hoy"; 
-            
+
+// $searchString="herna";
+// $searchOption="null"; 
+$searchString=$mysqli -> real_escape_string($_GET["searchString"]);
+$searchOption=$mysqli -> real_escape_string($_GET["searchOption"]);
+if ($searchOption=="Todos"){
+    if($searchString!="") $queryPart="AND ( (`cliente` LIKE '%$searchString%') OR (`apellido` LIKE '%$searchString%') OR (`ip` LIKE '%$searchString%') ) ";
+    else $queryPart="limit 20";
+    $sqlSearch="SELECT `id`,`cliente`,`apellido`,`ip`,`ping`,`pingDate`,`suspender` FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1 $queryPart  "; 
+    if ($result = $mysqli->query($sqlSearch)) {
+        $num=$result->num_rows;
+        $counter=0;
+        while($row = $result->fetch_assoc()) {
+            $counter+=1;
+            $id=$row['id'];
+            $name=strtoupper($row["cliente"]." ".$row['apellido']);
+            $ipAddress=$row["ip"];
+            ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down'; 
+            $responseTime=$row["ping"];
+            ($row["suspender"])? $suspender="cortado":$suspender="";
+            $pingDate=$row["pingDate"];   
+            if($pingDate){
+                if($elapsedTime=get_date_diff( $pingDate, $today, 2 ));
+                else $elapsedTime="Hoy";             
+            }
+            else{
+                $elapsedTime="";
+            }
+            $ping[] = array("counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
         }
-        else{
-            $elapsedTime="";
-        }
-        $ping[] = array("id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+        $ping[]=array("numResult"=>"$num");
     }
+    echo json_encode($ping);
 }
-echo json_encode($ping);
+
+if($searchOption=="Cortado"){
+    $sqlSearch="SELECT `id`,`cliente`,`apellido`,`ip`,`ping`,`pingDate`,`suspender` FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1  AND `suspender`=1 "; 
+    if ($result = $mysqli->query($sqlSearch)) {
+        $num=$result->num_rows;
+        $counter=0;
+        while($row = $result->fetch_assoc()) {
+            $counter+=1;
+            $id=$row['id'];
+            $name=strtoupper($row["cliente"]." ".$row['apellido']);
+            $ipAddress=$row["ip"];
+            ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down'; 
+            $responseTime=$row["ping"];
+            ($row["suspender"])? $suspender="cortado":$suspender="";
+            $pingDate=$row["pingDate"];   
+            if($pingDate){
+                if($elapsedTime=get_date_diff( $pingDate, $today, 2 ));
+                else $elapsedTime="Hoy";             
+            }
+            else{
+                $elapsedTime="";
+            }
+            $ping[] = array("counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+        }
+        $ping[]=array("numResult"=>"$num");
+    }
+echo json_encode($ping);   
+}
+
+if($searchOption=="Ping OK"){
+    $sqlSearch="SELECT `id`,`cliente`,`apellido`,`ip`,`ping`,`pingDate`,`suspender` FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1  AND `ping`!='NULL' "; 
+    if ($result = $mysqli->query($sqlSearch)) {
+        $num=$result->num_rows;
+        $counter=0;
+        while($row = $result->fetch_assoc()) {
+            $counter+=1;
+            $id=$row['id'];
+            $name=strtoupper($row["cliente"]." ".$row['apellido']);
+            $ipAddress=$row["ip"];
+            ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down'; 
+            $responseTime=$row["ping"];
+            ($row["suspender"])? $suspender="cortado":$suspender="";
+            $pingDate=$row["pingDate"];   
+            if($pingDate){
+                if($elapsedTime=get_date_diff( $pingDate, $today, 2 ));
+                else $elapsedTime="Hoy";             
+            }
+            else{
+                $elapsedTime="";
+            }
+            $ping[] = array("counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+        }
+        $ping[]=array("numResult"=>"$num");
+    }
+echo json_encode($ping);   
+}
+
+if($searchOption=="Ping Down"){
+    $sqlSearch="SELECT `id`,`cliente`,`apellido`,`ip`,`ping`,`pingDate`,`suspender` FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1  AND `ping` is NULL "; 
+    if ($result = $mysqli->query($sqlSearch)) {
+        $num=$result->num_rows;
+        $counter=0;
+        while($row = $result->fetch_assoc()) {
+            $counter+=1;
+            $id=$row['id'];
+            $name=strtoupper($row["cliente"]." ".$row['apellido']);
+            $ipAddress=$row["ip"];
+            ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down'; 
+            $responseTime=$row["ping"];
+            ($row["suspender"])? $suspender="cortado":$suspender="";
+            $pingDate=$row["pingDate"];   
+            if($pingDate){
+                if($elapsedTime=get_date_diff( $pingDate, $today, 2 ));
+                else $elapsedTime="Hoy";             
+            }
+            else{
+                $elapsedTime="";
+            }
+            $ping[] = array("counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+        }
+        $ping[]=array("numResult"=>"$num");
+    }
+echo json_encode($ping);   
+}
 ?>
