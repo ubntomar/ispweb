@@ -27,6 +27,7 @@ else    {
     <link rel="stylesheet" href="css/fontello.css" />
     <link rel="stylesheet" href="css/estilos.css" />
     <link rel="stylesheet" href="css/dataTables.checkboxes.css" />
+    <link rel="stylesheet" href="css/animation.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
@@ -77,7 +78,7 @@ else    {
         </nav>
 
         <div class="row">
-            <div class="barra-lateral  col-sm-auto "> 
+            <div class="barra-lateral  col-sm-auto ">
                 <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
                     <a href="tick.php"><i class="icon-pinboard"></i><span>Tickets</span></a>
                     <a href="fact.php"><i class="icon-docs-1"></i><span>Facturas</span></a>
@@ -94,112 +95,139 @@ else    {
                         <div class=" nuevo_contenido p-2 border border-info rounded">
                             <div class="d-flex justify-content-center">
                                 <h3 class="titulo">Estado de conexión de Clientes</h3>
-                            </div>                            
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <div class="d-flex align-items-center">
-                                        <div></div>
-                                        <div><input type="text" value="" id="search"
-                                                class="form-control form-control-sm ml-1" v-model="searchString"></div>
-                                        <div><button class="icon-search form-control form-control-sm "
-                                                v-on:click="searchFn"></button></div>
-                                    </div>
-                                    <div>
-                                        <select class="form-control form-control-sm" v-model="searchOption"
-                                            v-on:change="getSelected">
-                                            <option>Todos</option>
-                                            <option>Cortado</option>
-                                            <option>Ping OK</option>
-                                            <option>Ping Down</option>
-                                        </select>
-                                    </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div class="d-flex align-items-center">
+                                    <div></div>
+                                    <div><input type="text" value="" id="search"
+                                            class="form-control form-control-sm ml-1" v-model="searchString"></div>
+                                    <div><button class="icon-search form-control form-control-sm "
+                                            v-on:click="searchFn"></button></div>
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="table table-striped  table-hover table-sm">
-                                        <thead>
-                                            <th>Nombre {{searchOption}} <i class="icon-users"></i></th>
-                                            <th>IP Address <i class="icon-exchange"></i> </th>
-                                            <th>Ping <i class="icon-clock"></i></th>
-                                            <th> <i class="icon-signal"></i></th>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="cliente in clientes"
-                                                v-bind:class="{'table-warning':!cliente.pingStatus}"
-                                                v-if="cliente.counter<=totalRows">
-                                                <td class="font-weight-bold">{{cliente.name}}
-                                                    <div class="timeElapsded border  rounded d-flex justify-content-center pl-1 font-italic w-50"
-                                                        v-bind:class="{'border-danger':cliente.suspender}">
-                                                        <small>{{cliente.suspender}}</small></div>
-                                                </td>
-                                                <td>{{cliente.ipAddress}}</td>
-                                                <td><strong class="font-italic"
-                                                        v-if="cliente.responseTime"><small>{{cliente.responseTime}}
-                                                        </small><small
-                                                            v-if="!isNaN(cliente.responseTime)">ms</small></strong>
-                                                    <div class="timeElapsded border border-info rounded d-flex justify-content-center px-1 font-italic"
-                                                        v-if="cliente.elapsedTime">
-                                                        <small v-if="cliente.elapsedTime!='Hoy'"> Hace
-                                                            {{cliente.elapsedTime}}</small>
-                                                        <small v-if="cliente.elapsedTime=='Hoy'">
-                                                            {{cliente.elapsedTime}}</small>
-                                                    </div>
-                                                </td>
-                                                <td class=""
-                                                    v-bind:class="{'text-success':cliente.pingStatus=='up','text-danger':cliente.pingStatus=='down'}">
-                                                    {{cliente.pingStatus}}<i class=""
-                                                        v-bind:class="{'icon-smile':cliente.pingStatus=='up','icon-emo-unhappy':cliente.pingStatus=='down'}">
-                                                        <p><button class="border border-rounded icon-arrows-ccw"
-                                                                v-on:click="setPing(cliente)"></button></p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <div><button class="bg-success text-white border border-0 p-2">
-                                            <i class="icono icon-ok"></i>{{totalRows}} resultados
-                                        </button></div>
+                                <div>
+                                    <select class="form-control form-control-sm" v-model="searchOption"
+                                        v-on:change="getSelected">
+                                        <option>Todos</option>
+                                        <option>Cortado</option>
+                                        <option>Ping OK</option>
+                                        <option>Ping Down</option>
+                                    </select>
                                 </div>
-                                <div class="d-flex justify-content-center">
-                                    <div class="d-inline  mx-1">
-                                        <input class="rounded-circle border-0 h2" type="button" name="previus"
-                                            value='<'>
-                                    </div>
-                                    <div class="d-inline mx-1">
-                                        <input v-on:click="getUser()" class="rounded-circle border-0 h2" type="button"
-                                            id='nexxt' value='>'>
-                                    </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped  table-hover table-sm">
+                                    <thead>
+                                        <th>Nombre {{searchOption}} <i class="icon-users"></i></th>
+                                        <th>IP Address <i class="icon-exchange"></i> </th>
+                                        <th>Ping <i class="icon-clock"></i></th>
+                                        <th> <i class="icon-signal"></i></th>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="cliente in clientes"
+                                            v-bind:class="{'table-warning':!cliente.pingStatus}"
+                                            v-if="cliente.counter<=totalRows">
+                                            <td class="font-weight-bold">{{cliente.name}}
+                                                <div class="timeElapsded border  rounded d-flex justify-content-center pl-1 font-italic w-50"
+                                                    v-bind:class="{'border-danger':cliente.suspender}">
+                                                    <small>{{cliente.suspender}}</small></div>
+                                            </td>
+                                            <td>{{cliente.ipAddress}}</td>
+                                            <td><strong class="font-italic"
+                                                    v-if="cliente.responseTime"><small>{{cliente.responseTime}}
+                                                    </small><small
+                                                        v-if="!isNaN(cliente.responseTime)">ms</small></strong>
+                                                <div class="timeElapsded border border-info rounded d-flex justify-content-center px-1 font-italic"
+                                                    v-if="cliente.elapsedTime">
+                                                    <small v-if="cliente.elapsedTime!='Hoy'"> Hace
+                                                        {{cliente.elapsedTime}}</small>
+                                                    <small v-if="cliente.elapsedTime=='Hoy'">
+                                                        {{cliente.elapsedTime}}</small>
+                                                </div>
+                                            </td>
+                                            <td class=""
+                                                v-bind:class="{'text-success':cliente.pingStatus=='up','text-danger':cliente.pingStatus=='down'}">
+                                                {{cliente.pingStatus}}<i class=""
+                                                    v-bind:class="{'icon-smile':cliente.pingStatus=='up','icon-emo-unhappy':cliente.pingStatus=='down'}">
+                                                    <p><button class="border border-rounded icon-arrows-ccw"
+                                                            v-on:click="setPing(cliente)"></button></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div><button class="bg-success text-white border border-0 p-2">
+                                        <i class="icono icon-ok"></i>{{totalRows}} resultados
+                                    </button></div>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <div class="d-inline  mx-1">
+                                    <input class="rounded-circle border-0 h2" type="button" name="previus" value='<'>
                                 </div>
-                            
+                                <div class="d-inline mx-1">
+                                    <input v-on:click="getUser()" class="rounded-circle border-0 h2" type="button"
+                                        id='nexxt' value='>'>
+                                </div>
+                            </div>
+
                         </div>
-                    </div> 
+                    </div>
 
                     <div class="columna col-lg-5">
                         <div class="widget estadisticas">
-                            <h3 class="titulo">Ping</h3>
                             <div class="contenedor d-flex flex-wrap">
-                                <div class="caja">                                    
-                                    <label class="text-white bg-secondary border border rounded mx-1 px-1" for="ipAddress">Ip</label>
-                                    <input type="number" maxlength="15" size="11" id="ipAddress" placeholder=""><i class="demo-icon icon-spin6 animate-spin"></i><button class="border border-rounded icon-chart-bar"></button><i></i><i></i>
+                                <div class="caja">
+                                    <h3 class="titulo">Ping Test</h3>
+                                    <label class="text-white bg-secondary border border rounded mx-1 px-1"
+                                        for="ipAddress">Ip</label>
+                                    <input v-model="ipAddressInput" v-on:click="inputPingClick()" maxlength="15"
+                                        size="11" id="ipAddress" placeholder="">
+                                    <button v-on:click="pingToIpButtonClick()" class="border border-rounded "><i
+                                            v-bind:class="{'animate-spin':spinIcon}" class="icon-spin6 "></i></button>
+                                    <div v-if="pingDataError" class="d-flex justify-content-center">
+                                        <div class="border rounded bg-danger">
+                                            <span class="  p-1 text-light"><i class="icon-attention"></i>Error: Invalid
+                                                Ip Address.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div v-if="pingSuccess=='ok'" class="d-flex justify-content-center">
+                                        <div class="border rounded bg-success">
+                                            <span class="  p-1 text-light"><i class="icon-ok"></i> Response Time:
+                                                {{pingSuccessTime}} ms</span>
+                                        </div>
+                                    </div>
+                                    <div v-if="pingSuccess=='no'" class="d-flex justify-content-center">
+                                        <div class="border rounded bg-info">
+                                            <span class="  p-1 text-light"><i class="icon-ok"></i> No Ip response,
+                                                Disponible para uso.</span>
+                                        </div>
+                                    </div>
+                                    <div v-if="pingSuccess=='serverError'" class="d-flex justify-content-center">
+                                        <div class="border rounded bg-danger">
+                                            <span class="  p-1 text-light"><i class="icon-ok"></i> No Server
+                                                response,try it later.
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                                
                             </div>
                         </div>
                         <div class="widget estadisticas">
-                            <h3 class="titulo">Ip diponibles</h3>
                             <div class="contenedor d-flex flex-wrap">
                                 <div class="caja">
-                                    <h3>15,236</h3>
-                                    <p>Visitas</p>
-                                </div>
-                                <div class="caja">
-                                    <h3>1,831</h3>
-                                    <p>Registros</p>
-                                </div>
-                                <div class="caja">
-                                    <h3>$160,548</h3>
-                                    <p>Ingresos</p>
+                                    <h3 class="titulo">Ip List disponible</h3>
+                                    <div v-for="ip in ipList" class="d-flex justify-content-center">
+                                        <div class="border rounded bg-success">
+                                            <span class="  p-1 text-light">{{ip}}
+                                            </span>
+                                            <i class="icon-ok"></i>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
-                        
+
+
 
                     </div>
                 </div>
@@ -231,7 +259,7 @@ else    {
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js">
     </script>
-    <script src="bower_components/Popper/popper.min.js"></script> 
+    <script src="bower_components/Popper/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="bower_components/alertify/js/alertify.min.js"></script>
     <script src="bower_components/AutoFormatCurrency/simple.money.format.js"></script>
@@ -245,9 +273,16 @@ else    {
             thename: "",
             id: "1",
             clientes: [],
+            ipList: ["192.168.16.2","192.168.16.3","192.168.16.4","192.168.16.5"],
             searchString: "",
             searchOption: "Todos",
-            totalRows: ""
+            totalRows: "",
+            pingDataError: false,
+            pingSuccess: "waiting",
+            ipAddressInput: "",
+            pingSuccessTime: "",
+            spinIcon: false,
+            mainServerIp: "192.168.21.1"
         },
         methods: {
             getUser: function() {
@@ -300,11 +335,75 @@ else    {
                     console.log('error' + e)
                 })
 
+            },
+            pingToIpButtonClick: function(data) {
+                this.pingSuccess = "waiting"
+                if (this.validateIpAddress(this.ipAddressInput)) {
+                    this.spinIcon = true
+                    axios.get('devicePingResponse.php', {
+                        params: {
+                            ip: this.ipAddressInput,
+                            mainServerIp: this.mainServerIp
+                        }
+                    }).then(response => {
+                        console.log("Respuesta:" + JSON.stringify(response.data))
+                        this.spinIcon = false
+                        if (response.data.time) {
+                            if (response.data.time != "-1") {
+                                this.pingSuccess = "ok"
+                                this.pingSuccessTime = response.data.time
+                            } else {
+                                this.pingSuccess = "serverError"
+                            }
+                        } else {
+                            this.pingSuccess = "no"
+                        }
+                    }).catch(e => {
+                        this.spinIcon = false
+                        console.log('error' + e)
+                    })
+                } else {
+                    this.pingDataError = true;
+
+                }
+            },
+            validateIpAddress: function(data) {
+                var ipformat =
+                    /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+                if (data != null) {
+                    if (data.match(ipformat)) {
+                        return true;
+                    } else {
+
+                        return false;
+                    }
+                }
+                return false;
+            },
+            inputPingClick: function(data) {
+                if (this.pingDataError) {
+                    this.ipAddressInput = ""
+                    this.pingDataError = false
+                    this.pingSuccess = "waiting"
+                }
+            },
+            getIpList: function(data){
+                this.ipList=["192.168.21.2","192.168.21.3","192.168.21.4","192.168.21.5"]
+                axios.get('devicePingResponseList.php',{
+                    params: {
+                        rowNumbers: "5"
+                    }
+                }).then(response=>{
+                   console.log("ipListResponse:"+JSON.stringify(response.data))
+                   this.ipList=response.data
+                   
+                })
             }
 
         },
         mounted() {
             this.getUser()
+            this.getIpList()
         },
     });
     </script>

@@ -11,10 +11,24 @@ else    {
 include("PingTime.php");
 include("login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
-$ipAddress=mysqli_real_escape_string($mysqli, $_REQUEST['ip']); 
-$y=1;
-//$ipAddress="192.168.21.110";
-$device= new PingTime($ipAddress);
-$time= array("time"=>$device->time());
-echo json_encode($time);
+$ipAddress=mysqli_real_escape_string($mysqli, $_REQUEST['ip']);
+$mainServerIp=mysqli_real_escape_string($mysqli, $_REQUEST['mainServerIp']);
+if($mainServerIp){
+	$device= new PingTime($mainServerIp);
+	if($device->time()){
+		$device2= new PingTime($ipAddress);
+		$time= array("time"=>$device2->time());
+		echo json_encode($time); 
+	}
+	else{
+		$time= array("time"=>"-1");
+		echo json_encode($time); 
+	}
+	 
+}
+else{
+	$device2= new PingTime($ipAddress);
+	$time= array("time"=>$device2->time()); 
+	echo json_encode($time); 
+}
 ?>
