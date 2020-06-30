@@ -29,9 +29,10 @@
 .icon-signal:before { content: '\e81b'; } /* '' */
 .icon-signal-1:before { content: '\e81c'; } /* '' */
 .icon-emo-unhappy:before { content: '\e81d'; } /* '' */
-.icon-search:before { content: '\e81e'; } /* '' */
-.icon-search-1:before { content: '\e81f'; } /* '' */
+.icon-spin1:before { content: '\e830'; } /* '' */
+.icon-spin2:before { content: '\e831'; } /* '' */
 .icon-spin3:before { content: '\e832'; } /* '' */
+.icon-spin6:before { content: '\e839'; } /* '' */
 .icon-money:before { content: '\f0d6'; } /* '' */
 .icon-gauge:before { content: '\f0e4'; } /* '' */
 .icon-exchange:before { content: '\f0ec'; } /* '' */

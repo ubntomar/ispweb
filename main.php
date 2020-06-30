@@ -36,7 +36,7 @@ else    {
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top   ">
             <div class="container img-logo ">
                 <img src="img/wisp.png" />
-                <!-- Nos sirve para agregar un logotipo al menu -->
+                <!-- Nos sirve  para agregar un logotipo al menu -->
                 <a href="main.php" class="navbar-brand link-border">Wisdev</a>
 
                 <!-- Nos permite usar el componente collapse para dispositivos moviles  -->
@@ -77,7 +77,7 @@ else    {
         </nav>
 
         <div class="row">
-            <div class="barra-lateral col-12 col-sm-auto">
+            <div class="barra-lateral  col-sm-auto "> 
                 <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
                     <a href="tick.php"><i class="icon-pinboard"></i><span>Tickets</span></a>
                     <a href="fact.php"><i class="icon-docs-1"></i><span>Facturas</span></a>
@@ -89,14 +89,12 @@ else    {
             </div>
 
             <main class="main col">
-                <div class="row">
+                <div class="row" id="app">
                     <div class="columna col-lg-7">
                         <div class=" nuevo_contenido p-2 border border-info rounded">
                             <div class="d-flex justify-content-center">
                                 <h3 class="titulo">Estado de conexión de Clientes</h3>
-                            </div>
-
-                            <div id="app">
+                            </div>                            
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     <div class="d-flex align-items-center">
                                         <div></div>
@@ -169,13 +167,23 @@ else    {
                                             id='nexxt' value='>'>
                                     </div>
                                 </div>
-                            </div>
+                            
                         </div>
-                    </div>
+                    </div> 
 
                     <div class="columna col-lg-5">
                         <div class="widget estadisticas">
-                            <h3 class="titulo">Estadisticas</h3>
+                            <h3 class="titulo">Ping</h3>
+                            <div class="contenedor d-flex flex-wrap">
+                                <div class="caja">                                    
+                                    <label class="text-white bg-secondary border border rounded mx-1 px-1" for="ipAddress">Ip</label>
+                                    <input type="number" maxlength="15" size="11" id="ipAddress" placeholder=""><i class="demo-icon icon-spin6 animate-spin"></i><button class="border border-rounded icon-chart-bar"></button><i></i><i></i>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="widget estadisticas">
+                            <h3 class="titulo">Ip diponibles</h3>
                             <div class="contenedor d-flex flex-wrap">
                                 <div class="caja">
                                     <h3>15,236</h3>
@@ -191,6 +199,8 @@ else    {
                                 </div>
                             </div>
                         </div>
+                        
+
                     </div>
                 </div>
             </main>
@@ -221,7 +231,7 @@ else    {
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js">
     </script>
-    <script src="bower_components/Popper/popper.min.js"></script>
+    <script src="bower_components/Popper/popper.min.js"></script> 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="bower_components/alertify/js/alertify.min.js"></script>
     <script src="bower_components/AutoFormatCurrency/simple.money.format.js"></script>

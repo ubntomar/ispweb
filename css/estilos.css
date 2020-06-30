@@ -156,6 +156,11 @@ body {
 	color: #a8a8a8;
 	margin-bottom: 0;
 }
+.main .estadisticas .caja input {
+	max-width: 125px;
+	font-size: small;
+	font-weight: 300;
+}
 
 .main .estadisticas .caja:first-child {
 	border-right: none;

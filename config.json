@@ -241,16 +241,22 @@
       "src": "fontawesome"
     },
     {
-      "uid": "9dd9e835aebe1060ba7190ad2b2ed951",
-      "css": "search",
-      "code": 59422,
-      "src": "fontawesome"
+      "uid": "f0c301ac841dafc38d8eb1b933fc73e5",
+      "css": "spin2",
+      "code": 59441,
+      "src": "fontelico"
     },
     {
-      "uid": "9725db89b610135dc76cd8a21afffa83",
-      "css": "search-1",
-      "code": 59423,
-      "src": "linecons"
+      "uid": "72109d2fb3088d0e66ea6a9204297651",
+      "css": "spin1",
+      "code": 59440,
+      "src": "fontelico"
+    },
+    {
+      "uid": "9bc2902722abb366a213a052ade360bc",
+      "css": "spin6",
+      "code": 59449,
+      "src": "fontelico"
     }
   ]
 }
