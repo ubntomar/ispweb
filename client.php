@@ -6,6 +6,9 @@
 	} else {
 		$user = $_SESSION['username'];
 	}
+	if($_SESSION['role']=='tecnico'){
+		header('Location: tick.php');
+	}
 	?>
 	<!DOCTYPE html>
 	<html lang="es">

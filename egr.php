@@ -10,6 +10,9 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true)
 else    {
 		$user=$_SESSION['username'];
 		}
+if($_SESSION['role']=='tecnico'){
+	header('Location: tick.php');
+}
 ?>
 <!DOCTYPE html>
 

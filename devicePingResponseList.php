@@ -10,6 +10,8 @@ else    {
 		}
 include("PingTime.php");
 include("login/db.php");
+require 'Mkt.php';
+require 'vpnConfig.php';
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 $mainServerIp=mysqli_real_escape_string($mysqli, $_REQUEST['mainServerIp']);
 $from=mysqli_real_escape_string($mysqli, $_REQUEST['from']);
@@ -20,16 +22,31 @@ $ipParts=explode(".",$from);
 $valueBytetoChange=$ipParts[$byteToChange];
 $ipList =array();
 if(($rowNumbers+$valueBytetoChange)>254)$rowNumbers=254-$valueBytetoChange;
-$device= new PingTime($mainServerIp);        
+$device= new PingTime($mainServerIp);  
+
+
 if($device->time()){
-    for ($i=$valueBytetoChange; $i <($valueBytetoChange+$rowNumbers) ; $i++) {
-        $ipParts[$byteToChange]=$i; 
+    if($mkobj=new Mkt($serverIpAddressArea1,$vpnUser,$vpnPassword)){
+        $exclusivosList=$mkobj->list_all();        
+    }
+    $counter=0;
+    $cont=-1;
+    while($counter<$rowNumbers  || ($valueBytetoChange+$counter>=254)  ) {
+        $counter++;
+        $cont++;
+        $ipParts[$byteToChange]=$cont+$valueBytetoChange; 
         $dotSeparated=implode(".",$ipParts);
         $sql="select `id` FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1  AND `suspender`=0 and `ip` like '$dotSeparated' ";
         $rt=$mysqli->query($sql);        
         $device2= new PingTime($dotSeparated);
-        if(!$device->time() || !$rt->num_rows){
+        $matchListIp=0;
+        foreach ($exclusivosList as $value) {
+            if($value['ip']==$dotSeparated)	$matchListIp=1;
+        }
+        if( (!$device2->time() || !$rt->num_rows) &&  !$matchListIp==1 ){
             array_push($ipList,$dotSeparated);  
+        }else{
+            $counter-=1;
         }     
         
     }

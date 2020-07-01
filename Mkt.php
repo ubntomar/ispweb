@@ -43,14 +43,19 @@ class Mkt
                 
     }
     public function list_all()
-    {        
+    {         
         $responses = $this->client->sendSync(new RouterOS\Request('/ip/firewall/address-list/print'));         
-        $myArray = array();
+        //$myArray = array();
         foreach ($responses as $response) {
-            if ($response->getType() === RouterOS\Response::TYPE_DATA) {                
-                $myArray[] = array("ip" => $response->getProperty('address'), "list" => $response->getProperty('list'),"comment"=>$response->getProperty('comment'));
+            try{
+            if ($response->getType() === RouterOS\Response::TYPE_DATA) {
+                    $myArray[] = array("ip"=>$response->getProperty('address'),"list"=>$response->getProperty('list'),"comment"=>iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $response->getProperty('comment')));
+                }
             }
-        }  
+            catch(Exception $e){
+                echo "Error  en ip firewall list";
+            }
+        } 
     return $myArray;
     }
     public function add_address($ip,$listName,$idUser,$nombre="")

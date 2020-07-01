@@ -16,7 +16,7 @@ $pass=true;
 $user="aws";
 if (true) {   
     if($debug)
-        $idarray[]=363;//Hernando Monguí  
+        $idarray[]=363;//Hernando Monguí   
     else{
         $sql="select `id` FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1  AND `suspender`=1 ";
         if($rt=$mysqli->query($sql)){

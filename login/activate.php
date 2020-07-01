@@ -1,12 +1,11 @@
+<!DOCTYPE html>
 
-
-	<!DOCTYPE html>
 <head>
     <title>PHP Login System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-	    <link href="css/style.css" rel="stylesheet" media="screen">
+    <link href="css/style.css" rel="stylesheet" media="screen">
 </head>
 
 <body>
@@ -14,17 +13,17 @@
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.validate.js"></script>
     <div class="logo">
-         <h2><?php include 'db.php';
+        <h2><?php include 'db.php';
 echo $logotxt;?></h2>
 
     </div>
     <form class="form-horizontal" id="login_form">
-         <h2>User Activation</h2>
+        <h2>User Activation</h2>
 
         <div class="line"></div>
 
 
-<?php
+        <?php
 include "db.php";
 $con = mysqli_connect($server, $db_user, $db_pwd, $db_name) //connect to the database server
  or die("Could not connect to mysql because " . mysqli_error());
@@ -66,5 +65,3 @@ if (!empty($key)) {
 </body>
 
 </html>
-
-

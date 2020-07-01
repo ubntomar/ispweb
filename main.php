@@ -449,8 +449,8 @@ else    {
                 this.spinIconBox1 = true
                 axios.get('devicePingResponseList.php', {
                     params: {
-                        mainServerIp: "192.168.21.1",
-                        rowNumbers: "5",
+                        mainServerIp: "192.168.16.1",
+                        rowNumbers: "2",
                         from: "192.168.16.73",
                         to: "192.168.16.254",
                         byteToChange: "3"
@@ -469,7 +469,7 @@ else    {
                 axios.get('devicePingResponseList.php', {
                     params: {
                         mainServerIp: "192.168.30.1",
-                        rowNumbers: "5",
+                        rowNumbers: "2",
                         from: "192.168.30.60",
                         to: "192.168.30.254",
                         byteToChange: "3"
@@ -487,10 +487,10 @@ else    {
                 this.spinIconBox3 = true
                 axios.get('devicePingResponseList.php', {
                     params: {
-                        mainServerIp: "192.168.21.1",
-                        rowNumbers: "5",
-                        from: "192.168.26.90",
-                        to: "192.168.30.254",
+                        mainServerIp: "192.168.26.1",
+                        rowNumbers: "2",
+                        from: "192.168.26.155",
+                        to: "192.168.26.254",
                         byteToChange: "3"
                     }
                 }).then(response => {
