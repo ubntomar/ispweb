@@ -212,21 +212,74 @@ else    {
                             </div>
                         </div>
                         <div class="widget estadisticas">
+                            <div>
+                                <div class="title-caja text-light  m-o bg-secondary"><span>RED MONTECRISTO</span></div>
+                            </div>
                             <div class="contenedor d-flex flex-wrap">
                                 <div class="caja">
-                                    <h3 class="titulo">Ip List disponible</h3>
-                                    <div v-for="ip in ipList" class="d-flex justify-content-center">
-                                        <div class="border rounded bg-success">
+                                    <div class="d-flex justify-content-center mb-1">
+                                        <h3 class="titulo">Ip disponibles</h3>
+                                        <button v-on:click="ipListBox1reload()" class="ml-1 border border-rounded "><i
+                                                v-bind:class="{'animate-spin':spinIconBox1}" class="icon-spin6 "></i>
+                                        </button>
+                                    </div>
+                                    <div v-for="ip in ipListBox1" class="d-flex justify-content-center">
+                                        <div class="border rounded bg-info">
                                             <span class="  p-1 text-light">{{ip}}
                                             </span>
                                             <i class="icon-ok"></i>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
+                        <div class="widget estadisticas">
+                            <div>
+                                <div class="title-caja text-light  m-o bg-secondary"><span>RED EL RETIRO</span></div>
+                            </div>
+                            <div class="contenedor d-flex flex-wrap">
+                                <div class="caja">
+                                    <div class="d-flex justify-content-center mb-1">
+                                        <h3 class="titulo">Ip disponibles</h3>
+                                        <button v-on:click="ipListBox2reload()" class="ml-1 border border-rounded "><i
+                                                v-bind:class="{'animate-spin':spinIconBox2}" class="icon-spin6 "></i>
+                                        </button>
+                                    </div>
+                                    <div v-for="ip in ipListBox2" class="d-flex justify-content-center">
+                                        <div class="border rounded bg-info">
+                                            <span class="  p-1 text-light">{{ip}}
+                                            </span>
+                                            <i class="icon-ok"></i>
+                                        </div>
+                                    </div>
 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget estadisticas">
+                            <div>
+                                <div class="title-caja text-light  m-o bg-secondary"><span>RED ORLANDO</span></div>
+                            </div>
+                            <div class="contenedor d-flex flex-wrap">
+                                <div class="caja">
+                                    <div class="d-flex justify-content-center mb-1">
+                                        <h3 class="titulo">Ip disponibles</h3>
+                                        <button v-on:click="ipListBox3reload()" class="ml-1 border border-rounded "><i
+                                                v-bind:class="{'animate-spin':spinIconBox3}" class="icon-spin6 "></i>
+                                        </button>
+                                    </div>
+                                    <div v-for="ip in ipListBox3" class="d-flex justify-content-center">
+                                        <div class="border rounded bg-info">
+                                            <span class="  p-1 text-light">{{ip}}
+                                            </span>
+                                            <i class="icon-ok"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
 
 
                     </div>
@@ -273,7 +326,6 @@ else    {
             thename: "",
             id: "1",
             clientes: [],
-            ipList: ["192.168.16.2","192.168.16.3","192.168.16.4","192.168.16.5"],
             searchString: "",
             searchOption: "Todos",
             totalRows: "",
@@ -282,7 +334,13 @@ else    {
             ipAddressInput: "",
             pingSuccessTime: "",
             spinIcon: false,
-            mainServerIp: "192.168.21.1"
+            ipListBox1: [],
+            spinIconBox1: false,
+            ipListBox2: [],
+            spinIconBox2: false,
+            ipListBox3: [],
+            spinIconBox3: false
+            
         },
         methods: {
             getUser: function() {
@@ -387,23 +445,69 @@ else    {
                     this.pingSuccess = "waiting"
                 }
             },
-            getIpList: function(data){
-                this.ipList=["192.168.21.2","192.168.21.3","192.168.21.4","192.168.21.5"]
-                axios.get('devicePingResponseList.php',{
+            getIpListBox1: function(data) {
+                this.spinIconBox1 = true
+                axios.get('devicePingResponseList.php', {
                     params: {
-                        rowNumbers: "5"
+                        mainServerIp: "192.168.21.1",
+                        rowNumbers: "5",
+                        from: "192.168.16.73",
+                        to: "192.168.16.254",
+                        byteToChange: "3"
                     }
-                }).then(response=>{
-                   console.log("ipListResponse:"+JSON.stringify(response.data))
-                   this.ipList=response.data
-                   
+                }).then(response => {
+                    this.ipListBox1 = response.data
+                    this.spinIconBox1 = false
                 })
+            },
+            ipListBox1reload: function(data) {
+                this.ipListBox1 = [];
+                this.getIpListBox1()
+            },
+            getIpListBox2: function(data) {
+                this.spinIconBox2 = true
+                axios.get('devicePingResponseList.php', {
+                    params: {
+                        mainServerIp: "192.168.30.1",
+                        rowNumbers: "5",
+                        from: "192.168.30.60",
+                        to: "192.168.30.254",
+                        byteToChange: "3"
+                    }
+                }).then(response => {
+                    this.ipListBox2 = response.data
+                    this.spinIconBox2 = false
+                })
+            },
+            ipListBox2reload: function(data) {
+                this.ipListBox2 = [];
+                this.getIpListBox2()
+            },
+            getIpListBox3: function(data) {
+                this.spinIconBox3 = true
+                axios.get('devicePingResponseList.php', {
+                    params: {
+                        mainServerIp: "192.168.21.1",
+                        rowNumbers: "5",
+                        from: "192.168.26.90",
+                        to: "192.168.30.254",
+                        byteToChange: "3"
+                    }
+                }).then(response => {
+                    this.ipListBox3 = response.data
+                    this.spinIconBox3 = false
+                })
+            },
+            ipListBox3reload: function(data) {
+                this.ipListBox3 = [];
+                this.getIpListBox3()
             }
-
         },
         mounted() {
             this.getUser()
-            this.getIpList()
+            this.getIpListBox1()
+            this.getIpListBox2()
+            this.getIpListBox3()
         },
     });
     </script>

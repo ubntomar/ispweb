@@ -137,7 +137,11 @@ body {
 .link-border{
 	border-bottom: 1px solid #5cb85c;
 }
-
+.main .estadisticas .title-caja{
+	font-family: 'Roboto', sans-serif;
+	padding: 5px;
+	font-size: small;
+}
 .main .estadisticas .caja {
 	background: rgb(221, 224, 220);
 	border: 1px solid #e3e3e3;
@@ -145,15 +149,15 @@ body {
 	flex: 1;
 	text-align: center;
 	font-family: 'Roboto', sans-serif;
-	margin-top: 10px;
+	/* margin-top: 10px; */
 }
 
 .main .estadisticas .caja h3 {
 	margin-top: 0px;
-	margin-bottom: 10px;
+	margin-bottom: 0px;
 	color: #1b221e;
 	
-	padding-bottom: 5px;
+	padding-bottom: 0px;
 }
 
 .main .estadisticas .caja p {
