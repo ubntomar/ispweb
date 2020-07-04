@@ -20,7 +20,7 @@ $urlprev=$_GET['urlprev'];
 if($urlprev) 
     $urltext="Location: ../$urlprev";
 else 
-    $urltext="Location: ../main.php";     
+    $urltext="Location: ../register-pay.php";     
 header($urltext); /* Redirect browser */
 
 /* Make sure that code below does not get executed when we redirect. */

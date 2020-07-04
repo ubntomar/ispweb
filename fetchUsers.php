@@ -12,6 +12,8 @@ header('Content-Type: application/json');
 require 'vendor/autoload.php';
 require 'dateHuman.php';
 include("login/db.php");
+require 'Mkt.php';
+require 'vpnConfig.php';
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -27,6 +29,10 @@ $ping = array();
 // $searchOption="null"; 
 $searchString=$mysqli -> real_escape_string($_GET["searchString"]);
 $searchOption=$mysqli -> real_escape_string($_GET["searchOption"]);
+
+if($mkobj=new Mkt($serverIpAddressArea1,$vpnUser,$vpnPassword)){
+    $exclusivosList=$mkobj->list_all();        
+}
 if ($searchOption=="Todos"){
     if($searchString!="") $queryPart="AND ( (`cliente` LIKE '%$searchString%') OR (`apellido` LIKE '%$searchString%') OR (`ip` LIKE '%$searchString%') ) ";
     else $queryPart="limit 20";
@@ -39,7 +45,10 @@ if ($searchOption=="Todos"){
             $id=$row['id'];
             $name=strtoupper($row["cliente"]." ".$row['apellido']);
             $ipAddress=$row["ip"];
-            ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down'; 
+            ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down';
+            foreach ($exclusivosList as $value) {
+                if($value['ip']==$ipAddress)	$pingStatus='Pending';
+            } 
             $responseTime=$row["ping"];
             ($row["suspender"])? $suspender="cortado":$suspender="";
             $pingDate=$row["pingDate"];   
@@ -68,6 +77,9 @@ if($searchOption=="Cortado"){
             $name=strtoupper($row["cliente"]." ".$row['apellido']);
             $ipAddress=$row["ip"];
             ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down'; 
+            foreach ($exclusivosList as $value) {
+                if($value['ip']==$ipAddress)	$pingStatus='Pending';
+            }
             $responseTime=$row["ping"];
             ($row["suspender"])? $suspender="cortado":$suspender="";
             $pingDate=$row["pingDate"];   
@@ -96,6 +108,9 @@ if($searchOption=="Ping OK"){
             $name=strtoupper($row["cliente"]." ".$row['apellido']);
             $ipAddress=$row["ip"];
             ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down'; 
+            foreach ($exclusivosList as $value) {
+                if($value['ip']==$ipAddress)	$pingStatus='Pending';
+            }
             $responseTime=$row["ping"];
             ($row["suspender"])? $suspender="cortado":$suspender="";
             $pingDate=$row["pingDate"];   
@@ -124,6 +139,9 @@ if($searchOption=="Ping Down"){
             $name=strtoupper($row["cliente"]." ".$row['apellido']);
             $ipAddress=$row["ip"];
             ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down'; 
+            foreach ($exclusivosList as $value) {
+                if($value['ip']==$ipAddress)	$pingStatus='Pending';
+            }
             $responseTime=$row["ping"];
             ($row["suspender"])? $suspender="cortado":$suspender="";
             $pingDate=$row["pingDate"];   

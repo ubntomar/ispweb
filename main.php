@@ -451,12 +451,13 @@ else    {
                     params: {
                         mainServerIp: "192.168.16.1",
                         rowNumbers: "2",
-                        from: "192.168.16.73",
+                        from: "192.168.16.169",
                         to: "192.168.16.254",
                         byteToChange: "3"
                     }
                 }).then(response => {
                     this.ipListBox1 = response.data
+                    console.log(response.data)
                     this.spinIconBox1 = false
                 })
             },

@@ -1,5 +1,5 @@
 <?php
-$debug=false;
+
 include("login/db.php");
 require 'Mkt.php'; 
 require 'vpnConfig.php';
@@ -15,19 +15,25 @@ $hourMin = date('H:i');
 $pass=true;
 $user="aws";
 if($mkobj=new Mkt($serverIpAddressArea1,$vpnUser,$vpnPassword)){
-	echo "\nConectado a la Rboard cod Server-target-> 1:$serverIpAddressArea1\n";
+	//echo "\nConectado a la Rboard cod Server-target-> 1:$serverIpAddressArea1\n";
 	$pass=true;        
 }
 
 //echo json_encode($mkobj->list_all())."\n\n";
-$exclusivosList=$mkobj->list_all();
-foreach ($exclusivosList as $value) {
-	if($value['list']=='Exclusivos')	echo " {$value['ip']}\n";
-}
+//$exclusivosList=$mkobj->list_all();
+// foreach ($exclusivosList as $value) {
+// 	if($value['list']=='Exclusivos')	echo " {$value['ip']}\n";
+// }
+//$listIp=json_encode($mkobj->list_all());
+//echo $listIp;
 
-
-
-
+$DefaultJson="{}";
+$fileJsonString= file_get_contents("ipAlive.json");
+if($fileJsonString=="")$fileJsonString=$DefaultJson;
+$filePhpObject=json_decode($fileJsonString,true);
+array_push($filePhpObject,$mkobj->list_all());
+$jsonData=json_encode($filePhpObject);
+file_put_contents('ipAlive.json',$jsonData);
 
 
 ?>
