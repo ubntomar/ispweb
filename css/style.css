@@ -1,0 +1,512 @@
+:root {
+    --main-padding: 10px;
+    --title-size:1.2vw;
+  }
+*{
+    margin: 0px;
+    padding: 0px;
+    
+    
+}
+html{
+    background-color:#262a34;
+   
+}
+body{
+    background-color:#6357a7 ;
+    font-family: 'Roboto',sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    height: 100%; 
+    margin-bottom: 0px;
+    }
+        header{
+            background-color:#262a34 ;
+            color: #fff;
+            padding: var(--main-padding) 27px 0px 27px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+        }
+            header .logo{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            header .logo h1{
+                letter-spacing: 2px;
+                padding-bottom: 0px;
+                margin-bottom: 0px;
+                color: lime;
+                text-align: end;
+            }
+            header .header-box{
+                padding-top: 5px;
+            }
+            header .header-box button{
+                font-size: 32px;
+            }
+        .navTop{
+            background-color:#262a34 ;
+            padding:0px 0px var(--main-padding);
+        }
+            .navTop ul{
+                list-style-type: none;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .navTop ul li{
+                padding: var(--main-padding);
+            }
+
+            .navTop ul li a{
+                text-decoration: none;
+                color: #fff;
+            }
+            .navTop ul li a:hover{
+                color:#34c22f;
+            }
+            .navTop ul li a i{
+                padding:0px 2px 0px;
+            }
+        main{
+            background-color: burlywood;
+            display: flex;
+        }
+            .navLeft{
+                background-color: #262a34;
+                padding: var(--main-padding);
+                min-width: 150px;
+                /* border-bottom: 50px solid rgb(44, 58, 45); */
+            }
+                .navLeft ul{
+                    list-style-type: none;
+                    
+                }
+                .navLeft ul li{
+                    margin-bottom: 10px;
+                    padding: 20px;
+                }
+                .navLeft ul li:hover{
+                    border-left: 3px solid #34c22f; ;
+                    border-right: 3px solid #34c22f; ;
+                   /* background-color: #34c22f; */
+                }
+                .navLeft ul li a{
+                    text-decoration: none;
+                    color: #fff;
+                }
+                .navLeft ul li a i{
+                    padding: 0px 5px 0px 0px;
+                }
+                
+            section{
+                background-color: #fff;
+                width: 100%;
+            }
+                section .section-title{ 
+                    display: flex;
+                    justify-content: center;
+                    background-color: indianred; 
+                    /* border:solid 2px  #262a34; */
+                    border-radius: 5px;
+                    margin: 20px auto 10px;
+                    width:max-content;
+                }
+                section .section-title h1{
+                    letter-spacing: 2px;
+                    font-size:var(--title-size);
+                    color:#fff;
+                    padding: 20px;
+                    margin: 10px;
+                    
+                }
+                
+                section .section-title img{
+                   height: 50px;
+                   padding:10px 0px 10px 10px; 
+                }
+                section .box-container{
+                    display: flex;
+                    justify-content: space-around;
+                    flex-wrap: wrap;
+                }
+                section .box{
+                    padding:5px;
+                    font-weight: normal;
+                    margin: 15px;
+                    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+                    width: 46%;
+                }
+                section .box input, select, textarea {
+                    height:min-content;
+                    padding: 12px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    resize: vertical;
+                  }
+                section .box .title{
+                    margin: 10px;
+                    text-transform: uppercase;
+                    color:lime;
+                    display: flex;
+                    justify-content: center;
+                }
+                section .box .title h3{
+                    letter-spacing: 2px;
+                    font-size:var(--title-size);
+                    border:solid 1px #262a34;
+                    border-radius: 20px 50px;
+                    padding: 5px 10px 5px 10px;
+                    background-color: #262a34; ;
+                }
+                section .box .box-content{
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;                    
+                }
+                section .box .box-content .search{
+                    padding: 10px;
+                    width: max-content;
+                    margin: auto;
+                }
+                section .result-container p{
+                    width: max-content;
+                    margin: auto;
+                }
+                section .result-container table{
+                    margin: auto;
+                }
+                section .selected-client{
+                    width: max-content;
+                    padding: 10px;
+                    margin:10px auto;
+                    text-align: left;
+                }
+                section .selected-client p{
+                    margin: 0px;
+                }
+                section .form-new-client  {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-around;
+                    margin: 5px;
+                    padding: 5px;
+                }
+                section .form-group{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    text-align: left;
+                    padding: 2px;
+                    margin: 2px;
+                    width: 45%;
+                }
+                section .form-child-w100{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    text-align: left;
+                    padding: 2px;
+                    margin-left: 10px;
+                    margin-right: auto;
+                    width: 51%;
+                }
+                section table {
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                    /* width: 100%; */
+                    border: 1px solid #ddd;
+                }
+                /* section .box .resume{
+                    background-color: greenyellow;
+                } */
+                section .box .resume .title h3{
+                    margin-top: 10px;
+                }
+                section .box .resume .content{
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+                section .box .resume .content .box-child{
+                    border:1px solid #262a34;
+                    background-color: indianred;
+                    padding: 15px;
+                    margin: 10px;
+                    border-radius:4px;
+                    text-align: center;
+                }
+                section .box .resume .content .box-child h1{
+                    color: #fff;
+                    font-size: 4rem;
+                }
+                section .box .resume .content .box-child p{
+                    color: #fff;
+                }
+                .close-ticket-modal{
+                    display:none; /* Hidden by default */
+                    position: fixed; /* Stay in place */
+                    z-index: 1; /* Sit on top */
+                    padding-top: 10px; /* Location of the box */
+                    left: 0;
+                    top: 0;
+                    width: 100%; /* Full width */
+                    height: 100%; /* Full height */
+                    overflow: auto; /* Enable scroll if needed */
+                    background-color: rgb(0,0,0); /* Fallback color */
+                    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+                }
+                .close-ticket-content {
+                    background-color:#fff;
+                    margin: auto;
+                    padding:0px 0px 10px 0px;
+                    border: 1px solid #888;
+                    width: 60%;
+                  }
+                  .close-ticket-content .title-modal h3 {
+                    text-transform: uppercase;
+                    background-color: indianred;
+                    text-align: center;
+                    color: #fff;
+                    margin:0px; 
+                    padding: 5px;
+                  }
+                  .close-ticket-content .form-close-ticket{
+                    display: flex;
+                    flex-wrap: wrap;
+                    /* justify-content: space-evenly; */
+                    
+                  }
+                  
+                  .close-ticket-content .footer-modal{
+                      padding: 10px;
+                      margin: 10px;
+                      display: flex;
+                      justify-content: flex-end;
+                  }
+                  .close-ticket-content .footer-modal button{
+                    background-color: indianred;
+                    color: #fff;
+                    padding: 5px;
+                    margin: 3px 10px;
+                    border: 0px;
+                    font-size: 1.2rem;
+                    }
+                    .close-ticket-content .footer-modal button:hover{
+                        background-color: #d4335b;
+                        
+                        }
+                
+                th{
+                    color: #fff;
+                    background-color: indianred;
+                }
+                  
+                th, td {
+                text-align: left;
+                padding: 16px;
+                }
+                
+                tr:nth-child(even) {
+                background-color: #f2f2f2;
+                }
+               
+                
+        footer{
+            background-color: #262a34;
+            padding: var(--main-padding);
+            display: flex;
+            margin-bottom: 0px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        footer div {
+            background-color: #fff;
+            border-radius: 5px;
+            margin: 5px;
+            padding: 5px;
+            display: flex;
+            width: 50%;
+            }
+            footer .specialDiv{
+                background-color: coral;
+            }
+@media screen and (max-width: 1950px){
+    section .new-ticket{
+        display: block;
+    }
+    header .header-box button{ 
+        display: none; 
+    }
+    th, td {
+        text-align: left;
+        padding: 5px;
+      }
+      .close-ticket-content {
+        width: 35%;
+        height: auto;
+        padding:0px;
+    } 
+    .close-ticket-modal{
+        padding-top: 10px;
+    } 
+    .close-ticket-content .form-close-ticket{
+        padding: 10px;
+    }
+    .close-ticket-content .select-group{
+        flex-basis: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .close-ticket-content .form-group textarea{
+       height: 70px;
+    }
+    /* .close-ticket-content .form-close-ticket div:nth-child(10) {
+        flex-basis: 50%;
+        flex-grow: 1;
+    } */
+}
+@media screen and (max-width: 1400px){
+    section .form-new-client .w100{
+        width: 100%;
+    } 
+    section .box{
+        width: auto;
+    }
+    th, td {
+        text-align: left;
+        padding: 25px;
+      }
+      .close-ticket-modal{
+        padding-top: 50px;
+    }
+      .close-ticket-content {
+        width: 55%;
+    }
+    .close-ticket-content .form-close-ticket{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content:center;
+        
+      }  
+}
+@media screen and (max-width: 1169px){
+    section .form-new-client .w100{
+        width: 100%;
+    } 
+    section .box{
+        width: auto;
+    }
+    th, td {
+        text-align: left;
+        padding: 25px;
+      }
+      .close-ticket-content {
+        width: 55%;
+    }  
+}
+@media screen and (max-width: 768px) {
+    :root {
+        
+        --title-size:14px;
+    }
+    header .header-box .user{
+        display: none;
+    }
+    header .header-box{
+        padding-top: 5px;
+    }
+    header .header-box button{
+        display: block;
+        font-size: 32px;
+        color: #fff;
+        background-color: #262a34;
+        border: 1px solid #34c22f;
+        border-radius: 10px;
+        padding: 2px 8px;
+        outline:none;
+    }
+    header .header-box button:hover{
+        border-color: #fff;
+        outline:none;
+    }
+    .navTop {
+        display: none;
+    }
+    .navTop ul{
+        background-color: rgb(44, 58, 45);
+        padding-top: 50px 0px 50px 0px;
+        flex-direction: column;
+        text-align: center;
+    }
+    main{
+        flex-direction: column;
+    }
+    .navLeft{
+        min-width: auto;
+    }
+    .navLeft ul{
+        display: flex;
+        justify-content: center;
+    }
+    .navLeft ul li:hover,.selected{
+        border-top: 0px;
+        border-right: 0px;
+        border-bottom: 3px solid #34c22f;
+        border-left: 0px;
+    }
+
+    .navLeft ul li a span{
+        display: none;
+    } 
+    footer div{
+        width: 100%
+    } 
+    section .box{
+        width: auto;
+    } 
+    section  .section-title{
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        border-radius: 0px;
+    }
+    .box table th, td {
+        text-align: left;
+        padding: 6px;
+        font-size: 0.8rem;
+      }
+    section .form-new-client .w100{
+        width: 100%;
+    }
+    section .form-group{
+        width: 96%;
+    }
+    section .form-child-w100{
+        width: 96%;
+        margin: auto;
+    }
+    .close-ticket-modal{
+        padding-top: 5px;
+    }
+    .close-ticket-content {
+        width: 90%;
+    }
+  
+    .close-ticket-content .form-group input{
+        padding:2px;
+    }
+    .close-ticket-content .form-group select{
+        padding:2px;
+        width: 100px;
+    }
+    .footer-modal button{
+        font-size: 1.5rem;
+    }
+
+    
+}

@@ -31,7 +31,6 @@ else    {
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
-
 <body>
     <div class="container-fluid px-0">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top   ">
