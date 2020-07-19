@@ -112,7 +112,7 @@ body{
                     background-color: indianred; 
                     /* border:solid 2px  #262a34; */
                     border-radius: 5px;
-                    margin: 20px auto 10px;
+                    margin: 20px auto 50px;
                     width:max-content;
                 }
                 section .section-title h1{
@@ -132,13 +132,21 @@ body{
                     display: flex;
                     justify-content: space-around;
                     flex-wrap: wrap;
+                   
+                }
+                section .box-container .box-new-ticket{
+                   min-width: 35%;
+                }
+                .box-result{
+                    display: none;
                 }
                 section .box{
                     padding:5px;
                     font-weight: normal;
-                    margin: 15px;
+                    margin: 0px;
                     box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
                     width: 46%;
+                    margin-bottom: 40px;
                 }
                 section .box input, select, textarea {
                     height:min-content;
@@ -188,12 +196,22 @@ body{
                 section .selected-client p{
                     margin: 0px;
                 }
-                section .form-new-client  {
+                section .selected-client button{
+                    background-color: indianred;
+                    color: #fff;
+                    border: 0px;
+                    margin: 0px 3px;
+                    padding: 3px;
+                    font-weight: bold;
+                    border-radius: 2px;
+                }
+                section .form-new-ticket  {
                     display: flex;
                     flex-wrap: wrap;
                     justify-content: space-around;
-                    margin: 5px;
+                    margin: auto;
                     padding: 5px;
+                    width: 60%;
                 }
                 section .form-group{
                     display: flex;
@@ -228,6 +246,9 @@ body{
                 } */
                 section .box .resume .title h3{
                     margin-top: 10px;
+                    background-color: #f2f2f2;
+                    color: indianred;
+                    border-radius: 5px;
                 }
                 section .box .resume .content{
                     display: flex;
@@ -249,18 +270,38 @@ body{
                 section .box .resume .content .box-child p{
                     color: #fff;
                 }
-                .close-ticket-modal{
-                    display:none; /* Hidden by default */
-                    position: fixed; /* Stay in place */
-                    z-index: 1; /* Sit on top */
-                    padding-top: 10px; /* Location of the box */
+                section .new-ticket{
+                    display: none;
+                    position: fixed;
+                    z-index: 1; 
+                    padding-top: 10px;
                     left: 0;
                     top: 0;
                     width: 100%; 
                     height: 100%; 
-                    overflow: auto; /* Enable scroll if needed */
-                    background-color: rgb(0,0,0); /* Fallback cofdgdfglor */
-                    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+                    overflow: auto;
+                    background-color: rgb(0,0,0);
+                    background-color: rgba(0,0,0,0.8);
+                }
+                section .new-ticket .new-ticket-modal-content{
+                    background-color:#f2f2f2;
+                    margin:40px auto;
+                    padding: 0px;
+                    width: 50%;
+                    border-radius: 2px;
+                }
+                .close-ticket-modal{
+                    display:none;
+                    position: fixed;
+                    z-index: 1;
+                    padding-top: 10px;
+                    left: 0;
+                    top: 0;
+                    width: 100%; 
+                    height: 100%; 
+                    overflow: auto;
+                    background-color: rgb(0,0,0);
+                    background-color: rgba(0,0,0,0.8);
                 }
                 .close-ticket-content {
                     background-color:#fff;
@@ -269,7 +310,7 @@ body{
                     border: 1px solid #888;
                     width: 60%;
                   }
-                  .close-ticket-content .title-modal h3 {
+                  .title-modal h3 {  
                     text-transform: uppercase;
                     background-color: indianred;
                     text-align: center;
@@ -284,13 +325,13 @@ body{
                     
                   }
                   
-                  .close-ticket-content .footer-modal{
+                  .footer-modal{
                       padding: 10px;
                       margin: 10px;
                       display: flex;
                       justify-content: flex-end;
                   }
-                  .close-ticket-content .footer-modal button{
+                  .footer-modal button{
                     background-color: indianred;
                     color: #fff;
                     padding: 5px;
@@ -298,7 +339,7 @@ body{
                     border: 0px;
                     font-size: 1.2rem;
                     }
-                    .close-ticket-content .footer-modal button:hover{
+                    .footer-modal button:hover{
                         background-color: #d4335b;
                         
                         }
@@ -338,9 +379,7 @@ body{
                 background-color: coral;
             }
 @media screen and (max-width: 1950px){
-    section .new-ticket{
-        display: block;
-    }
+    
     header .header-box button{ 
         display: none; 
     }
@@ -369,16 +408,25 @@ body{
         max-width: 400px;
     }
     .close-ticket-content .form-group textarea{
-       height: 70px;
+       height: 30px;
     }
+  
     /* .close-ticket-content .form-close-ticket div:nth-child(10) {
         flex-basis: 50%;
         flex-grow: 1;
     } */
 }
 @media screen and (max-width: 1400px){
-    section .form-new-client .w100{
+    section .form-new-ticket{
         width: 100%;
+    }
+    section .form-new-ticket textarea{
+        height: 50px;
+    }
+    section .form-new-ticket .w100{
+        width: 100%;
+        margin: 12px;
+        padding: 12px;
     } 
     section .box{
         width: auto;
@@ -398,15 +446,34 @@ body{
         flex-wrap: wrap;
         justify-content:center;
         
-      }  
+      } 
+    .box-statitics{
+        flex-basis: 50%;
+    }   
 }
 @media screen and (max-width: 1169px){
-    section .form-new-client .w100{
+    section .form-new-ticket  {
+        width: 90%;
+    }
+   
+    section .form-new-ticket textarea  {
+        max-height: 50px;
+    }
+    section .new-ticket .new-ticket-modal-content{
         width: 100%;
+        margin-top: 0px;   
+    }
+    section .form-new-ticket .w100{
+        width: 100%;
+        margin: 10px;
+        padding: 10px;
     } 
     section .box{
         width: auto;
     }
+    .box-statitics{
+        flex-basis: 100%;
+    } 
     th, td {
         text-align: left;
         padding: 25px;
@@ -486,8 +553,10 @@ body{
         padding: 6px;
         font-size: 0.8rem;
       }
-    section .form-new-client .w100{
+    section .form-new-ticket .w100{
         width: 100%;
+        margin: 4px;
+        padding: 4px;
     }
     section .form-group{
         width: 96%;

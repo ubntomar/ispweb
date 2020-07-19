@@ -64,16 +64,16 @@ else    {
                 <h1>ADMINISTRAR TICKETS DE SOPORTE TÈCNICO</h1>
             </div>
             <div class=box-container>
-                <div class="box">
+                <div class="box box-new-ticket">
                     <div class="title">
-                        <h3><i class="icon-user"></i> Cliente</h3>
+                        <h3><i class="icon-user"></i> Nuevo Ticket</h3>
                     </div>
                     <div class="box-content">
                         <div class="search">
-                            <input type="text">
+                            <input type="text" placeholder="Nombre de Cliente">
                             <button><i class="icon-search"></i></button>
                         </div>
-                        <div>
+                        <div class="box-result">
                             <div class="title">
                                 <h3 class="icon-docs">Result</h3>
                             </div>
@@ -141,42 +141,47 @@ else    {
                         </div>
                     </div>
                 </div>
-                <div class="box new-ticket">
-                    <div class="title">
-                        <h3>Registrar Nuevo Ticket</h3>
-                    </div>
-                    <div class="form-new-client">
-                        <div class="form-group new-cli">
-                            <label for="cli">Cliente</label>
-                            <input type="text" id="cli">
+                <div class="box new-ticket ">
+                    <div class="new-ticket-modal-content">
+                        <div class="title-modal">
+                            <h3>Registrar Nuevo Ticket</h3>
                         </div>
-                        <div class="form-group new-cli">
-                            <label for="clientTelefono">Telèfono de Cliente</label>
-                            <input type="text" name="telefono" id="clientTelefono" value="">
+                        <div class="form-new-ticket">
+                            <div class="form-group new-cli">
+                                <label for="cli">Cliente</label>
+                                <input type="text" id="cli">
+                            </div>
+                            <div class="form-group new-cli">
+                                <label for="clientTelefono">Telèfono de Cliente</label>
+                                <input type="text" name="telefono" id="clientTelefono" value="">
+                            </div>
+                            <div class="form-group new-cli">
+                                <label for="clientTelefonoAdicional">Telèfono Adicional</label>
+                                <input type="text" name="telefono" id="clientTelefonoAdicional" value="">
+                            </div>
+                            <div class="form-group new-cli">
+                                <label for="direccion">Direcciòn</label>
+                                <input type="text" name="direccion" value="" id="direccion">
+                            </div>
+                            <div class="form-group new-cli">
+                                <label for="email">Email de cliente</label>
+                                <input type="email" name="email" value="" id="email">
+                            </div>
+                            <div class="form-group new-cli">
+                                <label for="ipAddre">Ip Address</label>
+                                <input type="text" name="ipAddre" value="" id="ipAddre">
+                            </div>
+                            <div class="form-group new-cli w100">
+                                <label for="diagnostico">Solicitud de Cliente</label>
+                                <textarea rows="10" cols="" id="diagnostico"></textarea>
+                            </div>
+                            <div class="form-group new-cli w100">
+                                <label for="solucion">Sugerencia de soluciòn</label>
+                                <textarea rows="10" cols="" id="solucion"></textarea>
+                            </div>
                         </div>
-                        <div class="form-group new-cli">
-                            <label for="clientTelefonoAdicional">Telèfono Adicional</label>
-                            <input type="text" name="telefono" id="clientTelefonoAdicional" value="">
-                        </div>
-                        <div class="form-group new-cli">
-                            <label for="direccion">Direcciòn</label>
-                            <input type="text" name="direccion" value="" id="direccion">
-                        </div>
-                        <div class="form-group new-cli">
-                            <label for="email">Email de cliente</label>
-                            <input type="email" name="email" value="" id="email">
-                        </div>
-                        <div class="form-group new-cli">
-                            <label for="ipAddre">Ip Address</label>
-                            <input type="text" name="ipAddre" value="" id="ipAddre">
-                        </div>
-                        <div class="form-group new-cli w100">
-                            <label for="diagnostico">Solicitud de Cliente</label>
-                            <textarea rows="10" cols="" id="diagnostico"></textarea>
-                        </div>
-                        <div class="form-group new-cli w100">
-                            <label for="solucion">Sugerencia de soluciòn</label>
-                            <textarea rows="10" cols="" id="solucion"></textarea>
+                        <div class="footer-modal">
+                                <button>Enviar</button><button>Cancelar</button>
                         </div>
                     </div>
                 </div>
@@ -378,7 +383,7 @@ else    {
                         <button>Continuar</button><button class="icon-cancel"></button>
                     </div>
                 </div>
-                <div class="box">
+                <div class="box box-statitics">
                     <div class="title">
                         <h3><i class="icon-chart-line"></i> Statitics</h3>
                     </div>
