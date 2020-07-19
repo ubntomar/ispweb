@@ -204,6 +204,9 @@ body{
                     margin: 2px;
                     width: 45%;
                 }
+                section .form-group .new-cli{
+                    max-width: 400px;
+                }
                 section .form-child-w100{
                     display: flex;
                     flex-direction: column;
@@ -277,7 +280,7 @@ body{
                   .close-ticket-content .form-close-ticket{
                     display: flex;
                     flex-wrap: wrap;
-                    /* justify-content: space-evenly; */
+                    justify-content: center;
                     
                   }
                   
@@ -360,7 +363,10 @@ body{
         flex-basis: 100%;
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-around;
+        justify-content: center;
+    }
+    .close-ticket-content .select-group select {
+        max-width: 400px;
     }
     .close-ticket-content .form-group textarea{
        height: 70px;
