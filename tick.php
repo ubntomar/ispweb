@@ -70,8 +70,8 @@ else    {
                     </div>
                     <div class="box-content">
                         <div class="search">
-                            <input type="text" placeholder="Nombre de Cliente">
-                            <button><i class="icon-search"></i></button>
+                            <input v-model="searchClientContent"  type="text" placeholder="Nombre de Cliente">
+                            <button  v-on:click="searchClient"><i class="icon-search"></i></button>
                         </div>
                         <div class="box-result">
                             <div class="title">
@@ -420,24 +420,24 @@ else    {
     </footer>
 
 </body>
-<!-- foooter -->
 <script>
 var app = new Vue({
     el: "#app",
     data: {
-        stat: false,
-
-
+       searchClientContent: "Pruenba",
+       clientes: [],
+       totalRows: "",
     },
     methods: {
+        searchClient: function(){
+            console.log("cllicked  .. and search:"+this.searchClientContent)
+            this.getUser()
+        },
         getUser: function() {
-            axios.get('fetchUsers.php', {
+            axios.get('fetchClientList.php', {
                 params: {
-                    id: this.id,
-                    searchString: this.searchString,
-                    searchOption: this.searchOption
-
-                }
+                    searchClientContent: this.searchClientContent
+                } 
             }).then(response => {
                 this.clientes = response.data
                 console.log(response.data.length - 1)
@@ -462,7 +462,8 @@ var app = new Vue({
         }
     },
     mounted() {
-
+        console.log("Hello World")
+        
     },
 });
 </script>
