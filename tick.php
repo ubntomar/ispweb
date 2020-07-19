@@ -146,31 +146,35 @@ else    {
                         <h3>Registrar Nuevo Ticket</h3>
                     </div>
                     <div class="form-new-client">
-                        <div class="form-group">
+                        <div class="form-group new-cli">
                             <label for="cli">Cliente</label>
                             <input type="text" id="cli">
                         </div>
-                        <div class="form-group">
-                            <label for="clientTelefono">Telèfono</label>
+                        <div class="form-group new-cli">
+                            <label for="clientTelefono">Telèfono de Cliente</label>
                             <input type="text" name="telefono" id="clientTelefono" value="">
                         </div>
-                        <div class="form-child-w100">
+                        <div class="form-group new-cli">
+                            <label for="clientTelefonoAdicional">Telèfono Adicional</label>
+                            <input type="text" name="telefono" id="clientTelefonoAdicional" value="">
+                        </div>
+                        <div class="form-group new-cli">
                             <label for="direccion">Direcciòn</label>
                             <input type="text" name="direccion" value="" id="direccion">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group new-cli">
                             <label for="email">Email de cliente</label>
                             <input type="email" name="email" value="" id="email">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group new-cli">
                             <label for="ipAddre">Ip Address</label>
                             <input type="text" name="ipAddre" value="" id="ipAddre">
                         </div>
-                        <div class="form-group w100">
+                        <div class="form-group new-cli w100">
                             <label for="diagnostico">Solicitud de Cliente</label>
                             <textarea rows="10" cols="" id="diagnostico"></textarea>
                         </div>
-                        <div class="form-group w100">
+                        <div class="form-group new-cli w100">
                             <label for="solucion">Sugerencia de soluciòn</label>
                             <textarea rows="10" cols="" id="solucion"></textarea>
                         </div>
