@@ -137,7 +137,7 @@ body{
                 section .box-container .box-new-ticket{
                    min-width: 35%;
                 }
-                .box-result{
+                .hide-box-result{
                     display: none;
                 }
                 section .box{
@@ -193,6 +193,7 @@ body{
                     margin: auto;
                 }
                 section .result-container table{
+                    width: 70%;
                     margin: auto;
                 }
                 section .selected-client{
@@ -246,12 +247,53 @@ body{
                 section table {
                     border-collapse: collapse;
                     border-spacing: 0;
-                    /* width: 100%; */
                     border: 1px solid #ddd;
                 }
-                /* section .box .resume{
-                    background-color: greenyellow;
-                } */
+                .box table th {
+                    text-align: left;
+                    padding: 6px 0px 6px 6px;
+                    font-size: 1.0rem;
+                  }
+                  .box table td {
+                    text-align: left;
+                    padding: 6px 0px 6px 6px;
+                    font-size: 0.8rem;
+                  }  
+                 
+                section table tr:hover{
+                    border: 1px solid#262a34;
+                }
+                section table thead tr:hover{
+                    border:0px;
+                }
+                section table tfoot tr:hover{
+                    border:0px;
+                }
+                section .close-result-table{
+                    display: flex;
+                    justify-content: space-between;
+                    
+                }
+                section .close-result-table div:nth-child(1){
+                    text-align: center;
+                    margin: auto;
+                }
+                section .close-result-table div button{
+                    font-size: 20px;
+                    margin: 0px 1px 0px 0px;
+                    border: 1px solid #fff;
+                    border-radius: 2px;
+                }
+                
+               
+                section .close-result-table button{
+                    margin: 0px;
+                    color: #fff;
+                    background-color: indianred;
+                    border: 0;
+                    font-weight: bold;
+                    padding: 0px;
+                }
                 section .box .resume .title h3{
                     margin-top: 10px;
                     background-color: #f2f2f2;
@@ -279,7 +321,6 @@ body{
                     color: #fff;
                 }
                 section .new-ticket{
-                    display: none;
                     position: fixed;
                     z-index: 1; 
                     padding-top: 10px;
@@ -290,6 +331,9 @@ body{
                     overflow: auto;
                     background-color: rgb(0,0,0);
                     background-color: rgba(0,0,0,0.8);
+                }
+                section .hide-new-ticket{
+                    display: none;
                 }
                 section .new-ticket .new-ticket-modal-content{
                     background-color:#f2f2f2;
@@ -339,18 +383,27 @@ body{
                       display: flex;
                       justify-content: flex-end;
                   }
-                  .footer-modal button{
-                    background-color: indianred;
+                  .footer-modal input{
+                    background-color: rgb(8, 94, 8);
                     color: #fff;
                     padding: 5px;
                     margin: 3px 10px;
                     border: 0px;
                     font-size: 1.2rem;
                     }
-                    .footer-modal button:hover{
-                        background-color: #d4335b;
-                        
+                    .footer-modal button{
+                        background-color: indianred;
+                        color: #fff;
+                        padding: 5px;
+                        margin: 3px 10px;
+                        border: 0px;
+                        font-size: 1.2rem;
+                        border-radius: 3px;
                         }
+
+                    .footer-modal input:hover{
+                        background-color: #262a34;
+                    }
                 
                 th{
                     color: #fff;
@@ -364,6 +417,20 @@ body{
                 
                 tr:nth-child(even) {
                 background-color: #f2f2f2;
+                }
+                input:invalid {
+                    box-shadow: 0 0 5px 1px red;
+                  }
+                  
+                input:focus:invalid {
+                box-shadow: none;
+                }
+                textarea:invalid {
+                    box-shadow: 0 0 5px 1px red;
+                  }
+                  
+                textarea:focus:invalid {
+                box-shadow: none;
                 }
                
                 
@@ -457,7 +524,11 @@ body{
       } 
     .box-statitics{
         flex-basis: 50%;
-    }   
+    }  
+    section .result-container table{
+        width: 100%;
+        margin: auto;
+    } 
 }
 @media screen and (max-width: 1169px){
     section .form-new-ticket  {
@@ -477,7 +548,7 @@ body{
         padding: 10px;
     } 
     section .box{
-        width: auto;
+        min-width: 70%;
     }
     .box-statitics{
         flex-basis: 100%;
@@ -488,7 +559,10 @@ body{
       }
       .close-ticket-content {
         width: 55%;
-    }  
+    }
+    section .box-container .box-new-ticket{
+        min-width: 70%;
+     }  
 }
 @media screen and (max-width: 768px) {
     :root {
@@ -548,7 +622,7 @@ body{
         width: 100%
     } 
     section .box{
-        width: auto;
+        width: 100%;
     } 
     section  .section-title{
         margin: 0px;
@@ -558,7 +632,7 @@ body{
     }
     .box table th, td {
         text-align: left;
-        padding: 6px;
+        padding: 6px 0px 6px 6px;
         font-size: 0.8rem;
       }
     section .form-new-ticket .w100{
@@ -590,6 +664,8 @@ body{
     .footer-modal button{
         font-size: 1.5rem;
     }
-
+    section .result-container table{
+        width: 100%;
+    }
     
 }

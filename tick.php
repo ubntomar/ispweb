@@ -73,7 +73,7 @@ else    {
                             <input v-model="searchClientContent"  type="text" placeholder="Nombre de Cliente">
                             <button  v-on:click="searchClient"><i class="icon-search"></i></button>
                         </div>
-                        <div class="box-result">
+                        <div v-bind:class="{'hide-box-result':hideTicketResult}"  >
                             <div class="title">
                                 <h3 class="icon-docs">Result</h3>
                             </div>
@@ -83,106 +83,93 @@ else    {
                                         <p>Selecciona cliente.</p>
                                         <table>
                                             <thead>
-                                                <th>Cliente</th>
-                                                <th>Ip Address</th>
-
-                                                <th>Recibe</th>
-                                                <th>Fecha</th>
+                                                <tr>
+                                                    <th>Cliente</th>
+                                                    <th>Ip Address</th>
+    
+                                                    <th>Recibe</th>
+                                                    <th class="close-result-table" >
+                                                        <div><span>Fecha</span></div>
+                                                        <div><button @click="closeResultTable" class="icon-cancel"></button></div>
+                                                    </th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Mario</td>
-                                                    <td>192.168.1.2</td>
+                                                <tr v-for="client in clientes" :key="client.id" @click="selectedRowNewTicket(client.id,client.cliente)" >
+                                                    <td>{{client.cliente}}</td>
+                                                    <td>{{client.ip}}</td>
 
-                                                    <td>Ignacio Loyola</td>
-                                                    <td>12/07/2020</td>
+                                                    <td>{{client.recibe}}</td>
+                                                    <td>{{client.fecha}}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Ivàn</td>
-                                                    <td>192.168.1.3</td>
-
-                                                    <td>Federico Velèz</td>
-                                                    <td>13/07/2020</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Oscar Guzmàn</td>
-                                                    <td>192.168.1.4</td>
-
-                                                    <td>Eduardo Gòmez</td>
-                                                    <td>14/07/2020</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Fabian Castro</td>
-                                                    <td>192.168.1.5</td>
-
-                                                    <td>Hermes Padilla</td>
-                                                    <td>15/07/2020</td>
-                                                </tr>
+                                                
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td>Cliente</td>
-                                                    <td>Ip Address</td>
+                                                    <td>{{totalRows}} rows</td>
+                                                    <td></td>
 
-                                                    <td>Recibe</td>
-                                                    <td>Fecha</td>
+                                                    <td></td>
+                                                    <td></td>
                                                 </tr>
                                             </tfoot>
                                         </table>
                                     </div>
                                     <div class="selected-client">
                                         <p>Cliente seleccionado</p>
-                                        <input type="text" value="Pepito Perez">
-                                        <input type="hidden" id="" value="325">
-                                        <button>Continuar</button><button class="icon-cancel"></button>
+                                        <input type="text"  :value="newTicketSelectedClient">
+                                        <input type="hidden" id="newTicketForId" :value="newTicketSelectedId" >
+                                        <button @click="continueToResultModal(true)">Continuar</button><button @click="closeResultTable" class="icon-cancel"></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="box new-ticket ">
+                <div class="box new-ticket " v-bind:class="{'hide-new-ticket':hideResultModal}" >
                     <div class="new-ticket-modal-content">
-                        <div class="title-modal">
-                            <h3>Registrar Nuevo Ticket</h3>
-                        </div>
-                        <div class="form-new-ticket">
-                            <div class="form-group new-cli">
-                                <label for="cli">Cliente</label>
-                                <input type="text" id="cli">
+                        <form v-on:submit.prevent="checkForm">
+                            <div class="title-modal">
+                                <h3>Registrar Nuevo Ticket</h3>
                             </div>
-                            <div class="form-group new-cli">
-                                <label for="clientTelefono">Telèfono de Cliente</label>
-                                <input type="text" name="telefono" id="clientTelefono" value="">
+                            <div class="form-new-ticket">
+                                <div class="form-group new-cli">
+                                    <label for="cli">Cliente</label>
+                                    <input type="text" id="cli" value="Kevin">
+                                </div>
+                                <div class="form-group new-cli">
+                                    <label for="clientTelefono">Telèfono de Cliente</label>
+                                    <input type="text" name="telefono" id="clientTelefono" value="3147654655">
+                                </div>
+                                <div class="form-group new-cli">
+                                    <label for="clientTelefonoAdicional">Telèfono Adicional</label>
+                                    <input type="text" name="telefono" id="clientTelefonoAdicional" value="3215450397">
+                                </div>
+                                <div class="form-group new-cli">
+                                    <label for="direccion">Direcciòn</label>
+                                    <input type="text" name="direccion" id="direccion" value="Cra 9#13-45">
+                                </div>
+                                <div class="form-group new-cli">
+                                    <label for="email">Email de cliente</label>
+                                    <input type="email" name="email" id="email" value="omar_alberto_h@yahoo.es">
+                                </div>
+                                <div class="form-group new-cli">
+                                    <label for="ipAddre">Ip Address</label>
+                                    <input type="text" name="ipAddre"  id="ipAddre" value="192.168.1.2">
+                                </div>
+                                <div class="form-group new-cli w100">
+                                    <label for="diagnostico">Solicitud de Cliente</label>
+                                    <textarea required minlength="6" rows="10" cols="" id="diagnostico"></textarea>
+                                </div>
+                                <div class="form-group new-cli w100">
+                                    <label for="solucion">Sugerencia de soluciòn</label>
+                                    <textarea required minlength="6" rows="10" cols="" id="solucion"></textarea>
+                                </div>
                             </div>
-                            <div class="form-group new-cli">
-                                <label for="clientTelefonoAdicional">Telèfono Adicional</label>
-                                <input type="text" name="telefono" id="clientTelefonoAdicional" value="">
+                            <div class="footer-modal">
+                            <input type="submit" value="Enviar"><button class="icon-cancel" @click="continueToResultModal(false)"></button>
                             </div>
-                            <div class="form-group new-cli">
-                                <label for="direccion">Direcciòn</label>
-                                <input type="text" name="direccion" value="" id="direccion">
-                            </div>
-                            <div class="form-group new-cli">
-                                <label for="email">Email de cliente</label>
-                                <input type="email" name="email" value="" id="email">
-                            </div>
-                            <div class="form-group new-cli">
-                                <label for="ipAddre">Ip Address</label>
-                                <input type="text" name="ipAddre" value="" id="ipAddre">
-                            </div>
-                            <div class="form-group new-cli w100">
-                                <label for="diagnostico">Solicitud de Cliente</label>
-                                <textarea rows="10" cols="" id="diagnostico"></textarea>
-                            </div>
-                            <div class="form-group new-cli w100">
-                                <label for="solucion">Sugerencia de soluciòn</label>
-                                <textarea rows="10" cols="" id="solucion"></textarea>
-                            </div>
-                        </div>
-                        <div class="footer-modal">
-                                <button>Enviar</button><button>Cancelar</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div class="box">
@@ -193,41 +180,23 @@ else    {
                         <div class="box-content">
                             <table>
                                 <thead>
-                                    <th>Cliente</th>
-                                    <th>Ip Address</th>
-                                    <th>Tècnico</th>
-                                    <th>Recibe</th>
-                                    <th>Fecha</th>
+                                    <tr>
+                                        <th>Cliente</th>
+                                        <th>Ip Address</th>
+                                        <th>Tècnico</th>
+                                        <th>Recibe</th>
+                                        <th>Fecha</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Mario</td>
-                                        <td>192.168.1.2</td>
-                                        <td>Juan Pablo</td>
-                                        <td>Ignacio Loyola</td>
-                                        <td>12/07/2020</td>
+                                    <tr v-for="ticketAbierto in ticketsAbiertos" :key="ticketAbierto.id" @click="selectedRowTicketAbiero(ticketAbierto.id,ticketAbierto.cliente)" >
+                                        <td>{{ticketAbierto.cliente}}</td>
+                                        <td>{{ticketAbierto.ip}}</td>
+                                        <td>{{ticketAbierto.tecnico}}</td>
+                                        <td>{{ticketAbierto.recibe}}</td>
+                                        <td>{{ticketAbierto.fecha}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>Ivàn</td>
-                                        <td>192.168.1.3</td>
-                                        <td>Juan Pablo</td>
-                                        <td>Federico Velèz</td>
-                                        <td>13/07/2020</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Oscar Guzmàn</td>
-                                        <td>192.168.1.4</td>
-                                        <td>Sebastian</td>
-                                        <td>Eduardo Gòmez</td>
-                                        <td>14/07/2020</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Fabian Castro</td>
-                                        <td>192.168.1.5</td>
-                                        <td>Juan Pablo</td>
-                                        <td>Hermes Padilla</td>
-                                        <td>15/07/2020</td>
-                                    </tr>
+                                    
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -243,8 +212,8 @@ else    {
                     </div>
                     <div class="selected-client">
                         <p>Cliente seleccionado</p>
-                        <input type="text" value="Oscar Guzman">
-                        <input type="hidden" id="" value="325">
+                        <input type="text" :value="AbiertoTicketSelectedClient">
+                        <input type="text" id="" :value="AbiertoTicketSelectedid">
                         <button>Continuar</button><button class="icon-cancel"></button>
                     </div>
                     <div class="close-ticket-modal">
@@ -328,11 +297,13 @@ else    {
                         <div class="box-content">
                             <table>
                                 <thead>
-                                    <th>Cliente</th>
-                                    <th>Ip Address</th>
-                                    <th>Tècnico</th>
-                                    <th>Recibe</th>
-                                    <th>Fecha</th>
+                                    <tr>
+                                        <th>Cliente</th>
+                                        <th>Ip Address</th>
+                                        <th>Tècnico</th>
+                                        <th>Recibe</th>
+                                        <th>Fecha</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -418,17 +389,37 @@ else    {
         </div>
 
     </footer>
-
 </body>
 <script>
 var app = new Vue({
     el: "#app",
     data: {
-       searchClientContent: "Pruenba",
+       searchClientContent: "",
        clientes: [],
+       ticketsAbiertos: [],
+       ticketsCerrados: [],
        totalRows: "",
+       newTicketSelectedClient: "",
+       newTicketSelectedId:"",
+       AbiertoTicketSelectedClient: "",
+       AbiertoTicketSelectedId: "",
+       hideTicketResult:true,
+       hideResultModal: true,
+       hideTicketAbiertoModal:true
     },
     methods: {
+        checkForm: function(){
+            console.log("prevent default")
+        },
+        continueToResultModal: function(data){
+            if(data)
+                this.hideResultModal=false
+            else
+            this.hideResultModal=true
+        },
+        closeResultTable: function(){
+            this.hideTicketResult=true
+        },
         searchClient: function(){
             console.log("cllicked  .. and search:"+this.searchClientContent)
             this.getUser()
@@ -439,13 +430,30 @@ var app = new Vue({
                     searchClientContent: this.searchClientContent
                 } 
             }).then(response => {
-                this.clientes = response.data
-                console.log(response.data.length - 1)
-                this.totalRows = response.data.length - 1
-
+                this.totalRows=response.data.length
+                this.clientes=response.data
+                this.hideTicketResult=false
+                
             }).catch(e => {
                 console.log('error' + e)
             })
+        },        
+        getTicketAbierto: function() {
+            axios.get('fetchTicketAbiertos.php', {
+            }).then(response => {
+                this.totalRows=response.data.length
+                this.ticketsAbiertos=response.data
+            }).catch(e => {
+                console.log('error' + e)
+            })
+        },
+        selectedRowTicketAbiero: function(id,client){
+            this.AbiertoTicketSelectedClient=client
+            this.AbiertoTicketSelectedId=id
+        },
+        selectedRowNewTicket: function(id,client){
+            this.newTicketSelectedId=id
+            this.newTicketSelectedClient=client
         },
         validateIpAddress: function(data) {
             var ipformat =
@@ -462,8 +470,7 @@ var app = new Vue({
         }
     },
     mounted() {
-        console.log("Hello World")
-        
+        this.getTicketAbierto()
     },
 });
 </script>
