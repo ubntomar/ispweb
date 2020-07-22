@@ -149,8 +149,8 @@ body{
                     margin-bottom: 40px;
                 }
                 section .box input, select, textarea {
-                    height:min-content;
-                    padding: 12px;
+                    /* height:min-content; */
+                    padding: 5px;
                     border: 1px solid #ccc;
                     border-radius: 4px;
                     resize: vertical;
@@ -343,7 +343,6 @@ body{
                     border-radius: 2px;
                 }
                 .close-ticket-modal{
-                    display:none;
                     position: fixed;
                     z-index: 1;
                     padding-top: 10px;
@@ -354,6 +353,24 @@ body{
                     overflow: auto;
                     background-color: rgb(0,0,0);
                     background-color: rgba(0,0,0,0.8);
+                }
+                section .hide-close-ticket-modal{
+                    display:none;
+                }
+                .closed-tickets-modal{
+                    position: fixed;
+                    z-index: 1;
+                    padding-top: 10px;
+                    left: 0;
+                    top: 0;
+                    width: 100%; 
+                    height: 100%; 
+                    overflow: auto;
+                    background-color: rgb(0,0,0);
+                    background-color: rgba(0,0,0,0.8);
+                }
+                section .hide-closed-tickets-modal{
+                    display:none;
                 }
                 .close-ticket-content {
                     background-color:#fff;
@@ -481,6 +498,7 @@ body{
     }
     .close-ticket-content .select-group select {
         max-width: 400px;
+        padding: 2px;
     }
     .close-ticket-content .form-group textarea{
        height: 30px;
@@ -660,6 +678,10 @@ body{
     .close-ticket-content .form-group select{
         padding:2px;
         width: 100px;
+    }
+    .close-ticket-content .select-group select {
+        padding: 2px;
+        width: auto;
     }
     .footer-modal button{
         font-size: 1.5rem;
