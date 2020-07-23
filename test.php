@@ -26,7 +26,7 @@ if($mkobj=new Mkt($serverIpAddressArea1,$vpnUser,$vpnPassword)){
 // }
 //$listIp=json_encode($mkobj->list_all());
 //echo $listIp;
-//echo ..soy un fork!!
+//echo ..soy un fork!!  esffdfdfdffhrlf
 $DefaultJson="{}";
 $fileJsonString= file_get_contents("ipAlive.json");
 if($fileJsonString=="")$fileJsonString=$DefaultJson;
