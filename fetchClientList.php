@@ -20,8 +20,8 @@ date_default_timezone_set('America/Bogota');
 $today = date("Y-m-d");   
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i');
-$list []= array("id"=>"1","cliente"=>"Primer cliente","ip"=>"192.168.1.1","recibe"=>"alguien recibe","fecha"=>"2017/06/15");
-$list[]=["id"=>"2","cliente"=>"Segundo cliente","ip"=>"192.168.1.2","recibe"=>"Otro recibe","fecha"=>"2017/06/16"];
+$list []= array("id"=>"1","cliente"=>"Primer cliente","ip"=>"192.168.1.1","recibe"=>"alguien recibe","fecha"=>"2017/06/15","email"=>"omar_alberto_h@yahoo.es","direccion"=>"Cra 9#13-47","telefono"=>"3215450397");
+$list[]=["id"=>"2","cliente"=>"Segundo cliente","ip"=>"192.168.1.2","recibe"=>"Otro recibe","fecha"=>"2017/06/16","email"=>"omar_alberto_h@gmail.com","direccion"=>"Cra 9#13-42","telefono"=>"3147654655"];
 $jsonList=json_encode($list);
 echo $jsonList;
 

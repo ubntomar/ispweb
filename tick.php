@@ -11,7 +11,6 @@ else    {
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport"
@@ -24,7 +23,6 @@ else    {
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
-
 <body>
     <header>
         <div class="logo">
@@ -97,7 +95,7 @@ else    {
                                             </thead>
                                             <tbody>
                                                 <tr v-for="client in clientes" :key="client.id"
-                                                    @click="selectedRowNewTicket(client.id,client.cliente)">
+                                                    @click="selectedRowNewTicket(client.id,client.cliente,client)">
                                                     <td>{{client.cliente}}</td>
                                                     <td>{{client.ip}}</td>
 
@@ -119,10 +117,10 @@ else    {
                                     </div>
                                     <div class="selected-client">
                                         <p>Cliente seleccionado</p>
-                                        <input type="text" :value="newTicketSelectedClient"
+                                        <input v-model="selectedNewClient" type="text" :value="newTicketSelectedClient"
                                             placeholder="Selecciona cliente">
                                         <input type="hidden" id="newTicketForId" :value="newTicketSelectedId">
-                                        <button @click="continueToResultModal(true)">Continuar</button><button
+                                        <button @click="continueToResultModal(true)" :disabled="selectedNewClient==''" >Continuar</button><button
                                             @click="closeResultTable" class="icon-cancel"></button>
                                     </div>
                                 </div>
@@ -132,34 +130,34 @@ else    {
                 </div>
                 <div class="box new-ticket " v-bind:class="{'hide-new-ticket':hideResultModal}">
                     <div class="new-ticket-modal-content">
-                        <form v-on:submit.prevent="checkForm">
+                        <form v-on:submit.prevent="checkFormNewTicket">
                             <div class="title-modal">
                                 <h3>Registrar Nuevo Ticket</h3>
                             </div>
                             <div class="form-new-ticket">
                                 <div class="form-group new-cli">
                                     <label for="cli">Cliente</label>
-                                    <input type="text" id="cli" value="Kevin">
+                                    <input type="text" id="cli" :value="clientNewTicketSelected.cliente">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="clientTelefono">Telèfono de Cliente</label>
-                                    <input type="text" name="telefono" id="clientTelefono" value="3147654655">
+                                    <input type="text" name="clienteTelefono" id="clientTelefono" :value="clientNewTicketSelected.telefono">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="clientTelefonoAdicional">Telèfono Adicional</label>
-                                    <input type="text" name="telefono" id="clientTelefonoAdicional" value="3215450397">
+                                    <input type="text" name="clientTelefonoAdicional" id="clientTelefonoAdicional" >
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="direccion">Direcciòn</label>
-                                    <input type="text" name="direccion" id="direccion" value="Cra 9#13-45">
+                                    <input type="text" name="direccion" id="direccion" :value="clientNewTicketSelected.direccion">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="email">Email de cliente</label>
-                                    <input type="email" name="email" id="email" value="omar_alberto_h@yahoo.es">
+                                    <input type="email" name="email" id="email" :value="clientNewTicketSelected.email">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="ipAddre">Ip Address</label>
-                                    <input type="text" name="ipAddre" id="ipAddre" value="192.168.1.2">
+                                    <input type="text" name="ipAddre" id="ipAddre" :value="clientNewTicketSelected.ip">
                                 </div>
                                 <div class="form-group new-cli w100">
                                     <label for="diagnostico-previo">Solicitud de Cliente</label>
@@ -219,8 +217,8 @@ else    {
                     </div>
                     <div class="selected-client">
                         <p>Cliente seleccionado</p>
-                        <input type="text" :value="AbiertoTicketSelectedClient" placeholder="Selecciona cliente">
-                        <input type="hidden" id="" :value="AbiertoTicketSelectedId">
+                        <input type="text" :value="abiertoTicketSelectedClient" placeholder="Selecciona cliente">
+                        <input type="hidden" id="" :value="abiertoTicketSelectedId">
                         <button @click="continueToAbiertoTicketModal(true)">Continuar</button>
                     </div>
                     <div class="close-ticket-modal" v-bind:class="{'hide-close-ticket-modal':hideTicketAbiertoModal}">
@@ -228,7 +226,7 @@ else    {
                             <div class="title-modal">
                                 <h3>Cerrar Ticket</h3>
                             </div>
-                            <form action="">
+                            <form v-on:submit.prevent="checkFormCerrarTicket()">
                                 <div class="form-close-ticket">
                                     <div class="form-group">
                                         <p>Fecha: <span>19/07/2020</span></p>
@@ -240,25 +238,27 @@ else    {
                                     </div>
                                     <div class="form-group">
                                         <label for="telefono">Telèfono</label>
-                                        <input type="text" name="telefono" id="telefono" value="">
+                                        <input type="text" name="telefono" id="telefono" >
                                     </div>
                                     <div class="form-group">
                                         <label for="clientAdd">Direcciòn</label>
-                                        <input type="text" name="clientAdd" value="" id="clientAdd">
+                                        <input type="text" name="clientAdd"  id="clientAdd">
                                     </div>
                                     <div class="form-group">
-                                        <label for="clientEmail">Email de cliente</label>
-                                        <input type="email" name="email" value="" id="clientEmail">
+                                        <label for="mail">Email de cliente</label>
+                                        <input type="email" name="mail"  id="mail" >
                                     </div>
                                     <div class="form-group">
-                                        <label for="ipAddress">Ip Address,cambiar ip:<input type="radio"
-                                                name="changeIp"> Yes <input type="radio" name="changeIp" checked>
-                                            No</label>
-                                        <input type="text" name="ipAddress" value="192.168.1.6" id="ipAddress" disabled>
+                                        <div class="radio-button">
+                                            <label for="ipAddress">Ip Address,cambiar ip:</label>
+                                            <input type="radio" name="changeIp" @click="radioButtonDisabled=false" :checked="ipAddressCerrarTicket.length==0"> SI 
+                                            <input type="radio" name="changeIp" @click="radioButtonDisabled=true" :checked="!ipAddressCerrarTicket.length==0">NO
+                                        </div>
+                                        <input required placeholder="Ingrese Direcciòn Ip" v-model="ipAddressCerrarTicket" type="text" name="ipAddress"  id="ipAddress" :disabled="radioButtonDisabled">
                                     </div>
                                     <div class="form-group">
                                         <label for="routerModel">Marca de Router</label>
-                                        <input type="text" name="routerModel" value="" id="routerModel">
+                                        <input type="text" name="routerModel"  id="routerModel" >
                                     </div>
                                     <div class="select-group">
                                         <div class="form-group">
@@ -285,7 +285,7 @@ else    {
                                         </div>
                                         <div class="form-group">
                                             <label for="tipo-soporte">Tipo de Soporte</label>
-                                            <select name="tipo-instalacion" id="tipo-soporte">
+                                            <select name="tipo-soporte" id="tipo-soporte">
                                                 <option value="varios">Varios. Cuàles?</option>
                                                 <option value="ampliar-velocidad">Ampliaciòn de velocidad</option>
                                                 <option value="traslado">Traslado</option>
@@ -300,11 +300,11 @@ else    {
                                     </div>
                                     <div class="form-group">
                                         <label for="diagnostico">Solicitud de Cliente</label>
-                                        <textarea cols="" id="diagnostico"></textarea>
+                                        <textarea cols="" id="diagnostico" required></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="solucion">Describir soluciòn</label>
-                                        <textarea cols="" id="solucion"></textarea>
+                                        <textarea cols="" id="solucion" required></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="sugerencias">Sugerencias</label>
@@ -320,11 +320,11 @@ else    {
                                         </div>
                                     </div>
                                 </div>
+                                <div class="footer-modal">
+                                    <input type="submit" value="Enviar"><button class="icon-cancel"
+                                        @click="continueToAbiertoTicketModal(false)"></button>
+                                </div>
                             </form>
-                            <div class="footer-modal">
-                                <input type="submit" value="Enviar"><button class="icon-cancel"
-                                    @click="continueToAbiertoTicketModal(false)"></button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -342,45 +342,29 @@ else    {
                                         <th>Tècnico</th>
                                         <th>Recibe</th>
                                         <th>Fecha</th>
+                                        <th>Hora</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Mario</td>
-                                        <td>192.168.1.2</td>
-                                        <td>Juan Pablo</td>
-                                        <td>Ignacio Loyola</td>
-                                        <td>12/07/2020</td>
+                                    <tr v-for="ticketCerrado in ticketsCerrados" :key="ticketCerrado.id"
+                                        @click="selectedRowTicketCerrado(ticketCerrado.id,ticketCerrado.cliente)">
+                                        <td>{{ticketCerrado.cliente}}</td>
+                                        <td>{{ticketCerrado.ip}}</td>
+                                        <td>{{ticketCerrado.tecnico}}</td>
+                                        <td>{{ticketCerrado.recibe}}</td>
+                                        <td>{{ticketCerrado.fecha}}</td>
+                                        <td>{{ticketCerrado.hora}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>Ivàn</td>
-                                        <td>192.168.1.3</td>
-                                        <td>Juan Pablo</td>
-                                        <td>Federico Velèz</td>
-                                        <td>13/07/2020</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Oscar Guzmàn</td>
-                                        <td>192.168.1.4</td>
-                                        <td>Sebastian</td>
-                                        <td>Eduardo Gòmez</td>
-                                        <td>14/07/2020</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Fabian Castro</td>
-                                        <td>192.168.1.5</td>
-                                        <td>Juan Pablo</td>
-                                        <td>Hermes Padilla</td>
-                                        <td>15/07/2020</td>
-                                    </tr>
+
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td>Cliente</td>
-                                        <td>Ip Address</td>
-                                        <td>Tècnico</td>
-                                        <td>Recibe</td>
-                                        <td>Fecha</td>
+                                        <td>{{totalRowsCerrados}} rows</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -388,11 +372,12 @@ else    {
                     </div>
                     <div class="selected-client">
                         <p>Cliente seleccionado</p>
-                        <input type="text" value="Oscar Guzman" placeholder="Selecciona cliente">
-                        <input type="hidden" id="" value="325">
-                        <button @click="continueToClosedTicketsModal(true)">Continuar</button><button class="icon-cancel"></button>
+                        <input type="text" :value="cerradoTicketSelectedClient" placeholder="Selecciona cliente">
+                        <input type="hidden" id="" :value="cerradoTicketSelectedId">
+                        <button @click="continueToClosedTicketsModal(true)">Continuar</button>
                     </div>
-                    <div class="closed-tickets-modal" v-bind:class="{'hide-closed-tickets-modal':hideTicketsClosedModal}">
+                    <div class="closed-tickets-modal"
+                        v-bind:class="{'hide-closed-tickets-modal':hideTicketsClosedModal}">
                         <div class="close-ticket-content">
                             <div class="title-modal">
                                 <h3>TICKETS FINALIZADOS</h3>
@@ -404,55 +389,57 @@ else    {
                                         <p>Tècnico: <span>Sebastian</span></p>
                                     </div>
                                     <div class="form-group">
-                                        <label for="cliente">Cliente</label>
-                                        <input type="text" id="cliente" value="Antonio Morales">
+                                        <label for="clienteCerrado">Cliente</label>
+                                        <input type="text" id="clienteCerrado" value="Antonio Morales">
                                     </div>
                                     <div class="form-group">
-                                        <label for="telefono">Telèfono</label>
-                                        <input type="text" name="telefono" id="telefono" value="3215452635">
+                                        <label for="telefonoCerrado">Telèfono</label>
+                                        <input type="text" name="telefonoCerrado" id="telefonoCerrado" value="3215452635">
                                     </div>
                                     <div class="form-group">
-                                        <label for="clientAdd">Direcciòn</label>
-                                        <input type="text" name="clientAdd" value="Cll 13#15-22" id="clientAdd">
+                                        <label for="direccionCerrado">DirecciònCerrado</label>
+                                        <input type="text" name="direccionCerrado" value="Cll 13#15-22" id="direccionCerrado">
                                     </div>
                                     <div class="form-group">
-                                        <label for="clientEmail">Email de cliente</label>
-                                        <input type="email" name="email" value="omar_alberto_h@yahoo.es" id="clientEmail">
+                                        <label for="emailCerrado">Email de cliente</label>
+                                        <input type="email" name="emailCerrado" value="omar_alberto_h@yahoo.es"
+                                            id="emailCerrado">
                                     </div>
                                     <div class="form-group">
-                                        <label for="ipAddress">Ip Address</label>
-                                        <input type="text" name="ipAddress" value="192.168.20.6" id="ipAddress" disabled>
+                                        <label for="ipAddressCerrado">Ip Address</label>
+                                        <input type="text" name="ipAddressCerrado" value="192.168.20.6" id="ipAddressCerrado"
+                                            disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="routerModel">Marca de Router</label>
-                                        <input type="text" name="routerModel" value="Tp-Link" id="routerModel">
+                                        <label for="routerModelCerrado">Marca de Router</label>
+                                        <input type="text" name="routerModelCerrado" value="Tp-Link" id="routerModelCerrado">
                                     </div>
                                     <div class="select-group">
                                         <div class="form-group">
-                                            <label for="router-remote-admin">Acceso Remoto habilitado</label>
-                                            <select name="router-remote-admin" id="router-remote-admin">
+                                            <label for="routerRemoteAdminCerrado">Acceso Remoto habilitado</label>
+                                            <select name="routerRemoteAdminCerrado" id="routerRemoteAdminCerrado">
                                                 <option value="yes">Yes</option>
                                                 <option selected value="no">No</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="tipo-antena">Tipo de Antena</label>
-                                            <select name="tipo-antena" id="tipo-antena">
+                                            <label for="tipoAntenaCerrado">Tipo de Antena</label>
+                                            <select name="tipoAntenaCerrado" id="tipoAntenaCerrado">
                                                 <option value="ninguna">Ninguna</option>
                                                 <option value="mikrotik">Mikrotik</option>
                                                 <option value="ubiquiti">Ubiquiti</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="tipo-instalacion">Tipo de Instalaciòn</label>
-                                            <select name="tipo-instalacion" id="tipo-instalacion">
+                                            <label for="tipoInstalacionCerrado">Tipo de Instalaciòn</label>
+                                            <select name="tipoInstalacionCerrado" id="tipoInstalacionCerrado">
                                                 <option value="repetidor">X Repetidor</option>
                                                 <option value="antena">X Antena</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="tipo-soporte">Tipo de Soporte</label>
-                                            <select name="tipo-instalacion" id="tipo-soporte">
+                                            <label for="tipoSoporteCerrado">Tipo de Soporte</label>
+                                            <select name="tipoSoporteCerrado" id="tipoSoporteCerrado">
                                                 <option value="varios">Varios. Cuàles?</option>
                                                 <option value="ampliar-velocidad">Ampliaciòn de velocidad</option>
                                                 <option value="traslado">Traslado</option>
@@ -466,26 +453,20 @@ else    {
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="diagnostico">Solicitud de Cliente</label>
-                                        <textarea cols="" id="diagnostico">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, iste? Recusandae, possimus harum amet non cum rerum? Corrupti quos, quae est iste quis ratione. Ipsum debitis tempora velit incidunt natus!</textarea>
+                                        <label for="diagnosticoCerrado">Solicitud de Cliente</label>
+                                        <textarea cols=""
+                                            id="diagnosticoCerrado">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, iste? Recusandae, possimus harum amet non cum rerum? Corrupti quos, quae est iste quis ratione. Ipsum debitis tempora velit incidunt natus!</textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="solucion">Describir soluciòn</label>
-                                        <textarea cols="" id="solucion" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis porro perferendis labore veniam! Beatae ab, ut in repellat laudantium tenetur reiciendis voluptatibus ex est voluptatem eius quidem rerum? In, eveniet?</textarea>
+                                        <label for="solucionCerrado">Describir soluciòn</label>
+                                        <textarea cols=""
+                                            id="solucionCerrado">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis porro perferendis labore veniam! Beatae ab, ut in repellat laudantium tenetur reiciendis voluptatibus ex est voluptatem eius quidem rerum? In, eveniet?</textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="sugerencias">Sugerencias</label>
-                                        <textarea cols="" id="sugerencias" >loremjhkjgjhgjhgjhgjhgj</textarea>
+                                        <label for="sugerenciasCerrado">Sugerencias</label>
+                                        <textarea cols="" id="sugerenciasCerrado">loremjhkjgjhgjhgjhgjhgj</textarea>
                                     </div>
-                                    <div class="select-group">
-                                        <div class="form-group">
-                                            <label for="resuelto">El problema fue resuelto?</label>
-                                            <select name="resuelto" id="resuelto">
-                                                <option selected value="si">Si, ya se puede cerrar este ticket</option>
-                                                <option  value="no">No, queda pendiente.</option>
-                                            </select>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </form>
                             <div class="footer-modal">
@@ -519,16 +500,13 @@ else    {
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </section>
     </main>
     <footer>
         <div>
             <span>Isp Experts- Adminstraciòn Redes </span>
         </div>
-
     </footer>
 </body>
 <script>
@@ -537,18 +515,26 @@ var app = new Vue({
     data: {
         searchClientContent: "",
         clientes: [],
+        clientNewTicketSelected: [],
         ticketsAbiertos: [],
         ticketsCerrados: [],
         totalRows: "",
         totalRowsAbiertos: "",
+        totalRowsCerrados: "",
         newTicketSelectedClient: "",
         newTicketSelectedId: "",
-        AbiertoTicketSelectedClient: "",
-        AbiertoTicketSelectedId: "",
+        abiertoTicketSelectedClient: "",
+        abiertoTicketSelectedId: "",
+        cerradoTicketSelectedClient: "",
+        cerradoTicketSelectedId: "",
         hideTicketResult: true,
         hideResultModal: true,
         hideTicketAbiertoModal: true,
-        hideTicketsClosedModal: true
+        hideTicketsClosedModal: true,
+        radioButtonDisabled: false,
+        ipAddressCerrarTicket: "192.168.1.6",
+        ipAddressContentFlag:true,
+        selectedNewClient: "",
     },
     methods: {
         continueToAbiertoTicketModal: function(data) {
@@ -563,8 +549,11 @@ var app = new Vue({
             else
                 this.hideTicketsClosedModal = true
         },
-        checkForm: function() {
-            console.log("prevent default")
+        checkFormNewTicket: function() {
+        },
+        checkFormCerrarTicket: function() {
+            if(!this.validateIpAddress(this.ipAddressCerrarTicket))
+                this.ipAddressCerrarTicket=""
         },
         continueToResultModal: function(data) {
             if (data)
@@ -576,7 +565,6 @@ var app = new Vue({
             this.hideTicketResult = true
         },
         searchClient: function() {
-            console.log("cllicked  .. and search:" + this.searchClientContent)
             this.getUser()
         },
         getUser: function() {
@@ -595,6 +583,14 @@ var app = new Vue({
         },
         getTicketAbierto: function() {
             axios.get('fetchTicketAbiertos.php', {}).then(response => {
+                this.totalRowsCerrados = response.data.length
+                this.ticketsCerrados = response.data
+            }).catch(e => {
+                console.log('error' + e)
+            })
+        },
+        getTicketCerrado: function() {
+            axios.get('fetchTicketCerrados.php', {}).then(response => {
                 this.totalRowsAbiertos = response.data.length
                 this.ticketsAbiertos = response.data
             }).catch(e => {
@@ -602,12 +598,17 @@ var app = new Vue({
             })
         },
         selectedRowTicketAbiero: function(id, client) {
-            this.AbiertoTicketSelectedClient = client
-            this.AbiertoTicketSelectedId = id
+            this.abiertoTicketSelectedClient = client
+            this.abiertoTicketSelectedId = id
         },
-        selectedRowNewTicket: function(id, client) {
+        selectedRowTicketCerrado: function(id, client) {
+            this.cerradoTicketSelectedClient = client
+            this.cerradoTicketSelectedId = id
+        },
+        selectedRowNewTicket: function(id, client,clientObject) {
             this.newTicketSelectedId = id
             this.newTicketSelectedClient = client
+            this.clientNewTicketSelected=clientObject
         },
         validateIpAddress: function(data) {
             var ipformat =
@@ -625,9 +626,11 @@ var app = new Vue({
     },
     mounted() {
         this.getTicketAbierto()
+        this.getTicketCerrado()
+        if(this.ipAddressCerrarTicket.length!=0)
+            this.radioButtonDisabled=true
     },
 });
 </script>
 </body>
-
 </html>

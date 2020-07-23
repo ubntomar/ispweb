@@ -234,6 +234,16 @@ body{
                 section .form-group .new-cli{
                     max-width: 400px;
                 }
+                section .form-group .radio-button{
+                    display: flex;
+                }
+                section .form-group .radio-button label{
+                    margin: 0px 10px 0px 0px;
+                }
+                section .form-group .radio-button input{
+                    margin: auto 5px auto 10px;
+                    background-color:indianred;
+                }
                 section .form-child-w100{
                     display: flex;
                     flex-direction: column;
@@ -323,7 +333,7 @@ body{
                 section .new-ticket{
                     position: fixed;
                     z-index: 1; 
-                    padding-top: 10px;
+                    padding-top: 5px;
                     left: 0;
                     top: 0;
                     width: 100%; 
@@ -345,7 +355,7 @@ body{
                 .close-ticket-modal{
                     position: fixed;
                     z-index: 1;
-                    padding-top: 10px;
+                    padding-top: 5px;
                     left: 0;
                     top: 0;
                     width: 100%; 
@@ -360,7 +370,7 @@ body{
                 .closed-tickets-modal{
                     position: fixed;
                     z-index: 1;
-                    padding-top: 10px;
+                    padding-top: 5px;
                     left: 0;
                     top: 0;
                     width: 100%; 
@@ -435,6 +445,7 @@ body{
                 tr:nth-child(even) {
                 background-color: #f2f2f2;
                 }
+                
                 input:invalid {
                     box-shadow: 0 0 5px 1px red;
                   }
@@ -442,6 +453,7 @@ body{
                 input:focus:invalid {
                 box-shadow: none;
                 }
+                
                 textarea:invalid {
                     box-shadow: 0 0 5px 1px red;
                   }
@@ -449,7 +461,7 @@ body{
                 textarea:focus:invalid {
                 box-shadow: none;
                 }
-               
+             
                 
         footer{
             background-color: #262a34;
@@ -529,7 +541,7 @@ body{
         padding: 25px;
       }
       .close-ticket-modal{
-        padding-top: 50px;
+        padding-top: 10px;
     }
       .close-ticket-content {
         width: 55%;
