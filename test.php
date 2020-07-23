@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 include("login/db.php");
@@ -37,3 +38,5 @@ file_put_contents('ipAlive.json',$jsonData);
 
 
 ?>
+=======
+>>>>>>> 24f3cf1083094de57241e687f2ac54f99ddec452
