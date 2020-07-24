@@ -69,7 +69,7 @@ else    {
                     <div class="box-content">
                         <div class="search">
                             <input v-model="searchClientContent" type="text" placeholder="Nombre de Cliente">
-                            <button v-on:click="searchClient"><i class="icon-search"></i></button>
+                            <button v-on:click="searchClient" :disabled="searchClientContent==''" :class="{'button-disabled':searchClientContent==''}" ><i class="icon-search"></i></button>
                         </div>
                         <div v-bind:class="{'hide-box-result':hideTicketResult}">
                             <div class="title">
@@ -116,11 +116,11 @@ else    {
                                         </table>
                                     </div>
                                     <div class="selected-client">
-                                        <p>Cliente seleccionado</p>
-                                        <input v-model="selectedNewClient" type="text" :value="newTicketSelectedClient"
+                                        <p>Cliente seleccionado New Ticket</p> 
+                                        <input  type="text" :value="newTicketSelectedClient" disabled
                                             placeholder="Selecciona cliente">
                                         <input type="hidden" id="newTicketForId" :value="newTicketSelectedId">
-                                        <button @click="continueToResultModal(true)" :disabled="selectedNewClient==''" >Continuar</button><button
+                                        <button @click="continueToResultModal(true)" :disabled="newTicketSelectedClient=='' " >Continuar</button><button
                                             @click="closeResultTable" class="icon-cancel"></button>
                                     </div>
                                 </div>
@@ -137,36 +137,36 @@ else    {
                             <div class="form-new-ticket">
                                 <div class="form-group new-cli">
                                     <label for="cli">Cliente</label>
-                                    <input type="text" id="cli" :value="clientNewTicketSelected.cliente">
+                                    <input type="text" id="cli" :value="clientNewTicketSelected.cliente"> 
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="clientTelefono">Telèfono de Cliente</label>
-                                    <input type="text" name="clienteTelefono" id="clientTelefono" :value="clientNewTicketSelected.telefono">
+                                    <input required type="number"  v-model="clientNewTicketSelected.telefono"   placeholder="10 digitos">
                                 </div>
                                 <div class="form-group new-cli">
-                                    <label for="clientTelefonoAdicional">Telèfono Adicional</label>
-                                    <input type="text" name="clientTelefonoAdicional" id="clientTelefonoAdicional" >
+                                    <label for="clientTelefonoAdicional">Telèfono Adicional ::<input type="checkbox" v-model="newClientCheck"></label>
+                                    <input type="number" v-model="clientNewTicketSelected.telefonoAdicional"   placeholder="10 digitos" :disabled="!newClientCheck" :required="newClientCheck" >
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="direccion">Direcciòn</label>
-                                    <input type="text" name="direccion" id="direccion" :value="clientNewTicketSelected.direccion">
+                                    <input required type="text"  v-model="clientNewTicketSelected.direccion">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="email">Email de cliente</label>
-                                    <input type="email" name="email" id="email" :value="clientNewTicketSelected.email">
+                                    <input type="email"  v-model="clientNewTicketSelected.email">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="ipAddre">Ip Address</label>
-                                    <input type="text" name="ipAddre" id="ipAddre" :value="clientNewTicketSelected.ip">
+                                    <input type="text" required :placeholder="clientNewTicketSelected.ipBackup"   v-model="clientNewTicketSelected.ip">
                                 </div>
                                 <div class="form-group new-cli w100">
                                     <label for="diagnostico-previo">Solicitud de Cliente</label>
                                     <textarea required minlength="6" rows="10" cols=""
-                                        id="diagnostico-previo"></textarea>
+                                        v-model="clientNewTicketSelected.diagnosticoPrevio"></textarea>
                                 </div>
                                 <div class="form-group new-cli w100">
                                     <label for="sugerencia">Sugerencia de soluciòn</label>
-                                    <textarea required minlength="6" rows="10" cols="" id="sugerencia"></textarea>
+                                    <textarea required minlength="6" rows="10" cols="" v-model="clientNewTicketSelected.sugerencia"></textarea>
                                 </div>
                             </div>
                             <div class="footer-modal">
@@ -535,6 +535,7 @@ var app = new Vue({
         ipAddressCerrarTicket: "192.168.1.6",
         ipAddressContentFlag:true,
         selectedNewClient: "",
+        newClientCheck: false
     },
     methods: {
         continueToAbiertoTicketModal: function(data) {
@@ -550,6 +551,14 @@ var app = new Vue({
                 this.hideTicketsClosedModal = true
         },
         checkFormNewTicket: function() {
+            if(this.clientNewTicketSelected.telefono.length!=10)
+                this.clientNewTicketSelected.telefono=""
+            if(this.newClientCheck){
+                if(this.clientNewTicketSelected.telefonoAdicional.length!=10)
+                this.clientNewTicketSelected.telefonoAdicional=""
+            }
+            if(!this.validateIpAddress(this.clientNewTicketSelected.ip))    
+                this.clientNewTicketSelected.ip=""
         },
         checkFormCerrarTicket: function() {
             if(!this.validateIpAddress(this.ipAddressCerrarTicket))
@@ -609,6 +618,7 @@ var app = new Vue({
             this.newTicketSelectedId = id
             this.newTicketSelectedClient = client
             this.clientNewTicketSelected=clientObject
+            this.clientNewTicketSelected.ipBackup=this.clientNewTicketSelected.ip
         },
         validateIpAddress: function(data) {
             var ipformat =

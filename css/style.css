@@ -187,7 +187,9 @@ body{
                     padding: 5px;
                     border-radius: 3px;
                 }
-
+                section .box .box-content .search .button-disabled{
+                    background-color: #262a34;
+                }
                 section .result-container p{
                     width: max-content;
                     margin: auto;
