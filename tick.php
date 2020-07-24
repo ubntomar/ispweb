@@ -11,6 +11,7 @@ else    {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport"
@@ -20,9 +21,12 @@ else    {
     <link rel="stylesheet" href="css/fontello.css" />
     <link rel="stylesheet" href="css/animation.css">
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="bower_components/alertify/css/alertify.min.css" />
+    <link rel="stylesheet" href="bower_components/alertify/css/themes/default.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
+
 <body>
     <header>
         <div class="logo">
@@ -69,7 +73,9 @@ else    {
                     <div class="box-content">
                         <div class="search">
                             <input v-model="searchClientContent" type="text" placeholder="Nombre de Cliente">
-                            <button v-on:click="searchClient" :disabled="searchClientContent==''" :class="{'button-disabled':searchClientContent==''}" ><i class="icon-search"></i></button>
+                            <button v-on:click="searchClient" :disabled="searchClientContent==''"
+                                :class="{'button-disabled':searchClientContent==''}"><i
+                                    class="icon-search"></i></button>
                         </div>
                         <div v-bind:class="{'hide-box-result':hideTicketResult}">
                             <div class="title">
@@ -116,11 +122,12 @@ else    {
                                         </table>
                                     </div>
                                     <div class="selected-client">
-                                        <p>Cliente seleccionado New Ticket</p> 
-                                        <input  type="text" :value="newTicketSelectedClient" disabled
+                                        <p>Cliente seleccionado New Ticket</p>
+                                        <input type="text" :value="newTicketSelectedClient" disabled
                                             placeholder="Selecciona cliente">
                                         <input type="hidden" id="newTicketForId" :value="newTicketSelectedId">
-                                        <button @click="continueToResultModal(true)" :disabled="newTicketSelectedClient=='' " >Continuar</button><button
+                                        <button @click="continueToResultModal(true)"
+                                            :disabled="newTicketSelectedClient=='' ">Continuar</button><button
                                             @click="closeResultTable" class="icon-cancel"></button>
                                     </div>
                                 </div>
@@ -137,27 +144,31 @@ else    {
                             <div class="form-new-ticket">
                                 <div class="form-group new-cli">
                                     <label for="cli">Cliente</label>
-                                    <input type="text" id="cli" :value="clientNewTicketSelected.cliente"> 
+                                    <input type="text" id="cli" :value="clientNewTicketSelected.cliente">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="clientTelefono">Telèfono de Cliente</label>
-                                    <input required type="number"  v-model="clientNewTicketSelected.telefono"   placeholder="10 digitos">
+                                    <input required type="number" v-model="clientNewTicketSelected.telefono"
+                                        placeholder="10 digitos">
                                 </div>
                                 <div class="form-group new-cli">
-                                    <label for="clientTelefonoAdicional">Telèfono Adicional ::<input type="checkbox" v-model="newClientCheck"></label>
-                                    <input type="number" v-model="clientNewTicketSelected.telefonoAdicional"   placeholder="10 digitos" :disabled="!newClientCheck" :required="newClientCheck" >
+                                    <label for="clientTelefonoAdicional">Telèfono Adicional ::<input type="checkbox"
+                                            v-model="newClientCheck"></label>
+                                    <input type="number" v-model="clientNewTicketSelected.telefonoAdicional"
+                                        placeholder="10 digitos" :disabled="!newClientCheck" :required="newClientCheck">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="direccion">Direcciòn</label>
-                                    <input required type="text"  v-model="clientNewTicketSelected.direccion">
+                                    <input required type="text" v-model="clientNewTicketSelected.direccion">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="email">Email de cliente</label>
-                                    <input type="email"  v-model="clientNewTicketSelected.email">
+                                    <input type="email" v-model="clientNewTicketSelected.email">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="ipAddre">Ip Address</label>
-                                    <input type="text" required :placeholder="clientNewTicketSelected.ipBackup"   v-model="clientNewTicketSelected.ip">
+                                    <input type="text" required :placeholder="clientNewTicketSelected.ipBackup"
+                                        v-model="clientNewTicketSelected.ip">
                                 </div>
                                 <div class="form-group new-cli w100">
                                     <label for="diagnostico-previo">Solicitud de Cliente</label>
@@ -166,7 +177,8 @@ else    {
                                 </div>
                                 <div class="form-group new-cli w100">
                                     <label for="sugerencia">Sugerencia de soluciòn</label>
-                                    <textarea required minlength="6" rows="10" cols="" v-model="clientNewTicketSelected.sugerencia"></textarea>
+                                    <textarea required minlength="6" rows="10" cols=""
+                                        v-model="clientNewTicketSelected.sugerencia"></textarea>
                                 </div>
                             </div>
                             <div class="footer-modal">
@@ -238,27 +250,31 @@ else    {
                                     </div>
                                     <div class="form-group">
                                         <label for="telefono">Telèfono</label>
-                                        <input type="text" name="telefono" id="telefono" >
+                                        <input type="text" name="telefono" id="telefono">
                                     </div>
                                     <div class="form-group">
                                         <label for="clientAdd">Direcciòn</label>
-                                        <input type="text" name="clientAdd"  id="clientAdd">
+                                        <input type="text" name="clientAdd" id="clientAdd">
                                     </div>
                                     <div class="form-group">
                                         <label for="mail">Email de cliente</label>
-                                        <input type="email" name="mail"  id="mail" >
+                                        <input type="email" name="mail" id="mail">
                                     </div>
                                     <div class="form-group">
                                         <div class="radio-button">
                                             <label for="ipAddress">Ip Address,cambiar ip:</label>
-                                            <input type="radio" name="changeIp" @click="radioButtonDisabled=false" :checked="ipAddressCerrarTicket.length==0"> SI 
-                                            <input type="radio" name="changeIp" @click="radioButtonDisabled=true" :checked="!ipAddressCerrarTicket.length==0">NO
+                                            <input type="radio" name="changeIp" @click="radioButtonDisabled=false"
+                                                :checked="ipAddressCerrarTicket.length==0"> SI
+                                            <input type="radio" name="changeIp" @click="radioButtonDisabled=true"
+                                                :checked="!ipAddressCerrarTicket.length==0">NO
                                         </div>
-                                        <input required placeholder="Ingrese Direcciòn Ip" v-model="ipAddressCerrarTicket" type="text" name="ipAddress"  id="ipAddress" :disabled="radioButtonDisabled">
+                                        <input required placeholder="Ingrese Direcciòn Ip"
+                                            v-model="ipAddressCerrarTicket" type="text" name="ipAddress" id="ipAddress"
+                                            :disabled="radioButtonDisabled">
                                     </div>
                                     <div class="form-group">
                                         <label for="routerModel">Marca de Router</label>
-                                        <input type="text" name="routerModel"  id="routerModel" >
+                                        <input type="text" name="routerModel" id="routerModel">
                                     </div>
                                     <div class="select-group">
                                         <div class="form-group">
@@ -394,11 +410,13 @@ else    {
                                     </div>
                                     <div class="form-group">
                                         <label for="telefonoCerrado">Telèfono</label>
-                                        <input type="text" name="telefonoCerrado" id="telefonoCerrado" value="3215452635">
+                                        <input type="text" name="telefonoCerrado" id="telefonoCerrado"
+                                            value="3215452635">
                                     </div>
                                     <div class="form-group">
                                         <label for="direccionCerrado">DirecciònCerrado</label>
-                                        <input type="text" name="direccionCerrado" value="Cll 13#15-22" id="direccionCerrado">
+                                        <input type="text" name="direccionCerrado" value="Cll 13#15-22"
+                                            id="direccionCerrado">
                                     </div>
                                     <div class="form-group">
                                         <label for="emailCerrado">Email de cliente</label>
@@ -407,12 +425,13 @@ else    {
                                     </div>
                                     <div class="form-group">
                                         <label for="ipAddressCerrado">Ip Address</label>
-                                        <input type="text" name="ipAddressCerrado" value="192.168.20.6" id="ipAddressCerrado"
-                                            disabled>
+                                        <input type="text" name="ipAddressCerrado" value="192.168.20.6"
+                                            id="ipAddressCerrado" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="routerModelCerrado">Marca de Router</label>
-                                        <input type="text" name="routerModelCerrado" value="Tp-Link" id="routerModelCerrado">
+                                        <input type="text" name="routerModelCerrado" value="Tp-Link"
+                                            id="routerModelCerrado">
                                     </div>
                                     <div class="select-group">
                                         <div class="form-group">
@@ -509,6 +528,7 @@ else    {
         </div>
     </footer>
 </body>
+<script src="bower_components/alertify/js/alertify.min.js"></script>
 <script>
 var app = new Vue({
     el: "#app",
@@ -533,7 +553,7 @@ var app = new Vue({
         hideTicketsClosedModal: true,
         radioButtonDisabled: false,
         ipAddressCerrarTicket: "192.168.1.6",
-        ipAddressContentFlag:true,
+        ipAddressContentFlag: true,
         selectedNewClient: "",
         newClientCheck: false
     },
@@ -551,18 +571,49 @@ var app = new Vue({
                 this.hideTicketsClosedModal = true
         },
         checkFormNewTicket: function() {
-            if(this.clientNewTicketSelected.telefono.length!=10)
-                this.clientNewTicketSelected.telefono=""
-            if(this.newClientCheck){
-                if(this.clientNewTicketSelected.telefonoAdicional.length!=10)
-                this.clientNewTicketSelected.telefonoAdicional=""
+            let valid = true
+            if (this.clientNewTicketSelected.telefono.length != 10) {
+                this.clientNewTicketSelected.telefono = ""
+                valid = false
             }
-            if(!this.validateIpAddress(this.clientNewTicketSelected.ip))    
-                this.clientNewTicketSelected.ip=""
+            if (this.newClientCheck) {
+                if (this.clientNewTicketSelected.telefonoAdicional.length != 10)
+                    this.clientNewTicketSelected.telefonoAdicional = ""
+                valid = false
+            }
+            if (!this.validateIpAddress(this.clientNewTicketSelected.ip)) {
+                this.clientNewTicketSelected.ip = ""
+                valid = false
+            }
+            if (valid) {
+                let r = confirm("Confirmar!");
+                if (r) {
+                    this.saveNewticket()
+                    this.hideResultModal = true
+                }
+            }
+
+        },
+        saveNewticket: function() {
+            console.log("Saving the ticket!")
+            axios.get('saveNewTicket.php', {
+                params: {
+                    ticketData:this.clientNewTicketSelected
+                }
+            }).then(response => {
+                if (response.data == "saved") {
+                    alertify.success("Ticket guardado con èxito.")
+                } else {
+                    alertify.error("No fue posible guardar el ticket.")
+                }
+
+            }).catch(e => {
+                console.log("error: " + e)
+            })
         },
         checkFormCerrarTicket: function() {
-            if(!this.validateIpAddress(this.ipAddressCerrarTicket))
-                this.ipAddressCerrarTicket=""
+            if (!this.validateIpAddress(this.ipAddressCerrarTicket))
+                this.ipAddressCerrarTicket = ""
         },
         continueToResultModal: function(data) {
             if (data)
@@ -614,11 +665,11 @@ var app = new Vue({
             this.cerradoTicketSelectedClient = client
             this.cerradoTicketSelectedId = id
         },
-        selectedRowNewTicket: function(id, client,clientObject) {
+        selectedRowNewTicket: function(id, client, clientObject) {
             this.newTicketSelectedId = id
             this.newTicketSelectedClient = client
-            this.clientNewTicketSelected=clientObject
-            this.clientNewTicketSelected.ipBackup=this.clientNewTicketSelected.ip
+            this.clientNewTicketSelected = clientObject
+            this.clientNewTicketSelected.ipBackup = this.clientNewTicketSelected.ip
         },
         validateIpAddress: function(data) {
             var ipformat =
@@ -635,12 +686,14 @@ var app = new Vue({
         }
     },
     mounted() {
+
         this.getTicketAbierto()
         this.getTicketCerrado()
-        if(this.ipAddressCerrarTicket.length!=0)
-            this.radioButtonDisabled=true
+        if (this.ipAddressCerrarTicket.length != 0)
+            this.radioButtonDisabled = true
     },
 });
 </script>
 </body>
+
 </html>
