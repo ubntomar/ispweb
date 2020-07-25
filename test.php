@@ -1,42 +1,53 @@
-<<<<<<< HEAD
-<?php
 
-include("login/db.php");
-require 'Mkt.php'; 
-require 'vpnConfig.php';
-$mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-}
-mysqli_set_charset($mysqli, "utf8");
-date_default_timezone_set('America/Bogota');
-$today = date("Y-m-d");
-$convertdate = date("d-m-Y", strtotime($today));
-$hourMin = date('H:i');
-$pass=true;
-$user="aws";
-if($mkobj=new Mkt($serverIpAddressArea1,$vpnUser,$vpnPassword)){
-	//echo "\nConectado a la Rboard cod Server-target-> 1:$serverIpAddressArea1\n";
-	$pass=true;        
-}
++un usuario tiene varios ticket
++un usuario tiene informacion pesonal incluye ip address telefono email direccion 
++un usuario tiene informacion tècnica: antena, router, clave, tipo de intalaciòn, 
++los soportes q info afectan?
+	afectan info tecnica por q le hace cambos y deben quedar registrados
+	osea q el ticket afcta la informacion tècnica pero queda guardado en la tabla de informacion tecnica
+		y en la talba tickets que constacncia de lo q habìa
+	se guarda la informaciòn tècnica y luego se coje la info del ticket cerradoo abierto y la actualiza
 
-//echo json_encode($mkobj->list_all())."\n\n";
-//$exclusivosList=$mkobj->list_all();
-// foreach ($exclusivosList as $value) {
-// 	if($value['list']=='Exclusivos')	echo " {$value['ip']}\n";
-// }
-//$listIp=json_encode($mkobj->list_all());
-//echo $listIp;
-//echo ..soy un fork!!  esffdfdfdffhrlf
-$DefaultJson="{}";
-$fileJsonString= file_get_contents("ipAlive.json");
-if($fileJsonString=="")$fileJsonString=$DefaultJson;
-$filePhpObject=json_decode($fileJsonString,true);
-array_push($filePhpObject,$mkobj->list_all());
-$jsonData=json_encode($filePhpObject);
-file_put_contents('ipAlive.json',$jsonData);
+CREAR  NUEVO TICKET:
+	Parte de la info es personal -Parte de la info es tecnica
+	informacion para backup:
+		telefono
+		email
+		ipaddress
+		antena				:agregar
+		velocidad			
+		precio-plan
+		router				:agregar
+		acceso-remoto		:agregar
+		tipo-instalacion	:agregar
+		direccion			
+	informacion propia del ticket:
+		id
+		backup-telefono
+		backup-email
+		backup-ipaddress
+		backup-antena
+		backup-velocidad
+		backup-precio-plan
+		backup-router
+		backup-acceso-remoto
+		backup-tipo-instalacion
+		backup-direccion
+		telefono-contacto
+		solicitud-cliente
+		sugerencia-solucion
+		fecha-now
+		fecha-sugerida
+		hora
+		administrador
+		solucion
+		recomendaciones
+		status
+		precio-soporte 
 
 
-?>
-=======
->>>>>>> 24f3cf1083094de57241e687f2ac54f99ddec452
+
+
+CERRAR TICKET:
+	Se selecciona el ticket abierto y luego se le modifica la info agregando la solucion
+
