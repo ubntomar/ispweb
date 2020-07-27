@@ -20,7 +20,12 @@ CREAR  NUEVO TICKET:
 		router				:agregar
 		acceso-remoto		:agregar
 		tipo-instalacion	:agregar
-		direccion			
+		direccion
+		mac-address-router  :agregar
+		mac-address-antena  :agregar
+		inyector-poe 		:agregar
+		apuntamiento  		:agregar
+
 	informacion propia del ticket:
 		id
 		backup-telefono
@@ -51,3 +56,4 @@ CREAR  NUEVO TICKET:
 CERRAR TICKET:
 	Se selecciona el ticket abierto y luego se le modifica la info agregando la solucion
 
+ipAddressCerrarTicket

@@ -20,18 +20,10 @@ date_default_timezone_set('America/Bogota');
 $today = date("Y-m-d");   
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i');
-$list []= array("id"=>"1","cliente"=>"Primer cliente","ip"=>"192.168.1.1","tecnico"=>"Juan Pablo","recibe"=>"alguien recibe","fecha"=>"2017/06/15","status"=>"PROLONGADO");
-$list[]=["id"=>"2","cliente"=>"Segundo cliente","ip"=>"192.168.1.2","tecnico"=>"Sebastian","recibe"=>"Otro recibe","fecha"=>"2017/06/16","status"=>"CERRAR"];
+$list []= array("id"=>"1","cliente"=>"first cliente","telefono"=>"3147654655","telefonoContacto"=>"3145265645","direccion"=>"cra 9 12 43","email"=>"omar_alberto_h@yahoo.es","ip"=>"192.168.1.1","marcaRouter"=>"Tenda","macRouter"=>"00:0F:0C:D4:F5:C0","macAntena"=>"00:0F:BD:02:05:AB","inyectorPoe"=>"Mikrotik","apuntamiento"=>"Calizas","accesoRemoto"=>"si","tipoAntena"=>"ubiquiti","tipoInstalacion"=>"x Antena","tipoSoporte"=>"daño de cable","solicitudCliente"=>"no tiene servicio actualmente","tecnico"=>"Juan Pablo","recibe"=>"alguien recibe");
+$list[]= ["id"=>"2","cliente"=>"Second cliente","telefono"=>"3215450397","telefonoContacto"=>"3145265645","direccion"=>"cra 19 12 43","email"=>"omar_alberto_h@yahoo.es","ip"=>"192.168.1.2","marcaRouter"=>"Nexxt","macRouter"=>"00:0F:0C:D4:F5:C0","macAntena"=>"00:0F:BD:02:05:AB","inyectorPoe"=>"Mikrotik","apuntamiento"=>"Montecristo","accesoRemoto"=>"si","tipoAntena"=>"ubiquiti","tipoInstalacion"=>"x Antena","tipoSoporte"=>"daño de cable","solicitudCliente"=>"no tiene servicio actualmente","tecnico"=>"Juan Pablo","recibe"=>"alguien recibe"];
 $jsonList=json_encode($list);
 echo $jsonList;
-
-
-
- 
-
-
-
-
 
 
 

@@ -420,7 +420,7 @@ body{
                     border: 0px;
                     font-size: 1.2rem;
                     }
-                    .footer-modal button{
+                    .footer-modal span{
                         background-color: indianred;
                         color: #fff;
                         padding: 5px;
