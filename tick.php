@@ -170,6 +170,16 @@ else    {
                                     <input type="text" required :placeholder="clientNewTicketSelected.ipBackup"
                                         v-model="clientNewTicketSelected.ip">
                                 </div>
+                                <div class="form-group new-cli">
+                                    <label for="fechaSugerida">Fecha Sugerida</label>
+                                    <input type="date" required placeholder="xx/xx/xxxx"
+                                        v-model="clientNewTicketSelected.fechaSugerida">
+                                </div>
+                                <div class="form-group new-cli">
+                                    <label for="precioSoporte">Precio Soporte</label>
+                                    <input type="number" step="0.01" min="0" required placeholder="$"
+                                        v-model="clientNewTicketSelected.precioSoporte">
+                                </div>
                                 <div class="form-group new-cli w100">
                                     <label for="diagnostico-previo">Solicitud de Cliente</label>
                                     <textarea required minlength="6" rows="10" cols=""
@@ -182,8 +192,8 @@ else    {
                                 </div>
                             </div>
                             <div class="footer-modal">
-                                <input type="submit" value="Enviar"><button class="icon-cancel"
-                                    @click="continueToResultModal(false)"></button>
+                                <input type="submit" value="Enviar"><span class="icon-cancel"
+                                    @click="continueToResultModal(false)"></span>
                             </div>
                         </form>
                     </div>
@@ -206,7 +216,7 @@ else    {
                                 </thead>
                                 <tbody>
                                     <tr v-for="ticketAbierto in ticketsAbiertos" :key="ticketAbierto.id"
-                                        @click="selectedRowTicketAbiero(ticketAbierto.id,ticketAbierto.cliente)">
+                                        @click="selectedRowTicketAbiero(ticketAbierto.id,ticketAbierto.cliente,ticketAbierto)">
                                         <td>{{ticketAbierto.id}}</td>
                                         <td>{{ticketAbierto.cliente}}</td>
                                         <td>{{ticketAbierto.ip}}</td>
@@ -246,99 +256,158 @@ else    {
                                     </div>
                                     <div class="form-group">
                                         <label for="cliente">Cliente</label>
-                                        <input type="text" id="cliente">
+                                        <input v-model="clientAbiertoTicketSelected.cliente" type="text" id="cliente">
                                     </div>
                                     <div class="form-group">
-                                        <label for="telefono">Telèfono</label>
-                                        <input type="text" name="telefono" id="telefono">
+                                        <label  for="telefonoCliente">Telèfono Cliente</label>
+                                        <input required v-model="clientAbiertoTicketSelected.telefono" type="number" id="telefonoCliente">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="telefono">Telèfono Contacto</label>
+                                        <input v-model="clientAbiertoTicketSelected.telefonoContacto" type="number" name="telefono" id="telefono">
                                     </div>
                                     <div class="form-group">
                                         <label for="clientAdd">Direcciòn</label>
-                                        <input type="text" name="clientAdd" id="clientAdd">
+                                        <input required v-model="clientAbiertoTicketSelected.direccion" type="text" name="clientAdd" id="clientAdd">
                                     </div>
                                     <div class="form-group">
                                         <label for="mail">Email de cliente</label>
-                                        <input type="email" name="mail" id="mail">
+                                        <input required v-model="clientAbiertoTicketSelected.email" type="email" name="mail" id="mail">
                                     </div>
                                     <div class="form-group">
                                         <div class="radio-button">
                                             <label for="ipAddress">Ip Address,cambiar ip:</label>
                                             <input type="radio" name="changeIp" @click="radioButtonDisabled=false"
-                                                :checked="ipAddressCerrarTicket.length==0"> SI
+                                                :checked="clientAbiertoTicketSelected.ip"> SI
                                             <input type="radio" name="changeIp" @click="radioButtonDisabled=true"
-                                                :checked="!ipAddressCerrarTicket.length==0">NO
+                                                :checked="!clientAbiertoTicketSelected.ip">NO
                                         </div>
                                         <input required placeholder="Ingrese Direcciòn Ip"
-                                            v-model="ipAddressCerrarTicket" type="text" name="ipAddress" id="ipAddress"
+                                            v-model="clientAbiertoTicketSelected.ip" type="text" name="ipAddress" id="ipAddress"
                                             :disabled="radioButtonDisabled">
                                     </div>
                                     <div class="form-group">
                                         <label for="routerModel">Marca de Router</label>
-                                        <input type="text" name="routerModel" id="routerModel">
+                                        <input required v-model="clientAbiertoTicketSelected.marcaRouter" type="text" name="routerModel" id="routerModel">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="routerMacAddress">MAC Address Router</label>
+                                        <input v-model="clientAbiertoTicketSelected.macRouter" type="text" name="routerMacAddress" id="routerMacAddress"
+                                            placeholder="0-9 & A-F">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="antenaMacAddress">MAC Address Antena</label>
+                                        <input required v-model="clientAbiertoTicketSelected.macAntena" type="text" name="antenaMacAddress" id="antenaMacAddress"
+                                            placeholder="0-9 & A-F">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inyectorPoe">Inyector POE</label>
+                                        <select required v-model="clientAbiertoTicketSelected.inyectorPoe" id="inyectorPoe">
+                                            <option value="inyectorUbiquiti">Ubiquiti</option>
+                                            <option value="inyectorMikrotik">Mikrotik</option>
+                                            <option value="inyectorOtro">Otro</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Apuntamiento">Apuntamiento</label>
+                                        <select required v-model="clientAbiertoTicketSelected.apuntamiento" id="Apuntamiento">
+                                            <option value="montecristo">Montecristo</option>
+                                            <option value="retiro">Retiro</option>
+                                            <option value="calizas">Calizas</option>
+                                            <option value="alcaravan">Alcaravan</option>
+                                            <option value="sapitos">Sapitos</option>
+                                            <option value="santa-ana-1">Santa Ana 1</option>
+                                            <option value="santa-ana-2">Santa Ana 2</option>
+                                            <option value="vereda-centro">Vereda Centro</option>
+                                            <option value="barrio-costeños">Brr Costeños</option>
+                                        </select>
                                     </div>
                                     <div class="select-group">
                                         <div class="form-group">
                                             <label for="router-remote-admin">Acceso Remoto habilitado</label>
-                                            <select name="router-remote-admin" id="router-remote-admin">
+                                            <select required v-model="clientAbiertoTicketSelected.accesoRemoto" id="router-remote-admin">
                                                 <option value="yes">Yes</option>
-                                                <option selected value="no">No</option>
+                                                <option value="no">No</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="tipo-antena">Tipo de Antena</label>
-                                            <select name="tipo-antena" id="tipo-antena">
-                                                <option value="ninguna">Ninguna</option>
-                                                <option value="mikrotik">Mikrotik</option>
-                                                <option value="ubiquiti">Ubiquiti</option>
+                                            <select required v-model="clientAbiertoTicketSelected.tipoAntena" id="tipo-antena">
+                                                <option value="none">Ninguna</option>
+                                                <option value="mikrotik-lhg5">Mikrotik, LGH 5</option>
+                                                <option value="mikrotik-lhg5ac">Mikrotik, LHG5 AC</option>
+                                                <option value="mikrotik-metal">Mikrotik, METAL</option>
+                                                <option value="mikrotik-sxtlite2">Mikrotik, SXT LITE 2</option>
+                                                <option value="mikrotik-sxtlite5">Mikrotik, SXT LITE 5</option>
+                                                <option value="mikrotik-disclite5">Mikrotik, DISC LITE 5</option>
+                                                <option value="mikrotik-sqlite5">Mikrotik, SQ LITE 5</option>
+                                                <option value="mikrotik-otro">Mikrotik, OTRO</option>
+                                                <option value="ubiquiti-liteBeam">Ubiquiti, LITE BEAM</option>
+                                                <option value="ubiquiti-nanobride">Ubiquiti, NANOBRIDGE</option>
+                                                <option value="ubiquiti-powerbeam">Ubiquiti, POWERBEAM</option>
+                                                <option value="ubiquiti-nanostation">Ubiquiti, NANOSTATION</option>
+                                                <option value="ubiquiti-locom2">Ubiquiti, NANOSTATION LOCO M2</option>
+                                                <option value="ubiquiti-locom5">Ubiquiti, NANOSTATION LOCO M5</option>
+                                                <option value="ubiquiti-otro">Ubiquiti, OTRO</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="tipo-instalacion">Tipo de Instalaciòn</label>
-                                            <select name="tipo-instalacion" id="tipo-instalacion">
+                                            <select required v-model="clientAbiertoTicketSelected.tipoInstalacion" id="tipo-instalacion">
                                                 <option value="repetidor">X Repetidor</option>
                                                 <option value="antena">X Antena</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="tipo-soporte">Tipo de Soporte</label>
-                                            <select name="tipo-soporte" id="tipo-soporte">
+                                            <select required v-model="clientAbiertoTicketSelected.tipoSoporte" id="tipo-soporte">
                                                 <option value="varios">Varios. Cuàles?</option>
                                                 <option value="ampliar-velocidad">Ampliaciòn de velocidad</option>
                                                 <option value="traslado">Traslado</option>
                                                 <option value="dano-antena">Daño de Antena</option>
                                                 <option value="clave">Cambio de clave</option>
                                                 <option value="dano-router">Daño de router</option>
+                                                <option value="dano-router">Daño de switch</option>
                                                 <option value="dano-cable">Daño de cable</option>
-                                                <option value="direccionamiento">Direccionamiento de antena. Por què?
-                                                </option>
+                                                <option value="instalacionServicio">Instalacion de servicio</option>
+                                                <option value="direccionamiento">Direccionamiento de antena. Por què?</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="diagnostico">Solicitud de Cliente</label>
-                                        <textarea cols="" id="diagnostico" required></textarea>
+                                        <textarea  v-model="clientAbiertoTicketSelected.solicitudCliente" cols="" id="diagnostico" required></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="solucion">Describir soluciòn</label>
-                                        <textarea cols="" id="solucion" required></textarea>
+                                        <textarea v-model="clientAbiertoTicketSelected.solucion" cols="" id="solucion" required minlength="30"
+                                            placeholder="Si recibe dinero, especificar"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="sugerencias">Sugerencias</label>
-                                        <textarea cols="" id="sugerencias"></textarea>
+                                        <textarea v-model="clientAbiertoTicketSelected.sugerencia" cols="" id="sugerencias"></textarea>
                                     </div>
-                                    <div class="select-group">
-                                        <div class="form-group">
-                                            <label for="resuelto">El problema fue resuelto?</label>
-                                            <select name="resuelto" id="resuelto">
-                                                <option value="si">Si, ya se puede cerrar este ticket</option>
-                                                <option selected value="no">No, queda pendiente.</option>
-                                            </select>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="cargar-a-factura-valor">Cargar a factura valor</label>
+                                        <input v-model="clientAbiertoTicketSelected.cargarAfacturaVaĺor" type="number" name="cargar-a-factura-valor" id="cargar-a-factura-valor"
+                                            placeholder="Queda Pendiente Pagar?">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="cargar-a-factura-descripcion">Cargar a factura descripciòn</label>
+                                        <textarea v-model="clientAbiertoTicketSelected.cargarAfacturaDescripcion" cols="" id="cargar-a-factura-descripcion" placeholder="Què es lo que queda pdte pagar?"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="resuelto">El problema fue resuelto?</label>
+                                        <select required v-model="clientAbiertoTicketSelected.problemaResuelto" id="resuelto">
+                                            <option value="si">Si, ya se puede cerrar este ticket</option>
+                                            <option value="no">No, queda pendiente.</option>
+                                        </select>
+                                    </div>
+
                                 </div>
                                 <div class="footer-modal">
-                                    <input type="submit" value="Enviar"><button class="icon-cancel"
-                                        @click="continueToAbiertoTicketModal(false)"></button>
+                                    <input type="submit" value="Enviar"><span class="icon-cancel"
+                                        @click="continueToAbiertoTicketModal(false)"></span>
                                 </div>
                             </form>
                         </div>
@@ -537,6 +606,7 @@ var app = new Vue({
         clientes: [],
         clientNewTicketSelected: [],
         ticketsAbiertos: [],
+        clientAbiertoTicketSelected: [],
         ticketsCerrados: [],
         totalRows: "",
         totalRowsAbiertos: "",
@@ -552,7 +622,6 @@ var app = new Vue({
         hideTicketAbiertoModal: true,
         hideTicketsClosedModal: true,
         radioButtonDisabled: false,
-        ipAddressCerrarTicket: "192.168.1.6",
         ipAddressContentFlag: true,
         selectedNewClient: "",
         newClientCheck: false
@@ -598,7 +667,7 @@ var app = new Vue({
             console.log("Saving the ticket!")
             axios.get('saveNewTicket.php', {
                 params: {
-                    ticketData:this.clientNewTicketSelected
+                    ticketData: this.clientNewTicketSelected
                 }
             }).then(response => {
                 if (response.data == "saved") {
@@ -612,8 +681,8 @@ var app = new Vue({
             })
         },
         checkFormCerrarTicket: function() {
-            if (!this.validateIpAddress(this.ipAddressCerrarTicket))
-                this.ipAddressCerrarTicket = ""
+            if (!this.validateIpAddress(this.clientAbiertoTicketSelected.ip))
+                this.clientAbiertoTicketSelected.ip = ""
         },
         continueToResultModal: function(data) {
             if (data)
@@ -642,7 +711,7 @@ var app = new Vue({
             })
         },
         getTicketAbierto: function() {
-            axios.get('fetchTicketAbiertos.php', {}).then(response => {
+            axios.get('fetchTicketCerrados.php', {}).then(response => {
                 this.totalRowsCerrados = response.data.length
                 this.ticketsCerrados = response.data
             }).catch(e => {
@@ -650,16 +719,18 @@ var app = new Vue({
             })
         },
         getTicketCerrado: function() {
-            axios.get('fetchTicketCerrados.php', {}).then(response => {
+            axios.get('fetchTicketAbiertos.php', {}).then(response => {
                 this.totalRowsAbiertos = response.data.length
                 this.ticketsAbiertos = response.data
+                console.log(JSON.stringify(response.data))
             }).catch(e => {
                 console.log('error' + e)
             })
         },
-        selectedRowTicketAbiero: function(id, client) {
+        selectedRowTicketAbiero: function(id, client,ticketSelectedObjet) {
             this.abiertoTicketSelectedClient = client
             this.abiertoTicketSelectedId = id
+            this.clientAbiertoTicketSelected=ticketSelectedObjet
         },
         selectedRowTicketCerrado: function(id, client) {
             this.cerradoTicketSelectedClient = client
@@ -689,8 +760,8 @@ var app = new Vue({
 
         this.getTicketAbierto()
         this.getTicketCerrado()
-        if (this.ipAddressCerrarTicket.length != 0)
-            this.radioButtonDisabled = true
+        // if (this.clientAbiertoTicketSelected.ip.length != 0)
+        //     this.radioButtonDisabled = true
     },
 });
 </script>
