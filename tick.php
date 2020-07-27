@@ -114,7 +114,6 @@ else    {
                                                 <tr>
                                                     <td>{{totalRows}} rows</td>
                                                     <td></td>
-
                                                     <td></td>
                                                     <td></td>
                                                 </tr>
@@ -432,7 +431,7 @@ else    {
                                 </thead>
                                 <tbody>
                                     <tr v-for="ticketCerrado in ticketsCerrados" :key="ticketCerrado.id"
-                                        @click="selectedRowTicketCerrado(ticketCerrado.id,ticketCerrado.cliente)">
+                                        @click="selectedRowTicketCerrado(ticketCerrado.id,ticketCerrado.cliente,ticketCerrado)">
                                         <td>{{ticketCerrado.cliente}}</td>
                                         <td>{{ticketCerrado.ip}}</td>
                                         <td>{{ticketCerrado.tecnico}}</td>
@@ -556,11 +555,11 @@ else    {
                                     </div>
 
                                 </div>
+                                <div class="footer-modal">
+                                    <input type="submit" value="Enviar"><button class="icon-cancel"
+                                        @click="continueToClosedTicketsModal(false)"></button>
+                                </div>
                             </form>
-                            <div class="footer-modal">
-                                <input type="submit" value="Enviar"><button class="icon-cancel"
-                                    @click="continueToClosedTicketsModal(false)"></button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -608,6 +607,7 @@ var app = new Vue({
         ticketsAbiertos: [],
         clientAbiertoTicketSelected: [],
         ticketsCerrados: [],
+        clientCerradoTicketSelected: [],
         totalRows: "",
         totalRowsAbiertos: "",
         totalRowsCerrados: "",
@@ -664,7 +664,6 @@ var app = new Vue({
 
         },
         saveNewticket: function() {
-            console.log("Saving the ticket!")
             axios.get('saveNewTicket.php', {
                 params: {
                     ticketData: this.clientNewTicketSelected
@@ -732,9 +731,10 @@ var app = new Vue({
             this.abiertoTicketSelectedId = id
             this.clientAbiertoTicketSelected=ticketSelectedObjet
         },
-        selectedRowTicketCerrado: function(id, client) {
+        selectedRowTicketCerrado: function(id, client,ticketSelectedObjet) {
             this.cerradoTicketSelectedClient = client
             this.cerradoTicketSelectedId = id
+            this.clientCerradoTicketSelected=ticketSelectedObjet
         },
         selectedRowNewTicket: function(id, client, clientObject) {
             this.newTicketSelectedId = id
