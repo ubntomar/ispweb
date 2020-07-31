@@ -1,8 +1,8 @@
 <?php
 //Database configuration   'ispdevinstance-cluster.cluster-cvfeq4s0dnnx.us-east-1.rds.amazonaws.com'
 $server = 'localhost';
-$db_user = 'mikrotik';
-$db_pwd = 'Agwist1.';
+$db_user = '';
+$db_pwd = '.';
 $db_name = 'redesagi_facturacion';//redesagi_facturacion 
 $table_name = 'users';
 $table_name_social = 'users_social';
@@ -15,7 +15,7 @@ $url = "http://projects.devlup.com/LoginSystemv42";
 
 //Admin username
 $admin_user = 'yesy.espejo';
-$admin_password = 'agwist2017';
+$admin_password = 'agw.......17';
 
 //strings
 //login
