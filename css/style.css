@@ -242,6 +242,11 @@ body{
                 section .form-group .radio-button label{
                     margin: 0px 10px 0px 0px;
                 }
+                section .form-group img{
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 5px;
+                }
                 section .form-group .radio-button input{
                     margin: auto 5px auto 10px;
                     background-color:indianred;
@@ -263,7 +268,7 @@ body{
                 }
                 .box table th {
                     text-align: left;
-                    padding: 6px 0px 6px 6px;
+                    padding: 6px 6px 6px 6px;
                     font-size: 1.0rem;
                   }
                   .box table td {
@@ -290,21 +295,19 @@ body{
                     text-align: center;
                     margin: auto;
                 }
-                section .close-result-table div button{
+                /* section .close-result-table div button{
+                } */
+                
+                
+                section .close-result-table button{
                     font-size: 20px;
-                    margin: 0px 1px 0px 0px;
                     border: 1px solid #fff;
                     border-radius: 2px;
-                }
-                
-               
-                section .close-result-table button{
-                    margin: 0px;
+                    margin: 0px 0px 0px 6px;
                     color: #fff;
                     background-color: indianred;
-                    border: 0;
                     font-weight: bold;
-                    padding: 0px;
+                    padding-right: 0px;
                 }
                 section .box .resume .title h3{
                     margin-top: 10px;
