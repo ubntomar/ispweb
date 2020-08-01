@@ -320,12 +320,12 @@ else    {
                                     <div class="form-group">
                                         <label for="routerMacAddress">MAC Address Router</label>
                                         <input required v-model="clientAbiertoTicketSelected.macRouter" type="text"
-                                             placeholder="0-9 & A-F">
+                                            placeholder="0-9 & A-F">
                                     </div>
                                     <div class="form-group">
                                         <label for="antenaMacAddress">MAC Address Antena</label>
                                         <input required v-model="clientAbiertoTicketSelected.macAntena" type="text"
-                                             placeholder="0-9 & A-F">
+                                            placeholder="0-9 & A-F">
                                     </div>
                                     <div class="form-group">
                                         <label for="inyectorPoe">Inyector POE</label>
@@ -399,7 +399,8 @@ else    {
                                                 <option value="dano-router">Daño de switch</option>
                                                 <option value="dano-cable">Daño de cable</option>
                                                 <option value="instalacionServicio">Instalacion de servicio</option>
-                                                <option value="direccionamiento">Direccionamiento de antena. Por què?</option>
+                                                <option value="direccionamiento">Direccionamiento de antena. Por què?
+                                                </option>
                                                 <option value="router-desconfigurado">Router Desconfigurado</option>
                                             </select>
                                         </div>
@@ -438,8 +439,9 @@ else    {
                                     </div>
                                     <div class="form-group">
                                         <label>Evidencia Fotogràfica</label>
-                                        <input type="file" :change="clientAbiertoTicketSelected.evidenciaFotografica1">
-                                        <img src="img/persona1.jpg" alt="evidencia">
+                                        <input type="file"  ref="file" @change="handleFileUpload()">
+                                        <button type="button" @click='uploadFile()' >Upload</button>
+                                        <img :src="clientAbiertoTicketSelected.evidenciaFotografica1" alt="evidencia">
                                     </div>
                                     <div class="form-group">
                                         <label>Evidencia Fotogràfica</label>
@@ -510,11 +512,12 @@ else    {
                             <form v-on:submit.prevent="true">
                                 <div class="form-close-ticket">
                                     <div class="form-group">
-                                        <div >
+                                        <div>
                                             <p>Fecha Apertura:
                                                 <span>{{clientCerradoTicketSelected.fechaCreacionTicket}}</span></p>
                                             <p>Tècnico: <span>{{clientCerradoTicketSelected.tecnico}}</span></p>
-                                            <p>Fecha Cierre: <span>{{clientCerradoTicketSelected.fechaCierreTicket}}</span>
+                                            <p>Fecha Cierre:
+                                                <span>{{clientCerradoTicketSelected.fechaCierreTicket}}</span>
                                             </p>
                                         </div>
                                     </div>
@@ -565,7 +568,7 @@ else    {
                                     <div class="form-group">
                                         <label for="antenaMacAddress">MAC Address Antena</label>
                                         <input disabled v-model="clientCerradoTicketSelected.macAntena" type="text"
-                                             placeholder="0-9 & A-F">
+                                            placeholder="0-9 & A-F">
                                     </div>
                                     <div class="form-group">
                                         <label for="inyectorPoe">Inyector POE</label>
@@ -591,7 +594,7 @@ else    {
                                     </div>
                                     <div class="select-group">
                                         <div class="form-group">
-                                            <label >Acceso Remoto habilitado</label>
+                                            <label>Acceso Remoto habilitado</label>
                                             <select v-model="clientCerradoTicketSelected.accesoRemoto">
                                                 <option value="yes">Yes</option>
                                                 <option value="no">No</option>
@@ -671,12 +674,12 @@ else    {
                                     </div>
                                     <div class="form-group">
                                         <label>Evidencia Fotogràfica</label>
-                                        <input type="file" :change="clientAbiertoTicketSelected.evidenciaFotografica1">
+                                        <input type="file" :change="clientAbiertoTicketSelected.evidenciaFotografica3">
                                         <img src="img/persona1.jpg" alt="evidencia">
                                     </div>
                                     <div class="form-group">
                                         <label>Evidencia Fotogràfica</label>
-                                        <input type="file" :change="clientAbiertoTicketSelected.evidenciaFotografica2">
+                                        <input type="file" :change="clientAbiertoTicketSelected.evidenciaFotografica4">
                                         <img src="img/persona2.jpg" alt="evidencia">
                                     </div>
                                 </div>
@@ -748,7 +751,8 @@ var app = new Vue({
         radioButtonDisabled: false,
         ipAddressContentFlag: true,
         selectedNewClient: "",
-        newClientCheck: false
+        newClientCheck: false,
+        file: ""
     },
     methods: {
         continueToAbiertoTicketModal: function(data) {
@@ -797,7 +801,6 @@ var app = new Vue({
                     this.getTicketAbierto()
                     alertify.success("Ticket guardado con èxito.")
                 } else {
-                    console.log(response.data)
                     alertify.error("No fue posible guardar el ticket.")
                 }
             }).catch(e => {
@@ -832,7 +835,6 @@ var app = new Vue({
                     ticketData: this.clientAbiertoTicketSelected
                 }
             }).then(response => {
-                console.log("closing ticket" + JSON.stringify(response.data))
                 if (response.data == "updated") {
                     this.getTicketCerrado()
                     this.getTicketAbierto()
@@ -845,11 +847,10 @@ var app = new Vue({
             })
         },
         continueToResultModal: function(data) {
-            if (data){
+            if (data) {
                 this.hideTicketResult = true
                 this.hideResultModal = false
-            }
-            else
+            } else
                 this.hideResultModal = true
         },
         closeResultTable: function() {
@@ -872,9 +873,7 @@ var app = new Vue({
             })
         },
         getTicketAbierto: function() {
-            console.log("fetch db")
             axios.get('fetchTicketAbiertos.php', {}).then(response => {
-                console.log("recibiendo: " + JSON.stringify(response.data))
                 this.totalRowsAbiertos = response.data.length
                 this.ticketsAbiertos = response.data
 
@@ -897,12 +896,14 @@ var app = new Vue({
             this.clientNewTicketSelected.ipBackup = this.clientNewTicketSelected.ip
         },
         selectedRowTicketAbiero: function(id, ticketSelectedObjet) {
-            this.abiertoTicketSelectedClient = ticketSelectedObjet.cliente+" "+ticketSelectedObjet.apellido
+            this.abiertoTicketSelectedClient = ticketSelectedObjet.cliente + " " + ticketSelectedObjet
+                .apellido
             this.abiertoTicketSelectedId = id
             this.clientAbiertoTicketSelected = ticketSelectedObjet
         },
         selectedRowTicketCerrado: function(id, ticketSelectedObjet) {
-            this.cerradoTicketSelectedClient = ticketSelectedObjet.cliente+" "+ticketSelectedObjet.apellido
+            this.cerradoTicketSelectedClient = ticketSelectedObjet.cliente + " " + ticketSelectedObjet
+                .apellido
             this.cerradoTicketSelectedId = id
             this.clientCerradoTicketSelected = ticketSelectedObjet
         },
@@ -926,14 +927,35 @@ var app = new Vue({
             } else {
                 return false
             }
+        },
+        uploadFile: function() {
+            this.file = this.$refs.file.files[0];
+            let formData = new FormData();
+            formData.append('file', this.file);
+            axios.post('ajaxfile.php', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(function(response) {
+                    if (!response.data) {
+                        alert('File not uploaded.');
+                    } else {
+                        alert('File uploaded successfully.');
+                    }
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        },
+        handleFileUpload: function(){
+            console.log("file item has changed")
+            console.log(this.$refs.file.files[0].name)
         }
     },
     mounted() {
-
         this.getTicketAbierto()
         this.getTicketCerrado()
-        // if (this.clientAbiertoTicketSelected.ip.length != 0)
-        //     this.radioButtonDisabled = true
     },
 });
 </script>

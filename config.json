@@ -353,6 +353,210 @@
       "css": "terminal",
       "code": 59433,
       "src": "websymbols"
+    },
+    {
+      "uid": "eeec3208c90b7b48e804919d0d2d4a41",
+      "css": "upload",
+      "code": 59434,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "44199a54057e6e264fde61a49b034171",
+      "css": "upload-1",
+      "code": 59435,
+      "src": "entypo"
+    },
+    {
+      "uid": "9367acef93427f6301ee8ab42d45def7",
+      "css": "upload-outline",
+      "code": 59436,
+      "src": "typicons"
+    },
+    {
+      "uid": "2dabd0ee753bedbc9c1c52990d204403",
+      "css": "upload-2",
+      "code": 59437,
+      "src": "iconic"
+    },
+    {
+      "uid": "4f3b31017c63ba04dc4f78ce7a8f02b1",
+      "css": "upload-3",
+      "code": 61487,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "9a76bc135eac17d2c8b8ad4a5774fc87",
+      "css": "download",
+      "code": 59438,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "b08cfe8039de2ce815686aced2caef06",
+      "css": "download-1",
+      "code": 59439,
+      "src": "entypo"
+    },
+    {
+      "uid": "86157b2f942e37940f8702a4a3221a2b",
+      "css": "download-outline",
+      "code": 59443,
+      "src": "typicons"
+    },
+    {
+      "uid": "0ddd3e8201ccc7d41f7b7c9d27eca6c1",
+      "css": "link",
+      "code": 59444,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "1dcd2b2148b7f086a4eb47f6a746bdee",
+      "css": "unlink",
+      "code": 61735,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "0d6ab6194c0eddda2b8c9cedf2ab248e",
+      "css": "attach",
+      "code": 59445,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "c1f1975c885aa9f3dad7810c53b82074",
+      "css": "lock-1",
+      "code": 59446,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "657ab647f6248a6b57a5b893beaf35a9",
+      "css": "lock-open-1",
+      "code": 59447,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "9d3e9faf68fd4e12def853f0d4e1173b",
+      "css": "whatsapp",
+      "code": 62002,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "ed42a2d393650165b737216b5fe85c40",
+      "css": "volume-control-phone",
+      "code": 62112,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "a19527dd18f0e45e597e8a2622604d14",
+      "css": "wifi-1",
+      "code": 59448,
+      "src": "typicons"
+    },
+    {
+      "uid": "4d3a91e6b0db6e03acaa74a861e2ab95",
+      "css": "desktop",
+      "code": 59450,
+      "src": "typicons"
+    },
+    {
+      "uid": "pgdm1vsngqxmheo5xkjpbm5o8k81pawd",
+      "css": "flash",
+      "code": 59451,
+      "src": "typicons"
+    },
+    {
+      "uid": "d5f287ad8e3a2db8f808bc09980ec3dc",
+      "css": "chart-alt",
+      "code": 59452,
+      "src": "typicons"
+    },
+    {
+      "uid": "890649841b2c37d56ff90065872fecf3",
+      "css": "chart-bar-outline",
+      "code": 59453,
+      "src": "typicons"
+    },
+    {
+      "uid": "76dfadaf502e065ac7b2689948f49cb0",
+      "css": "chart-pie-outline",
+      "code": 59454,
+      "src": "typicons"
+    },
+    {
+      "uid": "937f4db8b6ff3348a1d9fcd5e12fd2fe",
+      "css": "mail-1",
+      "code": 59455,
+      "src": "iconic"
+    },
+    {
+      "uid": "69253046b55214b42caada5c226801f2",
+      "css": "camera",
+      "code": 59456,
+      "src": "iconic"
+    },
+    {
+      "uid": "b90d80c250a9bbdd6cd3fe00e6351710",
+      "css": "ok-2",
+      "code": 59457,
+      "src": "iconic"
+    },
+    {
+      "uid": "11e664deed5b2587456a4f9c01d720b6",
+      "css": "cancel-1",
+      "code": 59458,
+      "src": "iconic"
+    },
+    {
+      "uid": "59ba4f90d2ca2a843f4f930b03270362",
+      "css": "plus-circle",
+      "code": 59459,
+      "src": "iconic"
+    },
+    {
+      "uid": "4062c0e99a3540f6c261bd08ef0fb63f",
+      "css": "minus-circle",
+      "code": 59460,
+      "src": "iconic"
+    },
+    {
+      "uid": "b392c847bf41826598f12c02be842253",
+      "css": "star-1",
+      "code": 59461,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "ee382df412dfdf65191b52ae33160abc",
+      "css": "star-empty",
+      "code": 59462,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "5b1387fb48babf0748ea04107c9adac3",
+      "css": "bitbucket",
+      "code": 59463,
+      "src": "zocial"
+    },
+    {
+      "uid": "d1fd686179920f26e0f1e83816fb40fe",
+      "css": "clock-1",
+      "code": 59464,
+      "src": "elusive"
+    },
+    {
+      "uid": "abe051e31ad705400cf6226b24b6e828",
+      "css": "desktop-1",
+      "code": 59465,
+      "src": "elusive"
+    },
+    {
+      "uid": "2d3ce9463ed5525c6faa01f84c957843",
+      "css": "youtube",
+      "code": 62227,
+      "src": "websymbols"
+    },
+    {
+      "uid": "cba6018f5de17c76f70b7d2c06037e5a",
+      "css": "mail-2",
+      "code": 59466,
+      "src": "websymbols"
     }
   ]
 }
