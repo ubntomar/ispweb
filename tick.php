@@ -563,7 +563,7 @@ else    {
                                     <div class="form-group">
                                         <label for="antenaMacAddress">MAC Address Antena</label>
                                         <input disabled v-model="clientCerradoTicketSelected.macAntena" type="text"
-                                            name="antenaMacAddress" placeholder="0-9 & A-F">
+                                             placeholder="0-9 & A-F">
                                     </div>
                                     <div class="form-group">
                                         <label for="inyectorPoe">Inyector POE</label>
