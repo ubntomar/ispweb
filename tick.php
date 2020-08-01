@@ -589,9 +589,9 @@ else    {
                                     </div>
                                     <div class="select-group">
                                         <div class="form-group">
-                                            <label for="router-remote-admin">Acceso Remoto habilitado</label>
+                                            <label >Acceso Remoto habilitado</label>
                                             <select v-model="clientCerradoTicketSelected.accesoRemoto">
-                                                <option value="si">Si</option>
+                                                <option value="yes">Yes</option>
                                                 <option value="no">No</option>
                                             </select>
                                         </div>
@@ -667,14 +667,6 @@ else    {
                                             v-model="clientCerradoTicketSelected.cargarAfacturaDescripcion" cols=""
                                             placeholder="Què es lo que queda pdte pagar?"></textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="resuelto">El problema fue resuelto?</label>
-                                        <select disabled v-model="clientCerradoTicketSelected.problemaResuelto">
-                                            <option value="si">Si, ya se puede cerrar este ticket</option>
-                                            <option value="no">No, queda pendiente.</option>
-                                        </select>
-                                    </div>
-
                                 </div>
                                 <div class="footer-modal">
                                     <span class="icon-cancel" @click="continueToClosedTicketsModal(false)"></span>
