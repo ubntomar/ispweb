@@ -243,9 +243,9 @@ body{
                     margin: 0px 10px 0px 0px;
                 }
                 section .form-group img{
-                    height: 50px;
-                    width: 50px;
+                    width:150px;
                     border-radius: 5px;
+                    margin:6px auto;
                 }
                 section .form-group .radio-button input{
                     margin: auto 5px auto 10px;

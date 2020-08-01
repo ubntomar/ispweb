@@ -1,7 +1,7 @@
 <?php
 //Database configuration   'ispdevinstance-cluster.cluster-cvfeq4s0dnnx.us-east-1.rds.amazonaws.com'
 $server = 'localhost';
-$db_user = '';
+$db_user = 'mikrotik';
 $db_pwd = 'Agwist1.';
 $db_name = 'redesagi_facturacion';//redesagi_facturacion ... 
 $table_name = 'users';

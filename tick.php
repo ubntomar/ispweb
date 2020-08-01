@@ -184,7 +184,7 @@ else    {
                                 </div>
                                 <div class="form-group new-cli">
                                     <label>Hora Sugerida</label>
-                                    <input type="text" required placeholder="xx:xx am/pm"
+                                    <input type="text" required placeholder="08:00 am"
                                         v-model="clientNewTicketSelected.horaSugerida">
                                 </div>
                                 <div class="form-group new-cli">
@@ -510,11 +510,13 @@ else    {
                             <form v-on:submit.prevent="true">
                                 <div class="form-close-ticket">
                                     <div class="form-group">
-                                        <p>Fecha Apertura:
-                                            <span>{{clientCerradoTicketSelected.fechaCreacionTicket}}</span></p>
-                                        <p>Tècnico: <span>{{clientCerradoTicketSelected.tecnico}}</span></p>
-                                        <p>Fecha Cierre: <span>{{clientCerradoTicketSelected.fechaCierreTicket}}</span>
-                                        </p>
+                                        <div >
+                                            <p>Fecha Apertura:
+                                                <span>{{clientCerradoTicketSelected.fechaCreacionTicket}}</span></p>
+                                            <p>Tècnico: <span>{{clientCerradoTicketSelected.tecnico}}</span></p>
+                                            <p>Fecha Cierre: <span>{{clientCerradoTicketSelected.fechaCierreTicket}}</span>
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="cliente">Cliente #{{clientCerradoTicketSelected.idCliente}}</label>
@@ -651,8 +653,8 @@ else    {
                                             minlength="30" placeholder="Si recibe dinero, especificar"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="sugerencias">Sugerencias</label>
-                                        <textarea disabled v-model="clientCerradoTicketSelected.sugerencia"
+                                        <label>Sugerencias</label>
+                                        <textarea disabled v-model="clientCerradoTicketSelected.recomendaciones"
                                             cols=""></textarea>
                                     </div>
                                     <div class="form-group">
@@ -666,6 +668,16 @@ else    {
                                         <textarea disabled
                                             v-model="clientCerradoTicketSelected.cargarAfacturaDescripcion" cols=""
                                             placeholder="Què es lo que queda pdte pagar?"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Evidencia Fotogràfica</label>
+                                        <input type="file" :change="clientAbiertoTicketSelected.evidenciaFotografica1">
+                                        <img src="img/persona1.jpg" alt="evidencia">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Evidencia Fotogràfica</label>
+                                        <input type="file" :change="clientAbiertoTicketSelected.evidenciaFotografica2">
+                                        <img src="img/persona2.jpg" alt="evidencia">
                                     </div>
                                 </div>
                                 <div class="footer-modal">

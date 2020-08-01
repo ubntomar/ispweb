@@ -12,3 +12,4 @@ if(!$mysqli->query($sql2)){
     $msj= 'error updating tickets!';
 }
 ?>
+https://makitweb.com/how-to-upload-file-with-vue-js-and-php/
