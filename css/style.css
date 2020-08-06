@@ -192,7 +192,7 @@ body{
                 }
                 section .result-container p{
                     width: max-content;
-                    margin: auto;
+                    margin: auto ;
                 }
                 section .result-container table{
                     width: 70%;
@@ -224,6 +224,23 @@ body{
                     padding: 5px;
                     width: 60%;
                 }
+                .close-ticket-content .select-group{
+                    margin: 30px;
+                    flex-basis: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                }
+                .close-ticket-content .select-group .form-group-select {
+                    width: 250px;
+                    margin:10px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    flex-direction: column;
+                    padding: 2px;
+                }
+                
                 section .form-group{
                     display: flex;
                     flex-direction: column;
@@ -232,20 +249,99 @@ body{
                     padding: 2px;
                     margin: 2px;
                     width: 45%;
+                    color:#000;
                 }
+                .form-group label{
+                    padding: 3px;
+                    margin-bottom: 3px;
+                    background-color:#0275d8 ;
+                    color:#fff;
+                }
+                
+                input[type=text]:disabled {
+                    background: #dddddd;
+                    color:#000;
+                    border:1px solid #0275d8;
+                  }
+                input[type=number]:disabled {
+                    background: #dddddd;
+                    color:#000;
+                    border:1px solid #0275d8;
+                  }
+                input[type=email]:disabled {
+                    background: #dddddd;
+                    color:#000;
+                    border:1px solid #0275d8;
+                  }
+                select:disabled {
+                    background: #fff;
+                    color:#000;
+                    font-weight: bold;
+                    border:1px solid #0275d8;
+                }   
+                textarea{
+                    background: #dddddd;
+                    color:#000;
+                    border:1px solid #0275d8;
+                }  
+                select{
+                    background: #dddddd;
+                    color:#000;
+                    border:1px solid #0275d8;
+                }  
+                 
+                section .ticket-closed-solution label{
+                    padding: 3px;
+                    margin-bottom: 3px;
+                    background-color:#5cb85c ;
+                    color:#fff;
+                }
+                section .ticket-closed-solution textarea {
+                    padding: 6px;;
+                    border:1px solid #5cb85c ;
+                    color:#000;
+                }
+                section  .w100{
+                    width: 100%;
+                    margin: 12px;
+                    padding: 12px;
+                } 
                 section .form-group .new-cli{
                     max-width: 400px;
                 }
+                
                 section .form-group .radio-button{
                     display: flex;
                 }
                 section .form-group .radio-button label{
                     margin: 0px 10px 0px 0px;
                 }
-                section .form-group img{
-                    width:150px;
+                .evidencia-fotografica{
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+                .evidencia-fotografica .form-group-evidencia{
+                    padding:10px;
+                    margin:10px;
+                }
+               
+                .evidencia-fotografica .img-container img{
+                    height:150px ;
                     border-radius: 5px;
-                    margin:6px auto;
+                    /* display: block; */
+                    margin-top: 6px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 100%;
+                    height: 100%;
+                    max-width: 200px;
+                    
+                }
+                .evidencia-fotografica .img-container p {
+                    background-color: indianred;
+                    color:#fff;
+                    
                 }
                 section .form-group .radio-button input{
                     margin: auto 5px auto 10px;
@@ -507,16 +603,7 @@ body{
     .close-ticket-content .form-close-ticket{
         padding: 10px;
     }
-    .close-ticket-content .select-group{
-        flex-basis: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .close-ticket-content .select-group select {
-        max-width: 400px;
-        padding: 2px;
-    }
+   
     .close-ticket-content .form-group textarea{
        height: 30px;
     }
@@ -556,6 +643,10 @@ body{
         flex-wrap: wrap;
         justify-content:center;
         
+      } 
+    .close-ticket-content .form-close-ticket .form-group:first-child{
+        width: 80%;
+        padding: 10px 0px;  
       } 
     .box-statitics{
         flex-basis: 50%;
@@ -688,17 +779,24 @@ body{
     .close-ticket-content {
         width: 90%;
     }
-  
-    .close-ticket-content .form-group input{
+    .close-ticket-content .select-group .form-group-select {
+        width: 100%;
+        max-width: 100%;
+        padding: 2px;
+    }
+    .close-ticket-content .form-group-select input{
         padding:2px;
     }
-    .close-ticket-content .form-group select{
+    .close-ticket-content .select-group{
+        margin: 6px;
+    }
+    .close-ticket-content .form-group-select select{
         padding:2px;
         width: 100px;
     }
     .close-ticket-content .select-group select {
         padding: 2px;
-        width: auto;
+        width: 100%;
     }
     .footer-modal button{
         font-size: 1.5rem;

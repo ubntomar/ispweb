@@ -1,22 +1,30 @@
 #!/usr/bin/env python
 ####---- -*- coding: utf-8 -*- 
-import nexmo
-import sys
-client = nexmo.Client(key='5be89e2a', secret='EvHP3RtiIujcwQEw')
+import smtplib
 
-#client.send_message({
-#    'from': 'Nexmo',
-#    'to': '573147654655',
-#    'text': 'Hello from Nexmo',
-#})
-#x="como estás"
-#x.encode('utf-8')
-#print x
-#print "This is the name of the script: ", sys.argv[0]
-#print "Number of arguments: ", len(sys.argv)
-#print "The arguments are: " , str(sys.argv)
-#print u"á".encode('utf-8')
-#print type(sys.argv[2])
-#print sys.argv[2]
-print "from pytohn"
-sys.exit(0)
+gmail_user = 'cliente@ispexperts.com@gmail.com'
+gmail_password = 'NFGsgQ4awD'
+
+sent_from = gmail_user
+to = ['omar.a.hernandez.d@gmail.com', 'omar_alberto_h@yahoo.es']
+subject = 'OMG Super Important Message'
+body = 'Hey, whats up?\n\n- You'
+
+email_text = """\
+From: %s
+To: %s
+Subject: %s
+
+%s
+""" % (sent_from, ", ".join(to), subject, body)
+
+try:
+    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    server.ehlo()
+    server.login(gmail_user, gmail_password)
+    server.sendmail(sent_from, to, email_text)
+    server.close()
+
+    print 'Email sent!'
+except:
+    print 'Something went wrong...'

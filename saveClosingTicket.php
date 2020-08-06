@@ -12,6 +12,8 @@ $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
 }
+use PHPMailer\PHPMailer\PHPMailer;
+require 'vendor/autoload.php';
 mysqli_set_charset($mysqli, "utf8");
 date_default_timezone_set('America/Bogota');
 $today = date("Y-m-d");
@@ -77,5 +79,177 @@ $sql2="UPDATE `redesagi_facturacion`.`ticket` SET `telefono-contacto`='$telefono
 if(!$mysqli->query($sql2)){
     $msj= 'error updating tickets!';
 }
-echo json_encode($msj);
+$msjToBack="error saving ticket";
+if($msj=="updated"){
+    if(sendEmail($idTicket,$cliente,$direccion,$telefono,$fecha_creacion_ticket,$solicitud_cliente,$solucion,$recomendaciones,$tecnico,$email)){
+        $msjToBack="updatedEmailOk";
+        echo json_encode($msjToBack);
+    }else{
+        $msjToBack="updatedEmailNo";
+        echo json_encode($msjToBack);
+    }
+}else{
+    echo json_encode($msjToBack);
+}
+
+
+function sendEmail($idTicket,$cliente,$direccio,$telefon,$fecha_creacion_ticket,$solicitud_cliente,$solucio,$recomendacione,$tecnic,$emai){
+    $numeroDeCaso="2541".$idTicket;
+    $titular=strtoupper($cliente);
+    $direccion=strtoupper($direccio);
+    $telefono=$telefon;
+    $fechaApertura=$fecha_creacion_ticket;
+    $status="CERRADO";
+    $solicitud=ucfirst($solicitud_cliente);
+    $solucion=ucfirst($solucio);
+    $recomendaciones=ucfirst($recomendacione);
+    $tecnico=strtoupper($tecnic);
+    $email=$emai;
+    $today = date("d-m-Y");
+    $mail = new PHPMailer;
+    $mail->isSMTP();
+    $mail->SMTPDebug = 0;
+    $mail->Host = 'smtp.flockmail.com';
+    $mail->Port = 587;
+    $mail->SMTPAuth = true;
+    $mail->Username = 'cliente@ispexperts.com';
+    $mail->Password = 'NFGsgQ4awD';
+    $mail->isHTML(true);
+    $mail->setFrom('cliente@ispexperts.com', 'Ticket Internet -SOPORTE TECNICO'); 
+    $mail->addReplyTo('cliente@ispexperts.com', 'Dpto de Soporte');
+    $mail->addAddress($email, 'Cliente Residencial');
+    $mail->Subject = 'AG INGENIERIA- Solicitud #'.$numeroDeCaso;
+    $style_table="
+            style='
+                border-radius:3px;
+                padding:5px;
+                '
+            ";
+    $style_thead="
+            style='
+                color:#fff;
+                background-color:#111d5e;
+                padding:10px;
+                text-align-center;
+                border:0px;
+                '
+            ";
+    $style_th="
+            style='
+                padding:10px;
+                '
+            ";
+    $style_title="
+            style='
+            background-color:#0275d8;
+            padding:6px;
+            margin:3px;
+            color:#fff;
+            '
+            ";  
+    $style_tbody="
+            style='
+            background-color:#fff;
+            color:#000;
+            '
+            ";              
+    $style_tfoot="
+            style='
+            margin-top:20px;
+            '
+            ";              
+    $style_td="
+            style='
+            padding:10px;
+            '
+            ";              
+    $style_div="
+            style='
+            padding:10px;
+            '
+            ";              
+    $style_div_thead_td="
+            style='
+            padding:10px;
+            text-align:left;
+            '
+            ";              
+    $style_tr="
+            style='
+            padding:10px;
+            '
+            ";              
+    $style_tr_tfoot="
+            style='
+            padding:10px;
+            border:0px;
+            '
+            ";  
+    $mailContent = "
+    <table border='1' $style_table>
+        <thead $style_thead>
+            <th  colspan='2' $style_th>
+                <h3>Fecha de cierre de Caso #$numeroDeCaso: $today</h3>
+                <div $style_div_thead_td>
+                    <p><strong>Titular: </strong>$titular</p>
+                    <p><strong>Direcciòn: </strong>$direccion</p>
+                    <p><strong>Telèfono: </strong>$telefono</p>
+                    <p><strong>Fecha apertura de caso: </strong>$fechaApertura</p>
+                    <p><span>ESTADO DEL CASO: </span><strong>CERRADO</strong></p>
+                </div>    
+            </th> 
+        </thead>
+        <tbody $style_tbody>
+            <tr $style_tr>
+                <td $style_td>
+                    <strong $style_title>SOLICITUD</strong>
+                    <div $style_div>$solicitud</div>
+                </td>
+                <td $style_td>
+                    <strong $style_title>SOLUCION</strong>
+                    <div $style_div>$solucion</div>
+                </td>
+            </tr>
+            <tr $style_tr>
+                <td $style_td>
+                    <strong $style_title>RECOMENDACIONES</strong>
+                    <div $style_div>$recomendaciones</div>
+                </td>
+                <td $style_td>
+                    <strong $style_title>TECNICO</strong>
+                    <div $style_div>$tecnico</div>
+                </td>
+            </tr>
+            
+        </tbody>
+        <tfoot>
+            <tr $style_tr_tfoot>
+                <td $style_td colspan='2'>
+                    <div $style_div>
+                        <p>
+                            Dirección de Servicio al Cliente Bogotá D.C,Colombia
+                        </p>
+                        <p>
+                            Tel.3134308121-3147654655
+                        </p>
+                        <p>
+                            <a href='#'>E-mail:servicioalcliente@ispexperts.com</a>
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>";
+    $mail->Body = $mailContent;
+    try {
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        //echo "Mailer Error: " . $mail->ErrorInfo;
+        return false;
+    }
+
+
+    }
+
 ?>

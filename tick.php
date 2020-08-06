@@ -30,8 +30,8 @@ else    {
 <body>
     <header>
         <div class="logo">
-            <h1>Isp Experts <h4>Monitoreo y administraciòn</h4>
-            </h1>
+            <a href="#"><h1>Isp Experts</h1></a><h4>Monitoreo y administraciòn</h4>
+            
         </div>
         <div class="header-box">
             <div class="user">
@@ -74,7 +74,7 @@ else    {
                         <div class="search">
                             <input v-model="searchClientContent" type="text" placeholder="Nombre de Cliente">
                             <button v-on:click="searchClient" :disabled="searchClientContent==''"
-                                :class="{'button-disabled':searchClientContent==''}"><i
+                                :class=" {'button-disabled':searchClientContent==''} "><i
                                     class="icon-search"></i></button>
                         </div>
                         <div v-bind:class="{'hide-box-result':hideTicketResult}">
@@ -192,15 +192,15 @@ else    {
                                     <input type="number" step="0.01" min="0" required placeholder="$"
                                         v-model="clientNewTicketSelected.precioSoporte">
                                 </div>
-                                <div class="form-group new-cli w100">
+                                <div class="form-group new-cli ">
                                     <label for="solicitud-cliente">Solicitud de Cliente</label>
                                     <textarea required minlength="6" rows="10" cols=""
                                         v-model="clientNewTicketSelected.solicitudCliente"></textarea>
                                 </div>
-                                <div class="form-group new-cli w100">
-                                    <label for="sugerencia">Sugerencia de soluciòn</label>
+                                <div class="form-group new-cli ">
+                                    <label for="sugerencia">Sugerencia de administrador</label>
                                     <textarea required minlength="6" rows="10" cols=""
-                                        v-model="clientNewTicketSelected.sugerencia"></textarea>
+                                        v-model="clientNewTicketSelected.sugerenciaSolucion"></textarea>
                                 </div>
                             </div>
                             <div class="footer-modal">
@@ -259,7 +259,7 @@ else    {
                             </div>
                             <form v-on:submit.prevent="checkFormCerrarTicket()">
                                 <div class="form-close-ticket">
-                                    <div class="form-group">
+                                    <div class="form-group ">
                                         <p>Fecha Ticket:
                                             <span>{{clientAbiertoTicketSelected.fechaCreacionTicket}}</span></p>
                                         <p>Tècnico: <span>{{clientAbiertoTicketSelected.tecnico}}</span></p>
@@ -327,39 +327,39 @@ else    {
                                         <input required v-model="clientAbiertoTicketSelected.macAntena" type="text"
                                             placeholder="0-9 & A-F">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="inyectorPoe">Inyector POE</label>
-                                        <select required v-model="clientAbiertoTicketSelected.inyectorPoe">
-                                            <option value="inyectorUbiquiti">Ubiquiti</option>
-                                            <option value="inyectorMikrotik">Mikrotik</option>
-                                            <option value="inyectorOtro">Otro</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="Apuntamiento">Apuntamiento</label>
-                                        <select required v-model="clientAbiertoTicketSelected.apuntamiento">
-                                            <option value="montecristo">Montecristo</option>
-                                            <option value="retiro">Retiro</option>
-                                            <option value="calizas">Calizas</option>
-                                            <option value="alcaravan">Alcaravan</option>
-                                            <option value="sapitos">Sapitos</option>
-                                            <option value="santa-ana-1">Santa Ana 1</option>
-                                            <option value="santa-ana-2">Santa Ana 2</option>
-                                            <option value="vereda-centro">Vereda Centro</option>
-                                            <option value="barrio-costeños">Brr Costeños</option>
-                                            <option value="torre-guamal">Torre Guamal</option>
-                                            <option value="torre-castilla">Torre Castilla</option>
-                                        </select>
-                                    </div>
                                     <div class="select-group">
-                                        <div class="form-group">
+                                        <div class="form-group-select">
+                                            <label for="inyectorPoe">Inyector POE</label>
+                                            <select required v-model="clientAbiertoTicketSelected.inyectorPoe">
+                                                <option value="inyectorUbiquiti">Ubiquiti</option>
+                                                <option value="inyectorMikrotik">Mikrotik</option>
+                                                <option value="inyectorOtro">Otro</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group-select">
+                                            <label for="Apuntamiento">Apuntamiento</label>
+                                            <select required v-model="clientAbiertoTicketSelected.apuntamiento">
+                                                <option value="montecristo">Montecristo</option>
+                                                <option value="retiro">Retiro</option>
+                                                <option value="calizas">Calizas</option>
+                                                <option value="alcaravan">Alcaravan</option>
+                                                <option value="sapitos">Sapitos</option>
+                                                <option value="santa-ana-1">Santa Ana 1</option>
+                                                <option value="santa-ana-2">Santa Ana 2</option>
+                                                <option value="vereda-centro">Vereda Centro</option>
+                                                <option value="barrio-costeños">Brr Costeños</option>
+                                                <option value="torre-guamal">Torre Guamal</option>
+                                                <option value="torre-castilla">Torre Castilla</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group-select">
                                             <label for="router-remote-admin">Acceso Remoto habilitado</label>
                                             <select required v-model="clientAbiertoTicketSelected.accesoRemoto">
                                                 <option value="yes">Yes</option>
                                                 <option value="no">No</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group-select">
                                             <label for="tipo-antena">Tipo de Antena</label>
                                             <select required v-model="clientAbiertoTicketSelected.tipoAntena">
                                                 <option value="none">Ninguna</option>
@@ -380,15 +380,15 @@ else    {
                                                 <option value="ubiquiti-otro">Ubiquiti, OTRO</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group-select">
                                             <label for="tipo-instalacion">Tipo de Instalaciòn</label>
                                             <select required v-model="clientAbiertoTicketSelected.tipoInstalacion">
                                                 <option value="repetidor">X Repetidor</option>
                                                 <option value="antena">X Antena</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="tipo-soporte">Tipo de Soporte</label>
+                                        <div class="form-group-select">
+                                            <label for="tipo-soporte">Tipo de Soporte realizado </label>
                                             <select required v-model="clientAbiertoTicketSelected.tipoSoporte">
                                                 <option value="varios">Varios. Cuàles?</option>
                                                 <option value="ampliar-velocidad">Ampliaciòn de velocidad</option>
@@ -416,8 +416,13 @@ else    {
                                             minlength="30" placeholder="Si recibe dinero, especificar"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="sugerencias">Sugerencias</label>
+                                        <label for="sugerencias">Sugerencias del administrador</label>
                                         <textarea v-model="clientAbiertoTicketSelected.sugerenciaSolucion"
+                                            cols=""></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sugerencias">Recomendacones a cliente</label>
+                                        <textarea v-model="clientAbiertoTicketSelected.recomendaciones"
                                             cols=""></textarea>
                                     </div>
                                     <div class="form-group">
@@ -437,18 +442,24 @@ else    {
                                             <option value="abierto">No, queda pendiente.</option>
                                         </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Evidencia Fotogràfica</label>
-                                        <input type="file"  ref="file" @change="handleFileUpload()">
-                                        <button type="button" @click='uploadFile()' >Upload</button>
-                                        <img :src="clientAbiertoTicketSelected.evidenciaFotografica1" alt="evidencia">
+                                    <div class="evidencia-fotografica">
+                                        <div class="form-group-evidencia">
+                                            <p>Evidencia Fotogràfica</p>
+                                            <input required type="file" ref="file1" @change="handleFileUpload(1)">
+                                            <div class="img-container">
+                                                <img :src="url" alt="evidencia"> 
+                                                <p>{{img1Error}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group-evidencia">
+                                            <p>Evidencia Fotogràfica</p>
+                                            <input required type="file" ref="file2" @change="handleFileUpload(2)">
+                                            <div class="img-container">
+                                                <img :src="url2" alt="evidencia">
+                                                <p>{{img2Error}}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Evidencia Fotogràfica</label>
-                                        <input type="file" :change="clientAbiertoTicketSelected.evidenciaFotografica2">
-                                        <img src="img/persona2.jpg" alt="evidencia">
-                                    </div>
-
                                 </div>
                                 <div class="footer-modal">
                                     <input type="submit" value="Enviar"><span class="icon-cancel"
@@ -549,9 +560,7 @@ else    {
                                             name="mail">
                                     </div>
                                     <div class="form-group">
-                                        <div class="radio-button">
-                                            <label for="ipAddress">Ip Address:</label>
-                                        </div>
+                                        <label for="ipAddress">Ip Address</label>
                                         <input disabled placeholder="Ingrese Direcciòn Ip"
                                             v-model="clientCerradoTicketSelected.ip" type="text" name="ipAddress">
                                     </div>
@@ -590,12 +599,14 @@ else    {
                                             <option value="santa-ana-2">Santa Ana 2</option>
                                             <option value="vereda-centro">Vereda Centro</option>
                                             <option value="barrio-costeños">Brr Costeños</option>
+                                            <option value="torre-guamal">Torre Guamal</option>
+                                            <option value="torre-castilla">Torre Castilla</option>
                                         </select>
                                     </div>
                                     <div class="select-group">
                                         <div class="form-group">
                                             <label>Acceso Remoto habilitado</label>
-                                            <select v-model="clientCerradoTicketSelected.accesoRemoto">
+                                            <select disabled v-model="clientCerradoTicketSelected.accesoRemoto">
                                                 <option value="yes">Yes</option>
                                                 <option value="no">No</option>
                                             </select>
@@ -623,13 +634,13 @@ else    {
                                         </div>
                                         <div class="form-group">
                                             <label for="tipo-instalacion">Tipo de Instalaciòn</label>
-                                            <select v-model="clientCerradoTicketSelected.tipoInstalacion">
+                                            <select disabled v-model="clientCerradoTicketSelected.tipoInstalacion">
                                                 <option value="repetidor">X Repetidor</option>
                                                 <option value="antena">X Antena</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="tipo-soporte">Tipo de Soporte</label>
+                                            <label for="tipo-soporte">Tipo de Soporte realizado</label>
                                             <select disabled v-model="clientCerradoTicketSelected.tipoSoporte">
                                                 <option value="varios">Varios. Cuàles?</option>
                                                 <option value="ampliar-velocidad">Ampliaciòn de velocidad</option>
@@ -650,13 +661,18 @@ else    {
                                         <textarea disabled v-model="clientCerradoTicketSelected.solicitudCliente"
                                             cols=""></textarea>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group ticket-closed-solution">
                                         <label for="solucion">Describir soluciòn</label>
                                         <textarea disabled v-model="clientCerradoTicketSelected.solucion" cols=""
                                             minlength="30" placeholder="Si recibe dinero, especificar"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label>Sugerencias</label>
+                                        <label>Sugerencia de adminstrador</label>
+                                        <textarea disabled v-model="clientCerradoTicketSelected.sugerenciaSolucion"
+                                            cols=""></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Recomendaciones a cliente</label>
                                         <textarea disabled v-model="clientCerradoTicketSelected.recomendaciones"
                                             cols=""></textarea>
                                     </div>
@@ -664,23 +680,27 @@ else    {
                                         <label for="cargar-a-factura-valor">Cargar a factura valor</label>
                                         <input disabled v-model="clientCerradoTicketSelected.cargarAfacturaVaĺor"
                                             type="number" name="cargar-a-factura-valor"
-                                            placeholder="Queda Pendiente Pagar?">
+                                            >
                                     </div>
                                     <div class="form-group">
                                         <label for="cargar-a-factura-descripcion">Cargar a factura descripciòn</label>
                                         <textarea disabled
                                             v-model="clientCerradoTicketSelected.cargarAfacturaDescripcion" cols=""
-                                            placeholder="Què es lo que queda pdte pagar?"></textarea>
+                                            ></textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Evidencia Fotogràfica</label>
-                                        <input type="file" :change="clientAbiertoTicketSelected.evidenciaFotografica3">
-                                        <img src="img/persona1.jpg" alt="evidencia">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Evidencia Fotogràfica</label>
-                                        <input type="file" :change="clientAbiertoTicketSelected.evidenciaFotografica4">
-                                        <img src="img/persona2.jpg" alt="evidencia">
+                                    <div class="evidencia-fotografica">
+                                        <div class="form-group-evidencia">
+                                            <label>Evidencia Fotogràfica</label>
+                                            <div class="img-container">
+                                                <img :src="'img/'+clientCerradoTicketSelected.evidenciaFotografica1" alt="evidencia 1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group-evidencia">
+                                            <label>Evidencia Fotogràfica</label>
+                                            <div class="img-container">
+                                                <img :src="'img/'+clientCerradoTicketSelected.evidenciaFotografica2" alt="evidencia 2">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="footer-modal">
@@ -728,6 +748,8 @@ else    {
 var app = new Vue({
     el: "#app",
     data: {
+        url: "img/persona3.jpg", 
+        url2: "img/persona2.jpg", 
         searchClientContent: "",
         clientes: [],
         clientNewTicketSelected: [],
@@ -752,7 +774,10 @@ var app = new Vue({
         ipAddressContentFlag: true,
         selectedNewClient: "",
         newClientCheck: false,
-        file: ""
+        file1: "",
+        file2: "",
+        img1Error: "",
+        img2Error: ""
     },
     methods: {
         continueToAbiertoTicketModal: function(data) {
@@ -822,7 +847,7 @@ var app = new Vue({
                 valid = false
             }
             if (valid) {
-                let r = confirm("Confirmar!");
+                let r = confirm("Confirmar, el email a usar es:\t"+this.clientAbiertoTicketSelected.email);
                 if (r) {
                     this.saveFormCerrarticket()
                     this.hideTicketAbiertoModal = true
@@ -835,13 +860,24 @@ var app = new Vue({
                     ticketData: this.clientAbiertoTicketSelected
                 }
             }).then(response => {
-                if (response.data == "updated") {
+                console.log("Respuesta a guardar el ticket:"+response.data)
+                if (response.data == "updatedEmailOk") {
                     this.getTicketCerrado()
                     this.getTicketAbierto()
                     alertify.success("Ticket cerrado y guardado con èxito.")
-                } else {
-                    alertify.error("No fue posible cerrar,guardar el ticket.")
-                }
+                } 
+                if (response.data == "updatedEmailNo") {
+                    this.getTicketCerrado()
+                    this.getTicketAbierto()
+                    alertify.success("Ticket  guardado con èxito.")
+                    alertify.error("No fue posible enivar el email!")
+                } 
+                if (response.data != "updatedEmailOk" && response.data != "updatedEmailNo") {
+                    this.getTicketCerrado()
+                    this.getTicketAbierto()
+                    alertify.error("No fue posible guardar el ticket!!!") //vueltas del almuerzo
+                } 
+                
             }).catch(e => {
                 console.log("error: " + e)
             })
@@ -928,29 +964,63 @@ var app = new Vue({
                 return false
             }
         },
-        uploadFile: function() {
-            this.file = this.$refs.file.files[0];
-            let formData = new FormData();
-            formData.append('file', this.file);
-            axios.post('ajaxfile.php', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
+        
+        handleFileUpload: function(image){
+            var vm = this
+            if(image==1){
+                this.img1Error="Uploading..."
+                vm.url=""
+            }
+            if(image==2){
+                this.img2Error="Uploading..."
+                vm.url2=""
+            }
+            let formData=new FormData()
+            if(image==1){
+                this.file1=this.$refs.file1.files[0]
+                console.log("file 1 es:"+this.file1.name)
+                formData.append('file1',this.file1)
+                this.clientAbiertoTicketSelected.evidenciaFotografica1=this.file1.name
+            }
+            if(image==2){
+                this.file2=this.$refs.file2.files[0]
+                formData.append('file2',this.file2)
+                this.clientAbiertoTicketSelected.evidenciaFotografica2=this.file2.name
+            }
+            axios.post('uploadImage.php',formData,{
+                header:{
+                    'content-type':'multipart/form-data'
+                }
+            }).then(function(response){
+                if(image==1)vm.img1Error="Waiting..."
+                if(image==2)vm.img2Error="Waiting..."
+                if(response.data.stat=="error"){
+                    if(response.data.source=="file1"){
+                        vm.img1Error="Error.."+response.data.msj
+                        vm.url=""
                     }
-                })
-                .then(function(response) {
-                    if (!response.data) {
-                        alert('File not uploaded.');
-                    } else {
-                        alert('File uploaded successfully.');
+                    if(response.data.source=="file2"){
+                        vm.img2Error="Error.."+response.data.msj
+                        vm.url2=""
                     }
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-        },
-        handleFileUpload: function(){
-            console.log("file item has changed")
-            console.log(this.$refs.file.files[0].name)
+                }
+                else{
+                    if(response.data.source=="file1"){
+                        vm.img1Error="Waiting...."
+                        vm.url="img/"+vm.file1.name
+                        vm.img1Error=""
+                    }
+                    if(response.data.source=="file2"){
+                        vm.img2Error="Waiting...."
+                        vm.url2="img/"+vm.file2.name
+                        vm.img2Error=""
+                    }
+                }
+                
+                
+            }).catch(function(error){
+                console.log("error!!!"+error)
+            })
         }
     },
     mounted() {

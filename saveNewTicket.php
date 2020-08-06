@@ -54,7 +54,7 @@ if(!$mysqli->query($sql)){
 //Info to inser new ticket
 $telefono_contacto=$data["telefonoContacto"];
 $solicitud_cliente=$data["solicitudCliente"];
-$sugerencia_solucion=$data["sugerencia"];
+$sugerencia_solucion=$data["sugerenciaSolucion"];
 $fecha_creacion_ticket=$today;
 $fecha_sugerida=$data["fechaSugerida"];
 $hora_sugerida=$data["horaSugerida"];
@@ -62,7 +62,7 @@ $hora=$hourMin;
 $administrador=$user;
 $solucion= "";
 $recomendacion = "";
-$status="abierto";   
+$status="ABIERTO";   
 $precio_soporte=$data["precioSoporte"];
 $sql="INSERT INTO `redesagi_facturacion`.`ticket` (`id-cliente`,`backup-telefono`,`backup-email`,`backup-ipaddress`,`backup-antena`,`backup-velocidad`,`backup-precio-plan`,`backup-router`,`backup-acceso-remoto`,`backup-tipo-instalacion`,`backup-direccion`,`backup-ciudad`,`telefono-contacto`,`solicitud-cliente`,`sugerencia-solucion`,`fecha-creacion-ticket`,`fecha-sugerida`,`hora-sugerida`,`hora`,`administrador`,`solucion`,`recomendaciones`,`status`,`precio-soporte`) VALUES ('$clienteId','$backup_telefono','$backup_email','$backup_ipaddress','$backup_antena','$backup_velocidad','$backup_precio_plan','$backup_router','$backup_acceso_remoto','$backup_tipo_instalacion','$backup_direccion','$backup_ciudad','$telefono_contacto','$solicitud_cliente','$sugerencia_solucion','$fecha_creacion_ticket','$fecha_sugerida','$hora_sugerida','$hora','$administrador','$solucion','$recomendacion','$status','$precio_soporte')";
 if(!$mysqli->query($sql)){
