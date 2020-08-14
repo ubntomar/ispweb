@@ -5,6 +5,7 @@ $area1Cod="4324";
 $area2Cod="4325";
 $vpnUser="agingenieria";
 $vpnPassword="agwist2017"; 
+$newChange="";
  
 
 ?>
