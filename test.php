@@ -204,3 +204,12 @@ Bien cepilladas por ambos lados ..Boquilleras de 10cmx3mt ....tabletas para hace
 2020-08-05 15:35:24 CLIENT -&gt; SERVER: QUIT<br>
 2020-08-05 15:35:24 SERVER -&gt; CLIENT: 221 2.0.0 Bye<br>
 email errorError sending email
+
+<?php 
+$serverIpAddressArea1="192.168.21.1";
+$serverIpAddressArea2="192.168.30.1";
+$area1Cod="4324"; 
+$area2Cod="4325";
+$vpnUser="agingenieria";
+$vpnPassword="agwist2017"; 
+?>
