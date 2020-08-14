@@ -52,23 +52,23 @@ else    {
                                 <span class="sr-only">(Actual)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="register-pay.php" class="nav-link "><i class="icon-money"></i>Registrar Pago</a>
+                            <a href="<?php if($_SESSION['role']!='tecnico')echo "register-pay.php";?>" class="nav-link "><i class="icon-money"></i>Registrar Pago</a>
                         </li>
                         <li class="nav-item  ">
-                            <a href="transacciones.php" class="nav-link  "><i class="icon-print "></i>Transacciones</a>
+                            <a href="<?php if($_SESSION['role']!='tecnico')echo "transacciones.php";?>" class="nav-link  "><i class="icon-print "></i>Transacciones</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link"><i class="icon-mail"></i>Contacto</a>
                         </li>
                         <li class="nav-item">
-                            <a href="reclist.php" class="nav-link "><i class="icon-money"></i>Formato Recibo</a>
+                            <a href="<?php if($_SESSION['role']!='tecnico')echo "reclist.php";?>" class="nav-link "><i class="icon-money"></i>Formato Recibo</a>
                         </li>
                     </ul>
                     <div class="ml-auto">
                         <ul class="nav navbar-nav   ">
                             <li class="nav-item ">
                                 <a class="nav-link disabled text-white "><i
-                                        class="icon-user"></i><?php echo "Hola ".$_SESSION['username']; ?></a>
+                                        class="icon-user"></i><?php echo "Hola ".$_SESSION['name']; ?></a>
                             </li>
                         </ul>
                     </div>
@@ -80,10 +80,10 @@ else    {
             <div class="barra-lateral  col-sm-auto ">
                 <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
                     <a href="tick.php"><i class="icon-pinboard"></i><span>Tickets</span></a>
-                    <a href="fact.php"><i class="icon-docs-1"></i><span>Facturas</span></a>
-                    <a href="client.php"><i class="icon-users"></i><span>Clientes</span></a>
+                    <a href="<?php if($_SESSION['role']!='tecnico')echo "fact.php";?>"><i class="icon-docs-1"></i><span>Facturas</span></a>
+                    <a href="<?php if($_SESSION['role']!='tecnico')echo "client.php";?>"><i class="icon-users"></i><span>Clientes</span></a>
                     <a href="mktik.php"><i class="icon-network"></i><span>Mktik</span></a>
-                    <a href="egr.php"><i class="icon-money"></i><span>Egresos</span></a>
+                    <a href="<?php if($_SESSION['role']!='tecnico')echo "egr.php";?>"><i class="icon-money"></i><span>Egresos</span></a>
                     <a href="login/logout.php"><i class="icon-logout"></i><span>Salir</span></a>
                 </nav>
             </div>
@@ -449,7 +449,7 @@ else    {
                 axios.get('devicePingResponseList.php', {
                     params: {
                         mainServerIp: "192.168.16.1",
-                        rowNumbers: "2",
+                        rowNumbers: "1",
                         from: "192.168.16.169",
                         to: "192.168.16.254",
                         byteToChange: "3"
@@ -469,7 +469,7 @@ else    {
                 axios.get('devicePingResponseList.php', {
                     params: {
                         mainServerIp: "192.168.30.1",
-                        rowNumbers: "2",
+                        rowNumbers: "1",
                         from: "192.168.30.60",
                         to: "192.168.30.254",
                         byteToChange: "3"
@@ -488,7 +488,7 @@ else    {
                 axios.get('devicePingResponseList.php', {
                     params: {
                         mainServerIp: "192.168.26.1",
-                        rowNumbers: "2",
+                        rowNumbers: "1",
                         from: "192.168.26.155",
                         to: "192.168.26.254",
                         byteToChange: "3"

@@ -34,6 +34,9 @@ body{
                 flex-direction: column;
                 align-items: center;
             }
+            header .logo a{
+                text-decoration: none;
+            }
             header .logo h1{
                 letter-spacing: 2px;
                 padding-bottom: 0px;
@@ -232,7 +235,7 @@ body{
                     justify-content: space-between;
                 }
                 .close-ticket-content .select-group .form-group-select {
-                    width: 250px;
+                    width: 270px;
                     margin:10px;
                     display: flex;
                     flex-wrap: wrap;

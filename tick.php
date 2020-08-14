@@ -30,12 +30,15 @@ else    {
 <body>
     <header>
         <div class="logo">
-            <a href="#"><h1>Isp Experts</h1></a><h4>Monitoreo y administraciòn</h4>
-            
+            <a href="main.php">
+                <h1>Isp Experts</h1>
+            </a>
+            <h4>Monitoreo y administraciòn</h4>
+
         </div>
         <div class="header-box">
             <div class="user">
-                <i class="icon-user"></i><span><?php echo "Hola ".$_SESSION['username'];?></span>
+                <i class="icon-user"></i><span><?php echo "Hola ".$_SESSION['name'];?></span>
             </div>
             <div class="button-collapse">
                 <button>☰</button>
@@ -44,20 +47,27 @@ else    {
     </header>
     <nav class="navTop">
         <ul>
-            <li><a href="#"><i class="icon-money"></i>Registrar Pago</a></li>
-            <li><a href="#"><i class="icon-print"></i>Transacciones</a></li>
-            <li><a href="#"><i class="icon-money"></i>Formato Recibo</a></li>
+            <li><a href="<?php if($_SESSION['role']!='tecnico')echo "register-pay.php";?>"><i
+                        class="icon-money"></i>Registrar Pago</a></li>
+            <li><a href="<?php if($_SESSION['role']!='tecnico')echo "transacciones.php";?>"><i
+                        class="icon-print"></i>Transacciones</a></li>
+            <li><a href="<?php if($_SESSION['role']!='tecnico')echo "reclist.php";?>"><i class="icon-money"></i>Formato
+                    Recibo</a></li>
         </ul>
     </nav>
     <main id="app">
         <nav class="navLeft">
             <ul>
-                <li class="selected"><a href="#"><i class="icon-pinboard"></i><span>Tickets</span></a></li>
-                <li><a href="#"><i class="icon-docs"></i><span>Facturas</span></a></li>
-                <li><a href="#"><i class="icon-users"></i><span>Clientes</span></a></li>
-                <li><a href="#"><i class="icon-network"></i><span>Mktik</span></a></li>
-                <li><a href="#"><i class="icon-money"></i><span>Egresos</span></a></li>
-                <li><a href="#"><i class="icon-logout"></i><span>Salir</span></a></li>
+                <li class="selected"><a href="tick.php"><i class="icon-pinboard"></i><span>Tickets</span></a></li>
+                <li><a href="<?php if($_SESSION['role']!='tecnico')echo "fact.php";?>"><i
+                            class="icon-docs"></i><span>Facturas</span></a></li>
+                <li><a href="<?php if($_SESSION['role']!='tecnico')echo "client.php";?>"><i
+                            class="icon-users"></i><span>Clientes</span></a></li>
+                <li><a href="<?php if($_SESSION['role']!='tecnico')echo "mktik.php";?>"><i
+                            class="icon-network"></i><span>Mktik</span></a></li>
+                <li><a href="<?php if($_SESSION['role']!='tecnico')echo "egr.php";?>"><i
+                            class="icon-money"></i><span>Egresos</span></a></li>
+                <li><a href="./login/logout.php"><i class="icon-logout"></i><span>Salir</span></a></li>
             </ul>
         </nav>
         <section>
@@ -73,7 +83,7 @@ else    {
                     <div class="box-content">
                         <div class="search">
                             <input v-model="searchClientContent" type="text" placeholder="Nombre de Cliente">
-                            <button v-on:click="searchClient" :disabled="searchClientContent==''"
+                            <button v-on:click="searchClient"  :disabled="(searchClientContent==''<?php if($_SESSION['role']=='tecnico')echo " || 1";?>)"
                                 :class=" {'button-disabled':searchClientContent==''} "><i
                                     class="icon-search"></i></button>
                         </div>
@@ -125,8 +135,8 @@ else    {
                                             placeholder="Selecciona cliente">
                                         <input type="hidden" id="newTicketForId" :value="newTicketSelectedId">
                                         <button @click="continueToResultModal(true)"
-                                            :disabled="newTicketSelectedClient=='' ">Continuar</button><button
-                                            @click="closeResultTable" class="icon-cancel"></button>
+                                            :disabled="newTicketSelectedClient=='' ">Continuar</button>
+                                        <button @click="closeResultTable" class="icon-cancel"></button>
                                     </div>
                                 </div>
                             </div>
@@ -248,9 +258,11 @@ else    {
                     </div>
                     <div class="selected-client">
                         <p>Cliente seleccionado</p>
-                        <input type="text" :value="abiertoTicketSelectedClient" placeholder="Selecciona cliente">
+                        <input disabled type="text" :value="abiertoTicketSelectedClient"
+                            placeholder="Selecciona cliente">
                         <input type="hidden" id="" :value="abiertoTicketSelectedId">
-                        <button @click="continueToAbiertoTicketModal(true)">Continuar</button>
+                        <button :disabled='!abiertoTicketSelectedId'
+                            @click="continueToAbiertoTicketModal(true)">Continuar</button>
                     </div>
                     <div class="close-ticket-modal" v-bind:class="{'hide-close-ticket-modal':hideTicketAbiertoModal}">
                         <div class="close-ticket-content">
@@ -306,7 +318,7 @@ else    {
                                             <label for="ipAddress">Ip Address,cambiar ip:</label>
                                             <input type="radio" name="changeIp" @click="radioButtonDisabled=false"
                                                 :checked="clientAbiertoTicketSelected.ip"> SI
-                                            <input type="radio" name="changeIp" @click="radioButtonDisabled=true"
+                                            <input disabled type="radio" name="changeIp" @click="radioButtonDisabled=true"
                                                 :checked="!clientAbiertoTicketSelected.ip">NO
                                         </div>
                                         <input required placeholder="Ingrese Direcciòn Ip"
@@ -377,6 +389,7 @@ else    {
                                                 <option value="ubiquiti-nanostation">Ubiquiti, NANOSTATION</option>
                                                 <option value="ubiquiti-locom2">Ubiquiti, NANOSTATION LOCO M2</option>
                                                 <option value="ubiquiti-locom5">Ubiquiti, NANOSTATION LOCO M5</option>
+                                                <option value="ubiquiti-picostation">Ubiquiti, PICOSTATION</option>
                                                 <option value="ubiquiti-otro">Ubiquiti, OTRO</option>
                                             </select>
                                         </div>
@@ -392,6 +405,7 @@ else    {
                                             <select required v-model="clientAbiertoTicketSelected.tipoSoporte">
                                                 <option value="varios">Varios. Cuàles?</option>
                                                 <option value="ampliar-velocidad">Ampliaciòn de velocidad</option>
+                                                <option value="instalacion">Instalaciòn Nuevo Servicio</option>
                                                 <option value="traslado">Traslado</option>
                                                 <option value="dano-antena">Daño de Antena</option>
                                                 <option value="clave">Cambio de clave</option>
@@ -401,6 +415,7 @@ else    {
                                                 <option value="instalacionServicio">Instalacion de servicio</option>
                                                 <option value="direccionamiento">Direccionamiento de antena. Por què?
                                                 </option>
+                                                <option value="retiro">Retirar Equipos</option>
                                                 <option value="router-desconfigurado">Router Desconfigurado</option>
                                             </select>
                                         </div>
@@ -447,9 +462,10 @@ else    {
                                             <p>Evidencia Fotogràfica</p>
                                             <input required type="file" ref="file1" @change="handleFileUpload(1)">
                                             <div class="img-container">
-                                                <img :src="url" alt="evidencia"> 
+                                                <img :src="url" alt="evidencia">
                                                 <p>{{img1Error}}</p>
                                             </div>
+                                            <p><a :href="url" target="_blank">Abrir</a></p>
                                         </div>
                                         <div class="form-group-evidencia">
                                             <p>Evidencia Fotogràfica</p>
@@ -458,6 +474,7 @@ else    {
                                                 <img :src="url2" alt="evidencia">
                                                 <p>{{img2Error}}</p>
                                             </div>
+                                            <p><a :href="url2" target="_blank">Abrir</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -512,7 +529,8 @@ else    {
                         <p>Cliente seleccionado</p>
                         <input type="text" :value="cerradoTicketSelectedClient" placeholder="Selecciona cliente">
                         <input type="hidden" id="" :value="cerradoTicketSelectedId">
-                        <button @click="continueToClosedTicketsModal(true)">Continuar</button>
+                        <button :disabled='!cerradoTicketSelectedClient'
+                            @click="continueToClosedTicketsModal(true)">Continuar</button>
                     </div>
                     <div class="closed-tickets-modal"
                         v-bind:class="{'hide-closed-tickets-modal':hideTicketsClosedModal}">
@@ -579,39 +597,40 @@ else    {
                                         <input disabled v-model="clientCerradoTicketSelected.macAntena" type="text"
                                             placeholder="0-9 & A-F">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="inyectorPoe">Inyector POE</label>
-                                        <select disabled v-model="clientCerradoTicketSelected.inyectorPoe">
-                                            <option value="inyectorUbiquiti">Ubiquiti</option>
-                                            <option value="inyectorMikrotik">Mikrotik</option>
-                                            <option value="inyectorOtro">Otro</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="Apuntamiento">Apuntamiento</label>
-                                        <select disabled v-model="clientCerradoTicketSelected.apuntamiento">
-                                            <option value="montecristo">Montecristo</option>
-                                            <option value="retiro">Retiro</option>
-                                            <option value="calizas">Calizas</option>
-                                            <option value="alcaravan">Alcaravan</option>
-                                            <option value="sapitos">Sapitos</option>
-                                            <option value="santa-ana-1">Santa Ana 1</option>
-                                            <option value="santa-ana-2">Santa Ana 2</option>
-                                            <option value="vereda-centro">Vereda Centro</option>
-                                            <option value="barrio-costeños">Brr Costeños</option>
-                                            <option value="torre-guamal">Torre Guamal</option>
-                                            <option value="torre-castilla">Torre Castilla</option>
-                                        </select>
-                                    </div>
+
                                     <div class="select-group">
-                                        <div class="form-group">
+                                        <div class="form-group-select">
+                                            <label for="inyectorPoe">Inyector POE</label>
+                                            <select disabled v-model="clientCerradoTicketSelected.inyectorPoe">
+                                                <option value="inyectorUbiquiti">Ubiquiti</option>
+                                                <option value="inyectorMikrotik">Mikrotik</option>
+                                                <option value="inyectorOtro">Otro</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group-select">
+                                            <label for="Apuntamiento">Apuntamiento</label>
+                                            <select disabled v-model="clientCerradoTicketSelected.apuntamiento">
+                                                <option value="montecristo">Montecristo</option>
+                                                <option value="retiro">Retiro</option>
+                                                <option value="calizas">Calizas</option>
+                                                <option value="alcaravan">Alcaravan</option>
+                                                <option value="sapitos">Sapitos</option>
+                                                <option value="santa-ana-1">Santa Ana 1</option>
+                                                <option value="santa-ana-2">Santa Ana 2</option>
+                                                <option value="vereda-centro">Vereda Centro</option>
+                                                <option value="barrio-costeños">Brr Costeños</option>
+                                                <option value="torre-guamal">Torre Guamal</option>
+                                                <option value="torre-castilla">Torre Castilla</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group-select">
                                             <label>Acceso Remoto habilitado</label>
                                             <select disabled v-model="clientCerradoTicketSelected.accesoRemoto">
                                                 <option value="yes">Yes</option>
                                                 <option value="no">No</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group-select">
                                             <label for="tipo-antena">Tipo de Antena</label>
                                             <select disabled v-model="clientCerradoTicketSelected.tipoAntena">
                                                 <option value="none">Ninguna</option>
@@ -629,21 +648,23 @@ else    {
                                                 <option value="ubiquiti-nanostation">Ubiquiti, NANOSTATION</option>
                                                 <option value="ubiquiti-locom2">Ubiquiti, NANOSTATION LOCO M2</option>
                                                 <option value="ubiquiti-locom5">Ubiquiti, NANOSTATION LOCO M5</option>
+                                                <option value="ubiquiti-picostation">Ubiquiti, PICOSTATION</option>
                                                 <option value="ubiquiti-otro">Ubiquiti, OTRO</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group-select">
                                             <label for="tipo-instalacion">Tipo de Instalaciòn</label>
                                             <select disabled v-model="clientCerradoTicketSelected.tipoInstalacion">
                                                 <option value="repetidor">X Repetidor</option>
                                                 <option value="antena">X Antena</option>
                                             </select>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group-select">
                                             <label for="tipo-soporte">Tipo de Soporte realizado</label>
                                             <select disabled v-model="clientCerradoTicketSelected.tipoSoporte">
                                                 <option value="varios">Varios. Cuàles?</option>
                                                 <option value="ampliar-velocidad">Ampliaciòn de velocidad</option>
+                                                <option value="instalacion">Instalaciòn Nuevo Servicio</option>
                                                 <option value="traslado">Traslado</option>
                                                 <option value="dano-antena">Daño de Antena</option>
                                                 <option value="clave">Cambio de clave</option>
@@ -651,8 +672,9 @@ else    {
                                                 <option value="dano-router">Daño de switch</option>
                                                 <option value="dano-cable">Daño de cable</option>
                                                 <option value="instalacionServicio">Instalacion de servicio</option>
-                                                <option value="direccionamiento">Direccionamiento de antena. Por què?
-                                                </option>
+                                                <option value="direccionamiento">Direccionamiento de antena. Por què?</option>
+                                                <option value="retiro">Retirar Equipos</option>
+                                                <option value="router-desconfigurado">Router Desconfigurado</option>
                                             </select>
                                         </div>
                                     </div>
@@ -679,27 +701,30 @@ else    {
                                     <div class="form-group">
                                         <label for="cargar-a-factura-valor">Cargar a factura valor</label>
                                         <input disabled v-model="clientCerradoTicketSelected.cargarAfacturaVaĺor"
-                                            type="number" name="cargar-a-factura-valor"
-                                            >
+                                            type="number" name="cargar-a-factura-valor">
                                     </div>
                                     <div class="form-group">
                                         <label for="cargar-a-factura-descripcion">Cargar a factura descripciòn</label>
                                         <textarea disabled
-                                            v-model="clientCerradoTicketSelected.cargarAfacturaDescripcion" cols=""
-                                            ></textarea>
+                                            v-model="clientCerradoTicketSelected.cargarAfacturaDescripcion"
+                                            cols=""></textarea>
                                     </div>
                                     <div class="evidencia-fotografica">
                                         <div class="form-group-evidencia">
                                             <label>Evidencia Fotogràfica</label>
                                             <div class="img-container">
-                                                <img :src="'img/'+clientCerradoTicketSelected.evidenciaFotografica1" alt="evidencia 1">
+                                                <img :src="'img/'+clientCerradoTicketSelected.evidenciaFotografica1"
+                                                    alt="evidencia 1">
                                             </div>
+                                            <p><a :href="'img/'+clientCerradoTicketSelected.evidenciaFotografica1" target="_blank">Abrir</a></p>
                                         </div>
                                         <div class="form-group-evidencia">
                                             <label>Evidencia Fotogràfica</label>
                                             <div class="img-container">
-                                                <img :src="'img/'+clientCerradoTicketSelected.evidenciaFotografica2" alt="evidencia 2">
+                                                <img :src="'img/'+clientCerradoTicketSelected.evidenciaFotografica2"
+                                                alt="evidencia 2">
                                             </div>
+                                            <p><a :href="'img/'+clientCerradoTicketSelected.evidenciaFotografica2" target="_blank">Abrir</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -748,8 +773,8 @@ else    {
 var app = new Vue({
     el: "#app",
     data: {
-        url: "img/persona3.jpg", 
-        url2: "img/persona2.jpg", 
+        url: "img/persona3.jpg",
+        url2: "img/persona2.jpg",
         searchClientContent: "",
         clientes: [],
         clientNewTicketSelected: [],
@@ -781,12 +806,14 @@ var app = new Vue({
     },
     methods: {
         continueToAbiertoTicketModal: function(data) {
+            this.hideTicketResult = true
             if (data) {
                 this.hideTicketAbiertoModal = false
             } else
                 this.hideTicketAbiertoModal = true
         },
         continueToClosedTicketsModal: function(data) {
+            this.hideTicketResult = true
             if (data)
                 this.hideTicketsClosedModal = false
             else
@@ -822,11 +849,22 @@ var app = new Vue({
                     ticketData: this.clientNewTicketSelected
                 }
             }).then(response => {
-                if (response.data == "saved") {
+                console.log("Respuesta a salvar ticket:" + response.data)
+                if (response.data == "savedEmailOk") {
+                    this.getTicketCerrado()
                     this.getTicketAbierto()
-                    alertify.success("Ticket guardado con èxito.")
-                } else {
-                    alertify.error("No fue posible guardar el ticket.")
+                    alertify.success("Ticket cerrado y guardado con èxito.")
+                }
+                if (response.data == "savedEmailNo") {
+                    this.getTicketCerrado()
+                    this.getTicketAbierto()
+                    alertify.success("Ticket  guardado con èxito.")
+                    alertify.error("No fue posible enivar el email!")
+                }
+                if (response.data != "savedEmailOk" && response.data != "savedEmailNo") {
+                    this.getTicketCerrado()
+                    this.getTicketAbierto()
+                    alertify.error("No fue posible guardar el ticket!!!")
                 }
             }).catch(e => {
                 console.log("error: " + e)
@@ -847,7 +885,8 @@ var app = new Vue({
                 valid = false
             }
             if (valid) {
-                let r = confirm("Confirmar, el email a usar es:\t"+this.clientAbiertoTicketSelected.email);
+                let r = confirm("Confirmar, el email a usar es:\t" + this.clientAbiertoTicketSelected
+                    .email);
                 if (r) {
                     this.saveFormCerrarticket()
                     this.hideTicketAbiertoModal = true
@@ -860,24 +899,23 @@ var app = new Vue({
                     ticketData: this.clientAbiertoTicketSelected
                 }
             }).then(response => {
-                console.log("Respuesta a guardar el ticket:"+response.data)
                 if (response.data == "updatedEmailOk") {
                     this.getTicketCerrado()
                     this.getTicketAbierto()
                     alertify.success("Ticket cerrado y guardado con èxito.")
-                } 
+                }
                 if (response.data == "updatedEmailNo") {
                     this.getTicketCerrado()
                     this.getTicketAbierto()
                     alertify.success("Ticket  guardado con èxito.")
                     alertify.error("No fue posible enivar el email!")
-                } 
+                }
                 if (response.data != "updatedEmailOk" && response.data != "updatedEmailNo") {
                     this.getTicketCerrado()
                     this.getTicketAbierto()
                     alertify.error("No fue posible guardar el ticket!!!") //vueltas del almuerzo
-                } 
-                
+                }
+
             }).catch(e => {
                 console.log("error: " + e)
             })
@@ -964,62 +1002,61 @@ var app = new Vue({
                 return false
             }
         },
-        
-        handleFileUpload: function(image){
+
+        handleFileUpload: function(image) {
             var vm = this
-            if(image==1){
-                this.img1Error="Uploading..."
-                vm.url=""
+            if (image == 1) {
+                this.img1Error = "Uploading..."
+                vm.url = ""
             }
-            if(image==2){
-                this.img2Error="Uploading..."
-                vm.url2=""
+            if (image == 2) {
+                this.img2Error = "Uploading..."
+                vm.url2 = ""
             }
-            let formData=new FormData()
-            if(image==1){
-                this.file1=this.$refs.file1.files[0]
-                console.log("file 1 es:"+this.file1.name)
-                formData.append('file1',this.file1)
-                this.clientAbiertoTicketSelected.evidenciaFotografica1=this.file1.name
+            let formData = new FormData()
+            if (image == 1) {
+                this.file1 = this.$refs.file1.files[0]
+                console.log("file 1 es:" + this.file1.name)
+                formData.append('file1', this.file1)
+                this.clientAbiertoTicketSelected.evidenciaFotografica1 = this.file1.name
             }
-            if(image==2){
-                this.file2=this.$refs.file2.files[0]
-                formData.append('file2',this.file2)
-                this.clientAbiertoTicketSelected.evidenciaFotografica2=this.file2.name
+            if (image == 2) {
+                this.file2 = this.$refs.file2.files[0]
+                formData.append('file2', this.file2)
+                this.clientAbiertoTicketSelected.evidenciaFotografica2 = this.file2.name
             }
-            axios.post('uploadImage.php',formData,{
-                header:{
-                    'content-type':'multipart/form-data'
+            axios.post('uploadImage.php', formData, {
+                header: {
+                    'content-type': 'multipart/form-data'
                 }
-            }).then(function(response){
-                if(image==1)vm.img1Error="Waiting..."
-                if(image==2)vm.img2Error="Waiting..."
-                if(response.data.stat=="error"){
-                    if(response.data.source=="file1"){
-                        vm.img1Error="Error.."+response.data.msj
-                        vm.url=""
+            }).then(function(response) {
+                if (image == 1) vm.img1Error = "Waiting..."
+                if (image == 2) vm.img2Error = "Waiting..."
+                if (response.data.stat == "error") {
+                    if (response.data.source == "file1") {
+                        vm.img1Error = "Error.." + response.data.msj
+                        vm.url = ""
                     }
-                    if(response.data.source=="file2"){
-                        vm.img2Error="Error.."+response.data.msj
-                        vm.url2=""
+                    if (response.data.source == "file2") {
+                        vm.img2Error = "Error.." + response.data.msj
+                        vm.url2 = ""
+                    }
+                } else {
+                    if (response.data.source == "file1") {
+                        vm.img1Error = "Waiting...."
+                        vm.url = "img/" + vm.file1.name
+                        vm.img1Error = ""
+                    }
+                    if (response.data.source == "file2") {
+                        vm.img2Error = "Waiting...."
+                        vm.url2 = "img/" + vm.file2.name
+                        vm.img2Error = ""
                     }
                 }
-                else{
-                    if(response.data.source=="file1"){
-                        vm.img1Error="Waiting...."
-                        vm.url="img/"+vm.file1.name
-                        vm.img1Error=""
-                    }
-                    if(response.data.source=="file2"){
-                        vm.img2Error="Waiting...."
-                        vm.url2="img/"+vm.file2.name
-                        vm.img2Error=""
-                    }
-                }
-                
-                
-            }).catch(function(error){
-                console.log("error!!!"+error)
+
+
+            }).catch(function(error) {
+                console.log("error!!!" + error)
             })
         }
     },

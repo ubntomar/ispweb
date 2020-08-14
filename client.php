@@ -1479,7 +1479,7 @@
 												valorAdicionalServicio:valorAdicionalServicio
 											},
 											success: function(data) {
-												console.log('los dato devuletos:'+data)
+												console.log('los dato devuletos:'+data)//
 												var result = data.split(':');
 												var idCl = result[0];
 												var messag = result[1];

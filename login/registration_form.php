@@ -34,7 +34,7 @@ echo $logotxt;?></h2>
             <input type="password" id="inputPassword_2" name="retype_password" placeholder="Retype Password">
         </div>
 
-        <button disabled type="submit" class="btn btn-lg btn-primary btn-sign-in"
+        <button  type="submit" class="btn btn-lg btn-primary btn-sign-in"
             data-loading-text="Loading...">Register</button>
         <a href="index.php" class="btn btn-lg btn-register">Sign in</a>
         <div class="messagebox">

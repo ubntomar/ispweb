@@ -17,10 +17,17 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 
 <?php
 $urlprev=$_GET['urlprev'];
+$role=$_SESSION["role"];
+//     header('../tick.php'); /* Redirect browser */
+// }else{
+//     header('../register-pay.php'); /* Redirect browser */
+// }
 if($urlprev) 
     $urltext="Location: ../$urlprev";
-else 
-    $urltext="Location: ../register-pay.php";     
+else {
+    if($role=="tecnico") $urltext="Location: ../tick.php?role=$role";     
+    if($role!="tecnico") $urltext="Location: ../register-pay.php?role=$role";      
+}
 header($urltext); /* Redirect browser */
 
 /* Make sure that code below does not get executed when we redirect. */

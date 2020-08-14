@@ -250,6 +250,10 @@ function sendEmail($idTicket,$cliente,$direccio,$telefon,$fecha_creacion_ticket,
     }
 
 
-    }
+}
+
+
+
+
 
 ?>

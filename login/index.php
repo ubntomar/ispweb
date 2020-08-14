@@ -51,12 +51,12 @@ session_destroy();
                         <div class="messagebox">
                             <div id="alert-message"></div>
                         </div>
-                        <div class="social">
+                        <!-- <div class="social">
                             <a href="twitter_connect.php"><img src="img/twitter.png" /></a>
                             <a href="facebook_connect.php"><img src="img/fb.png" /></a>
                             <a href="google_connect.php?=code"><img src="img/gplus.png" /></a>
 
-                        </div>
+                        </div> -->
                     </form>
                 </div>
                 <!-- fin de contenido de pagina -->

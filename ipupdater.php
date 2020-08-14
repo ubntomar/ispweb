@@ -22,7 +22,7 @@ $debug = 0;
 if ($_POST['id']) {
     $id = mysqli_real_escape_string($mysqli, $_REQUEST['id']);
     $ip = mysqli_real_escape_string($mysqli, $_REQUEST['ip']);
-    $duplicatedIp="SELECT `id`,`ip`,`cliente`,`apellido` FROM `redesagi_facturacion`.`afiliados` WHERE `ip` = '$ip'  ";
+    $duplicatedIp="SELECT `id`,`ip`,`cliente`,`apellido` FROM `redesagi_facturacion`.`afiliados` WHERE `ip` = '$ip' and `eliminar` != '1'  ";
     $resultip = mysqli_query($mysqli, $duplicatedIp) or die('error');
     $filas = mysqli_num_rows($resultip);
     if($filas >= 1){
