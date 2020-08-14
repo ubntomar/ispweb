@@ -3,7 +3,7 @@
 $server = 'localhost';
 $db_user = 'mikrotik';
 $db_pwd = 'Agwist1.';
-$db_name = 'redesagi_facturacion';//redesagi_facturacion ... 
+$db_name = 'redesagi_facturacion';//redesagi_facturacion ... .....
 $table_name = 'users';
 $table_name_social = 'users_social';
 $table_name_settings= 'admin_settings';
