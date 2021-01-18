@@ -69,7 +69,7 @@ if($_POST['valorPlan']||$debug){
 			$solicitud_cliente="Solicitud instalaciòn servicio de Internet Banda Ancha";
 			$tecnico="ASIGNACION PENDIENTE";
 			$solucion="";
-			sendEmail($idTicket,$cliente,$address,$phone,$today,$solicitud_cliente,$solucion,$recomendaciones,$tecnico,$email);
+			sendEmail($idTicket,$cliente,$address,$phone,$today,$solicitud_cliente,$solucion,$recomendaciones,$tecnico,$email,$email_user,$email_password);
 			$sqlping = "INSERT INTO `redesagi_facturacion`.`liveinfo` (`id`, `id-cliente`, `fecha`, `descripcion`) VALUES (NULL,'$last_id','$today', 'Batch of invoices')  ";
 			if($mysqli->query($sqlping)==true)
 				echo "";
@@ -240,7 +240,7 @@ if($_POST['valorPlan']||$debug){
 
 				
 }	
-function sendEmail($idTicket,$cliente,$direccio,$telefon,$fecha_creacion_ticket,$solicitud_cliente,$solucio,$recomendacione,$tecnic,$emai){
+function sendEmail($idTicket,$cliente,$direccio,$telefon,$fecha_creacion_ticket,$solicitud_cliente,$solucio,$recomendacione,$tecnic,$emai,$email_user,$email_password){
 	$numeroDeCaso="2541".$idTicket;
 	$titular=strtoupper($cliente);
 	$direccion=strtoupper($direccio);
@@ -259,8 +259,8 @@ function sendEmail($idTicket,$cliente,$direccio,$telefon,$fecha_creacion_ticket,
 	$mail->Host = 'smtp.flockmail.com';
 	$mail->Port = 587;
 	$mail->SMTPAuth = true;
-	$mail->Username = 'cliente@ispexperts.com';
-	$mail->Password = 'NFGsgQ4awD';
+	$mail->Username = $email_user;
+	$mail->Password = $email_password;
 	$mail->isHTML(true);
 	$mail->setFrom('cliente@ispexperts.com', 'Ticket Internet -INSTALACION'); 
 	$mail->addReplyTo('cliente@ispexperts.com', 'Dpto de Soporte');

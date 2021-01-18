@@ -20,9 +20,9 @@ else    {
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet" />
     <link rel="stylesheet" href="css/fontello.css" />
     <link rel="stylesheet" href="css/animation.css">
-    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="bower_components/alertify/css/alertify.min.css" />
     <link rel="stylesheet" href="bower_components/alertify/css/themes/default.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
@@ -184,7 +184,7 @@ else    {
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="ipAddre">Ip Address</label>
-                                    <input type="text" required :placeholder="clientNewTicketSelected.ipBackup"
+                                    <input type="text"  :placeholder="clientNewTicketSelected.ipBackup"
                                         v-model="clientNewTicketSelected.ip">
                                 </div>
                                 <div class="form-group new-cli">
@@ -353,7 +353,7 @@ else    {
                                             <select required v-model="clientAbiertoTicketSelected.apuntamiento">
                                                 <option value="montecristo">Montecristo</option>
                                                 <option value="retiro">Retiro</option>
-                                                <option value="calizas">Calizas</option>
+                                                <option value="calizas">Orlando-Calizas</option>
                                                 <option value="alcaravan">Alcaravan</option>
                                                 <option value="sapitos">Sapitos</option>
                                                 <option value="santa-ana-1">Santa Ana 1</option>
@@ -362,6 +362,11 @@ else    {
                                                 <option value="barrio-costeños">Brr Costeños</option>
                                                 <option value="torre-guamal">Torre Guamal</option>
                                                 <option value="torre-castilla">Torre Castilla</option>
+                                                <option value="torre-mundo-mujer">Torre Mundo Mujer</option>
+                                                <option value="humadea">Humadea</option>
+                                                <option value="koinonia">Koinonia</option>
+                                                <option value="koinonia">Rep Guamal Plaza</option>
+                                                <option value="koinonia">REp Geinpetrol</option>
                                             </select>
                                         </div>
                                         <div class="form-group-select">
@@ -495,11 +500,11 @@ else    {
                             <table>
                                 <thead>
                                     <tr>
-                                        <th># Ticket</th>
+                                        <th>Ticket</th>
                                         <th>Cliente</th>
                                         <th>Ip Address</th>
                                         <th>Tècnico</th>
-                                        <th>Fecha Cierre</th>
+                                        <th>Cierre</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -612,7 +617,7 @@ else    {
                                             <select disabled v-model="clientCerradoTicketSelected.apuntamiento">
                                                 <option value="montecristo">Montecristo</option>
                                                 <option value="retiro">Retiro</option>
-                                                <option value="calizas">Calizas</option>
+                                                <option value="calizas">Orlando-Calizas</option>
                                                 <option value="alcaravan">Alcaravan</option>
                                                 <option value="sapitos">Sapitos</option>
                                                 <option value="santa-ana-1">Santa Ana 1</option>
@@ -621,6 +626,11 @@ else    {
                                                 <option value="barrio-costeños">Brr Costeños</option>
                                                 <option value="torre-guamal">Torre Guamal</option>
                                                 <option value="torre-castilla">Torre Castilla</option>
+                                                <option value="torre-mundo-mujer">Torre Mundo Mujer</option>
+                                                <option value="humadea">Humadea</option>
+                                                <option value="koinonia">Koinonia</option>
+                                                <option value="koinonia">Rep Guamal Plaza</option>
+                                                <option value="koinonia">REp Geinpetrol</option>
                                             </select>
                                         </div>
                                         <div class="form-group-select">
@@ -831,10 +841,10 @@ var app = new Vue({
                     valid = false
                 }
             }
-            if (!this.validateIpAddress(this.clientNewTicketSelected.ip)) {
-                this.clientNewTicketSelected.ip = ""
-                valid = false
-            }
+            // if (!this.validateIpAddress(this.clientNewTicketSelected.ip)) {
+            //     this.clientNewTicketSelected.ip = ""
+            //     //valid = false
+            // }
             if (valid) {
                 let r = confirm("Confirmar!");
                 if (r) {

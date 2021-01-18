@@ -4,8 +4,9 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     header('Location: login/index.php');
     exit;
 } else {
-    $user = $_SESSION['username'];
+    $user = $_SESSION['name'];
     $role = $_SESSION["role"];
+    $id_tecnico = $_SESSION["id"];
 }
 include("login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
@@ -75,13 +76,13 @@ $sql1="UPDATE `redesagi_facturacion`.`afiliados` SET `cliente` = '$cliente', `ap
 if(!$mysqli->query($sql1)){
     $msj= 'error updating afiliados!';
 }
-$sql2="UPDATE `redesagi_facturacion`.`ticket` SET `telefono-contacto`='$telefono_contacto',`solucion`='$solucion',`recomendaciones`='$recomendaciones',`status`='$status',`precio-soporte`='$precio_soporte',`precio-soporte-descripcion`='$precio_soporte_descripcion',`tecnico`='$tecnico',`tipo-soporte`='$tipo_soporte',`evidencia-fotografica1`='$evidencia_fotografica1',`evidencia-fotografica2`='$evidencia_fotografica2',`fecha-cierre-ticket`='$fecha_cierre_ticket' WHERE `ticket`.`id`='$idTicket' ";
+$sql2="UPDATE `redesagi_facturacion`.`ticket` SET `telefono-contacto`='$telefono_contacto',`solucion`='$solucion',`recomendaciones`='$recomendaciones',`status`='$status',`precio-soporte`='$precio_soporte',`precio-soporte-descripcion`='$precio_soporte_descripcion',`tecnico`='$tecnico',`id-tecnico`='$id_tecnico',`tipo-soporte`='$tipo_soporte',`evidencia-fotografica1`='$evidencia_fotografica1',`evidencia-fotografica2`='$evidencia_fotografica2',`fecha-cierre-ticket`='$fecha_cierre_ticket' WHERE `ticket`.`id`='$idTicket' ";
 if(!$mysqli->query($sql2)){
     $msj= 'error updating tickets!';
 }
 $msjToBack="error saving ticket";
 if($msj=="updated"){
-    if(sendEmail($idTicket,$cliente,$direccion,$telefono,$fecha_creacion_ticket,$solicitud_cliente,$solucion,$recomendaciones,$tecnico,$email)){
+    if(sendEmail($idTicket,$cliente,$direccion,$telefono,$fecha_creacion_ticket,$solicitud_cliente,$solucion,$recomendaciones,$tecnico,$email,$email_user,$email_password)){
         $msjToBack="updatedEmailOk";
         echo json_encode($msjToBack);
     }else{
@@ -93,7 +94,7 @@ if($msj=="updated"){
 }
 
 
-function sendEmail($idTicket,$cliente,$direccio,$telefon,$fecha_creacion_ticket,$solicitud_cliente,$solucio,$recomendacione,$tecnic,$emai){
+function sendEmail($idTicket,$cliente,$direccio,$telefon,$fecha_creacion_ticket,$solicitud_cliente,$solucio,$recomendacione,$tecnic,$emai,$email_user,$email_password){
     $numeroDeCaso="2541".$idTicket;
     $titular=strtoupper($cliente);
     $direccion=strtoupper($direccio);
@@ -112,8 +113,8 @@ function sendEmail($idTicket,$cliente,$direccio,$telefon,$fecha_creacion_ticket,
     $mail->Host = 'smtp.flockmail.com';
     $mail->Port = 587;
     $mail->SMTPAuth = true;
-    $mail->Username = 'cliente@ispexperts.com';
-    $mail->Password = 'NFGsgQ4awD';
+    $mail->Username = $email_user;
+    $mail->Password = $email_password;
     $mail->isHTML(true);
     $mail->setFrom('cliente@ispexperts.com', 'Ticket Internet -SOPORTE TECNICO'); 
     $mail->addReplyTo('cliente@ispexperts.com', 'Dpto de Soporte');

@@ -4,8 +4,9 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     // header('Location: login/index.php');
     // exit;
 } else {
-    $user = $_SESSION['username'];
+    $user = $_SESSION['name'];
     $role = $_SESSION["role"];
+    $id_tecnico = $_SESSION["id"];
 }
 include("login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);

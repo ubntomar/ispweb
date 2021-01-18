@@ -30,6 +30,7 @@ if (mysqli_num_rows($result)) //if exist then check for password
     $db_field = mysqli_fetch_assoc($result);
     $role=$db_field['role'];
     $name=$db_field['name'];
+    $id=$db_field['id'];
     //3.3 $hashed_password=crypt($password,$db_field['password']); 
 
     if (phpversion() >= 5.5) {
@@ -50,6 +51,7 @@ if (mysqli_num_rows($result)) //if exist then check for password
                 $_SESSION['username'] = $username;
                 $_SESSION["role"] = $role;
                 $_SESSION["name"] = $name;
+                $_SESSION["id"] = $id;
                 echo json_encode(array('result' => 1));
             } else {
                 echo json_encode(array('result' => "$msg_email_1 <br /><a href=\"" . $url . "\\resend_key.php?user=" . $username . "\">$msg_email_2</a>."));
@@ -71,7 +73,9 @@ if (mysqli_num_rows($result)) //if exist then check for password
             if (mysqli_num_rows($result)) {
                 $_SESSION['login'] = true;
                 $_SESSION['username'] = $username;
-                $_SESSION['role'] = "admindxc";    
+                $_SESSION["role"] = $role;
+                $_SESSION["name"] = $name;
+                $_SESSION["id"] = $id;
                 echo json_encode(array('result' => 1));
             } else {
                 echo json_encode(array('result' => "$msg_email_1 <br /><a href=\"" . $url . "\\resend_key.php?user=" . $username . "\">$msg_email_2</a>."));

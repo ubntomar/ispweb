@@ -1434,7 +1434,7 @@
 								var corteMes = $("#corte-mes").val();
 								var plan = $("#plan").val();
 								var velocidadPlan = $("#velocidad-plan").val();
-								var ipAddress = "0.0.0.0/32";
+								var ipAddress = "";
 								var generarFactura = $("#generar-factura").val();
 								var valorAfiliacion = $("#valorAfiliacion").val();
 								var mergeItems = $("#mergeItems").val();

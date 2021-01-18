@@ -8,6 +8,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 }
 include("login/db.php");
 require 'Mkt.php';
+require 'vpnConfig.php';
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -26,51 +27,34 @@ $debug = 0;
 									// cam: cambioRow,
 									// vad: vadRow,
 									// vpl: vplanRow,
-									// rec: rec
+									// rec: rec?reconect?
 if($_POST["rec"]){
 	$rec = mysqli_real_escape_string($mysqli, $_REQUEST['rec']);
 	if($rec){
 		$idc = mysqli_real_escape_string($mysqli, $_REQUEST['idc']);
-		//$idc=161;
-		$sql = "SELECT `id_client_area`,`ip`  FROM `afiliados` WHERE `id`='$idc'";
-		if ($rt = $mysqli->query($sql)) {
-			while ($row = $rt->fetch_assoc()) {			
-				$id_client_area=$row["id_client_area"];	
-				$ip=$row["ip"];
-				$sql = "SELECT `server_ip`,`password` FROM `client_area` WHERE `id`='$id_client_area'";
-				if ($rss = $mysqli->query($sql)) {
-					while ($rowb = $rss->fetch_assoc()) {			
-						$server_ip=$rowb["server_ip"];
-						$password=$rowb["password"];
-						if (password_verify('agwist2017', $password)) {
-							$txt= 'Password is valid!';
-							if($mkobj=new Mkt($server_ip,'agingenieria','agwist2017')){
-								echo "Conectado a la Rboard cod Server-target-> $server_ip";
-								removeIp($mkobj->remove_ip($ip,'morosos'),$idc,$mysqli,$ip,$today,$hourMin);       
-							}
-							else {
-								
-								$txt= "-$today-$hourMin  No fue posible conectar a la Rboard 1";
-								$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0' , `afiliados`.`shutoffpending`='1'  WHERE `afiliados`.`id`= '$idc' ";
-								if($result2 = $mysqli->query($sqlUpd)){					
-								}
-								else{
-									$txt.= "-Error al actualizar cliente Mysql `shutoffpending`=1\n";	
-								}
-								file_put_contents('cut.log', $txt.PHP_EOL , FILE_APPEND );
-							}
-							
-						} else { 
-							$txt= ' Invalid password.';
-							file_put_contents('cut.log', $txt.PHP_EOL , FILE_APPEND ); 
-						}
-						
-					}
-					$rss->free();
-				}			
-			}
-			$rt->free();
+		$sql_client_id = "select * from redesagi_facturacion.afiliados where `id`=$idc ";
+		$result = mysqli_query($mysqli, $sql_client_id) or die('error encontrando el cliente');
+		$db_field = mysqli_fetch_assoc($result);
+		$ip=$db_field['ip'];
+		$nombre=$db_field['cliente'];
+		$data=areaCode($ip);
+		$mkobj=new Mkt($data['server'],$vpnUser,$vpnPassword);
+		if($mkobj->success){
+			echo "Conectado a la Rboard cod Server-target-> {{$data['server']}}";
+			removeIp($mkobj->remove_ip($ip,'morosos'),$idc,$mysqli,$ip,$today,$hourMin);       
 		}
+		else {
+			
+			$txt= "-$today-$hourMin  No fue posible conectar a la Rboard 1, reconectar pendiente";
+			$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='1'  WHERE `afiliados`.`id`= '$idc' ";
+			if($result2 = $mysqli->query($sqlUpd)){					
+			}
+			else{
+				$txt.= "-Error al actualizar cliente Mysql `shutoffpending`=1\n";	
+			}
+			file_put_contents('cut.log', $txt.PHP_EOL , FILE_APPEND );
+		}
+		
 		
 	}
 }
@@ -299,9 +283,9 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 
 function removeIp($remove,$idc,$mysqli,$ip,$today,$hourMin){      
     if($remove==1){
-		echo "Ip $ip removida con éxito $idc\n";
+		echo "Ip $ip removida con éxito de morosos $idc\n";
 		$txt="$today-$hourMin Ip $ip removida con éxito $idc";
-		$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0'   WHERE `afiliados`.`id`='$idc'";
+		$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0', `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='0'   WHERE `afiliados`.`id`='$idc'";
 		if($result2 = $mysqli->query($sqlUpd)){					
 		}
 		else{
@@ -310,9 +294,9 @@ function removeIp($remove,$idc,$mysqli,$ip,$today,$hourMin){
 		file_put_contents('cut.log', $txt.PHP_EOL , FILE_APPEND );
     }
     if($remove==2){
-		echo "Dirección Ip o Lista 'xxxxxx' no existe!$ip ..procedemos a agregar a 'yyyyyy' !\n";
-		$txt="$today-$hourMin Dirección Ip o Lista 'xxxxxx' no existe!$ip ..  $idc";
-		$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0'  WHERE `afiliados`.`id`='$idc'";
+		echo "Dirección Ip o Lista 'xxxxxx' no existe!$ip .. !\n";
+		$txt="$today-$hourMin Dirección Ip o Lista 'morosos' no existe!$ip ..  $idc";
+		$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0', `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='1'  WHERE `afiliados`.`id`='$idc'";
 		if($result2 = $mysqli->query($sqlUpd)){					
 		}
 		else{
@@ -320,6 +304,27 @@ function removeIp($remove,$idc,$mysqli,$ip,$today,$hourMin){
 		}
 		file_put_contents('cut.log', $txt.PHP_EOL , FILE_APPEND );
     }     
+}
+
+function areaCode($ip){
+    $byte3=explode(".",$ip)[2];
+    if($byte3){
+        if( $byte3=='16' || $byte3=='17' || $byte3=='20' || $byte3=='21' || $byte3=='26' || $byte3=='40' || $byte3=='50' ) return array('server'=>'192.168.21.1','areaCode'=>'4324');
+        if( $byte3=='30' ) return array('server'=>'192.168.30.1'  ,'areaCode'=>'4325');
+        if( $byte3=='85' ) return array('server'=>'192.168.17.13' ,'areaCode'=>'4326');
+        if( $byte3=='79' ) return array('server'=>'192.168.26.186','areaCode'=>'4327');
+        if( $byte3=='68' ) return array('server'=>'192.168.26.152','areaCode'=>'4328');
+        if( $byte3=='76' ) return array('server'=>'192.168.26.188','areaCode'=>'4329');
+        if( $byte3=='9'  ) return array('server'=>'192.168.17.62' ,'areaCode'=>'4330');
+        if( $byte3=='73' ) return array('server'=>'192.168.17.29' ,'areaCode'=>'4331');
+        if( $byte3=='10' ) return array('server'=>'192.168.30.2'  ,'areaCode'=>'4332');
+        if( $byte3=='18' ) return array('server'=>'192.168.30.144','areaCode'=>'4333');
+        if( $byte3=='71' ) return array('server'=>'192.168.30.163','areaCode'=>'4334');
+        if( $byte3=='11' ) return array('server'=>'192.168.30.2'  ,'areaCode'=>'4335');
+        if( $byte3=='65' ) return array('server'=>'192.168.30.2'  ,'areaCode'=>'4336');
+        if( $byte3=='74' ) return array('server'=>'192.168.30.2'  ,'areaCode'=>'4337');
+    }
+    return '';
 }
 
 

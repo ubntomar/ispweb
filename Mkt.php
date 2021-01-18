@@ -7,6 +7,7 @@ class Mkt
     private $user;
     private $pass;
     private $client;
+    public  $success=true;
     public function __construct($ipRouter, $user, $pass)
     {        
         $this->ip = $ipRouter;
@@ -15,8 +16,8 @@ class Mkt
         try{
             $this->client = new RouterOS\Client($ipRouter, $user, $pass);  
         } catch(Exception $e){
-            print "error:$e";
-            return false;
+            //print "error:$e";
+            $this->success=false;
         }
         return true;
     }

@@ -1,55 +1,26 @@
-<?php
-//Database configuration   'ispdevinstance-cluster.cluster-cvfeq4s0dnnx.us-east-1.rds.amazonaws.com'
-$server = 'localhost';
-$db_user = 'mikrotik';
-$db_pwd = 'Agwist1.';
-$db_name = 'redesagi_facturacion';//redesagi_facturacion ... .....***55
-$table_name = 'users';
-$table_name_social = 'users_social';
-$table_name_settings= 'admin_settings';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello world ...</h1>
+</body>
+</html>
 
-//email configuration
-$from_address = "admin@devlup.com";
-//domain configuration
-$url = "http://projects.devlup.com/LoginSystemv42";
+if /sbin/ip route add 192.168.85.0/24 via 192.168.42.10 dev ppp0 ; then
+        echo "route to alcaravan"
+else
+        /sbin/ip route add 192.168.85.0/24 via 192.168.42.10 dev ppp1
+fi
 
-//Admin username
-$admin_user = 'yesy.espejo';
-$admin_password = 'agwist201717';
-
-//strings
-//login
-$msg_pwd_error = 'Password incorrect';
-$msg_un_error = 'Username Doesn\'t exist';
-$msg_email_1 = 'User Account not yet activated.';
-$msg_email_2 = 'Click here to resend activation email';
-
-//Registration form
-$msg_reg_user = 'Username taken.Kindly choose different username';
-$msg_reg_email = 'Email Already registered';
-$msg_reg_activ = 'Activation code has been successfully sent to your Email Address';
-
-//Admin login
-$msg_admin_pwd = 'Incorect password';
-$msg_admin_user = 'Username Doesn\'t exist';
-
-//LOGO text
-$logotxt = "IspExperts";
-
-//Twitter Configuration
-define('CONSUMER_KEY', 'CONSUMER_KEY_HERE');
-define('CONSUMER_SECRET', 'CONSUMER_SECRET_HERE');
-define('OAUTH_CALLBACK', $url . '/twitter_callback.php');
-
-//Google Configuration
-$Clientid = 'TYPE_CLIENTID_HERE';
-$Email_address = 'TYPE_EMAILADDRESS_HERE';
-$Client_secret = 'TYPE_CLIENT_SECRET_HERE';
-$Redirect_URIs = $url . '/google_connect.php';
-$apikeys = 'TYPE_API_KEYS_HERE';
-
-//facebook configuration
-$fbappid = 'FB_APP_ID';
-$fbsecret = 'FB_SECRET';
-?>
-
+cuando se deben tener en cuenta los codigos de area?
+    *Cuando se cierra el ticket
+    *Cuando se da la orden de suspender cliente
+    *Cuando se edita un client en el modulo de mensajeria sm<s></s>id 
+    
+    
+    
+    369 

@@ -105,5 +105,11 @@ function addIp($response,$idClient,$mysqli,$today,$ip,$hourMin){
     }
     elseif($response==3){
         echo "\n $today-$hourMin: $idClient:Esa Ip $ip ya se encuentra en la lista de morosos!\n";
+        $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='0' , `afiliados`.`suspenderFecha`='$today'  WHERE `afiliados`.`id`='$idClient'";
+        if($result2 = $mysqli->query($sqlUpd)){						
+        }
+        else{
+            echo "\nError al actualizar cliente Mysql `shutoffpending`=0\n";	
+        }	
     }
 }

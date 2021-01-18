@@ -18,7 +18,7 @@ if (true) {
     if($debug)
         $idarray[]=363;//Hernando Monguí   
     else{
-        $sql="select `id` FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1  AND `suspender`=1 ";  //pdte comprobar si debemos agregar shutoffpending=1
+        $sql="select `id` FROM `afiliados` WHERE  `reconectPending`='1' ";  //pdte comprobar si debemos agregar shutoffpending=1
         if($rt=$mysqli->query($sql)){
             if($rt->num_rows){
                 while($row=$rt->fetch_assoc()){
@@ -117,122 +117,54 @@ if (true) {
                     $db_field = mysqli_fetch_assoc($result);
                     $ip=$db_field['ip'];
                     $nombre=$db_field['cliente'];
-                    // $clientAreaCode=$db_field["id_client_area"]; 
                     $clientAreaCode=areaCode($ip);
-                    print "\n Ip que vamos a gregar:".$ip."\n";         
+                    print "\n Ip que vamos a remover:".$ip."\n";         
                     $str.=$ip;
                     if (next($idarray)==true) $str .= ","; 
                     if( ($clientAreaCode==$area1Cod) && $passArea1 ){
-                        removeIp($mkobjArea1->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        addIP($mkobjArea1->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
+                        removeIp($mkobjArea1->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
                     }
                     
                     if( ($clientAreaCode==$area2Cod) && $passArea2 ){
-                        removeIp($mkobjArea2->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        try {
-                            addIP($mkobjArea2->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
-                        }
-                        catch (Exception $e){
-                            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-                        }
+                        removeIp($mkobjArea2->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
                     }
                     if( ($clientAreaCode==$area3Cod) && $passArea3 ){
-                        removeIp($mkobjArea3->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        try {
-                            addIP($mkobjArea3->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
-                        }
-                        catch (Exception $e){
-                            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-                        }
+                        removeIp($mkobjArea3->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
                     }
                     if( ($clientAreaCode==$area4Cod) && $passArea4 ){
-                        removeIp($mkobjArea4->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        try {
-                            addIP($mkobjArea4->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
-                        }
-                        catch (Exception $e){
-                            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-                        }
+                        removeIp($mkobjArea4->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
                     }
 
                     if( ($clientAreaCode==$area5Cod) && $passArea5 ){
-                        removeIp($mkobjArea5->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        try {
-                            addIP($mkobjArea5->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
-                        }
-                        catch (Exception $e){
-                            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-                        }
+                        removeIp($mkobjArea5->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
                     }
 
                     if( ($clientAreaCode==$area6Cod) && $passArea6 ){
-                        removeIp($mkobjArea6->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        try {
-                            addIP($mkobjArea6->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
-                        }
-                        catch (Exception $e){
-                            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-                        }
+                        removeIp($mkobjArea6->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
                     }
 
                     if( ($clientAreaCode==$area7Cod) && $passArea7 ){
-                        removeIp($mkobjArea7->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        try {
-                            addIP($mkobjArea7->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
-                        }
-                        catch (Exception $e){
-                            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-                        }
+                        removeIp($mkobjArea7->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
                     }
 
                     if( ($clientAreaCode==$area8Cod) && $passArea8 ){
-                        removeIp($mkobjArea8->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        try {
-                            addIP($mkobjArea8->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
-                        }
-                        catch (Exception $e){
-                            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-                        }
+                        removeIp($mkobjArea8->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
                     }
 
                     if( ($clientAreaCode==$area9Cod) && $passArea9 ){
-                        removeIp($mkobjArea9->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        try {
-                            addIP($mkobjArea9->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
-                        }
-                        catch (Exception $e){
-                            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-                        }
+                        removeIp($mkobjArea9->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
                     }
 
                     if( ($clientAreaCode==$area10Cod) && $passArea10 ){
-                        removeIp($mkobjArea10->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        try {
-                            addIP($mkobjArea10->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
-                        }
-                        catch (Exception $e){
-                            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-                        }
+                        removeIp($mkobjArea10->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
                     }
 
                     if( ($clientAreaCode==$area11Cod) && $passArea11 ){
-                        removeIp($mkobjArea11->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        try {
-                            addIP($mkobjArea11->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
-                        }
-                        catch (Exception $e){
-                            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-                        }
+                        removeIp($mkobjArea11->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
                     }
 
                     if( ($clientAreaCode==$area12Cod) && $passArea12 ){
-                        removeIp($mkobjArea12->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        try {
-                            addIP($mkobjArea12->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
-                        }
-                        catch (Exception $e){
-                            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-                        }
+                        removeIp($mkobjArea12->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
                     }
                 }
             }
@@ -260,38 +192,23 @@ function areaCode($ip){
         if( $byte3=='18' ) return "4333";
         if( $byte3=='71' ) return "4334";
         if( $byte3=='11' ) return "4335";
+        if( $byte3=='65' ) return "4336";
+        if( $byte3=='74' ) return "4337";
     }
     return '';
 }
-function removeIp($remove,$ip,$today,$hourMin){
+function removeIp($remove,$ip,$today,$hourMin,$mysqli,$id){
     if($remove==1){
        echo "$today-$hourMin: Ip: $ip removida con éxito\n";
+       $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0', `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='0'  WHERE `afiliados`.`id`='$id'";
+		if($result2 = $mysqli->query($sqlUpd)){					
+		}
+		else{
+			$txt.= "-Error al actualizar cliente Mysql `shutoffpending`=1";	
+		}
     }
     if($remove==2){
-        echo "$today-$hourMin: Dirección Ip $ip o Lista 'permitidos' no existe! ..procedemos a agregar a 'morosos' !\n";
+        echo "$today-$hourMin: Dirección Ip $ip o Lista  de morosos no existe! . !\n";
     }     
 } 
 
-function addIp($response,$idClient,$mysqli,$today,$ip,$hourMin){
-    if($response==1){
-       echo "$today-$hourMin: Ip $ip agregada a suspendidos con éxito\n";
-        $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='0' , `afiliados`.`suspenderFecha`='$today'  WHERE `afiliados`.`id`='$idClient'";
-        if($result2 = $mysqli->query($sqlUpd)){						
-        }
-        else{
-            echo "\nError al actualizar cliente Mysql `shutoffpending`=0\n";	
-        }	
-    }
-    elseif($response==2){
-        echo "\n $today-$hourMin: Problemas al ingresar la Ip $ip a la Rboard\n";
-        $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='1'  WHERE `afiliados`.`id`='$idClient'";
-        if($result2 = $mysqli->query($sqlUpd)){					
-        }
-        else{
-            echo "\nError al actualizar cliente Mysql `shutoffpending`=1\n";	
-        }
-    }
-    elseif($response==3){
-        echo "\n $today-$hourMin: $idClient:Esa Ip $ip ya se encuentra en la lista de morosos!\n";
-    }
-}

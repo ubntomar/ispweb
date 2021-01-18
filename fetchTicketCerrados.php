@@ -7,6 +7,7 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true)
 		}
 else    {
 		$user=$_SESSION['username'];
+		
 		}
 header('Content-Type: application/json');
 require 'dateHuman.php';
@@ -20,7 +21,7 @@ date_default_timezone_set('America/Bogota');
 $today = date("Y-m-d");   
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i');
-$sqlSearch="SELECT * FROM `redesagi_facturacion`.`ticket` WHERE  `status` LIKE 'cerrado'   limit 20"; 
+$sqlSearch="SELECT * FROM `redesagi_facturacion`.`ticket` WHERE  `status` LIKE 'cerrado' ORDER BY `id` DESC  limit 40";  
 if ($result = $mysqli->query($sqlSearch)) {
 	$num=$result->num_rows;
 	$counter=0;
@@ -70,7 +71,7 @@ if ($result = $mysqli->query($sqlSearch)) {
 		$status=strtoupper($row['status']);/** */
 		$precio_soporte=$row['precio-soporte'];//precioSoporte /** */
 		$precio_soporte_descripcion=$row['precio-soporte-descripcion'];//precioSoporteDescripcion /** */
-		$tecnico=$user;/** */
+		$tecnico=$row['tecnico'];
 		$tipo_soporte=$row['tipo-soporte'];//tipoSoporte /** */
 		$evidencia_fotografica1=$row['evidencia-fotografica1'];
 		$evidencia_fotografica2=$row['evidencia-fotografica2'];
