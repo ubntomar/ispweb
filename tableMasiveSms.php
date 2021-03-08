@@ -26,26 +26,23 @@ mysqli_set_charset($mysqli,"utf8");
 $activo=1;
 $suspender=0;
 $criterioFacturacion=$_POST["criterioFacturacion"];
-
+$direccion="%{$_POST["address"]}%";
+$name="%{$_POST["name"]}%";
+$ciudad="%{$_POST["ciudad"]}%";
+$criterioFacturacionSuspencion="{$_POST["criterioFacturacionSuspencion"]}";
 if (($_POST["corte"]==1 || $_POST["corte"]==15 )) {
-    $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? and `ciudad` like ? and `corte` = ? and  (`activo` = 1) and (`eliminar` = 0)";
+    $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? and `ciudad` like ? and `corte` = ? and `suspender` = ? and  (`activo` = 1) and (`eliminar` = 0)";
     //echo $sqlprepared;
     $stmt = $mysqli->prepare($sqlprepared);
-    $direccion="%{$_POST["address"]}%";
-    $name="%{$_POST["name"]}%";
-    $ciudad="%{$_POST["ciudad"]}%";
     $corte="{$_POST["corte"]}";
-    $stmt->bind_param("ssssi",$name,$name,$direccion,$ciudad,$corte);
+    $stmt->bind_param("ssssii",$name,$name,$direccion,$ciudad,$corte,$criterioFacturacionSuspencion);
 }
 if  ($_POST["corte"]=="") { 
-    $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados  where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? and `ciudad` like ?  and  (`activo` = 1) and (`eliminar` = 0)";
+    $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados  where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? and `ciudad` like ? and `suspender` = ?  and  (`activo` = 1) and (`eliminar` = 0)";
     //echo $sqlprepared;
     $stmt = $mysqli->prepare($sqlprepared);
-    $direccion="%{$_POST["address"]}%";
-    $name="%{$_POST["name"]}%";
-    $ciudad="%{$_POST["ciudad"]}%";
-    $stmt->bind_param("ssss",$name,$name,$direccion,$ciudad);
-}
+    $stmt->bind_param("ssssi",$name,$name,$direccion,$ciudad,$criterioFacturacionSuspencion); 
+}   
 $stmt->execute();
 $result = $stmt->get_result();
 if($result->num_rows === 0) {exit("No hay resultados....");echo "<h1>no hay resultados</h1>"; }
@@ -111,7 +108,7 @@ echo "
                 echo"<tr class=\"\"   id='tr-{$row['id']}' >
                 
                 <td>{$row['id']}  </td>
-                <td>{$row['cliente']} {$row['apellido']} $smsFlag<input type='hidden' size='3' id='dsb-{$row['id']}' value='' > <input size='11' class=\"inputIp font-weight-bold\" type='text'   id='ip--{$row['id']}' value='{$row['ip']}' > $iconPing <p  id='p-{$row['id']}' ></p> $text1 $text2 </td>
+                <td>{$row['id']}-{$row['cliente']} {$row['apellido']} $smsFlag<input type='hidden' size='3' id='dsb-{$row['id']}' value='' > <input size='11' class=\"inputIp font-weight-bold\" type='text'   id='ip--{$row['id']}' value='{$row['ip']}' > $iconPing <p  id='p-{$row['id']}' ></p> $text1 $text2 </td>
                 <td>{$row['direccion']}</td>
                 
                 <td>{$row['corte']}</td>
@@ -120,7 +117,7 @@ echo "
                 <td>$$saldo</td>
                 <td>{$row['telefono']}</td>
                 
-                <td>{$row['ciudad']}</td>
+                <td>{$row['ciudad']}</td> 
                 </tr>" ;
             }
         
@@ -131,7 +128,7 @@ echo "
                 echo"<tr class=\"\"   id='tr-{$row['id']}' > 
                 
                 <td>{$row['id']}  </td>
-                <td>{$row['cliente']} {$row['apellido']}({$row['id']})$smsFlag<input type='hidden' size='3' id='dsb-{$row['id']}' value='' > <input size='11' class=\"inputIp font-weight-bold\" type='text'   id='ip--{$row['id']}' value='{$row['ip']}'> $iconPing <p  id='p-{$row['id']}' ></p> $text1 $text2 </td>
+                <td>{$row['id']}-{$row['cliente']} {$row['apellido']}({$row['id']})$smsFlag<input type='hidden' size='3' id='dsb-{$row['id']}' value='' > <input size='11' class=\"inputIp font-weight-bold\" type='text'   id='ip--{$row['id']}' value='{$row['ip']}'> $iconPing <p  id='p-{$row['id']}' ></p> $text1 $text2 </td>
                 <td>{$row['direccion']}</td>
                 
                 <td>{$row['corte']}</td>
@@ -150,7 +147,7 @@ echo "
             echo"<tr class=\"\"   id='tr-{$row['id']}' >
                 
                 <td>{$row['id']}  </td>
-                <td>{$row['cliente']} {$row['apellido']} $smsFlag<input type='hidden' size='3' id='dsb-{$row['id']}' value='' > <input size='11' class=\"inputIp font-weight-bold\" type='text'   id='ip--{$row['id']}' value='{$row['ip']}'> $iconPing <p  id='p-{$row['id']}' ></p> $text1 $text2 </td>
+                <td>{$row['id']}-{$row['cliente']} {$row['apellido']} $smsFlag<input type='hidden' size='3' id='dsb-{$row['id']}' value='' > <input size='11' class=\"inputIp font-weight-bold\" type='text'   id='ip--{$row['id']}' value='{$row['ip']}'> $iconPing <p  id='p-{$row['id']}' ></p> $text1 $text2 </td>
                 <td>{$row['direccion']}</td>
                 
                 <td>{$row['corte']}</td>

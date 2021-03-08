@@ -39,6 +39,7 @@ if($_SESSION['role']=='tecnico'){
 		echo "Failed to connect to MySQL: " . $mysqli->connect_error;
 	}
 	mysqli_set_charset($mysqli, "utf8");
+	date_default_timezone_set('America/Bogota');
 	$today = date("Y-m-d");
 	?>
 	<div class="container-fluid px-0">
@@ -145,6 +146,9 @@ if($_SESSION['role']=='tecnico'){
 											$registration_date = $row["registration-date"];
 											$corte = $row["corte"];
 											$standby = $row["standby"];
+											$ip=$row["ip"];
+											$pingDate=$row["pingDate"];
+											$pingCurrentStatus=($pingDate==$today) ? "Ping ok!" : "<small class=\"bg-danger text-white p-1\">Ping Error</small>";   
 											$style_cell = "";
 											$style2_cell = "";
 											$ts1 = strtotime($registration_date);
@@ -194,7 +198,7 @@ if($_SESSION['role']=='tecnico'){
 												$today = date("Y-m-d");
 												$date1 = new DateTime($today);
 												$date2 = new DateTime($row["suspenderFecha"]);
-												$days  = $date2->diff($date1)->format('%a');
+												$days  = $date2->diff($date1)->format('%a'); 
 												$style = "border-info text-danger ";
 												$statusText = "<p><small class=\"px-1 border $style rounded \">Cortado-[ $days días ]</small></p>";
 											}
@@ -212,20 +216,20 @@ if($_SESSION['role']=='tecnico'){
 												$textTelefono = "<input class=\"form-control form-control-sm telefono" . $row["id"] . " px-2 \" type=\"text\" value=\"$telefono\" id=\"-1\"  >";
 											}
 
-											$telefono = $row["telefono"];
+											$telefono = $row["telefono"]; 
 											echo "<tr class=\"text-center  \">";
 											echo "<td> {$row["cliente"]}  {$row["apellido"]} $statusText</td>";
-											echo "<td><small>{$row["direccion"]} {$row["ciudad"]} -{$row['id']}</small></td>";
+											echo "<td><small>{$row["direccion"]} {$row["ciudad"]} -{$row['id']}</small></td>"; 
 											echo "<td>$diff</td>";
-											echo "<td><small 	$style_cell >$$vtotal</small></td>";
-											echo "<td><small>$registration_date</small></td>";
+											echo "<td><small 	$style_cell >$$vtotal</small><div><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money\"></i></a></div></td>";
+											echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small>ip:'$ip'</small></p><p class=\"mb-0\"><small>$pingCurrentStatus</small></p></div></td>";    
 											echo "<td class=\" align-middle \"><small>C-" . $row["corte"] . "*$standby</small></td>";
-											echo "<td class=\" align-middle \">$textCedula</td>";
-											echo "<td class=\" align-middle \">$textTelefono</td>";
+											echo "<td class=\" align-middle \">$textCedula</td>"; 
+											echo "<td class=\" align-middle \">$textTelefono</td>";          
 											echo "<td class=\" align-middle \"><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money\"></i></a></td>";
 											echo "</tr>";
 										}
-										$result->free();
+										$result->free(); 
 									}
 									?>
 									<!-- Modal -->

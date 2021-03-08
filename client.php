@@ -815,6 +815,14 @@
 																		</select>
 																		<small id="" class="form-text text-muted">Por defecto se buscan clientes de cualquier estado de cuenta.</small>
 																	</div>
+																	<div class="form-group px-1 border border-success rounded mx-1 my-3">
+																		<label for="client_state_suspension">Estado suspensiòn del cliente </label>
+																		<select class="form-control" id="client_state_suspension">
+																			<option value="1">Suspendidos</option>
+																			<option value="0" selected>No suspendidos</option>
+																		</select>
+																		<small id="" class="form-text text-muted">Por defecto se buscan clientes NO suspendidos actualmente.</small>
+																	</div>
 
 																</div>
 																<div>
@@ -1585,6 +1593,7 @@
 				var ciudad = $("#sms_masive_city").val();
 				var corte = $("#payment_date").val();
 				var criterioFacturacion = $("#client_state").val();
+				var criterioFacturacionSuspencion = $("#client_state_suspension").val();
 
 				$.ajax({
 					type: 'post',
@@ -1594,10 +1603,11 @@
 						address: address,
 						ciudad: ciudad,
 						corte: corte,
-						criterioFacturacion: criterioFacturacion
+						criterioFacturacion: criterioFacturacion,
+						criterioFacturacionSuspencion: criterioFacturacionSuspencion
 					},
 					success: function(data) {
-						alertify.success("Información en la tabla ha sido actualizada");
+						alertify.success("Información en la tabla ha sido actualizada"); 
 						console.log(data)
 						$('#sms_masivo_container_buscar').html(data);
 						var table = $('#table_client_to_sms').DataTable({

@@ -30,7 +30,7 @@ echo "
     </thead>
     <tbody>";
 $sql_sent_sms=  "SELECT *, redesagi_facturacion.afiliados.cliente,redesagi_facturacion.afiliados.apellido FROM redesagi_facturacion.sent_messages INNER JOIN redesagi_facturacion.afiliados
-                ON redesagi_facturacion.sent_messages.`id_client`=redesagi_facturacion.afiliados.id ";
+                ON redesagi_facturacion.sent_messages.`id_client`=redesagi_facturacion.afiliados.id  LIMIT 100"; 
 $result = mysqli_query($mysqli, $sql_sent_sms) or die('error');
 while($db_field = mysqli_fetch_assoc($result)){
     echo"    
