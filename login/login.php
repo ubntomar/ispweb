@@ -25,12 +25,17 @@ if (mysqli_num_rows($result)) //if exist then check for password
 {
 
     //Pickup password to compare with encrypted password
-    $query = "select password,email,role,name from " . $table_name . " where username='$username'";
+    $query = "select * from " . $table_name . " where username='$username'";
     $result = mysqli_query($con, $query) or die('error');
     $db_field = mysqli_fetch_assoc($result);
-    $role=$db_field['role'];
-    $name=$db_field['name'];
     $id=$db_field['id'];
+    $name=$db_field['name'];
+    $lastName=$db_field['last-name'];
+    $role=$db_field['role'];
+    $jurisdiccion=$db_field['id-jurisdiccion'];
+    $empresa=$db_field['id-empresa'];
+    $sharedCode=$db_field['shared-code'];
+    
     //3.3 $hashed_password=crypt($password,$db_field['password']); 
 
     if (phpversion() >= 5.5) {
@@ -49,9 +54,13 @@ if (mysqli_num_rows($result)) //if exist then check for password
             if (mysqli_num_rows($result)) {
                 $_SESSION['login'] = true;
                 $_SESSION['username'] = $username;
-                $_SESSION["role"] = $role;
-                $_SESSION["name"] = $name;
                 $_SESSION["id"] = $id;
+                $_SESSION["name"] = $name;
+                $_SESSION["lastName"] = $lastName;
+                $_SESSION["role"] = $role;
+                $_SESSION["jurisdiccion"] = $jurisdiccion;
+                $_SESSION["empresa"] = $empresa;
+                $_SESSION["sharedCode"] = $sharedCode;
                 echo json_encode(array('result' => 1));
             } else {
                 echo json_encode(array('result' => "$msg_email_1 <br /><a href=\"" . $url . "\\resend_key.php?user=" . $username . "\">$msg_email_2</a>."));
@@ -73,9 +82,13 @@ if (mysqli_num_rows($result)) //if exist then check for password
             if (mysqli_num_rows($result)) {
                 $_SESSION['login'] = true;
                 $_SESSION['username'] = $username;
-                $_SESSION["role"] = $role;
-                $_SESSION["name"] = $name;
                 $_SESSION["id"] = $id;
+                $_SESSION["name"] = $name;
+                $_SESSION["lastName"] = $lastName;
+                $_SESSION["role"] = $role;
+                $_SESSION["jurisdiccion"] = $jurisdiccion;
+                $_SESSION["empresa"] = $empresa;
+                $_SESSION["sharedCode"] = $sharedCode;
                 echo json_encode(array('result' => 1));
             } else {
                 echo json_encode(array('result' => "$msg_email_1 <br /><a href=\"" . $url . "\\resend_key.php?user=" . $username . "\">$msg_email_2</a>."));

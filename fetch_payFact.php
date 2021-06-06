@@ -20,7 +20,7 @@ $convertdate = date("d-m-Y", strtotime($today));
 $hourMin = date('H:i');
 $usuario = $_SESSION['username'];
 $debug = 0;
-									// idc: idcRow,
+									// idc: idcRow, 
 									// vap: vapRow,
 									// vaa: vaaRow,
 									// vre: vreRow,
@@ -28,6 +28,7 @@ $debug = 0;
 									// vad: vadRow,
 									// vpl: vplanRow,
 									// rec: rec?reconect?
+
 if($_POST["rec"]){
 	$rec = mysqli_real_escape_string($mysqli, $_REQUEST['rec']);
 	if($rec){
@@ -36,17 +37,16 @@ if($_POST["rec"]){
 		$result = mysqli_query($mysqli, $sql_client_id) or die('error encontrando el cliente');
 		$db_field = mysqli_fetch_assoc($result);
 		$ip=$db_field['ip'];
-		$nombre=$db_field['cliente'];
 		$data=areaCode($ip);
+		$nombre=$db_field['cliente'];
 		$mkobj=new Mkt($data['server'],$vpnUser,$vpnPassword);
 		if($mkobj->success){
 			echo "Conectado a la Rboard cod Server-target-> {{$data['server']}}";
 			removeIp($mkobj->remove_ip($ip,'morosos'),$idc,$mysqli,$ip,$today,$hourMin);       
 		}
 		else {
-			
 			$txt= "-$today-$hourMin  No fue posible conectar a la Rboard 1, reconectar pendiente";
-			$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='1'  WHERE `afiliados`.`id`= '$idc' ";
+			$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0' , `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='1'  WHERE `afiliados`.`id`= '$idc' ";
 			if($result2 = $mysqli->query($sqlUpd)){					
 			}
 			else{
@@ -56,7 +56,7 @@ if($_POST["rec"]){
 		}
 		
 		
-	}
+	} 
 }
 
 if (($_POST['vap'] >= 0) || ($debug == 1)) { //paga todo	//paga todo   //paga todo   //paga todo   //paga todo  //paga todo	 		
@@ -132,7 +132,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 	if($vad!=0){
 		$descontar=$vad;
 		$numFactsAffectedTmp=$descontar/$vpl;
-		echo "descontar:$descontar y numFactsAffectedTmp: $numFactsAffectedTmp";
+		//echo "descontar:$descontar y numFactsAffectedTmp: $numFactsAffectedTmp";
 		$residuo=$descontar%$vpl;
 		$numFactsAffected=0;
 		$descCompletas=0;
@@ -151,7 +151,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 			$descIncompletas=1;
 		}
 		$descParcial=$descCompletas+$descIncompletas;
-		echo " \n completas:$descCompletas  incompletas: $descIncompletas y descuento parcial de facturas: $descParcial  (la suma de las dos anteriores!) \n";
+		//echo " \n completas:$descCompletas  incompletas: $descIncompletas y descuento parcial de facturas: $descParcial  (la suma de las dos anteriores!) \n";
 		$vaa=$vna+$vad;
 		$dctoTotal=$vad;
 	}
@@ -159,9 +159,9 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 		$vaa=$vna;
 	}
 
-	echo "estoy en la 110: \n";
+	//echo "estoy en la 110: \n";
 	$sqlins = "INSERT INTO `redesagi_facturacion`.`transacciones` (`idtransaccion`, `valor-recibido`, `valor-a-pagar`, `cambio`, `id-cliente`, `fecha`, `aprobado`, `hora`, `cajero`, `descontar`) VALUES (NULL, '$vre', '$vaa', '$cam', '$idc', '$today', '', '$hourMin', '$usuario', '$vad')";
-	echo $sqlins."\n";
+	//echo $sqlins."\n";
 	if ($mysqli->query($sqlins) === TRUE) {
 		$last_id_tra = $mysqli->insert_id;
 	} else {
@@ -178,7 +178,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 		$cnt = 0;
 		while ($rowf = $result->fetch_assoc()) {
 				$cnt += 1;
-				echo "\n $cnt:**********************INICIO******************************************\n";
+				//echo "\n $cnt:**********************INICIO******************************************\n";
 				$cont += 1;
 				$idFactura = $rowf["id-factura"];
 				$periodo = $rowf["periodo"];
@@ -208,7 +208,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 				}
 
 				if ($paga1fact == 0) { //pago parcial
-					echo "\n**************PAGO PARCIAL*****************\n";	
+					//echo "\n**************PAGO PARCIAL*****************\n";	
 					
 					if($descParcial!=-1){
 						if($descParcial==1 && $cnt==1 ){
@@ -216,25 +216,25 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 						}
 						if($descParcial==1){
 							$descuento=$dctoTotal;
-							echo "\n decuento parcal es igual a 1 y descuento vale :$descuento ";
+							//echo "\n decuento parcal es igual a 1 y descuento vale :$descuento ";
 						}
 						if($descParcial>1){
 							$descuento=$saldo;
 							$dctoTotal-=$descuento;
 							$descParcial-=1;
-							echo "\n descParcial>1 y descuento vale:$saldo ";
+							//echo "\n descParcial>1 y descuento vale:$saldo ";
 						}
 					}
 		
-					echo "\n vad vale:$vad y la variable descuento vale:$descuento \n";
+					//echo "\n vad vale:$vad y la variable descuento vale:$descuento \n";
 
 					$sqlin = "INSERT INTO `redesagi_facturacion`.`recaudo` (`idrecaudo`, `idfactura`, `fecha-hoy`,`hora`, `notas`, `valorp`, `abonar`, `vendedor`) VALUES (NULL, '$idFactura', '$today','$hourMin', 'nota', '0', '$valorAbonar', '$usuario');";
 					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '$newSaldoTotal1fact', `cerrado` = '$cierreFact', `fecha-pago` = '$today', `fecha-cierre` = '$fechaCierreFact', `descuento` = '$descuento', `idtransaccion` = '$last_id_tra'  WHERE `factura`.`id-factura` = $idFactura ";
-					echo "\n 167: $sqlup";
+					//echo "\n 167: $sqlup";
 					if ($mysqli->query($sqlin) === TRUE) {
 						if ($mysqli->query($sqlup) === TRUE) {
 							if ($cnt == $row_cnt)
-								echo "\n Pago realizado con exito!" . $last_id_tra;
+								echo "\n Pago realizado con exito!/" . $last_id_tra;
 							else
 								echo "";
 						} else {
@@ -250,7 +250,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 					}
 				}
 				if ($paga1fact == 1) { //pago 1 factura
-					echo "\n**************PAGO 1 FACTURA*****************\n";						
+					//echo "\n**************PAGO 1 FACTURA*****************\n";						
 					if($vad!=0) 
 						$descontar=$saldo;
 					else
@@ -259,10 +259,10 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 					$sqlin = "INSERT INTO `redesagi_facturacion`.`recaudo` (`idrecaudo`, `idfactura`, `fecha-hoy`,`hora`, `notas`, `valorp`, `abonar`, `vendedor`) VALUES (NULL, '$idFactura', '$today','$hourMin', 'nota', '$saldo', '0', '$usuario');";
 					if ($mysqli->query($sqlin) === TRUE) {
 						$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '0', `cerrado` = '1', `fecha-pago` = '$today', `fecha-cierre` = '$today', `vencidos` = '0', `descuento` = '$saldo', `idtransaccion` = '$last_id_tra' WHERE `factura`.`id-factura` = $idFactura ";
-						echo "\n 199:$sqlup";
+						//echo "\n 199:$sqlup";
 						if ($mysqli->query($sqlup) === TRUE) {
 							if ($cnt == $row_cnt)
-								echo "\nPago realizado con exito!" . $last_id_tra;
+								echo "\nPago realizado con exito!/" . $last_id_tra;
 							else
 								echo "";
 						} else {
@@ -272,7 +272,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 						echo "Error Factura: " . $sqlup . "<br>" . $mysqli->error;
 					}
 				}
-				echo "\n *************************FIN***************************************\n";	
+				//echo "\n *************************FIN***************************************\n";	 
 			}
 		$result->free();
 	} else {
@@ -280,10 +280,9 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 	}
 }
 
-
 function removeIp($remove,$idc,$mysqli,$ip,$today,$hourMin){      
     if($remove==1){
-		echo "Ip $ip removida con éxito de morosos $idc\n";
+		//echo "Ip $ip removida con éxito de morosos $idc\n";
 		$txt="$today-$hourMin Ip $ip removida con éxito $idc";
 		$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0', `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='0'   WHERE `afiliados`.`id`='$idc'";
 		if($result2 = $mysqli->query($sqlUpd)){					
@@ -294,7 +293,7 @@ function removeIp($remove,$idc,$mysqli,$ip,$today,$hourMin){
 		file_put_contents('cut.log', $txt.PHP_EOL , FILE_APPEND );
     }
     if($remove==2){
-		echo "Dirección Ip o Lista 'xxxxxx' no existe!$ip .. !\n";
+		//echo "Dirección Ip o Lista 'xxxxxx' no existe!$ip .. !\n";
 		$txt="$today-$hourMin Dirección Ip o Lista 'morosos' no existe!$ip ..  $idc";
 		$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0', `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='1'  WHERE `afiliados`.`id`='$idc'";
 		if($result2 = $mysqli->query($sqlUpd)){					
@@ -306,26 +305,7 @@ function removeIp($remove,$idc,$mysqli,$ip,$today,$hourMin){
     }     
 }
 
-function areaCode($ip){
-    $byte3=explode(".",$ip)[2];
-    if($byte3){
-        if( $byte3=='16' || $byte3=='17' || $byte3=='20' || $byte3=='21' || $byte3=='26' || $byte3=='40' || $byte3=='50' ) return array('server'=>'192.168.21.1','areaCode'=>'4324');
-        if( $byte3=='30' ) return array('server'=>'192.168.30.1'  ,'areaCode'=>'4325');
-        if( $byte3=='85' ) return array('server'=>'192.168.17.13' ,'areaCode'=>'4326');
-        if( $byte3=='79' ) return array('server'=>'192.168.26.186','areaCode'=>'4327');
-        if( $byte3=='68' ) return array('server'=>'192.168.26.152','areaCode'=>'4328');
-        if( $byte3=='76' ) return array('server'=>'192.168.26.188','areaCode'=>'4329');
-        if( $byte3=='9'  ) return array('server'=>'192.168.17.62' ,'areaCode'=>'4330');
-        if( $byte3=='73' ) return array('server'=>'192.168.17.29' ,'areaCode'=>'4331');
-        if( $byte3=='10' ) return array('server'=>'192.168.30.2'  ,'areaCode'=>'4332');
-        if( $byte3=='18' ) return array('server'=>'192.168.30.144','areaCode'=>'4333');
-        if( $byte3=='71' ) return array('server'=>'192.168.30.163','areaCode'=>'4334');
-        if( $byte3=='11' ) return array('server'=>'192.168.30.2'  ,'areaCode'=>'4335');
-        if( $byte3=='65' ) return array('server'=>'192.168.30.2'  ,'areaCode'=>'4336');
-        if( $byte3=='74' ) return array('server'=>'192.168.30.2'  ,'areaCode'=>'4337');
-    }
-    return '';
-}
+
 
 
 ?>

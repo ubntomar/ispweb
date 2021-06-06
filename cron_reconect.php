@@ -16,7 +16,7 @@ $pass=true;
 $user="aws";
 if (true) {   
     if($debug)
-        $idarray[]=363;//Hernando Monguí   
+        $idarray[]=363;
     else{
         $sql="select `id` FROM `afiliados` WHERE  `reconectPending`='1' ";  //pdte comprobar si debemos agregar shutoffpending=1
         if($rt=$mysqli->query($sql)){
@@ -117,7 +117,10 @@ if (true) {
                     $db_field = mysqli_fetch_assoc($result);
                     $ip=$db_field['ip'];
                     $nombre=$db_field['cliente'];
-                    $clientAreaCode=areaCode($ip);
+                    //$clientAreaCode=areaCode($ip);
+                    $data=areaCode($ip);
+                    $clientAreaCode=$data['areaCode'];
+                    echo "cliente $nombre q tien ip:$ip tiene areaCode: $clientAreaCode"; 
                     print "\n Ip que vamos a remover:".$ip."\n";         
                     $str.=$ip;
                     if (next($idarray)==true) $str .= ","; 
@@ -177,26 +180,7 @@ if (true) {
     }
      
 }
-function areaCode($ip){
-    $byte3=explode(".",$ip)[2];
-    if($byte3){
-        if( $byte3=='16' || $byte3=='17' || $byte3=='20' || $byte3=='21' || $byte3=='26' || $byte3=='40' || $byte3=='50' ) return "4324";
-        if( $byte3=='30' ) return "4325";
-        if( $byte3=='85' ) return "4326";
-        if( $byte3=='79' ) return "4327";
-        if( $byte3=='68' ) return "4328";
-        if( $byte3=='76' ) return "4329";
-        if( $byte3=='9' ) return "4330";
-        if( $byte3=='73' ) return "4331";
-        if( $byte3=='10' ) return "4332";
-        if( $byte3=='18' ) return "4333";
-        if( $byte3=='71' ) return "4334";
-        if( $byte3=='11' ) return "4335";
-        if( $byte3=='65' ) return "4336";
-        if( $byte3=='74' ) return "4337";
-    }
-    return '';
-}
+
 function removeIp($remove,$ip,$today,$hourMin,$mysqli,$id){
     if($remove==1){
        echo "$today-$hourMin: Ip: $ip removida con éxito\n";

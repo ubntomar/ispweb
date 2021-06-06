@@ -5,6 +5,11 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 		exit;
 	} else {
 	$user = $_SESSION['username'];
+	$name = $_SESSION['name'];
+	$lastName = $_SESSION['lastName'];
+	$role = $_SESSION['role'];
+	$jurisdiccion = $_SESSION['jurisdiccion'];
+	$empresa = $_SESSION['empresa'];
 }
 if($_SESSION['role']=='tecnico'){
 	header('Location: tick.php');
@@ -75,7 +80,7 @@ if($_SESSION['role']=='tecnico'){
 					<div class=" ml-auto  ">
 						<ul class="nav navbar-nav   ">
 							<li class="nav-item ">
-								<a class="nav-link disabled text-white "><i class="icon-user"></i><?php echo "Hola " . $_SESSION['username']; ?></a>
+								<a class="nav-link disabled text-white "><i class="icon-user"></i><?php echo "Hola " . $_SESSION['name']; ?></a>
 							</li>
 						</ul>
 					</div>
@@ -135,9 +140,26 @@ if($_SESSION['role']=='tecnico'){
 									</tr>
 								</tfoot>
 								<tbody>
-
 									<?php
-									$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`activo`=1 AND `afiliados`.`eliminar`!=1 ORDER BY `afiliados`.`id`  ASC ";
+									$sql="SELECT * from `jurisdicciones` WHERE `jurisdicciones`.`id` = $jurisdiccion";
+									if($result=$mysqli->query($sql)){
+										$row=$result->fetch_assoc();
+										$grupo=$row["id-grupo-area"];
+										$result->free();
+										$sql=" SELECT * FROM `items_grupo_area` WHERE `items_grupo_area`.`id-grupo` = $grupo";
+										if($result=$mysqli->query($sql)){
+											$num_rows = $result->num_rows;
+											$arrayidArea=" AND (";
+											$cn=0;
+											while($row=$result->fetch_assoc()){
+												$cn+=1;
+												$idArea=$row["id-area"];
+												$arrayidArea.=($cn==$num_rows)? "`id_client_area` = $idArea ) AND `afiliados`.`id-empresa` = $empresa ":"`id_client_area` = $idArea OR";
+											}
+											$result->free();
+										}
+									}
+									$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`activo`=1 AND `afiliados`.`eliminar`!=1  $arrayidArea  ORDER BY `afiliados`.`id`  ASC ";
 									if ($result = $mysqli->query($sql)) {
 										while ($row = $result->fetch_assoc()) {
 											$idCliente = $row["id"];
@@ -189,7 +211,7 @@ if($_SESSION['role']=='tecnico'){
 
 											if ($row["eliminar"] == 1) {
 												$statusText = "Inactivo";
-												$style = "border-dark text-secundary ";
+												$style = "border-dark text-secundary "; 
 											} else {
 												$style = "border-primary text-success ";
 												$statusText = "<p><small class=\"px-1 border $style rounded \">Activo</small></p>";
@@ -199,8 +221,9 @@ if($_SESSION['role']=='tecnico'){
 												$date1 = new DateTime($today);
 												$date2 = new DateTime($row["suspenderFecha"]);
 												$days  = $date2->diff($date1)->format('%a'); 
+												($days==0)? $d="-Hoy":$d="";
 												$style = "border-info text-danger ";
-												$statusText = "<p><small class=\"px-1 border $style rounded \">Cortado-[ $days días ]</small></p>";
+												$statusText = "<p><small class=\"px-1 border $style rounded \">Cortado-[ $days días $d ]</small></p>";
 											}
 											$textCedula = $cedula;
 											if ($cedula == 0) {
@@ -267,15 +290,15 @@ if($_SESSION['role']=='tecnico'){
 							<h3 class="titulo">Estadisticas</h3>
 							<div class="contenedor d-flex flex-wrap">
 								<div class="caja">
-									<h3>1,236</h3>
+									<h3>0,000</h3>
 									<p>Pagos</p>
 								</div>
 								<div class="caja">
-									<h3>231</h3>
+									<h3>0000</h3>
 									<p>Clientes</p>
 								</div>
 								<div class="caja">
-									<h3>$1.160.548</h3>
+									<h3>$0.000.000</h3>
 									<p>Ingresos</p>
 								</div>
 							</div>
@@ -752,8 +775,8 @@ if($_SESSION['role']=='tecnico'){
 									var msj = arr[0];
 									var cod = arr[1];
 									console.log(data);
-									//console.log("data:"+data+"-msj:"+msj+"-code:"+cod);
-									//alertify.success(msj);
+									console.log("data:"+data+"-msj:"+msj+"-code:"+cod);
+									alertify.success(msj);
 									$("#idt").val(cod);
 									$("#form").submit();
 								}

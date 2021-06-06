@@ -1,13 +1,21 @@
 <?php 
 session_start();
-if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
-		{
+if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true){
 		header('Location: login/index.php');
 		exit;
-		}
-else    {
-		$user=$_SESSION['username'];
-		}
+}
+else{
+    $user=$_SESSION['username'];
+    if($_SESSION['role']=='cajero'){
+        header('Location: register-pay.php');
+    }
+    if($_SESSION['role']=='cajero'){
+        header('Location: register-pay.php');
+    }
+}
+if($_SESSION['role']=='cajero'){
+    header('Location: register-pay.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -31,6 +39,7 @@ else    {
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
+
 <body>
     <div class="container-fluid px-0">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top   ">
@@ -52,16 +61,19 @@ else    {
                                 <span class="sr-only">(Actual)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php if($_SESSION['role']!='tecnico')echo "register-pay.php";?>" class="nav-link "><i class="icon-money"></i>Registrar Pago</a>
+                            <a href="<?php if($_SESSION['role']!='tecnico')echo "register-pay.php";?>"
+                                class="nav-link "><i class="icon-money"></i>Registrar Pago</a>
                         </li>
                         <li class="nav-item  ">
-                            <a href="<?php if($_SESSION['role']!='tecnico')echo "transacciones.php";?>" class="nav-link  "><i class="icon-print "></i>Transacciones</a>
+                            <a href="<?php if($_SESSION['role']!='tecnico')echo "transacciones.php";?>"
+                                class="nav-link  "><i class="icon-print "></i>Transacciones</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link"><i class="icon-mail"></i>Contacto</a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php if($_SESSION['role']!='tecnico')echo "reclist.php";?>" class="nav-link "><i class="icon-money"></i>Formato Recibo</a>
+                            <a href="<?php if($_SESSION['role']!='tecnico')echo "reclist.php";?>" class="nav-link "><i
+                                    class="icon-money"></i>Formato Recibo</a>
                         </li>
                     </ul>
                     <div class="ml-auto">
@@ -80,10 +92,13 @@ else    {
             <div class="barra-lateral  col-sm-auto ">
                 <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
                     <a href="tick.php"><i class="icon-pinboard"></i><span>Tickets</span></a>
-                    <a href="<?php if($_SESSION['role']!='tecnico')echo "fact.php";?>"><i class="icon-docs-1"></i><span>Facturas</span></a>
-                    <a href="<?php if($_SESSION['role']!='tecnico')echo "client.php";?>"><i class="icon-users"></i><span>Clientes</span></a>
+                    <a href="<?php if($_SESSION['role']!='tecnico')echo "fact.php";?>"><i
+                            class="icon-docs-1"></i><span>Facturas</span></a>
+                    <a href="<?php if($_SESSION['role']!='tecnico')echo "client.php";?>"><i
+                            class="icon-users"></i><span>Clientes</span></a>
                     <a href="mktik.php"><i class="icon-network"></i><span>Mktik</span></a>
-                    <a href="<?php if($_SESSION['role']!='tecnico')echo "egr.php";?>"><i class="icon-money"></i><span>Egresos</span></a>
+                    <a href="<?php if($_SESSION['role']!='tecnico')echo "egr.php";?>"><i
+                            class="icon-money"></i><span>Egresos</span></a>
                     <a href="login/logout.php"><i class="icon-logout"></i><span>Salir</span></a>
                 </nav>
             </div>
@@ -128,7 +143,8 @@ else    {
                                             <td class="font-weight-bold">{{cliente.name}}
                                                 <div class="timeElapsded border  rounded d-flex justify-content-center pl-1 font-italic w-50"
                                                     v-bind:class="{'border-danger':cliente.suspender}">
-                                                    <small>{{cliente.suspender}}</small></div>
+                                                    <small>{{cliente.suspender}}</small>
+                                                </div>
                                             </td>
                                             <td>{{cliente.ipAddress}}</td>
                                             <td><strong class="font-italic"
@@ -339,7 +355,7 @@ else    {
             spinIconBox2: false,
             ipListBox3: [],
             spinIconBox3: false
-            
+
         },
         methods: {
             getUser: function() {

@@ -13,6 +13,9 @@ else    {
 if($_SESSION['role']=='tecnico'){
 	header('Location: tick.php');
 }
+if($_SESSION['role']=='cajero'){
+	header('Location: register-pay.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">

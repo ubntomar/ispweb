@@ -147,9 +147,16 @@ body {
 	
 	padding-bottom: 0px;
 }
+.main .estadisticas .caja h6 { 
+	margin-top: 8px;
+	margin-bottom: 0px;
+	color: #1b221e;
+	
+	padding-bottom: 0px;
+}
 
 .main .estadisticas .caja p {
-	color: #a8a8a8;
+	color: #36a2bc;
 	margin-bottom: 0;
 }
 .main .estadisticas .caja input {

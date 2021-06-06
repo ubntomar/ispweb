@@ -1,17 +1,17 @@
 <?php 
 session_start();
-
-
-if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
-		{
-		header('Location: login/index.php');
-		exit;
-		}
-else    {
+if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true){
+	header('Location: login/index.php');
+	exit;
+}
+else{
 		$user=$_SESSION['username'];
-		}
+}
 if($_SESSION['role']=='tecnico'){
 	header('Location: tick.php');
+}
+if($_SESSION['role']=='cajero'){
+    header('Location: register-pay.php');
 }
 ?>
 <!DOCTYPE html>

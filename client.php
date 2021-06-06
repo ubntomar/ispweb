@@ -5,9 +5,14 @@
 		exit;
 	} else {
 		$user = $_SESSION['username'];
+		 
 	}
 	if($_SESSION['role']=='tecnico'){
 		header('Location: tick.php');
+	}
+        
+	if($_SESSION['role']=='cajero'){
+		header('Location: register-pay.php');
 	}
 	?>
 	<!DOCTYPE html>
@@ -177,7 +182,20 @@
 																			</div>
 																			<div class="form-group col-md-4 ">
 																				<label>Ciudad.</label>
-																				<input class="form-control" type="text" value="" id="ciudad">
+																				<select  class="custom-select " id="ciudad">
+																					<?php
+																					$sql = "SELECT * FROM `areas` WHERE 1 ";
+																					if ($result = $mysqli->query($sql)) {
+																						while ($row = $result->fetch_assoc()) {
+																							$id=$row["id"];
+																							$nombre=$row["nombre"];
+																							$ciudad=$row["ciudad"];
+																							echo "<option value=\"$id-$ciudad\">$nombre $ciudad</option>";
+																						}
+																						$result->free();
+																					}
+																					?>
+																				</select>
 																			</div>
 																			<div class="form-group col-md-4 ">
 																				<label>Departamento.</label>
@@ -329,7 +347,7 @@
 																									<small class="text-info">Valor afililiación incluye valor factura de servicio?.</small>
 																								</div>
 																								
-																							</div>
+																							</div>   
 																							<div class="form-group col-md-3 border border-info rounded ml-1" id="valorProrrateoDiv2" >
 																								<small>Total Prorrateo-Pagado </small>
 																								<input class="form-control" type="number" value="" id="valorProrrateo">
@@ -362,7 +380,7 @@
 																									<thead class="bg-primary text-light">
 																										<tr>
 																											<th></th>
-																											<th>Item</th>
+																											<th>Item</th> 
 																											<th>Descripción</th>
 																											<th>Valor</th>
 																											<th>Importe(Iva)</th>
@@ -1123,9 +1141,6 @@
 							if (required($("#address").val()) == true) {
 								$("#address").removeClass("border border-danger");
 								$("#address").addClass("border border-success");
-								if (allLetter($("#ciudad").val()) == true) {
-									$("#ciudad").removeClass("border border-danger");
-									$("#ciudad").addClass("border border-success");
 									if (allLetter($("#departamento").val()) == true) {
 										$("#departamento").removeClass("border border-danger");
 										$("#departamento").addClass("border border-success");
@@ -1157,10 +1172,6 @@
 										alertify.error('Departamento incorrecto');
 										$("#departamento").addClass("border border-danger");
 									}
-								} else {
-									alertify.error('Ciudad incorrecto');
-									$("#ciudad").addClass("border border-danger");
-								}
 							} else {
 								alertify.error('Dirección incorrecto');
 								$("#address").addClass("border border-danger");
@@ -1430,12 +1441,12 @@
 							if ($.isNumeric(valorPlan) && (valorPlan != "0")) {
 								$("#valor-plan").removeClass("border border-danger");
 								var recibo = 0;
-								var name = $("#name").val();
-								var lastName = $("#last-name").val();
+								var name =ucwords($("#name").val()); 
+								var lastName = ucwords($("#last-name").val());
 								var cedula = $("#cedula").val();
-								var address = $("#address").val();
-								var ciudad = $("#ciudad").val();
-								var departamento = $("#departamento").val();
+								var address = ucwords($("#address").val());
+								var ciudad = ucwords($("#ciudad").val());
+								var departamento = ucwords($("#departamento").val());
 								var phone = $("#phone").val();
 								var email = $("#email").val();
 								var corte = $("#corte").val();
@@ -1759,6 +1770,7 @@
 										message: message
 									},
 									success: function(data) {
+										console.log(data);
 										alertify.dismissAll();
 										alertify.success('Solicitud ha procesada');
 										$('#spinner-enviar').removeClass('spinner-border');
@@ -2424,6 +2436,12 @@
 				}
 				return diff;
 			}
+			function ucwords(msj){
+				var lsCadena = msj;
+				return lsCadena.toLowerCase().replace(/\b[a-z]/g, function(letra) {
+					return letra.toUpperCase();
+					});;
+			}	
 			function selectedIpValidator(table){
 				var rows_selected = table.column(0).checkboxes.selected();											
 				$.each(rows_selected, function(index, rowId){

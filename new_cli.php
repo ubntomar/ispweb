@@ -9,6 +9,7 @@ else    {
 		$user=$_SESSION['username'];
 		$administrador=$user;
 		$role = $_SESSION["role"];
+		$empresa = $_SESSION['empresa'];
 		}
 include("login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
@@ -31,7 +32,10 @@ if($_POST['valorPlan']||$debug){
 	$lastName= mysqli_real_escape_string($mysqli, $_REQUEST['lastName']);
 	$cedula= mysqli_real_escape_string($mysqli, $_REQUEST['cedula']);
 	$address= mysqli_real_escape_string($mysqli, $_REQUEST['address']);
-	$ciudad= mysqli_real_escape_string($mysqli, $_REQUEST['ciudad']);
+	$city= mysqli_real_escape_string($mysqli, $_REQUEST['ciudad']);
+	$pieces = explode("-", $city);
+	$idClientArea=$pieces[0];
+	$ciudad=$pieces[1];
 	$departamento= mysqli_real_escape_string($mysqli, $_REQUEST['departamento']);
 	$phone= mysqli_real_escape_string($mysqli, $_REQUEST['phone']);
 	$email= mysqli_real_escape_string($mysqli, $_REQUEST['email']);
@@ -54,8 +58,8 @@ if($_POST['valorPlan']||$debug){
 	$valorAdicionalServicio= mysqli_real_escape_string($mysqli, $_REQUEST['valorAdicionalServicio']);
 	$mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 	$monthn = date("n");
-	$sql="INSERT INTO `redesagi_facturacion`.`afiliados` (`id`, `cliente`, `apellido`, `cedula`, `direccion`, `ciudad`, `departamento`, `mail`, `telefono`, `pago`, `corte`, `mesenmora`,  `orden_reparto`, `velocidad-plan`, `tipo-cliente`, `registration-date`, `source`, `activo`, `ip`, `standby`, `valorAfiliacion`,`stdbymcount`,`cajero`) VALUES
-														 (NULL, '$name', '$lastName', '$cedula', '$address', '$ciudad', '$departamento', '$email', '$phone', '$valorPlan','$corte', '$nextPay',  '999', '$velocidadPlan', '$plan', '$today', 'ispdev', '1', '$ipAddress', '$standby', '$AfiliacionItemValue', '$standby', '$usuario');";
+	$sql="INSERT INTO `redesagi_facturacion`.`afiliados` (`id`, `cliente`, `apellido`, `cedula`, `direccion`, `ciudad`, `departamento`, `mail`, `telefono`, `pago`, `corte`, `mesenmora`,  `orden_reparto`, `velocidad-plan`, `tipo-cliente`, `registration-date`, `source`, `activo`, `ip`, `standby`, `valorAfiliacion`,`stdbymcount`,`cajero`,`id_client_area`,`id-empresa`) VALUES
+														 (NULL, '$name', '$lastName', '$cedula', '$address', '$ciudad', '$departamento', '$email', '$phone', '$valorPlan','$corte', '$nextPay',  '999', '$velocidadPlan', '$plan', '$today', 'ispdev', '1', '$ipAddress', '$standby', '$AfiliacionItemValue', '$standby', '$usuario', '$idClientArea', '$empresa');";
 	if ($mysqli->query($sql) === TRUE) {
 			$last_id = $mysqli->insert_id;
 			$idafiliado=$last_id;

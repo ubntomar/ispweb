@@ -6,8 +6,13 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true)
 		exit;
 		}
 else    {
-        $user=$_SESSION['username'];
-        $role=$_SESSION["role"];
+        $user = $_SESSION['username'];
+        $name = $_SESSION['name'];
+        $lastName = $_SESSION['lastName'];
+        $role = $_SESSION['role'];
+        $jurisdiccion = $_SESSION['jurisdiccion'];
+        $empresa = $_SESSION['empresa'];
+        $sharedCode = $_SESSION['sharedCode'];
 		}
 include("login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
@@ -67,6 +72,7 @@ echo "
             $cnt+=1;
             $idtransaccion=$row["idtransaccion"];
             $idafi=$row["id-cliente"];
+            $userNameCajero=$row["cajero"];
             $sqlafi="SELECT * FROM `afiliados` WHERE `id` = $idafi  ";
             $resultafi = $mysqli->query($sqlafi);
             $rowafi = $resultafi->fetch_assoc();
@@ -83,16 +89,39 @@ echo "
             else{
                 $p="";
             }
-            echo "<tr class=\"text-center  \">";				
-            echo "<td>".$rowafi["cliente"]." ".$rowafi["apellido"]."</td>";
-            echo "<td>".$rowafi["direccion"]."</td>";
-            echo "<td>$pagado $p</td>";
-            echo "<td class=\" align-middle \"><small>".$row["fecha"]." ".$row["hora"]."</small> </td>";
-            echo "<td class=\" align-middle \"> {$row["cajero"]} </td>";
-            echo "<td class=\" align-middle \"><a href=\"printable.php?idt=$idtransaccion&rpp=0\" class=\"text-primary icon-client \" ><i class=\" icon-print  \"></i></a></td>";
-            echo "<td class=\" align-middle \"><a href=\"recibos.php?idc=$idafi&rpp=0\" class=\"text-info icon-client \" target=\"_blank\" ><i class=\" icon-print  \"></i></a></td>";
-            echo "</tr>";		
+            $idArea= $rowafi["id_client_area"];
+            $sq="SELECT * FROM `items_grupo_area` WHERE `id-area`=$idArea";
+            $resultIdArea=$mysqli->query($sq);
+            $rw=$resultIdArea->fetch_assoc();
+            $idGrupo=$rw["id-grupo"];
+            $resultIdArea->free();
+            $sq2="SELECT * FROM `jurisdicciones` WHERE `id-grupo-area`=$idGrupo";
+            $resultIdArea=$mysqli->query($sq2);
+            $rw2=$resultIdArea->fetch_assoc();
+            $idjurisdiccion=$rw2["id"];
+            $resultIdArea->free();
+
+            $sql="SELECT * FROM `users` WHERE `users`.`username` LIKE '".$userNameCajero."' ";
+            if($resultC=$mysqli->query($sql)){
+                $rowr=$resultC->fetch_assoc();
+                $shared=$rowr["shared-code"];
+                $resultC->free();
             }
+            if(  ($jurisdiccion==$idjurisdiccion) && ($shared==$sharedCode) ){
+                echo "<tr class=\"text-center  \">";				
+                echo "<td>".$rowafi["cliente"]." ".$rowafi["apellido"]."</td>";
+                echo "<td>".$rowafi["direccion"]."</td>";
+                echo "<td>$pagado $p</td>";
+                echo "<td class=\" align-middle \"><small>".$row["fecha"]." ".$row["hora"]."</small> </td>";
+                echo "<td class=\" align-middle \"> {$row["cajero"]} </td>";
+                echo "<td class=\" align-middle \"><a href=\"printable.php?idt=$idtransaccion&rpp=0\" class=\"text-primary icon-client \" ><i class=\" icon-print  \"></i></a></td>";
+                echo "<td class=\" align-middle \"><a href=\"recibos.php?idc=$idafi&rpp=0\" class=\"text-info icon-client \" target=\"_blank\" ><i class=\" icon-print  \"></i></a></td>";
+                echo "</tr>";		
+            }
+            else{
+                $recaudo-=$pagado;
+            }
+        }
             $result->free();
         }
         	

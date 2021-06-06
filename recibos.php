@@ -8,7 +8,13 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true)
 		exit;
 		}
 else    {
-		$user=$_SESSION['username'];
+		$user = $_SESSION['username'];
+		$name = $_SESSION['name'];
+		$lastName = $_SESSION['lastName'];
+		$role = $_SESSION['role'];
+		$jurisdiccion = $_SESSION['jurisdiccion'];
+		$empresa = $_SESSION['empresa'];
+		$sharedCode = $_SESSION['sharedCode'];
 		}
 ?>
 <!DOCTYPE html>
