@@ -486,7 +486,7 @@ if($_SESSION['role']=='tecnico'){
                                             <a href="#">Jhon Doe</a>
                                             <p>en <a href="#">Mi primer entrada</a></p>
                                             <p class="texto-comentario">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis
+                                                Lorem ipsum dolor sit amet, cossdnsectetur adipisicing elit. Blanditiis
                                                 natus ex
                                                 inventore provident modi id distinctio non minus, magni quia officiis,
                                                 vel debitis
@@ -529,12 +529,12 @@ if($_SESSION['role']=='tecnico'){
                                     <div class="comentario d-flex flex-wrap">
                                         <div class="foto">
                                             <a href="#">
-                                                <img src="img/persona3.jpg" width="100" alt="">
+                                                <img src="img/persona3.jpg" width="100" alt=""> 
                                             </a>
                                         </div>
                                         <div class="texto">
                                             <a href="#">Jhon Doe</a>
-                                            <p>en <a href="#">Mi primer entrada</a></p>
+                                            <p>en <a href="#">Mi primer entrada</a></p> 
                                             <p class="texto-comentario">
                                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis
                                                 natus ex
@@ -544,7 +544,7 @@ if($_SESSION['role']=='tecnico'){
                                             </p>
                                         </div>
                                         <div class="botones d-flex justify-content-start flex-wrap w-100">
-                                            <button class="aprobar"><i class="icono icon-ok"></i>Aprobar</button>
+                                            <button class="aprobar"><i class="icono icon-ok"></i>Aprobar</button>   
                                             <button class="eliminar"><i class="icono icon-cancel"></i>Eliminar</button>
                                             <button class="bloquear"><i class="icono icon-flag"></i>Bloquear
                                                 Usuario</button>

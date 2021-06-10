@@ -6,7 +6,7 @@ if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
 	}	
 mysqli_set_charset($mysqli,"utf8");
-date_default_timezone_set('America/Bogota');
+date_default_timezone_set('America/Bogota'); 
 $today = date("Y-m-d");   
 $convertdate= date("d-m-Y" , strtotime($today));
 $mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
@@ -20,7 +20,7 @@ if ($result = $mysqli->query($sql)) {
 		$cont++;	
 		$idafiliado=$row["id"];
 		$valorf=$row["pago"];
-		$vencidos=$row["mesenmora"];// se utiliza solo la primera ves q se cargan los datos de excel al programa---se puede omitir en el insert
+		$vencidos=$row["mesenmora"];// se utiliza solo la primera ves q se cargan los datos de excel al programa---se puede omitir en el insert ...
 		$fechap=$row["ultimopago"];
 		if($vencidos==-1){
 			$makeFact=0;

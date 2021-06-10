@@ -1,6 +1,6 @@
 <?php
 use PEAR2\Net\RouterOS;
-require_once 'PEAR2_Net_RouterOS-1.0.0b6/src/PEAR2/Autoload.php';  
+require_once 'PEAR2_Net_RouterOS-1.0.0b6/src/PEAR2/Autoload.php';   
 class Mkt
 {
     private $ip;
@@ -8,6 +8,7 @@ class Mkt
     private $pass;
     private $client;
     public  $success=true;
+    public $error;  
     public function __construct($ipRouter, $user, $pass)
     {        
         $this->ip = $ipRouter;
@@ -17,6 +18,7 @@ class Mkt
             $this->client = new RouterOS\Client($ipRouter, $user, $pass);  
         } catch(Exception $e){
             //print "error:$e";
+            $this->error=$e;
             $this->success=false;
         }
         return true;
@@ -41,7 +43,7 @@ class Mkt
     return 1;
                 
     }
-    public function list_all()
+    public function list_all() 
     {         
         $responses = $this->client->sendSync(new RouterOS\Request('/ip/firewall/address-list/print'));         
         //$myArray = array();
@@ -57,9 +59,9 @@ class Mkt
         } 
     return $myArray;
     }
-    public function add_address($ip,$listName,$idUser,$nombre="")
+    public function add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
     {   
-        $comment="$idUser:".$nombre;  
+        $comment="$idUser:".$nombre.":".$apellido.":".$direccion.":".$ip.":".$fecha;  
         $printRequest = new RouterOS\Request('/ip/firewall/address-list/print');
         $printRequest->setArgument('.proplist', '.id');
         $printRequest->setQuery(RouterOS\Query::where('address', $ip)->andWhere('list', $listName));

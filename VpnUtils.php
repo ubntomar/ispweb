@@ -1,10 +1,16 @@
 <?php
+include("login/db.php");
 class VpnUtils
 {
-    
-
-    public function __construct{
-        echo "he creado nuevo objeto!";
+    private $mysqli;
+    public function __construct(){
+        $this->mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
+		if ($this->mysqli->connect_errno) {
+	    	echo "Failed to connect to MySQL: ";
+            return false;
+			}	
+		mysqli_set_charset($this->mysqli,"utf8");
+		date_default_timezone_set('America/Bogota'); 
     }
     public function getAreaCode($ip){
     $byte3=explode(".",$ip)[2];
@@ -27,6 +33,9 @@ class VpnUtils
         if( $byte3=='88' ) return array('server'=>'192.168.17.14' ,'areaCode'=>'4400');
     }
     return '';
+    }
+    public function getServerList(){
+        
     }
 }
 

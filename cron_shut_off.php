@@ -53,12 +53,12 @@ if (true) {
                     mysqli_query($mysqli,$sqlinsert) or die('error ingresando a suspendidos tb');
                     if($clientAreaCode==$area1Cod){
                         removeIp($mkobj->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        addIP($mkobj->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
+                        addIP($mkobj->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);//add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
                     }
                     if($clientAreaCode==$area2Cod){
                         removeIp($mkobj2->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
                         try {
-                            addIP($mkobj2->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);
+                            addIP($mkobj2->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);//add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
                         }
                         catch (Exception $e){
                             echo 'Excepción capturada: ',  $e->getMessage(), "\n";
