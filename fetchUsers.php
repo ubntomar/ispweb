@@ -33,11 +33,16 @@ $searchOption=$mysqli -> real_escape_string($_GET["searchOption"]);
 if($mkobj=new Mkt($serverIpAddressArea1,$vpnUser,$vpnPassword)){
     $exclusivosList=$mkobj->list_all();        
 }
-if($_SERVER['REQUEST_METHOD']==='GET' && $_GET["idRow"] ) {
-    $idRow=$mysqli -> real_escape_string($_GET["idRow"]);
-    $ipRow=$mysqli -> real_escape_string($_GET["ipRow"]);
-    $retObj=(object)["id"=>$idRow,"ip"=>$ipRow];
-    echo json_encode($retObj);
+
+if($_SERVER['REQUEST_METHOD']==='POST') {
+    $idRow = $_POST['idRow'];
+    $ipRow = $_POST['ipRow'];
+    $sql_update = "UPDATE `redesagi_facturacion`.`afiliados` SET `ip` = '$ipRow' WHERE (`id` = '$idRow');";
+    $result = $mysqli->query($sql_update) or die('error');
+    if($result){
+        $retObj=(object)["id"=>"$idRow","ip"=>"$ipRow","status"=>"success"];
+        echo json_encode($retObj); 
+    }
  }
 
 if ($searchOption=="Todos"){
@@ -66,7 +71,7 @@ if ($searchOption=="Todos"){
             else{
                 $elapsedTime=""; 
             }
-            $ping[] = array("validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+            $ping[] = array("ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
         }
         $ping[]=array("numResult"=>"$num");
     }
@@ -97,7 +102,7 @@ if($searchOption=="Cortado"){
             else{
                 $elapsedTime="";
             }
-            $ping[] = array("validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+            $ping[] = array("ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
         }
         $ping[]=array("numResult"=>"$num");
     }
@@ -128,7 +133,7 @@ if($searchOption=="Ping OK"){
             else{
                 $elapsedTime="";
             }
-            $ping[] = array("validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+            $ping[] = array("ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
         }
         $ping[]=array("numResult"=>"$num");
     }
@@ -160,7 +165,7 @@ if($searchOption=="Ping Down"){
             else{
                 $elapsedTime="";
             }
-            $ping[] = array("validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+            $ping[] = array("ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
         }
         $ping[]=array("numResult"=>"$num");
     }

@@ -126,6 +126,7 @@ if($_SESSION['role']=='cajero'){
                                         <option>Ping OK</option>
                                         <option>Ping Down</option>
                                     </select>
+                                    <i v-if="selectSpin"  v-bind:class="{'animate-spin':selectSpin}" class="icon-spin6 "></i>
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -146,12 +147,15 @@ if($_SESSION['role']=='cajero'){
                                                     <small>{{cliente.suspender}}</small>
                                                 </div>
                                             </td>
-                                            <td><input type="text" :placeholder="cliente.ipAddress"
-                                                    v-model="cliente.ipAddress" v-on:keyup="cliente.validIp=true">
-                                                <p><button class="border border-rounded icon-arrows-ccw"
-                                                        v-on:click="updateIp(cliente)"></button><small
-                                                        class="ml-1 pl-1 pr-1 border  border-rounded border-danger"
-                                                        v-if="!cliente.validIp">Ip invalida!</small></p>
+                                            <td><input type="text" v-model="cliente.ipAddress"
+                                                    v-on:keyup="cliente.ipText='',cliente.validIp=true">
+                                                <p><button class="border border-rounded"
+                                                        v-on:click="updateIp(cliente)"><i
+                                                            v-bind:class="{'animate-spin':cliente.ipIconSpin}"
+                                                            class="icon-spin6 "></i></button><small
+                                                        v-bind:class="{'border-danger':!cliente.validIp,'border-success':cliente.ipText=='Actualizado con Exito'}"
+                                                        class="m-1 p-1 border  border-rounded  font-italic">{{cliente.ipText}}</small>
+                                                </p>
                                             </td>
                                             <td><strong class="font-italic"
                                                     v-if="cliente.responseTime"><small>{{cliente.responseTime}}
@@ -359,7 +363,8 @@ if($_SESSION['role']=='cajero'){
             ipListBox2: [],
             spinIconBox2: false,
             ipListBox3: [],
-            spinIconBox3: false
+            spinIconBox3: false,
+            selectSpin:false
         },
         methods: {
             getUser: function() {
@@ -372,30 +377,43 @@ if($_SESSION['role']=='cajero'){
                     }
                 }).then(response => {
                     this.clientes = response.data
-                    console.log(response.data.length - 1)
                     this.totalRows = response.data.length - 1
-
+                    this.selectSpin=false
                 }).catch(e => {
                     console.log('error' + e)
                 })
             },
-            updateIp:  function(data) {
+            updateIp: function(data) {
+                data.ipText = "Actualizando..."
+                data.ipIconSpin = true
                 let idAfiliado = data.id
                 let ipAddress = data.ipAddress
+                var bodyFormData = new FormData();
+                bodyFormData.append('idRow', idAfiliado);
+                bodyFormData.append('ipRow', ipAddress);
                 if (this.validateIpAddress(ipAddress)) {
-                    axios.get('fetchUsers.php', {
-                        params: {
-                            update: "tssrue",
-                            idRow: "252",
-                            ipRow: "4.4.4.4"
-                        }
-                    }).then(response => {
-                        console.log(response.data.ip)                        
-                    }).catch(e => {
-                        console.log('error' + e)
-                    })
+                    axios({
+                            method: "post",
+                            url: "fetchUsers.php",
+                            data: bodyFormData
+                        })
+                        .then(function(response) {
+                            //handle success
+                            console.log(response);
+                            data.ipText = "Actualizado con Exito"
+                            data.ipIconSpin = false
+                        })
+                        .catch(function(response) {
+                            //handle error
+                            console.log(response);
+                            data.ipIconSpin = false
+                        });
+
                 } else {
                     data.validIp = false
+                    data.ipIconSpin = false
+                    data.ipText = "Error: Ip invalida!!"
+
                 }
             },
             searchFn: function() {
@@ -408,8 +426,10 @@ if($_SESSION['role']=='cajero'){
                 this.searchString = ""
             },
             getSelected: function() {
+                this.selectSpin=true
                 this.searchString = ""
                 this.getUser()
+                
             },
             setPing: function(data) {
                 console.log("staus clicked:" + data.ipAddress)
@@ -420,7 +440,6 @@ if($_SESSION['role']=='cajero'){
                         ip: data.ipAddress
                     }
                 }).then(response => {
-                    console.log("Respuesta:" + JSON.stringify(response.data))
                     data.responseTime = response.data.time
                     if (response.data.time) data.pingStatus = "up"
                     else {
@@ -442,7 +461,6 @@ if($_SESSION['role']=='cajero'){
                             mainServerIp: this.mainServerIp
                         }
                     }).then(response => {
-                        console.log("Respuesta:" + JSON.stringify(response.data))
                         this.spinIcon = false
                         if (response.data.time) {
                             if (response.data.time != "-1") {
@@ -495,7 +513,6 @@ if($_SESSION['role']=='cajero'){
                     }
                 }).then(response => {
                     this.ipListBox1 = response.data
-                    console.log(response.data)
                     this.spinIconBox1 = false
                 })
             },

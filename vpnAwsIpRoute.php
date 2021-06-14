@@ -1,3 +1,19 @@
+<?php
+include("login/db.php");
+require 'Mkt.php';
+require 'vpnConfig.php';
+$mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
+if ($mysqli->connect_errno) {
+	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+	}	
+mysqli_set_charset($mysqli,"utf8");
+date_default_timezone_set('America/Bogota');
+$today = date("Y-m-d");   
+$convertdate= date("d-m-Y" , strtotime($today));
+$hourMin = date('H:i');
+$ping = array();
+$fileContent="";
+$fileContent.="
 #!/bin/sh
 # This is /etc/ppp/ip-up file. 
 # This script is run by the pppd after the link is established.
@@ -14,107 +30,62 @@
 #    $3   The link speed                38400
 #    $4   Local IP number               12.34.56.78
 #    $5   Peer  IP number               12.34.56.99
-#    $6   Optional ``ipparam'' value    foo
-
+#    $6   Optional ``ipparam'' value    foo";
+$fileContent.="
 # The  environment is cleared before executing this script
 # so the path must be reset
 PATH=/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin
 export PATH
 
 # These variables are for the use of the scripts run by run-parts
-PPP_IFACE="$1"
-PPP_TTY="$2"
-PPP_SPEED="$3"
-PPP_LOCAL="$4"
-PPP_REMOTE="$5"
-PPP_IPPARAM="$6"
+";
+$fileContent.="
+PPP_IFACE=\"$1\"
+PPP_TTY=\"$2\"
+PPP_SPEED=\"$3\"
+PPP_LOCAL=\"$4\"
+PPP_REMOTE=\"$5\"
+PPP_IPPARAM=\"$6\"
 export PPP_IFACE PPP_TTY PPP_SPEED PPP_LOCAL PPP_REMOTE PPP_IPPARAM
-
-# as an additional convenience, $PPP_TTYNAME is set to the tty name,
+";
+$fileContent.="
+# as an additional convenience, \$PPP_TTYNAME is set to the tty name,
 # stripped of /dev/ (if present) for easier matching.
-PPP_TTYNAME=`/usr/bin/basename "$2"`
+PPP_TTYNAME=`/usr/bin/basename \"$2\"`
 export PPP_TTYNAME 
+";
+$fileContent.="
 if /sbin/ip route add 192.168.7.0/24 via 192.168.42.10 dev ppp0 ; then
-        echo "ok 192.168.21.0/24 ppp0"
+echo \"ok 192.168.21.0/24 ppp0\"
 else
-        /sbin/ip route add 192.168.7.0/24 via 192.168.42.10 dev ppp1
+/sbin/ip route add 192.168.7.0/24 via 192.168.42.10 dev ppp1
 fi
-if /sbin/ip route add 192.168.16.0/24 via 192.168.42.10 dev ppp0 ; then
-        echo "ok 192.168.21.0/24 ppp0"
-else
-        /sbin/ip route add 192.168.16.0/24 via 192.168.42.10 dev ppp1
-fi
-if /sbin/ip route add 192.168.17.0/24 via 192.168.42.10 dev ppp0 ; then
-        echo "ok 192.168.21.0/24 ppp0"
-else
-        /sbin/ip route add 192.168.17.0/24 via 192.168.42.10 dev ppp1
-fi
-if /sbin/ip route add 192.168.20.0/24 via 192.168.42.10 dev ppp0 ; then
-        echo "ok 192.168.21.0/24 ppp0"
-else
-        /sbin/ip route add 192.168.20.0/24 via 192.168.42.10 dev ppp1
-fi
-if /sbin/ip route add 192.168.21.0/24 via 192.168.42.10 dev ppp0 ; then
-        echo "ok 192.168.21.0/24 ppp0"
-else
-        /sbin/ip route add 192.168.21.0/24 via 192.168.42.10 dev ppp1
-fi
-if /sbin/ip route add 192.168.26.0/24 via 192.168.42.10 dev ppp0 ; then
-        echo "ok 192.168.21.0/24 ppp0"
-else 
-        /sbin/ip route add 192.168.26.0/24 via 192.168.42.10 dev ppp1
-fi
-if /sbin/ip route add 192.168.40.0/24 via 192.168.42.10 dev ppp0 ; then
-        echo "ok 192.168.21.0/24 ppp0"
-else
-        /sbin/ip route add 192.168.40.0/24 via 192.168.42.10 dev ppp1
-fi
-if /sbin/ip route add 192.168.50.0/24 via 192.168.42.10 dev ppp0 ; then
-        echo "ok 192.168.21.0/24 ppp0"
-else
-        /sbin/ip route add 192.168.50.0/24 via 192.168.42.10 dev ppp1
-fi
-if /sbin/ip route add 192.168.85.0/24 via 192.168.42.10 dev ppp0 ; then
-        echo "route to alcaravan"
-else
-        /sbin/ip route add 192.168.85.0/24 via 192.168.42.10 dev ppp1
-fi
-if /sbin/ip route add 192.168.65.0/24 via 192.168.42.10 dev ppp0 ; then
-        echo "ok 192.168.21.0/24 ppp0"
-else
-        /sbin/ip route add 192.168.65.0/24 via 192.168.42.10 dev ppp1
-fi
-if /sbin/ip route add 192.168.30.0/24 via 192.168.42.11 dev ppp0 ; then
-        echo "ok 192.168.21.0/24 ppp0"
-else
-        /sbin/ip route add 192.168.30.0/24 via 192.168.42.11 dev ppp1
-fi
-if /sbin/ip route add 192.168.60.0/24 via 192.168.42.11 dev ppp0 ; then
-        echo "ok 192.168.21.0/24 ppp0"
-else
-        /sbin/ip route add 192.168.60.0/24 via 192.168.42.11 dev ppp1
-fi
-echo "Voy a agregar la ruta:"
-echo "Ruta agregada"
-echo "la ruta del log es: /var/log/ppp-ipupdown.log"
+";
+$fileContent.="
+echo \"Voy a agregar la ruta:\"
+echo \"Ruta agregada\"
+echo \"la ruta del log es: /var/log/ppp-ipupdown.log\"
 # If /var/log/ppp-ipupdown.log exists use it for logging.
 if [ -e /var/log/ppp-ipupdown.log ]; then
-  exec > /var/log/ppp-ipupdown.log 2>&1
-  echo $0 $@
-  echo
+exec > /var/log/ppp-ipupdown.log 2>&1
+echo $0 $@
+echo
 fi
 
 # This script can be used to override the .d files supplied by other packages.
 if [ -x /etc/ppp/ip-up.local ]; then
-  exec /etc/ppp/ip-up.local "$@"
+exec /etc/ppp/ip-up.local \"$@\"
 fi
 
 run-parts /etc/ppp/ip-up.d \
-  --arg="$1" --arg="$2" --arg="$3" --arg="$4" --arg="$5" --arg="$6"
+--arg=\"$1\" --arg=\"$2\" --arg=\"$3\" --arg=\"$4\" --arg=\"$5\" --arg=\"$6\"
 
-# if pon was called with the "quick" argument, stop pppd
+# if pon was called with the \"quick\" argument, stop pppd
 if [ -e /var/run/ppp-quick ]; then
-  rm /var/run/ppp-quick
-  wait
-  kill $PPPD_PID
+rm /var/run/ppp-quick
+wait
+kill \$PPPD_PID
 fi
+";
+
+?>
