@@ -11,13 +11,12 @@ session_destroy();
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link href="css/style.css" rel="stylesheet" media="screen">
-    <link href="css/bootstrap-social.css" rel="stylesheet" media="screen">
+    <link href="./css/style.css" rel="stylesheet" media="screen">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
 
 
-</head>
+</head> 
 
 <body>
 

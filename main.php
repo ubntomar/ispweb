@@ -44,7 +44,7 @@ if($_SESSION['role']=='cajero'){
     <div class="container-fluid px-0">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top   ">
             <div class="container img-logo ">
-                <img src="img/wisp.png" />
+                <!-- <img src="img/wisp.png" /> -->
                 <!-- Nos sirve  para agregar un logotipo al menu -->
                 <a href="main.php" class="navbar-brand link-border">Wisdev</a>
 
@@ -113,7 +113,7 @@ if($_SESSION['role']=='cajero'){
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <div class="d-flex align-items-center">
                                     <div></div>
-                                    <div><input type="text" value="" id="search"
+                                    <div><input type="text" value="" id="search" v-on:keyup="searchFn"
                                             class="form-control form-control-sm ml-1" v-model="searchString"></div>
                                     <div><button class="icon-search form-control form-control-sm "
                                             v-on:click="searchFn"></button></div>
@@ -146,7 +146,13 @@ if($_SESSION['role']=='cajero'){
                                                     <small>{{cliente.suspender}}</small>
                                                 </div>
                                             </td>
-                                            <td>{{cliente.ipAddress}}</td>
+                                            <td><input type="text" :placeholder="cliente.ipAddress"
+                                                    v-model="cliente.ipAddress" v-on:keyup="cliente.validIp=true">
+                                                <p><button class="border border-rounded icon-arrows-ccw"
+                                                        v-on:click="updateIp(cliente)"></button><small
+                                                        class="ml-1 pl-1 pr-1 border  border-rounded border-danger"
+                                                        v-if="!cliente.validIp">Ip invalida!</small></p>
+                                            </td>
                                             <td><strong class="font-italic"
                                                     v-if="cliente.responseTime"><small>{{cliente.responseTime}}
                                                     </small><small
@@ -327,7 +333,6 @@ if($_SESSION['role']=='cajero'){
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js">
     </script>
-    <script src="bower_components/Popper/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="bower_components/alertify/js/alertify.min.js"></script>
     <script src="bower_components/AutoFormatCurrency/simple.money.format.js"></script>
@@ -355,7 +360,6 @@ if($_SESSION['role']=='cajero'){
             spinIconBox2: false,
             ipListBox3: [],
             spinIconBox3: false
-
         },
         methods: {
             getUser: function() {
@@ -374,6 +378,25 @@ if($_SESSION['role']=='cajero'){
                 }).catch(e => {
                     console.log('error' + e)
                 })
+            },
+            updateIp:  function(data) {
+                let idAfiliado = data.id
+                let ipAddress = data.ipAddress
+                if (this.validateIpAddress(ipAddress)) {
+                    axios.get('fetchUsers.php', {
+                        params: {
+                            update: "tssrue",
+                            idRow: "252",
+                            ipRow: "4.4.4.4"
+                        }
+                    }).then(response => {
+                        console.log(response.data.ip)                        
+                    }).catch(e => {
+                        console.log('error' + e)
+                    })
+                } else {
+                    data.validIp = false
+                }
             },
             searchFn: function() {
                 this.searchOption = "Todos"

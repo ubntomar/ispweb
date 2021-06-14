@@ -5,6 +5,7 @@
 		exit;
 	} else {
 		$user = $_SESSION['username'];
+		$idAreaDefault=$_SESSION["idAreaDefault"];
 		 
 	}
 	if($_SESSION['role']=='tecnico'){
@@ -72,7 +73,7 @@
 		<div class="container-fluid px-0">
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top   ">
 				<div class="container img-logo ">
-					<img src="img/wisp.png">
+					<!-- <img src="img/wisp.png"> -->
 					<!-- Nos sirve para agregar un logotipo al menu -->
 					<a href="main.php" class="navbar-brand ">Wisdev</a> 
 
@@ -182,15 +183,18 @@
 																			</div>
 																			<div class="form-group col-md-4 ">
 																				<label>Ciudad.</label>
-																				<select  class="custom-select " id="ciudad">
+																				<select  class="custom-select" id="ciudad">
 																					<?php
 																					$sql = "SELECT * FROM `areas` WHERE 1 ";
 																					if ($result = $mysqli->query($sql)) {
+																						
 																						while ($row = $result->fetch_assoc()) {
 																							$id=$row["id"];
+																							$t="";
+																							if($id==$idAreaDefault)$t="SELECTED";
 																							$nombre=$row["nombre"];
 																							$ciudad=$row["ciudad"];
-																							echo "<option value=\"$id-$ciudad\">$nombre $ciudad</option>";
+																							echo "<option $t value=\"$id-$ciudad\">$nombre $ciudad</option>";
 																						}
 																						$result->free();
 																					}
@@ -214,6 +218,10 @@
 																				<input class="form-control" type="email" value="" id="email-confirmar">
 																			</div>
 																			<div class="form-group col-md-4 ">
+																				<label>Ip Address</label>
+																				<input class="form-control" type="text" value="0.0.0.0" id="ipAddress">
+																			</div>
+																			<div class="form-group col-md-2 ">
 																				<label></label>
 																				<button type="button" class="btn btn-success" id="continue-btn-registration">Continuar</button>
 																			</div>
@@ -1153,9 +1161,14 @@
 												if (validEmail($("#email-confirmar").val()) && ($("#email-confirmar").val() == $("#email").val())) {
 													$("#email-confirmar").removeClass("border border-danger");
 													$("#email-confirmar").addClass("border border-success");
-													$("#business-info").show();
-													$('#ClientModal').modal('toggle');
-													vistaModal();
+													if(ValidateIPaddress($("#ipAddress").val())){
+														$("#business-info").show();
+														$('#ClientModal').modal('toggle');
+														vistaModal();
+													}else{
+														alertify.error('ip address incorrecto');
+														$("#ipAddress").addClass("border border-danger");
+													}
 												} else {
 													alertify.error('Confirmación de email incorrecto');
 													$("#email-confirmar").addClass("border border-danger");
@@ -1453,7 +1466,7 @@
 								var corteMes = $("#corte-mes").val();
 								var plan = $("#plan").val();
 								var velocidadPlan = $("#velocidad-plan").val();
-								var ipAddress = "";
+								var ipAddress =$("#ipAddress").val(); 
 								var generarFactura = $("#generar-factura").val();
 								var valorAfiliacion = $("#valorAfiliacion").val();
 								var mergeItems = $("#mergeItems").val();

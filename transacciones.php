@@ -191,7 +191,7 @@ if($_SESSION['role']=='tecnico'){
 												$registros=$result->num_rows;
 												$cnt=0;
 												$sum=0;
-												while ($row = $result->fetch_assoc()) {
+												while ($row = $result->fetch_assoc()) { 
 													$cnt+=1;
 													$idtransaccion=$row["idtransaccion"];
 													$idafi=$row["id-cliente"];
@@ -479,7 +479,7 @@ if($_SESSION['role']=='tecnico'){
                                     <div class="comentario d-flex flex-wrap">
                                         <div class="foto">
                                             <a href="#">
-                                                <img src="img/persona1.jpg" width="100" alt="">
+                                                <!-- <img src="img/persona1.jpg" width="100" alt=""> -->
                                             </a>
                                         </div>
                                         <div class="texto">
@@ -504,7 +504,7 @@ if($_SESSION['role']=='tecnico'){
                                     <div class="comentario d-flex flex-wrap">
                                         <div class="foto">
                                             <a href="#">
-                                                <img src="img/persona2.jpg" width="100" alt="">
+                                                <!-- <img src="img/persona2.jpg" width="100" alt=""> -->
                                             </a>
                                         </div>
                                         <div class="texto">
@@ -529,7 +529,7 @@ if($_SESSION['role']=='tecnico'){
                                     <div class="comentario d-flex flex-wrap">
                                         <div class="foto">
                                             <a href="#">
-                                                <img src="img/persona3.jpg" width="100" alt=""> 
+                                                <!-- <img src="img/persona3.jpg" width="100" alt="">  -->
                                             </a>
                                         </div>
                                         <div class="texto">

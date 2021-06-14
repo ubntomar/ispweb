@@ -17,7 +17,7 @@ if($mainServerIp){
 	$device= new PingTime($mainServerIp);
 	if($device->time()){
 		$device2= new PingTime($ipAddress);
-		$time= array("time"=>$device2->time());
+		$time= array("time"=>$device2->time());  
 		echo json_encode($time); 
 	}
 	else{

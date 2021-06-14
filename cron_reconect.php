@@ -13,7 +13,7 @@ $hourMin = date('H:i');
 $idEmpresa=1;//AG INGENIERIA GUAMAL-CASTILLA
 $groupArray=[];
 $mkobj=[];
-$sql="SELECT * FROM `vpn_targets` WHERE 1 AND `ACTIVE`= 1 AND `id-empresa`= $idEmpresa ";
+$sql="SELECT * FROM `vpn_targets` WHERE  `active`= 1 AND `id-empresa`= $idEmpresa ";
 if($rs=$mysqli->query($sql)){
     while($row=$rs->fetch_assoc()){
         $serverIp=$row["server-ip"];
@@ -50,12 +50,11 @@ if($rt=$mysqli->query($sql)){
         }
     }
     else{
-        print "\n\n\n\n $today : $hourMin * No hay clientes para cortar en  este momento\n";
+        print "\n\n\n\n $today : $hourMin * No hay clientes para reconectar en  este momento\n";
     }
 $rt->free();    
 }   
     
-
 function removeIpFromMorososList($remove,$ip,$today,$hourMin,$mysqli,$id){
     if($remove==1){
        print "\n\n\n$today-$hourMin: Ip: $ip removida con éxito\n\n\n\n";

@@ -19,7 +19,7 @@ $convertdate = date("d-m-Y", strtotime($today));
 $hourMin = date('H:i');
 $debug = 0;
 
-if ($_POST['id']) {
+if ( ($_POST['id']) && (!$_POST['vue']) ) {
     $id = mysqli_real_escape_string($mysqli, $_REQUEST['id']);
     $ip = mysqli_real_escape_string($mysqli, $_REQUEST['ip']);
     $duplicatedIp="SELECT `id`,`ip`,`cliente`,`apellido` FROM `redesagi_facturacion`.`afiliados` WHERE `ip` = '$ip' and `eliminar` != '1'  ";
@@ -44,4 +44,6 @@ if ($_POST['id']) {
     }
     echo $response;  
 }
+echo "ok";
+
 ?>

@@ -33,7 +33,8 @@ if($_SESSION['role']=='tecnico'){
 	<link rel="stylesheet" href="css/fontello.css">
 	<link rel="stylesheet" href="css/estilos.css">
 	<link rel="stylesheet" href="css/dataTables.checkboxes.css">
-
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -50,7 +51,7 @@ if($_SESSION['role']=='tecnico'){
 	<div class="container-fluid px-0">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top   ">
 			<div class="container img-logo ">
-				<img src="img/wisp.png">
+				<!-- <img src="img/wisp.png"> -->
 				<!-- Nos sirve para agregar un logotipo al menu -->
 				<a href="main.php" class="navbar-brand">Wisdev</a>
 
@@ -102,10 +103,10 @@ if($_SESSION['role']=='tecnico'){
 				</nav>
 			</div>
 
-			<main class="main col">
+			<main class="main col" >
 				<div class="row">
 					<div class="columna col-lg-9">
-						<div class="nuevo_contenido pb-2 mb-2 caja border-primary">
+						<div class="nuevo_contenido pb-2 mb-2 caja border-primary" >
 							<h5 class="my-3 pb-2 caja border-primary">Registrar pago</h5>
 							<!-- inicio de contenido de pagina -->
 							<form style="display: hidden" action="printable.php" method="POST" id="form">
@@ -229,14 +230,14 @@ if($_SESSION['role']=='tecnico'){
 											if ($cedula == 0) {
 												$textCedula = "<input class=\"form-control form-control-sm cedula" . $row["id"] . " px-2\" type=\"text\" value=\"\" >";
 											} else {
-												$textCedula = "<input class=\"form-control form-control-sm cedula" . $row["id"] . " px-2\" type=\"text\" value=\"$cedula\" id=\"-1\" 	 >";
+												$textCedula = "<input class=\"form-control form-control-sm cedula" . $row["id"] . " px-2\" type=\"text\" value=\"$cedula\"  	 >";
 											}
 
 											$textTelefono = $telefono;
 											if ($telefono == "") {
 												$textTelefono = "<input class=\"form-control form-control-sm telefono" . $row["id"] . " px-2 \" type=\"text\" value=\"\" >";
 											} else {
-												$textTelefono = "<input class=\"form-control form-control-sm telefono" . $row["id"] . " px-2 \" type=\"text\" value=\"$telefono\" id=\"-1\"  >";
+												$textTelefono = "<input class=\"form-control form-control-sm telefono" . $row["id"] . " px-2 \" type=\"text\" value=\"$telefono\"   >";
 											}
 
 											$telefono = $row["telefono"]; 
@@ -245,6 +246,9 @@ if($_SESSION['role']=='tecnico'){
 											echo "<td><small>{$row["direccion"]} {$row["ciudad"]} -{$row['id']}</small></td>"; 
 											echo "<td>$diff</td>";
 											echo "<td><small 	$style_cell >$$vtotal</small><div><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money\"></i></a></div></td>";
+											// echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small><input type=\"text\" value=\"\" placeholder=\"$ip\" id=\"{$row['id']}\"
+                                            // class=\"form-control form-control-sm ml-1\"></small></p><button v-on:click=\"ipUpdate({$row['id']})\" class=\"border border-rounded icon-arrows-ccw\"></button>
+											// <p class=\"mb-0\"><small>$pingCurrentStatus</small></p></div></td>"; 
 											echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small>ip:'$ip'</small></p><p class=\"mb-0\"><small>$pingCurrentStatus</small></p></div></td>";    
 											echo "<td class=\" align-middle \"><small>C-" . $row["corte"] . "*$standby</small></td>";
 											echo "<td class=\" align-middle \">$textCedula</td>"; 
@@ -310,7 +314,7 @@ if($_SESSION['role']=='tecnico'){
 								<div class="comentario d-flex flex-wrap">
 									<div class="foto">
 										<a href="#">
-											<img src="img/persona1.jpg" width="100" alt="">
+											<!-- <img src="img/persona1.jpg" width="100" alt=""> -->
 										</a>
 									</div>
 
@@ -332,7 +336,7 @@ if($_SESSION['role']=='tecnico'){
 								<div class="comentario d-flex flex-wrap">
 									<div class="foto">
 										<a href="#">
-											<img src="img/persona2.jpg" width="100" alt="">
+											<!-- <img src="img/persona2.jpg" width="100" alt=""> -->
 										</a>
 									</div>
 									<div class="texto">
@@ -352,7 +356,7 @@ if($_SESSION['role']=='tecnico'){
 								<div class="comentario d-flex flex-wrap">
 									<div class="foto">
 										<a href="#">
-											<img src="img/persona3.jpg" width="100" alt="">
+											<!-- <img src="img/persona3.jpg" width="100" alt=""> -->
 										</a>
 									</div>
 									<div class="texto">
@@ -395,28 +399,14 @@ if($_SESSION['role']=='tecnico'){
 
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
-	<script src="bower_components/Popper/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="bower_components/alertify/js/alertify.min.js"></script>
 	<script src="bower_components/AutoFormatCurrency/simple.money.format.js"></script>
 	<script src="js/dataTables.checkboxes.min.js"></script>
-	<script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+	<script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script> 
 
 	<script>
-		$('#clientList').DataTable({
-			"iDisplayLength": 15,
-			"order": [
-				[4, "desc"]
-			],
-			"responsive": true,
-			"paging": true,
-			"searching": true,
-			"info": true,
-			fixedHeader: {
-				header: true,
-				footer: true
-			}
-		});
+		
 		$('#payModal').on('show.bs.modal', function(e) {
 
 			var rowid = $(e.relatedTarget).data('id');
@@ -789,10 +779,68 @@ if($_SESSION['role']=='tecnico'){
 					});;
 				$('#payModal').modal('hide');
 			});
-
-
-
 		})
+	var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            ipValue: null
+        },
+        methods: {
+            ipUpdate: function(id) {
+                let value = document.getElementById("id").value;
+                if (this.validateIpAddress(value)) {
+                    console.log("update clicked:")
+                    axios.post('ipupdater.php', {
+                        params: {
+							id:id,
+                            ip: value,
+							vue: "1" 
+                        }
+                    }).then(response => {
+                        let res=response.data;
+						console.log("rt"+res);
+						if(res=="ok"){
+							console.log("cliente actualizado")
+						}
+                        
+                    }).catch(e => {
+                        console.log('error' + e)
+                    })
+                } else console.log("Ip no es valida!")
+            },
+            validateIpAddress: function(data) {
+                var ipformat =
+                    /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+                if (data != null) {
+                    if (data.match(ipformat)) {
+                        return true;
+                    } else {
+
+                        return false;
+                    }
+                }
+                return false;
+            }
+        },
+        mounted() {
+            $('#clientList').DataTable({
+			"iDisplayLength": 15,
+			"order": [
+				[4, "desc"]
+			],
+			"responsive": true,
+			"paging": true,
+			"searching": true,
+			"info": true,
+			fixedHeader: {
+				header: true,
+				footer: true
+			}
+		});
+        }
+
+	})
 	</script>
 </body>
 

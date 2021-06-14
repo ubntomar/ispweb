@@ -35,6 +35,7 @@ if (mysqli_num_rows($result)) //if exist then check for password
     $jurisdiccion=$db_field['id-jurisdiccion'];
     $empresa=$db_field['id-empresa'];
     $sharedCode=$db_field['shared-code'];
+    $idAreaDefault=$db_field['id-area-default'];
     
     //3.3 $hashed_password=crypt($password,$db_field['password']); 
 
@@ -61,6 +62,7 @@ if (mysqli_num_rows($result)) //if exist then check for password
                 $_SESSION["jurisdiccion"] = $jurisdiccion;
                 $_SESSION["empresa"] = $empresa;
                 $_SESSION["sharedCode"] = $sharedCode;
+                $_SESSION["idAreaDefault"] = $idAreaDefault;
                 echo json_encode(array('result' => 1));
             } else {
                 echo json_encode(array('result' => "$msg_email_1 <br /><a href=\"" . $url . "\\resend_key.php?user=" . $username . "\">$msg_email_2</a>."));
@@ -89,6 +91,7 @@ if (mysqli_num_rows($result)) //if exist then check for password
                 $_SESSION["jurisdiccion"] = $jurisdiccion;
                 $_SESSION["empresa"] = $empresa;
                 $_SESSION["sharedCode"] = $sharedCode;
+                $_SESSION["idAreaDefault"] = $idAreaDefault;
                 echo json_encode(array('result' => 1));
             } else {
                 echo json_encode(array('result' => "$msg_email_1 <br /><a href=\"" . $url . "\\resend_key.php?user=" . $username . "\">$msg_email_2</a>."));

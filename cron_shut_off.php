@@ -1,115 +1,98 @@
 <?php
-$debug=false;
 include("login/db.php");
 require 'Mkt.php'; 
-require 'vpnConfig.php';
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+    print "Failed to connect to MySQL: " . $mysqli->connect_error;
 }
 mysqli_set_charset($mysqli, "utf8");
 date_default_timezone_set('America/Bogota');
 $today = date("Y-m-d");
 $convertdate = date("d-m-Y", strtotime($today));
 $hourMin = date('H:i');
-$pass=true;
 $user="aws";
-if (true) {   
-    if($debug)
-        $idarray[]=363;//Hernando Monguí  
-    else{
-        $sql="select `id` FROM `afiliados` WHERE  `shutoffpending`='1' and `suspender`='1' ";
-        if($rt=$mysqli->query($sql)){
-            if($rt->num_rows){
-                while($row=$rt->fetch_assoc()){
-                    $idarray[]=$row['id'];
-                }
-                $str="";     
-                if($mkobj=new Mkt($serverIpAddressArea1,$vpnUser,$vpnPassword)){
-                    echo "\nConectado a la Rboard cod Server-target-> 1:$serverIpAddressArea1\n";
-                    $pass=true;        
-                }
-                else {
-                    echo "$today-$hourMin: No fue posible conectar a la Rboard 1:$serverIpAddressArea1 \n";      
-                }
-                if($mkobj2=new Mkt($serverIpAddressArea2,$vpnUser,$vpnPassword)){
-                    echo "\nConectado a la Rboard cod Server-target-> 2:$serverIpAddressArea2\n";
-                    $pass=true;        
-                }
-                else {
-                    echo "$today-$hourMin: No fue posible conectar a la Rboard 2:$serverIpAddressArea2 \n";        
-                }
-                foreach ($idarray as $id) {
-                    $sql_client_telefono = "select * from redesagi_facturacion.afiliados where `id`=$id ";
-                    $result = mysqli_query($mysqli, $sql_client_telefono) or die('error encontrando el cliente');
-                    $db_field = mysqli_fetch_assoc($result);
-                    $ip=$db_field['ip'];
-                    $nombre=$db_field['cliente'];
-                    $clientAreaCode=$db_field["id_client_area"]; 
-                    print "\n Ip que vamos a gregar:".$ip."\n";         
-                    $str.=$ip;
-                    if (next($idarray)==true) $str .= ","; 
-                    $sqlinsert="insert into redesagi_facturacion.service_shut_off (id,tipo,fecha,hora,status,user,ip,id_client) values (null,5,'$today','$hourMin','ok','$user','$ip',$id)";
-                    mysqli_query($mysqli,$sqlinsert) or die('error ingresando a suspendidos tb');
-                    if($clientAreaCode==$area1Cod){
-                        removeIp($mkobj->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        addIP($mkobj->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);//add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
-                    }
-                    if($clientAreaCode==$area2Cod){
-                        removeIp($mkobj2->remove_ip($ip,'permitidos'),$ip,$today,$hourMin);
-                        try {
-                            addIP($mkobj2->add_address($ip,'morosos','idUserNumber:'.$id,$nombre),$id,$mysqli,$today,$ip,$hourMin);//add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
-                        }
-                        catch (Exception $e){
-                            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-                        }
-                    }
-                }
-            }
-            else{
-                echo "\n $today : $hourMin * No hay clientes para cortar en  este momento\n";
-                $pass=false;
-            }
-        }   
-        
-    }
-     
-}
-function removeIp($remove,$ip,$today,$hourMin){
-    if($remove==1){
-       echo "$today-$hourMin: Ip: $ip removida con éxito\n";
-    }
-    if($remove==2){
-        echo "$today-$hourMin: Dirección Ip $ip o Lista 'permitidos' no existe! ..procedemos a agregar a 'morosos' !\n";
-    }     
-} 
-
-function addIp($response,$idClient,$mysqli,$today,$ip,$hourMin){
-    if($response==1){
-       echo "$today-$hourMin: Ip $ip agregada a suspendidos con éxito\n";
-        $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='0' , `afiliados`.`suspenderFecha`='$today'  WHERE `afiliados`.`id`='$idClient'";
-        if($result2 = $mysqli->query($sqlUpd)){						
+$idEmpresa=1;//AG INGENIERIA GUAMAL-CASTILLA
+$groupArray=[];
+$mkobj=[];
+$sql="SELECT * FROM `vpn_targets` WHERE  `active`= 1 AND `id-empresa`= $idEmpresa ";
+if($rs=$mysqli->query($sql)){
+    while($row=$rs->fetch_assoc()){
+        $serverIp=$row["server-ip"];
+        $serverName=$row["server-name"];
+        $username=$row["username"];
+        $password=$row["password"];
+        $groupId=$row["id-repeater-subnet-group"];
+        print "\n Starting width $serverIp ...\n";
+        $mkobj[$groupId]=new Mkt($serverIp,$username,$password);
+        if($mkobj[$groupId]->success){
+            $groupArray+=array("$groupId"=>"true");
+            print "$serverIp $serverName $groupId grupo connwxion valido \n";
+        }else {
+            $groupArray+=array("$groupId"=>"false");
+            print "$serverIp $serverName $groupId $groupId grupo connwxion invalido! \n";
+            //print "\n error:{$mkobj[$groupId]->error} \n";   
         }
-        else{
-            echo "\nError al actualizar cliente Mysql `shutoffpending`=0\n";	
-        }	
+    }
+    $rs->free();
+}
+print "\n\n\n***********************************************************************************\n\n\n";
+$sql="SELECT * FROM `afiliados` WHERE  `shutoffpending`= 1 AND `suspender`= 1   AND `eliminar`=0 AND `id-repeater-subnets-group` != 0"; 
+if($rt=$mysqli->query($sql)){
+    if($rt->num_rows){
+        while($row=$rt->fetch_assoc()){
+            $id=$row['id'];
+            $ip=$row["ip"];
+            $nombre=$row["cliente"];
+            $apellido=$row["apellido"];
+            $direccion=$row["direccion"];
+            $fecha=$today;
+            $idGroup=$row["id-repeater-subnets-group"];
+            print "\n{$row['cliente']} $id  idgrupo: $idGroup valor de groupArray {$groupArray[$idGroup]}\n";
+            if( $groupArray[$idGroup] ){
+                print "\n\n\n Agregar ip a lista 'morosos' $ip {$row['cliente']}";
+                try {
+                    addIP($mkobj[$idGroup]->add_address($ip,'morosos','idUserNumber:'.$id,$nombre,$apellido,$direccion,$fecha),$id,$mysqli,$today,$ip,$hourMin,$user,$id);//add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
+                }
+                catch (Exception $e){
+                    echo 'Excepción capturada: '.$e->getMessage()."\n";
+                }
+            }
+        }
+    }
+    else{
+        print "\n\n\n\n $today : $hourMin * No hay clientes para cortar en  este momento\n";
+    }
+$rt->free();    
+}   
+    
+function addIp($response,$idClient,$mysqli,$today,$ip,$hourMin,$user,$id){
+    if($response==1){
+       print "$today-$hourMin: Ip $ip agregada a morosos con éxito\n";
+        $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='0' , `afiliados`.`suspenderFecha`='$today'  WHERE `afiliados`.`id`='$idClient'";
+        if(!$result2 = $mysqli->query($sqlUpd)){						
+            print "\nError al actualizar cliente Mysql `shutoffpending`=0\n";	
+        }
+        $sqlinsert="insert into redesagi_facturacion.service_shut_off (id,tipo,fecha,hora,status,user,ip,id_client) values (null,5,'$today','$hourMin','ok','$user','$ip',$id)";
+        if(!$result2x = $mysqli->query($sqlinsert)){						
+            print "\nError al actualizar registro de clientes cortados!\n";	
+        }
+
     }
     elseif($response==2){
-        echo "\n $today-$hourMin: Problemas al ingresar la Ip $ip a la Rboard\n";
+        print "\n $today-$hourMin: Problemas al ingresar la Ip $ip a la Rboard\n";
         $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='1'  WHERE `afiliados`.`id`='$idClient'";
-        if($result2 = $mysqli->query($sqlUpd)){					
-        }
-        else{
-            echo "\nError al actualizar cliente Mysql `shutoffpending`=1\n";	
+        if(!$result2 = $mysqli->query($sqlUpd)){					
+            print "\nError al actualizar cliente Mysql `shutoffpending`=1\n";	
         }
     }
     elseif($response==3){
-        echo "\n $today-$hourMin: $idClient:Esa Ip $ip ya se encuentra en la lista de morosos!\n";
+        print "\n $today-$hourMin: $idClient:Esa Ip $ip ya se encuentra en la lista de morosos!\n";
         $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='0' , `afiliados`.`suspenderFecha`='$today'  WHERE `afiliados`.`id`='$idClient'";
         if($result2 = $mysqli->query($sqlUpd)){						
+            print "\nError al actualizar cliente Mysql `shutoffpending`=0\n";	
         }
-        else{
-            echo "\nError al actualizar cliente Mysql `shutoffpending`=0\n";	
-        }	
+       	
     }
 }
+ 
+?>
