@@ -44,6 +44,6 @@ if ( ($_POST['id']) && (!$_POST['vue']) ) {
     }
     echo $response;  
 }
-echo "ok";
+//echo "ok";
 
 ?>

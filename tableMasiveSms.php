@@ -1,13 +1,13 @@
 <?php 
 session_start();
-if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
-        {
-        //header('Location: login/index.php');
-        //exit;
-        }
-else    {
-        $user=$_SESSION['username'];
-        }
+if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true){
+    header('Location: login/index.php');
+    exit;
+}
+else{
+    $user=$_SESSION['username'];
+    $empresa = $_SESSION['empresa'];
+}
 include("login/db.php");
 include("dateHuman.php");
 date_default_timezone_set('America/Bogota');
@@ -28,24 +28,44 @@ $suspender=0;
 $criterioFacturacion=$_POST["criterioFacturacion"];
 $direccion="%{$_POST["address"]}%";
 $name="%{$_POST["name"]}%";
-$ciudad="%{$_POST["ciudad"]}%";
+$ciudad=explode(":",$_POST["ciudad"])[0];
+$ciudadExcept=explode(":",$_POST["ciudadExcept"])[0];
+if($ciudad!=$ciudadExcept){
+    if($ciudad!="-1"){
+        $cityText=" and `id_client_area` = ? ";
+        $cityValue=$ciudad;
+    }
+    else{
+        if($ciudadExcept!="-2"){
+            $cityText=" and `id_client_area` != ? ";
+            $cityValue=$ciudadExcept;
+        }
+        else{
+            $cityText=" and `id_client_area` != ? ";
+            $cityValue=-3;
+        }
+    }
+}
+else{
+    $cityText=" and `id_client_area` != ? ";
+    $cityValue="-3";
+}
+
 $criterioFacturacionSuspencion="{$_POST["criterioFacturacionSuspencion"]}";
 if (($_POST["corte"]==1 || $_POST["corte"]==15 )) {
-    $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? and `ciudad` like ? and `corte` = ? and `suspender` = ? and  (`activo` = 1) and (`eliminar` = 0)";
-    //echo $sqlprepared;
+    $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? $cityText and `corte` = ? and `suspender` = ? and  (`activo` = 1) and (`eliminar` = 0) and `id-empresa` = ?";
     $stmt = $mysqli->prepare($sqlprepared);
     $corte="{$_POST["corte"]}";
-    $stmt->bind_param("ssssii",$name,$name,$direccion,$ciudad,$corte,$criterioFacturacionSuspencion);
+    $stmt->bind_param("sssiiii",$name,$name,$direccion,$cityValue,$corte,$criterioFacturacionSuspencion,$empresa);
 }
 if  ($_POST["corte"]=="") { 
-    $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados  where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? and `ciudad` like ? and `suspender` = ?  and  (`activo` = 1) and (`eliminar` = 0)";
-    //echo $sqlprepared;
+    $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados  where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? $cityText and `suspender` = ?  and  (`activo` = 1) and (`eliminar` = 0) and `id-empresa` = ?";
     $stmt = $mysqli->prepare($sqlprepared);
-    $stmt->bind_param("ssssi",$name,$name,$direccion,$ciudad,$criterioFacturacionSuspencion); 
+    $stmt->bind_param("sssiii",$name,$name,$direccion,$cityValue,$criterioFacturacionSuspencion,$empresa); 
 }   
 $stmt->execute();
 $result = $stmt->get_result();
-if($result->num_rows === 0) {exit("No hay resultados....");echo "<h1>no hay resultados</h1>"; }
+if($result->num_rows === 0) {exit("No hay resultados....");echo "<h1>no hay resultados</h1>"; } 
 else $response_ok;
 
 echo "

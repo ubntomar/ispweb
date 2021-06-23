@@ -809,16 +809,42 @@
 																	<div class="form-group px-1 border border-success rounded mx-1 my-3">
 																		<label for="">Ciudad </label>
 																		<select class="form-control" id="sms_masive_city">
-																			<option value="" selected>Cualquier ciudad</option>
-																			<option value="Guamal">Guamal</option>
-																			<option value="Castilla">Castilla</option>
-																			<option value="San Martin">San Martin</option>
-																			<option value="Cubarral">Cubarral</option>
-																			<option value="Acacias">Acacias</option>
-																			<option value="Granada">Granada</option>
-																			<option value="El Castillo">El Castillo</option>
-																			<option value="El Dorado">El Dorado</option>
-																			<option value="Villavicencio">Villavicencio</option>
+																			<option SELECTED value="-1:-1">Todas</option>
+																		<?php
+																					$sql = "SELECT * FROM `areas` WHERE 1 ";
+																					if ($result = $mysqli->query($sql)) {
+																						
+																						while ($row = $result->fetch_assoc()) {
+																							$id=$row["id"];
+																							$t="";
+																							if($id==$idAreaDefault)$t="";
+																							$nombre=$row["nombre"];
+																							$ciudad=$row["ciudad"];
+																							echo "<option $t value=\"$id:$ciudad\">$nombre $ciudad</option>";
+																						}
+																						$result->free();
+																					}
+																					?>
+
+																		</select>
+																		<label for="">Exepto </label>
+																		<select class="form-control" id="sms_masive_city_except">
+																				<option SELECTED value="-2:-2">Ninguna</option>
+																		<?php
+																					$sql = "SELECT * FROM `areas` WHERE 1 ";
+																					if ($result = $mysqli->query($sql)) {
+																						
+																						while ($row = $result->fetch_assoc()) {
+																							$id=$row["id"];
+																							$t="";
+																							if($id==$idAreaDefault)$t="";
+																							$nombre=$row["nombre"];
+																							$ciudad=$row["ciudad"];
+																							echo "<option $t value=\"$id:$ciudad\">$nombre $ciudad</option>";
+																						}
+																						$result->free();
+																					}
+																					?>
 
 																		</select>
 																		<small id="" class="form-text text-muted">Por defecto se buscan clientes de cualquier ciudad.</small>
@@ -1615,6 +1641,7 @@
 				var name = $("#sms_masive_name").val();
 				var address = $("#sms_masive_address").val();
 				var ciudad = $("#sms_masive_city").val();
+				var ciudadExcept = $("#sms_masive_city_except").val();
 				var corte = $("#payment_date").val();
 				var criterioFacturacion = $("#client_state").val();
 				var criterioFacturacionSuspencion = $("#client_state_suspension").val();
@@ -1626,6 +1653,7 @@
 						name: name,
 						address: address,
 						ciudad: ciudad,
+						ciudadExcept: ciudadExcept,
 						corte: corte,
 						criterioFacturacion: criterioFacturacion,
 						criterioFacturacionSuspencion: criterioFacturacionSuspencion

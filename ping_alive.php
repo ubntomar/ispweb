@@ -1,4 +1,16 @@
 <?php
+session_start();
+if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
+		{
+		header('Location: login/index.php');
+		exit;
+		}
+else    {
+		$user=$_SESSION['username'];
+		$administrador=$user;
+		$role = $_SESSION["role"];
+		$empresa = $_SESSION['empresa'];
+		}
 require 'ping.php'; 
 include("login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);

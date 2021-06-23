@@ -11,10 +11,32 @@ date_default_timezone_set('America/Bogota');
 $today = date("Y-m-d");   
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i');
-$ping = array();
+$val = getopt("p:");
+$validInitParams=false;
 $fileContent="";
-$fileContent.="
-#!/bin/sh
+if ($val) {
+       // print var_dump($val)."\n";
+        if( $idx=$val['p'][1] ){
+                $idParam=explode(":",$idx)[1];
+                $sql="SELECT `id`,`nombre` FROM `redesagi_facturacion`.`empresa` WHERE `id`=$idParam ";
+                if( $result=$mysqli->query($sql) ){
+                        $nombreEmpresa=$result->fetch_assoc()['nombre'];
+                        system('clear');
+                        print "\n\n   \t\t\t\t\t  Bienvenido $nombreEmpresa, No olvides  reiniciar el L2tp server  y esperar q levanten los pppx! :sudo /etc/init.d/xl2tpd stop\n\n";
+                        $validInitParams=true;
+                        $result->free();
+                }
+        }else{
+                system('clear');
+                print "\nError!, example for correct use: php vpnAwsIpRoute.php  -p:\"id-empresa\" -p:\"100\" \n\n";
+        }
+}else{
+        system('clear');
+        print "\n  \n  \t\t\t\t\tError!, example for correct use: php vpnAwsIpRoute.php  -p:\"id-empresa\" -p:\"100\" \n\n
+        \n  ";
+}
+if($validInitParams){
+$fileContent.="#!/bin/sh
 # This is /etc/ppp/ip-up file. 
 # This script is run by the pppd after the link is established.
 # It uses run-parts to run scripts in /etc/ppp/ip-up.d, so to add routes,
@@ -54,13 +76,41 @@ $fileContent.="
 PPP_TTYNAME=`/usr/bin/basename \"$2\"`
 export PPP_TTYNAME 
 ";
+//block begin
+                
+$sql="SELECT `id`,`ip`,`target` FROM `redesagi_facturacion`.`aws-vpn-client` WHERE `id-empresa`=$idParam ";
+if($result=$mysqli->query($sql)){
+        while($row=$result->fetch_assoc()){
+                $awsId=$row['id'];
+                $awsIp=$row['ip'];
+                $awsTarget=$row['target'];
+                $sql="SELECT `ip-segment`,`aws-vpn-interface-name-main`,`aws-vpn-interface-name-secondary`,`aws-vpn-interface-name-tertiary` FROM `redesagi_facturacion`.`items_repeater_subnet_group` WHERE `id-aws-vpn-client`=$awsId ";
+                if($res=$mysqli->query($sql)){
+                        while($rw=$res->fetch_assoc()){
+                                $ipSegment=$rw['ip-segment'];
+                                $awsNameMain=$rw['aws-vpn-interface-name-main'];
+                                $awsNameSecondary=$rw['aws-vpn-interface-name-secondary'];
+                                $awsNameTertiary=$rw['aws-vpn-interface-name-tertiary'];
+                                //      item begin
 $fileContent.="
-if /sbin/ip route add 192.168.7.0/24 via 192.168.42.10 dev ppp0 ; then
-echo \"ok 192.168.21.0/24 ppp0\"
+if /sbin/ip route add 192.168.$ipSegment.0/24 via $awsIp dev $awsNameMain
+then
+echo \"ok 192.168.$ipSegment.0/24 $awsNameMain\"
+elif /sbin/ip route add 192.168.$ipSegment.0/24 via $awsIp dev $awsNameSecondary
+then
+echo \"ok 192.168.$ipSegment.0/24 $awsNameSecondary\"
+elif /sbin/ip route add 192.168.$ipSegment.0/24 via $awsIp dev $awsNameTertiary
+then
+echo \"ok 192.168.$ipSegment.0/24 $awsNameTertiary\"
 else
-/sbin/ip route add 192.168.7.0/24 via 192.168.42.10 dev ppp1
+echo \"None of the condition met\"
 fi
 ";
+                        }
+                }
+        }
+        $result->free();       
+}
 $fileContent.="
 echo \"Voy a agregar la ruta:\"
 echo \"Ruta agregada\"
@@ -87,5 +137,99 @@ wait
 kill \$PPPD_PID
 fi
 ";
+}
+$partContent=[];
+$mainArray=[];
+$sql="SELECT DISTINCT(`id-aws-vpn-client`) FROM `static_route_steps` WHERE 1";
+if($rta=$mysqli->query($sql)){
+        while($row=$rta->fetch_assoc()){
+                $idAws=$row["id-aws-vpn-client"];
+                $sql="SELECT * FROM `redesagi_facturacion`.`static_route_steps` WHERE `id-aws-vpn-client`=$idAws ORDER BY `step` ASC ";
+                if($sqlObj=$mysqli->query($sql)){
+                        $row_cnt = $sqlObj->num_rows;
+                        while($theRow=$sqlObj->fetch_assoc()){
+                                $step=$theRow["step"];
+                                $localServerip=$theRow["local-server-ip"];
+                                $destiantionAddress=$theRow["dst-ip-address"];
+                                $gateway=$theRow["gateway"];
+                                if($step!=0){
+                                        $partContent[]=["step"=>"$step","content"=>"
+                                        add comment=\"By Isp-Experts $today\"  distance=1 dst-address=$destiantionAddress gateway=$gateway
+                                        "];
+                                }
+                        }
+                        $sqlObj->free();
+                }
+                $mainArray[]=["$idAws"=>$partContent];
+                $partContent=[];
+        }
 
+}
+
+//begin aws l2tp rules
+$filename = "ip-up";
+$file_handler = fopen($filename, 'w');
+if(!$file_handler)
+die("The file can't be open for writing<br />");
+else
+{
+        $data = $fileContent;
+        fwrite($file_handler, $data);
+        fclose($file_handler);
+        print "\n\n   \t\t\t\t\t  El archivo ip-up, ya ha sido generado. Ahora debes reiniciar el servidor Vpn L2tp!\n\n";
+}
+//end aws l2tp rules
+
+
+//var_dump($mainArray);
+$i=0;
+$mainFile=[];
+$contentToSave="";
+$k=0;
+foreach($mainArray as $value){
+        $k++;
+        $fileName=$k."AwsStaticRoute";
+        foreach($value as $item){
+                foreach($item as $element) {
+                        $stepArray[]=$element["step"];
+                        $contentArray[]=$element["content"];
+                        //print "\n      {$element["step"]}   :::  {$element["content"]} \n";
+                }
+                $stepGroups= array_count_values($stepArray);
+                $start=0;
+                $endPart=0;
+                foreach($stepGroups as $key=>$part){
+                        $end=$part+$endPart;
+                        for($i=$start;$i<$end;$i++){
+                            //print $contentArray[$i];
+                            $contentToSave.=$contentArray[$i];
+                        }
+                        //print $contentToSave;    
+                        //print "$fileName.'Step'.$key.'.src'";
+                        //inicio bloque crear archivo
+                        $fileToSave=$fileName."Step".$key.".src";
+                        $file_handler = fopen($fileToSave, 'w');
+                        if(!$file_handler)
+                                die("The file can't be open for writing<br />");
+                        else
+                        {
+                                $data = $contentToSave;
+                                fwrite($file_handler, $data);
+                                fclose($file_handler);
+                                print "\n  $fileToSave  : Ahora debes reiniciar el servidor Vpn L2tp!\n\n";
+                        }
+                        //fin bloque crear archivo
+                        $start+=$part;
+                        $endPart+=$part;
+                        $contentToSave="";
+                }
+
+                                
+        }
+        $stepArray=[];
+        $contentArray=[];
+        $contentToSave="";
+
+// break;
+}
 ?>

@@ -36,7 +36,7 @@ if($rs=$mysqli->query($sql)){
     $rs->free();
 }
 print "\n\n\n***********************************************************************************\n\n\n";
-$sql="SELECT * FROM `afiliados` WHERE  `shutoffpending`= 1 AND `suspender`= 1   AND `eliminar`=0 AND `id-repeater-subnets-group` != 0"; 
+$sql="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `shutoffpending`= 1 AND `suspender`= 1   AND `eliminar`=0 AND `id-repeater-subnets-group` != 0"; 
 if($rt=$mysqli->query($sql)){
     if($rt->num_rows){
         while($row=$rt->fetch_assoc()){
@@ -54,7 +54,7 @@ if($rt=$mysqli->query($sql)){
                     addIP($mkobj[$idGroup]->add_address($ip,'morosos','idUserNumber:'.$id,$nombre,$apellido,$direccion,$fecha),$id,$mysqli,$today,$ip,$hourMin,$user,$id);//add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
                 }
                 catch (Exception $e){
-                    echo 'Excepción capturada: '.$e->getMessage()."\n";
+                    //echo 'Excepción capturada: '.$e->getMessage()."\n";
                 }
             }
         }
