@@ -47,7 +47,7 @@ if($_SERVER['REQUEST_METHOD']==='POST') {
 
 if ($searchOption=="Todos"){
     if($searchString!="") $queryPart="AND ( (`cliente` LIKE '%$searchString%') OR (`apellido` LIKE '%$searchString%') OR (`ip` LIKE '%$searchString%') ) ";
-    else $queryPart="limit 20";
+    else $queryPart="LIMIT 3";
     $sqlSearch="SELECT `id`,`cliente`,`apellido`,`ip`,`ping`,`pingDate`,`suspender` FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1 $queryPart  "; 
     if ($result = $mysqli->query($sqlSearch)) {
         $num=$result->num_rows;
@@ -110,7 +110,7 @@ echo json_encode($ping);
 }
 
 if($searchOption=="Ping OK"){
-    $sqlSearch="SELECT `id`,`cliente`,`apellido`,`ip`,`ping`,`pingDate`,`suspender` FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1  AND `ping`!='NULL' "; 
+    $sqlSearch="SELECT `id`,`cliente`,`apellido`,`ip`,`ping`,`pingDate`,`suspender` FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1  AND `ping`!='NULL' LIMIT 1"; 
     if ($result = $mysqli->query($sqlSearch)) {
         $num=$result->num_rows;
         $counter=0;
@@ -142,7 +142,7 @@ echo json_encode($ping);
 
 if($searchOption=="Ping Down"){
     //SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE `eliminar`=0 AND `activo`=1 AND ( (`pingDate` < DATE_SUB(NOW(), INTERVAL 5 DAY)) OR (`ping` is NULL) ) ORDER BY `afiliados`.`pingDate` DESC
-    $sqlSearch="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE `eliminar`=0 AND `activo`=1 AND ( (`pingDate` < DATE_SUB(NOW(), INTERVAL 5 DAY)) OR (`ping` is NULL) ) ORDER BY `afiliados`.`pingDate` DESC "; 
+    $sqlSearch="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE `eliminar`=0 AND `activo`=1 AND ( (`pingDate` < DATE_SUB(NOW(), INTERVAL 5 DAY)) OR (`ping` is NULL) ) ORDER BY `afiliados`.`pingDate` DESC LIMIT 1 "; 
     if ($result = $mysqli->query($sqlSearch)) { 
         $num=$result->num_rows;
         $counter=0;

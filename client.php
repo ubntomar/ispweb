@@ -1096,7 +1096,7 @@
 				var telefono = $(".telefono" + id).val();
 				if ($.isNumeric(telefono) && (telefono.length == 10)) {
 					if ((telefono).match(/^\d+$/)) {
-						//alertify.success("Número Telefónico actualizado correctamente.");
+						//alertify.success("Número Telefónico actualizado correctamente."); 
 						$.ajax({
 							type: 'post',
 							url: 'edit_cli.php',

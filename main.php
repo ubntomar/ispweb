@@ -113,7 +113,7 @@ if($_SESSION['role']=='cajero'){
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <div class="d-flex align-items-center">
                                     <div></div>
-                                    <div><input type="text" value="" id="search" v-on:keyup="searchFn"
+                                    <div><input type="text" value="" id="search" 
                                             class="form-control form-control-sm ml-1" v-model="searchString"></div>
                                     <div><button class="icon-search form-control form-control-sm "
                                             v-on:click="searchFn"></button></div>
@@ -155,7 +155,10 @@ if($_SESSION['role']=='cajero'){
                                                             class="icon-spin6 "></i></button><small
                                                         v-bind:class="{'border-danger':!cliente.validIp,'border-success':cliente.ipText=='Actualizado con Exito'}"
                                                         class="m-1 p-1 border  border-rounded  font-italic">{{cliente.ipText}}</small>
+                                                <small>Server Ip 192.168.17.35</small>
                                                 </p>
+                                                <div>
+                                                </div>
                                             </td>
                                             <td><strong class="font-italic"
                                                     v-if="cliente.responseTime"><small>{{cliente.responseTime}}
@@ -367,7 +370,8 @@ if($_SESSION['role']=='cajero'){
             selectSpin:false
         },
         methods: {
-            getUser: function() {
+            getUser: async function() {
+                return new Promise((resolve,reject)=>{
                 axios.get('fetchUsers.php', {
                     params: {
                         id: this.id,
@@ -379,8 +383,12 @@ if($_SESSION['role']=='cajero'){
                     this.clientes = response.data
                     this.totalRows = response.data.length - 1
                     this.selectSpin=false
+                    resolve("ok")
                 }).catch(e => {
                     console.log('error' + e)
+                    reject("error")
+                })
+
                 })
             },
             updateIp: function(data) {
@@ -428,7 +436,9 @@ if($_SESSION['role']=='cajero'){
             getSelected: function() {
                 this.selectSpin=true
                 this.searchString = ""
-                this.getUser()
+                this.getUser().then((resolve)=>{
+                    console.log("promesa termminada despues de change on select!")
+                })
                 
             },
             setPing: function(data) {
@@ -501,57 +511,68 @@ if($_SESSION['role']=='cajero'){
                     this.pingSuccess = "waiting"
                 }
             },
-            getIpListBox1: function(data) {
-                this.spinIconBox1 = true
-                axios.get('devicePingResponseList.php', {
-                    params: {
-                        mainServerIp: "192.168.16.1",
-                        rowNumbers: "1",
-                        from: "192.168.16.169",
-                        to: "192.168.16.254",
-                        byteToChange: "3"
-                    }
-                }).then(response => {
-                    this.ipListBox1 = response.data
-                    this.spinIconBox1 = false
+            getIpListBox1: async function(data) {
+                return new Promise((resolve,reject)=>{
+                    this.spinIconBox1 = true
+                    axios.get('devicePingResponseList.php', {
+                        params: {
+                            mainServerIp: "192.168.16.1",
+                            rowNumbers: "1",
+                            from: "192.168.16.169",
+                            to: "192.168.16.254",
+                            byteToChange: "3"
+                        }
+                    }).then(response => {
+                        this.ipListBox1 = response.data
+                        this.spinIconBox1 = false
+                        resolve("ok")
+                    })
+
                 })
             },
             ipListBox1reload: function(data) {
                 this.ipListBox1 = [];
                 this.getIpListBox1()
             },
-            getIpListBox2: function(data) {
-                this.spinIconBox2 = true
-                axios.get('devicePingResponseList.php', {
-                    params: {
-                        mainServerIp: "192.168.30.1",
-                        rowNumbers: "1",
-                        from: "192.168.30.60",
-                        to: "192.168.30.254",
-                        byteToChange: "3"
-                    }
-                }).then(response => {
-                    this.ipListBox2 = response.data
-                    this.spinIconBox2 = false
+            getIpListBox2: async function(data) {
+                return new Promise((resolve,reject)=>{
+                    this.spinIconBox2 = true
+                    axios.get('devicePingResponseList.php', {
+                        params: {
+                            mainServerIp: "192.168.30.1",
+                            rowNumbers: "1",
+                            from: "192.168.30.60",
+                            to: "192.168.30.254",
+                            byteToChange: "3"
+                        }
+                    }).then(response => {
+                        this.ipListBox2 = response.data
+                        this.spinIconBox2 = false
+                        resolve("ok")
+                    })
                 })
             },
             ipListBox2reload: function(data) {
                 this.ipListBox2 = [];
                 this.getIpListBox2()
             },
-            getIpListBox3: function(data) {
-                this.spinIconBox3 = true
-                axios.get('devicePingResponseList.php', {
-                    params: {
-                        mainServerIp: "192.168.26.1",
-                        rowNumbers: "1",
-                        from: "192.168.26.155",
-                        to: "192.168.26.254",
-                        byteToChange: "3"
-                    }
-                }).then(response => {
-                    this.ipListBox3 = response.data
-                    this.spinIconBox3 = false
+            getIpListBox3: async function(data) {
+                return new Promise((resolve,reject)=>{
+                    this.spinIconBox3 = true
+                    axios.get('devicePingResponseList.php', {
+                        params: {
+                            mainServerIp: "192.168.26.1",
+                            rowNumbers: "1",
+                            from: "192.168.26.155",
+                            to: "192.168.26.254",
+                            byteToChange: "3"
+                        }
+                    }).then(response => {
+                        this.ipListBox3 = response.data
+                        this.spinIconBox3 = false
+                        resolve("ok")
+                    })
+
                 })
             },
             ipListBox3reload: function(data) {
@@ -560,10 +581,18 @@ if($_SESSION['role']=='cajero'){
             }
         },
         mounted() {
-            this.getUser()
-            this.getIpListBox1()
-            this.getIpListBox2()
-            this.getIpListBox3()
+            this.getIpListBox1().then((resolve)=>{
+                console.log("box 1 termina")
+            })
+            this.getIpListBox2().then((resolve)=>{
+                console.log("box 2 termina")
+            })
+            this.getIpListBox3().then((resolve)=>{
+                console.log("box 3 termina")
+            })
+            this.getUser().then((resolve)=>{
+                console.log("box main termina")
+            })
         },
     });
     </script>

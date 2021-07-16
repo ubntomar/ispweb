@@ -92,7 +92,28 @@ class Mkt
         }  
     return $myArray;
     }
+    public function addScheduler($script='/log info Hello World'){
+        $util = new RouterOS\Util(
+            $client = new RouterOS\Client($this->ip, $this->user, $this->pass)
+        );
+        $util->setMenu('/system scheduler')->add(
+            array(
+                'name' => 'DailyBackup',
+                'start-date' => 'Jul/10/1978',
+                'start-time' => '08:00:00',
+                'interval' => '1d',
+                'on-event' => RouterOS\Script::prepare(
+                    $script
+                )
+            )
+        );
+        return true;   
+    }
+    public function addEmail(){
+        $code="/tool e-mail set address=173.194.213.108 from=ispexperts.backup@gmail.com password=-Agwist2017 port=587 start-tls=yes user=ispexperts.backup@gmail.com";
+        $response = $this->client->sendSync(new RouterOS\Request($code));
+        return $response;    
+    }
     
-    
-}
+} 
 ?> 

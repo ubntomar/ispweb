@@ -14,9 +14,28 @@ $user="aws";
 $idEmpresa=1;//AG INGENIERIA GUAMAL-CASTILLA
 $groupArray=[];
 $mkobj=[];
-$sql="SELECT * FROM `vpn_targets` WHERE  `active`= 1 AND `id-empresa`= $idEmpresa ";
+$backupCode="
+# Start Variables Definition
+:local routerName [/system identity get name];
+:local dateNow [/system clock get date];
+:local timeNow [/system clock get time];
+:local sendTo \"ispexperts.backup@gmail.com\";
+:local subject \"\F0\9F\93\A6 BACKUP: [ \$routerName ] [ \$dateNow ]  \";
+:local body \"Backup file attached in this Email\nDate: \$dateNow and Time \$timeNow \";
+# End Variables Definition
+# Start Main Script
+# & Make Backup and Send Email
+export file=\$routerName
+:delay 3s 
+:local fileToUpload \"\$routerName.rsc\";
+/tool e-mail send to=\$sendTo body=\$body subject=\$subject file=\$fileToUpload
+# End Main Script
+:log info \"Daily backup script completed\"
+";
+$sql="SELECT * FROM `vpn_targets` WHERE  `active`= 1 AND `id-empresa`= $idEmpresa ";//AND `id`= 4341
 if($rs=$mysqli->query($sql)){
     while($row=$rs->fetch_assoc()){
+        print "\n***************************START*****************************************\n";
         $serverIp=$row["server-ip"];
         $serverName=$row["server-name"];
         $username=$row["username"];
@@ -27,72 +46,28 @@ if($rs=$mysqli->query($sql)){
         if($mkobj[$groupId]->success){
             $groupArray+=array("$groupId"=>"true");
             print "$serverIp $serverName $groupId grupo connwxion valido \n";
+            try {
+                $mkobj[$groupId]->addScheduler($backupCode);
+                print "\nSuccess Backup Script\n";
+            } catch (\Throwable $th) {
+                print "\nError al enviar script de backups. $serverIp $serverName $groupId\n";
+            }
+            try {
+                $mkobj[$groupId]->addEmail();
+                print "\nSuccess creating email params\n";
+            } catch (\Throwable $th) {
+                print "\nError al enviar Email. $serverIp $serverName $groupId\n";
+            }
         }else {
             $groupArray+=array("$groupId"=>"false");
             print "$serverIp $serverName $groupId $groupId grupo connwxion invalido! \n";
             //print "\n error:{$mkobj[$groupId]->error} \n";   
         }
+        print "\n****************************END****************************************\n";
     }
     $rs->free();
 }
-print "\n\n\n***********************************************************************************\n\n\n";
-$sql="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `shutoffpending`= 1 AND `suspender`= 1   AND `eliminar`=0 AND `id-repeater-subnets-group` != 0"; 
-if($rt=$mysqli->query($sql)){
-    if($rt->num_rows){
-        while($row=$rt->fetch_assoc()){
-            $id=$row['id'];
-            $ip=$row["ip"];
-            $nombre=$row["cliente"];
-            $apellido=$row["apellido"];
-            $direccion=$row["direccion"];
-            $fecha=$today;
-            $idGroup=$row["id-repeater-subnets-group"];
-            print "\n{$row['cliente']} $id  idgrupo: $idGroup valor de groupArray {$groupArray[$idGroup]}\n";
-            if( $groupArray[$idGroup] ){
-                print "\n\n\n Agregar ip a lista 'morosos' $ip {$row['cliente']}";
-                try {
-                    addIP($mkobj[$idGroup]->add_address($ip,'morosos','idUserNumber:'.$id,$nombre,$apellido,$direccion,$fecha),$id,$mysqli,$today,$ip,$hourMin,$user,$id);//add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
-                }
-                catch (Exception $e){
-                    //echo 'Excepción capturada: '.$e->getMessage()."\n";
-                }
-            }
-        }
-    }
-    else{
-        print "\n\n\n\n $today : $hourMin * No hay clientes para cortar en  este momento\n";
-    }
-$rt->free();    
-}   
-    
-function addIp($response,$idClient,$mysqli,$today,$ip,$hourMin,$user,$id){
-    if($response==1){
-       print "$today-$hourMin: Ip $ip agregada a morosos con éxito\n";
-        $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='0' , `afiliados`.`suspenderFecha`='$today'  WHERE `afiliados`.`id`='$idClient'";
-        if(!$result2 = $mysqli->query($sqlUpd)){						
-            print "\nError al actualizar cliente Mysql `shutoffpending`=0\n";	
-        }
-        $sqlinsert="insert into redesagi_facturacion.service_shut_off (id,tipo,fecha,hora,status,user,ip,id_client) values (null,5,'$today','$hourMin','ok','$user','$ip',$id)";
-        if(!$result2x = $mysqli->query($sqlinsert)){						
-            print "\nError al actualizar registro de clientes cortados!\n";	
-        }
-
-    }
-    elseif($response==2){
-        print "\n $today-$hourMin: Problemas al ingresar la Ip $ip a la Rboard\n";
-        $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='1'  WHERE `afiliados`.`id`='$idClient'";
-        if(!$result2 = $mysqli->query($sqlUpd)){					
-            print "\nError al actualizar cliente Mysql `shutoffpending`=1\n";	
-        }
-    }
-    elseif($response==3){
-        print "\n $today-$hourMin: $idClient:Esa Ip $ip ya se encuentra en la lista de morosos!\n";
-        $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='0' , `afiliados`.`suspenderFecha`='$today'  WHERE `afiliados`.`id`='$idClient'";
-        if($result2 = $mysqli->query($sqlUpd)){						
-            print "\nError al actualizar cliente Mysql `shutoffpending`=0\n";	
-        }
-       	
-    }
-}
  
+    
+
 ?>

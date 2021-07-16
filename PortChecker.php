@@ -17,6 +17,6 @@ foreach ($ports as $port)
     {
         echo '<h2>' . $host . ':' . $port . ' is not responding.</h2>' . "\n";
     }
-}
+} 
 
 ?>

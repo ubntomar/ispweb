@@ -1,3 +1,5 @@
 vpnConfig.php
 login/db.php
+curlTelegram.php
+smsender.php 
 scss/*
