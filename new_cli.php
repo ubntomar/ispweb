@@ -63,7 +63,9 @@ if($_POST['valorPlan']||$debug){
 	if ($mysqli->query($sql) === TRUE) {
 			$last_id = $mysqli->insert_id;
 			$idafiliado=$last_id;
-
+			include("VpnUtils.php");
+        	$vpnObject=new VpnUtils($server, $db_user, $db_pwd, $db_name);
+        	$vpnObject->updateGroupId($last_id,$ipAddress); 
 			$sql="INSERT INTO `redesagi_facturacion`.`ticket` (`id-cliente`,`backup-telefono`,`backup-email`,`backup-ipaddress`,`backup-antena`,`backup-velocidad`,`backup-precio-plan`,`backup-router`,`backup-acceso-remoto`,`backup-tipo-instalacion`,`backup-direccion`,`backup-ciudad`,`telefono-contacto`,`solicitud-cliente`,`sugerencia-solucion`,`fecha-creacion-ticket`,`hora-sugerida`,`hora`,`administrador`,`solucion`,`recomendaciones`,`status`,`precio-soporte`) VALUES ('$idafiliado','$backup_telefono','$backup_email','$backup_ipaddress','$backup_antena','$backup_velocidad','$backup_precio_plan','$backup_router','$backup_acceso_remoto','$backup_tipo_instalacion','$backup_direccion','$backup_ciudad','$telefono_contacto','Solicitud instalaciòn servicio de Internet Banda Ancha','$sugerencia_solucion','$today','$hora_sugerida','$hora','$administrador','$solucion','$recomendacion','ABIERTO','$precio_soporte')";
 			if(!$mysqli->query($sql)){
 				$msj= 'error inserting tickets!';

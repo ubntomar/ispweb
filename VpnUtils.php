@@ -16,8 +16,13 @@ class VpnUtils
     public function getAreaCode($ip){//legacy
     
     }
-    public function getServerList(){
-        
+    public function getServerIp($idGroup){
+        $sql="SELECT `server-ip` FROM  `redesagi_facturacion`.`vpn_targets` WHERE `id-repeater-subnet-group`=$idGroup";
+		if($rt=$this->mysqli->query($sql)){
+			$row=$rt->fetch_assoc();
+			return $row['server-ip'];
+		}
+		return false;
     }
     public function updateGroupId($id,$ip){
         $status=true;
@@ -58,7 +63,7 @@ class VpnUtils
 		}else{
             $status=false;
         }
-        return $status;
+        return ($status)?$idGroup:false;
     }
 }
 

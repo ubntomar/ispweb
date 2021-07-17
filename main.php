@@ -155,7 +155,7 @@ if($_SESSION['role']=='cajero'){
                                                             class="icon-spin6 "></i></button><small
                                                         v-bind:class="{'border-danger':!cliente.validIp,'border-success':cliente.ipText=='Actualizado con Exito'}"
                                                         class="m-1 p-1 border  border-rounded  font-italic">{{cliente.ipText}}</small>
-                                                <small>Server Ip 192.168.17.35</small>
+                                                <small>Server Ip {{cliente.serverIp}}</small>
                                                 </p>
                                                 <div>
                                                 </div>
@@ -380,6 +380,7 @@ if($_SESSION['role']=='cajero'){
 
                     }
                 }).then(response => {
+                    console.log(response)
                     this.clientes = response.data
                     this.totalRows = response.data.length - 1
                     this.selectSpin=false
@@ -408,7 +409,7 @@ if($_SESSION['role']=='cajero'){
                         .then(function(response) {
                             //handle success
                             console.log(response);
-                            data.ipText = "Actualizado con Exito"
+                            data.ipText = "Actualizado con éxito(G-"+response.data.idGroup+")"
                             data.ipIconSpin = false
                         })
                         .catch(function(response) {
