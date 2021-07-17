@@ -8,6 +8,13 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     $role = $_SESSION["role"];
 }
 include("login/db.php");
+
+
+include("VpnUtils.php");
+$vpnObject=new VpnUtils($server, $db_user, $db_pwd, $db_name);
+//$vpnObject->updateGroupId($id,$ip);
+
+
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -18,7 +25,6 @@ $today = date("Y-m-d");
 $convertdate = date("d-m-Y", strtotime($today));
 $hourMin = date('H:i');
 $debug = 0;
-
 if ( ($_POST['id']) && (!$_POST['vue']) ) {
     $id = mysqli_real_escape_string($mysqli, $_REQUEST['id']);
     $ip = mysqli_real_escape_string($mysqli, $_REQUEST['ip']);
@@ -26,7 +32,6 @@ if ( ($_POST['id']) && (!$_POST['vue']) ) {
     $resultip = mysqli_query($mysqli, $duplicatedIp) or die('error');
     $filas = mysqli_num_rows($resultip);
     if($filas >= 1){
-        $arrayIP= array();
         while ($row = mysqli_fetch_array($resultip)) {
             if($row[0]==$id)$filas-=1;
             $arrayIP['Ip Invalida: Duplicada'][] = "<br>---------------<br>"; 
@@ -40,10 +45,10 @@ if ( ($_POST['id']) && (!$_POST['vue']) ) {
     if($filas == 0){
         $sql_update = "UPDATE `redesagi_facturacion`.`afiliados` SET `ip` = '$ip' WHERE (`id` = '$id');";
         $result = mysqli_query($mysqli, $sql_update) or die('error');
+        $vpnObject->updateGroupId($id,$ip);
         $response= "1";
     }
-    echo $response;  
+    echo $response;   
 }
 //echo "ok";
-
 ?>

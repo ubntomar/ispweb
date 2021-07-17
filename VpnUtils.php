@@ -1,9 +1,10 @@
 <?php
-include("login/db.php");
+//include("login/db.php");
 class VpnUtils
 {
     private $mysqli;
-    public function __construct(){
+
+    public function __construct($server, $db_user, $db_pwd, $db_name){
         $this->mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 		if ($this->mysqli->connect_errno) {
 	    	echo "Failed to connect to MySQL: ";
@@ -12,36 +13,55 @@ class VpnUtils
 		mysqli_set_charset($this->mysqli,"utf8");
 		date_default_timezone_set('America/Bogota'); 
     }
-    public function getAreaCode($ip){
-    $byte3=explode(".",$ip)[2];
-    if($byte3){
-        if( $byte3=='7' || $byte3=='16' || $byte3=='17' || $byte3=='20' || $byte3=='21' || $byte3=='25' || $byte3=='26' || $byte3=='40' || $byte3=='50' ) return array('server'=>'192.168.21.1','areaCode'=>'4324');
-        if( $byte3=='9'  ) return array('server'=>'192.168.17.62' ,'areaCode'=>'4330');
-        if( $byte3=='10' ) return array('server'=>'192.168.30.2'  ,'areaCode'=>'4332');
-        if( $byte3=='11' ) return array('server'=>'192.168.30.2'  ,'areaCode'=>'4335');
-        if( $byte3=='18' ) return array('server'=>'192.168.30.144','areaCode'=>'4333');
-        if( $byte3=='30' ) return array('server'=>'192.168.30.1'  ,'areaCode'=>'4325');
-        if( $byte3=='32' ) return array('server'=>'192.168.32.1'  ,'areaCode'=>'4338');
-        if( $byte3=='65' ) return array('server'=>'192.168.30.2'  ,'areaCode'=>'4336');
-        if( $byte3=='68' ) return array('server'=>'192.168.26.152','areaCode'=>'4328');
-        if( $byte3=='71' ) return array('server'=>'192.168.30.163','areaCode'=>'4334');
-        if( $byte3=='73' ) return array('server'=>'192.168.17.29' ,'areaCode'=>'4331');
-        if( $byte3=='74' ) return array('server'=>'192.168.30.2'  ,'areaCode'=>'4337');
-        if( $byte3=='76' ) return array('server'=>'192.168.26.188','areaCode'=>'4329');
-        if( $byte3=='79' ) return array('server'=>'192.168.26.186','areaCode'=>'4327');
-        if( $byte3=='85' ) return array('server'=>'192.168.17.13' ,'areaCode'=>'4326');
-        if( $byte3=='88' ) return array('server'=>'192.168.17.14' ,'areaCode'=>'4400');
-    }
-    return '';
+    public function getAreaCode($ip){//legacy
+    
     }
     public function getServerList(){
         
     }
+    public function updateGroupId($id,$ip){
+        $status=true;
+        $sql="select * FROM `redesagi_facturacion`.`afiliados` WHERE  `id`=$id ";  
+        if($rt=$this->mysqli->query($sql)){
+            if($rt->num_rows){
+                while($row=$rt->fetch_assoc()){
+					$idCliente=$row['id'];
+					if($ip){
+						$byte3=explode(".",$ip)[2];
+						$sql="SELECT * FROM `items_repeater_subnet_group` WHERE  `ip-segment`= $byte3 ";
+						if($sg=$this->mysqli->query($sql)){
+							$rw=$sg->fetch_assoc();
+							$segmentIp=$rw["ip-segment"];
+							$idGroup=$rw["id-repeater-subnets-group"];
+							if($idGroup){
+								$sqlUpdate="UPDATE `afiliados` SET `id-repeater-subnets-group`=$idGroup WHERE `id`=$idCliente";
+							}else{
+								print "\n client: {$row['cliente']} ip : $ip  segment:$segmentIp pertenece a grupo: $idGroup \n";
+								$sqlUpdate="UPDATE `afiliados` SET `id-repeater-subnets-group`=0 WHERE `id`=$idCliente";
+                                $status=false;
+							}
+							$this->mysqli->query($sqlUpdate);
+							$sg->free();	
+						}else{
+                            $status=false;
+                        }
+					}else{
+						$sqlUpdate="UPDATE `afiliados` SET `id-repeater-subnets-group`=0 WHERE `id`=$idCliente";
+						$this->mysqli->query($sqlUpdate);
+                        $status=false; 
+					} 
+                }
+			}else{
+                $status=false;
+            }
+			$rt->free();
+		}else{
+            $status=false;
+        }
+        return $status;
+    }
 }
 
-
-
-
-
-
+//$object=new VpnUtils($server, $db_user, $db_pwd, $db_name);
+//$object->updateGroupId("808","192.168.30.150");
 ?>

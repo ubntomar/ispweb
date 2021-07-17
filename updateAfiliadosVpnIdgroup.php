@@ -32,7 +32,7 @@
 						}
 					}else{
 						$sqlUpdate="UPDATE `afiliados` SET `id-repeater-subnets-group`=0 WHERE `id`=$idCliente";
-						$mysqli->query($sqlUpdate);
+						$mysqli->query($sqlUpdate); 
 					} 
                 }
 			}

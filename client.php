@@ -1772,7 +1772,7 @@
 												$(tr).removeClass('bg-warning');
 												$(tr+' td:first-child + td ').removeClass('bg-warning');
 												$(tr+' td:first-child input ').prop('disabled', false);
-												//alertify.success('Ip actualizada con éxito');	//	
+												alertify.success('Ip actualizada con éxito');	//	
 											}
 											else{												
 												alertify.error('ups '+data,10);
