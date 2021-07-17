@@ -34,12 +34,16 @@ if($mkobj=new Mkt($serverIpAddressArea1,$vpnUser,$vpnPassword)){
     $exclusivosList=$mkobj->list_all();        
 }
 
-if($_SERVER['REQUEST_METHOD']==='POST') {
+if($_SERVER['REQUEST_METHOD']==='POST') { 
+
     $idRow = $_POST['idRow'];
     $ipRow = $_POST['ipRow'];
     $sql_update = "UPDATE `redesagi_facturacion`.`afiliados` SET `ip` = '$ipRow' WHERE (`id` = '$idRow');";
     $result = $mysqli->query($sql_update) or die('error');
     if($result){
+        include("VpnUtils.php");
+        $vpnObject=new VpnUtils($server, $db_user, $db_pwd, $db_name);
+        $vpnObject->updateGroupId($idRow,$ipRow); 
         $retObj=(object)["id"=>"$idRow","ip"=>"$ipRow","status"=>"success"];
         echo json_encode($retObj); 
     }
@@ -80,7 +84,7 @@ if ($searchOption=="Todos"){
 
 if($searchOption=="Cortado"){
     $sqlSearch="SELECT `id`,`cliente`,`apellido`,`ip`,`ping`,`pingDate`,`suspender` FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1  AND `suspender`=1 "; 
-    if ($result = $mysqli->query($sqlSearch)) {
+    if ($result = $mysqli->query($sqlSearch)) { 
         $num=$result->num_rows;
         $counter=0;
         while($row = $result->fetch_assoc()) {

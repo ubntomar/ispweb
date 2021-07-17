@@ -371,7 +371,7 @@ if($_SESSION['role']=='cajero'){
         },
         methods: {
             getUser: async function() {
-                return new Promise((resolve,reject)=>{
+                return new Promise((resolve,reject)=>{ 
                 axios.get('fetchUsers.php', {
                     params: {
                         id: this.id,

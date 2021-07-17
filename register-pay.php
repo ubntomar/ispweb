@@ -168,6 +168,7 @@ if($_SESSION['role']=='tecnico'){
 											$telefono = $row["telefono"];
 											$registration_date = $row["registration-date"];
 											$corte = $row["corte"];
+											$idGRoup = ($row["id-repeater-subnets-group"]==0)?"G-0":"";
 											$standby = $row["standby"];
 											$ip=$row["ip"];
 											$pingDate=$row["pingDate"];
@@ -250,7 +251,7 @@ if($_SESSION['role']=='tecnico'){
                                             // class=\"form-control form-control-sm ml-1\"></small></p><button v-on:click=\"ipUpdate({$row['id']})\" class=\"border border-rounded icon-arrows-ccw\"></button>
 											// <p class=\"mb-0\"><small>$pingCurrentStatus</small></p></div></td>"; 
 											echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small>ip:'$ip'</small></p><p class=\"mb-0\"><small>$pingCurrentStatus</small></p></div></td>";    
-											echo "<td class=\" align-middle \"><small>C-" . $row["corte"] . "*$standby</small></td>";
+											echo "<td class=\" align-middle \"><small>C-" . $row["corte"] . "*$standby</small><p><small>$idGRoup</small></p></td>";
 											echo "<td class=\" align-middle \">$textCedula</td>"; 
 											echo "<td class=\" align-middle \">$textTelefono</td>";          
 											echo "<td class=\" align-middle \"><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money\"></i></a></td>";
