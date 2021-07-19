@@ -116,7 +116,9 @@ if($_SESSION['role']=='cajero'){
                                     <div><input type="text" value="" id="search" 
                                             class="form-control form-control-sm ml-1" v-model="searchString"></div>
                                     <div><button class="icon-search form-control form-control-sm "
-                                            v-on:click="searchFn"></button></div>
+                                            v-on:click="searchFn"></button>
+                                    </div>
+                                    <i v-if="getUserSpin"  v-bind:class="{'animate-spin':getUserSpin}" class="icon-spin6 "></i>
                                 </div>
                                 <div>
                                     <select class="form-control form-control-sm" v-model="searchOption"
@@ -367,10 +369,11 @@ if($_SESSION['role']=='cajero'){
             spinIconBox2: false,
             ipListBox3: [],
             spinIconBox3: false,
-            selectSpin:false
+            selectSpin:false,
+            getUserSpin:false
         },
         methods: {
-            getUser: async function() {
+            getUser:  function() {
                 return new Promise((resolve,reject)=>{ 
                 axios.get('fetchUsers.php', {
                     params: {
@@ -384,6 +387,7 @@ if($_SESSION['role']=='cajero'){
                     this.clientes = response.data
                     this.totalRows = response.data.length - 1
                     this.selectSpin=false
+                    this.getUserSpin=false
                     resolve("ok")
                 }).catch(e => {
                     console.log('error' + e)
@@ -426,6 +430,7 @@ if($_SESSION['role']=='cajero'){
                 }
             },
             searchFn: function() {
+                this.getUserSpin=true
                 this.searchOption = "Todos"
                 this.getUser()
                 //this.clearSearch()
@@ -512,7 +517,7 @@ if($_SESSION['role']=='cajero'){
                     this.pingSuccess = "waiting"
                 }
             },
-            getIpListBox1: async function(data) {
+            getIpListBox1:  function(data) {
                 return new Promise((resolve,reject)=>{
                     this.spinIconBox1 = true
                     axios.get('devicePingResponseList.php', {
@@ -535,7 +540,7 @@ if($_SESSION['role']=='cajero'){
                 this.ipListBox1 = [];
                 this.getIpListBox1()
             },
-            getIpListBox2: async function(data) {
+            getIpListBox2:  function(data) {
                 return new Promise((resolve,reject)=>{
                     this.spinIconBox2 = true
                     axios.get('devicePingResponseList.php', {
@@ -557,7 +562,7 @@ if($_SESSION['role']=='cajero'){
                 this.ipListBox2 = [];
                 this.getIpListBox2()
             },
-            getIpListBox3: async function(data) {
+            getIpListBox3:  function(data) {
                 return new Promise((resolve,reject)=>{
                     this.spinIconBox3 = true
                     axios.get('devicePingResponseList.php', {
@@ -582,17 +587,13 @@ if($_SESSION['role']=='cajero'){
             }
         },
         mounted() {
-            this.getIpListBox1().then((resolve)=>{
-                console.log("box 1 termina")
+            this.getUserSpin=true
+            Promise.all([this.getIpListBox1(),this.getIpListBox2(),this.getIpListBox3(),this.getUser()])
+            .then((resolve)=>{
+                console.log("success")
             })
-            this.getIpListBox2().then((resolve)=>{
-                console.log("box 2 termina")
-            })
-            this.getIpListBox3().then((resolve)=>{
-                console.log("box 3 termina")
-            })
-            this.getUser().then((resolve)=>{
-                console.log("box main termina")
+            .catch((reject)=>{
+                console.log("error"+reject)
             })
         },
     });
