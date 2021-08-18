@@ -143,7 +143,13 @@ if($_SESSION['role']=='cajero'){
                                         <tr v-for="cliente in clientes"
                                             v-bind:class="{'table-warning':!cliente.pingStatus}"
                                             v-if="cliente.counter<=totalRows">
-                                            <td class="font-weight-bold">{{cliente.name}}
+                                            <td class="font-weight-bold">
+                                                <div>
+                                                    {{cliente.name}}-{{cliente.id}}
+                                                    <div>
+                                                        <small>Cra 9 13 45 Fundadores Guamal</small>
+                                                    </div>
+                                                </div>
                                                 <div class="timeElapsded border  rounded d-flex justify-content-center pl-1 font-italic w-50"
                                                     v-bind:class="{'border-danger':cliente.suspender}">
                                                     <small>{{cliente.suspender}}</small>
@@ -157,7 +163,7 @@ if($_SESSION['role']=='cajero'){
                                                             class="icon-spin6 "></i></button><small
                                                         v-bind:class="{'border-danger':!cliente.validIp,'border-success':cliente.ipText=='Actualizado con Exito'}"
                                                         class="m-1 p-1 border  border-rounded  font-italic">{{cliente.ipText}}</small>
-                                                <small>Server Ip {{cliente.serverIp}}</small>
+                                                <small>Server Ip <a v-bind:href="'http://'+cliente.serverIp" target="_blank" >{{cliente.serverIp}}</a></small>
                                                 </p>
                                                 <div>
                                                 </div>

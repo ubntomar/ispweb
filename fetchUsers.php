@@ -52,7 +52,7 @@ if($_SERVER['REQUEST_METHOD']==='POST') {
 
 if ($searchOption=="Todos"){
     if($searchString!="") $queryPart="AND ( (`cliente` LIKE '%$searchString%') OR (`apellido` LIKE '%$searchString%') OR (`ip` LIKE '%$searchString%') ) ";
-    else $queryPart="LIMIT 3";
+    else $queryPart="ORDER BY `id` DESC LIMIT 3";
     $sqlSearch="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1 $queryPart  "; 
     if ($result = $mysqli->query($sqlSearch)) {
         $num=$result->num_rows;
@@ -188,6 +188,30 @@ function serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress){
     return $vpnObject2->getServerIp($idGroup); 
 }
 
-
+function getArray($row){
+    while($row = $result->fetch_assoc()) {
+        $counter+=1;
+        $id=$row['id'];
+        $name=strtoupper($row["cliente"]." ".$row['apellido']);
+        $ipAddress=$row["ip"];
+        $serverIp=serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress);
+        ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down'; 
+        foreach ($exclusivosList as $value) {
+            if($value['ip']==$ipAddress)	$pingStatus='Pending';
+        }
+        $responseTime=$row["ping"];
+        ($row["suspender"])? $suspender="cortado":$suspender="";
+        $pingDate=$row["pingDate"];   
+        if($pingDate){
+            if($elapsedTime=get_date_diff( $pingDate, $today, 2 ));
+            else $elapsedTime="Hoy";             
+        }
+        else{
+            $elapsedTime="";
+        }
+        $ping[] = array("serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+    }
+    $ping[]=array("numResult"=>"$num");
+}
 
 ?>

@@ -25,10 +25,10 @@ if($rs=$mysqli->query($sql)){
         print "\n Starting width $serverIp ...\n";
         $mkobj[$groupId]=new Mkt($serverIp,$username,$password);
         if($mkobj[$groupId]->success){
-            $groupArray+=array("$groupId"=>"true");
+            $groupArray+=array("$groupId"=>true);
             print "$serverIp $serverName $groupId grupo connwxion valido \n";
         }else {
-            $groupArray+=array("$groupId"=>"false");
+            $groupArray+=array("$groupId"=>false);
             print "$serverIp $serverName $groupId $groupId grupo connwxion invalido! \n";
             //print "\n error:{$mkobj[$groupId]->error} \n";   
         }
@@ -54,7 +54,7 @@ if($rt=$mysqli->query($sql)){
                     addIP($mkobj[$idGroup]->add_address($ip,'morosos','idUserNumber:'.$id,$nombre,$apellido,$direccion,$fecha),$id,$mysqli,$today,$ip,$hourMin,$user,$id);//add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
                 }
                 catch (Exception $e){
-                    //echo 'Excepción capturada: '.$e->getMessage()."\n";
+                    echo 'Excepción capturada: '.$e->getMessage()."\n";
                 }
             }
         }
