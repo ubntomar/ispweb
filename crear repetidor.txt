@@ -1,5 +1,5 @@
             //**Pasos para crear repetidor**//
-    *1   Crear nuevo grupo de repetidor  **Table repeater_subnets_group  "25"
+    *1   Crear nuevo grupo de repetidor  **Table repeater_subnets_group  "26"
     *2   Crear nuevo Segmento de Ip "115"  ppp0 ppp1 ppp2 ppp3   **Table items_repeater_subnet_group
     *3   Crear nuevo servidor repetdior =>   **table vpn_tarjets
     *4   Actualizar la ip del afiliado junto con su grupo Id **table afiliados
@@ -12,3 +12,7 @@
     *
     *
     *
+
+	pendiente crear repetidor ..Javier Pardo
+	pendiente crear repetidor Opitas ..Milena sarmiento  117.13
+	pendiene crear repetidor natalì colòn.

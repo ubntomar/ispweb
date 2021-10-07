@@ -5,7 +5,7 @@ class PingTime {
     private $time;
 
     public function __construct($ipAddress){
-        $this->ipAddress=$ipAddress;
+        $this->ipAddress=$ipAddress; 
     }
 
     public function time($c=1){

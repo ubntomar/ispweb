@@ -528,10 +528,10 @@ if($_SESSION['role']=='cajero'){
                     this.spinIconBox1 = true
                     axios.get('devicePingResponseList.php', {
                         params: {
-                            mainServerIp: "192.168.16.1",
+                            mainServerIp: "192.168.17.1",
                             rowNumbers: "1",
-                            from: "192.168.16.169",
-                            to: "192.168.16.254",
+                            from: "192.168.17.150", 
+                            to: "192.168.11.254",
                             byteToChange: "3"
                         }
                     }).then(response => {
