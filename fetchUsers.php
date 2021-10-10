@@ -62,6 +62,7 @@ if ($searchOption=="Todos"){
             $id=$row['id'];
             $name=strtoupper($row["cliente"]." ".$row['apellido']);
             $ipAddress=$row["ip"];
+            $direccion=$row["direccion"];
             $serverIp=serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress);
             ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down';
             foreach ($exclusivosList as $value) {
@@ -77,7 +78,7 @@ if ($searchOption=="Todos"){
             else{
                 $elapsedTime=""; 
             }
-            $ping[] = array("serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+            $ping[] = array("serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "direccion"=>"$direccion", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
         }
         $ping[]=array("numResult"=>"$num");
     }
@@ -94,6 +95,7 @@ if($searchOption=="Cortado"){
             $id=$row['id'];
             $name=strtoupper($row["cliente"]." ".$row['apellido']);
             $ipAddress=$row["ip"];
+            $direccion=$row["direccion"];
             $serverIp=serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress);
             ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down'; 
             foreach ($exclusivosList as $value) {
@@ -109,7 +111,7 @@ if($searchOption=="Cortado"){
             else{
                 $elapsedTime="";
             }
-            $ping[] = array("serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+            $ping[] = array("serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "direccion"=>"$direccion", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
         }
         $ping[]=array("numResult"=>"$num");
     }
@@ -126,6 +128,7 @@ if($searchOption=="Ping OK"){
             $id=$row['id'];
             $name=strtoupper($row["cliente"]." ".$row['apellido']);
             $ipAddress=$row["ip"];
+            $direccion=$row["direccion"];
             $serverIp=serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress);
             ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down'; 
             foreach ($exclusivosList as $value) {
@@ -141,13 +144,13 @@ if($searchOption=="Ping OK"){
             else{
                 $elapsedTime="";
             }
-            $ping[] = array("serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+            $ping[] = array("serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "direccion"=>"$direccion", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
         }
         $ping[]=array("numResult"=>"$num");
     }
 echo json_encode($ping);   
 }
-
+ 
 if($searchOption=="Ping Down"){
     //SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE `eliminar`=0 AND `activo`=1 AND ( (`pingDate` < DATE_SUB(NOW(), INTERVAL 5 DAY)) OR (`ping` is NULL) ) ORDER BY `afiliados`.`pingDate` DESC
     $sqlSearch="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE `eliminar`=0 AND `activo`=1 AND ( (`pingDate` < DATE_SUB(NOW(), INTERVAL 5 DAY)) OR (`ping` is NULL) ) ORDER BY `afiliados`.`pingDate` DESC LIMIT 1 "; 
@@ -159,6 +162,7 @@ if($searchOption=="Ping Down"){
             $id=$row['id'];
             $name=strtoupper($row["cliente"]." ".$row['apellido']);
             $ipAddress=$row["ip"];
+            $direccion=$row["direccion"];
             $serverIp=serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress);
             ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down'; 
             foreach ($exclusivosList as $value) {
@@ -174,7 +178,7 @@ if($searchOption=="Ping Down"){
             else{
                 $elapsedTime="";
             }
-            $ping[] = array("serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+            $ping[] = array("serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "direccion"=>"$direccion", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
         }
         $ping[]=array("numResult"=>"$num");
     }
@@ -189,7 +193,7 @@ function serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress){
 }
 
 function getArray($row){
-    while($row = $result->fetch_assoc()) {
+    while($row = $result->fetch_assoc()) { 
         $counter+=1;
         $id=$row['id'];
         $name=strtoupper($row["cliente"]." ".$row['apellido']);
@@ -209,7 +213,7 @@ function getArray($row){
         else{
             $elapsedTime="";
         }
-        $ping[] = array("serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+        $ping[] = array("serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "direccion"=>"$direccion", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
     }
     $ping[]=array("numResult"=>"$num");
 }

@@ -147,7 +147,7 @@ if($_SESSION['role']=='cajero'){
                                                 <div>
                                                     {{cliente.name}}-{{cliente.id}}
                                                     <div>
-                                                        <small>Cra 9 13 45 Fundadores Guamal</small>
+                                                        <small>{{cliente.direccion}}</small>
                                                     </div>
                                                 </div>
                                                 <div class="timeElapsded border  rounded d-flex justify-content-center pl-1 font-italic w-50"
