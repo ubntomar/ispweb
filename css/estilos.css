@@ -291,6 +291,15 @@ body {
 	background: #acacac;
 	color: #fff;
 }
+
+/* --- main.php --- */
+.ip{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+
 /* --- --- MEDIAQUERIES --- --- */
 @media screen and (max-width: 768px) {
 	.row{

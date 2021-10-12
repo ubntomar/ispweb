@@ -788,7 +788,7 @@
 													<div class=" d-flex flex-column     col-12">
 														<div class="" id="criterios_content">
 															<div>
-																<h1 class="bg-dark text-white rounded p-1 my-1">Criterio Personalizado</h1>
+																<h1 class="bg-dark text-white rounded p-1 my-1">Criterio Personalizado (Onurix)</h1>
 															</div>
 															<div class="text-justify">
 																<p class="p-2">En simples pasos a continuación selecciona los clientes a los que les vas a enviar los mensajes de texto y/o por email segú tu necesidad.</p>

@@ -25,6 +25,7 @@ if($_SESSION['role']=='cajero'){
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <title>Wisdev-Administrador ISP</title>
+    <link rel="stylesheet" href="css/estilos.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" />
@@ -33,7 +34,6 @@ if($_SESSION['role']=='cajero'){
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css" />
     <link rel="stylesheet" href="bower_components/alertify/css/themes/default.min.css" />
     <link rel="stylesheet" href="css/fontello.css" />
-    <link rel="stylesheet" href="css/estilos.css" />
     <link rel="stylesheet" href="css/dataTables.checkboxes.css" />
     <link rel="stylesheet" href="css/animation.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -113,12 +113,13 @@ if($_SESSION['role']=='cajero'){
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <div class="d-flex align-items-center">
                                     <div></div>
-                                    <div><input type="text" value="" id="search" 
+                                    <div><input type="text" value="" id="search"
                                             class="form-control form-control-sm ml-1" v-model="searchString"></div>
                                     <div><button class="icon-search form-control form-control-sm "
                                             v-on:click="searchFn"></button>
                                     </div>
-                                    <i v-if="getUserSpin"  v-bind:class="{'animate-spin':getUserSpin}" class="icon-spin6 "></i>
+                                    <i v-if="getUserSpin" v-bind:class="{'animate-spin':getUserSpin}"
+                                        class="icon-spin6 "></i>
                                 </div>
                                 <div>
                                     <select class="form-control form-control-sm" v-model="searchOption"
@@ -128,7 +129,8 @@ if($_SESSION['role']=='cajero'){
                                         <option>Ping OK</option>
                                         <option>Ping Down</option>
                                     </select>
-                                    <i v-if="selectSpin"  v-bind:class="{'animate-spin':selectSpin}" class="icon-spin6 "></i>
+                                    <i v-if="selectSpin" v-bind:class="{'animate-spin':selectSpin}"
+                                        class="icon-spin6 "></i>
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -155,19 +157,35 @@ if($_SESSION['role']=='cajero'){
                                                     <small>{{cliente.suspender}}</small>
                                                 </div>
                                             </td>
-                                            <td><input type="text" v-model="cliente.ipAddress"
-                                                    v-on:keyup="cliente.ipText='',cliente.validIp=true">
-                                                <p><button class="border border-rounded"
-                                                        v-on:click="updateIp(cliente)"><i
-                                                            v-bind:class="{'animate-spin':cliente.ipIconSpin}"
-                                                            class="icon-spin6 "></i></button><small
-                                                        v-bind:class="{'border-danger':!cliente.validIp,'border-success':cliente.ipText=='Actualizado con Exito'}"
-                                                        class="m-1 p-1 border  border-rounded  font-italic">{{cliente.ipText}}</small>
-                                                <small>Server Ip <a v-bind:href="'http://'+cliente.serverIp" target="_blank" >{{cliente.serverIp}}</a></small>
-                                                </p>
-                                                <div>
-                                                </div>
-                                            </td>
+                                            <td>
+                                                <div class="ip">
+                                                    <div class="input-ip">
+                                                        <input type="text" v-model="cliente.ipAddress"
+                                                            v-on:keyup="cliente.ipText='',cliente.validIp=true">
+                                                    </div>
+                                                    <div class="server-info">
+                                                        <button class="border border-rounded"
+                                                            v-on:click="updateIp(cliente)"><i
+                                                                v-bind:class="{'animate-spin':cliente.ipIconSpin}"
+                                                                class="icon-spin6 "></i>
+                                                        </button>
+                                                        <small
+                                                            v-bind:class="{'border-danger':!cliente.validIp,'border-success':cliente.ipText=='Actualizado con Exito'}"
+                                                            class="m-1 p-1 border  border-rounded  font-italic">{{cliente.ipText}}
+                                                        </small>
+                                                        <small>Server Ip <a v-bind:href="'http://'+cliente.serverIp"
+                                                                target="_blank">{{cliente.serverIp}}</a></small>
+
+                                                    </div>
+                                                    <div class="router">
+                                                        <small>Router <a target="_blank"
+                                                                :href=" 'http://'+cliente.ipAddress+':8080' ">{{cliente.ipAddress}}:8080</a></small><small class="text-success" > {{cliente.portStatus}}</small>
+                                                    </div>
+                                                </div> 
+
+
+
+                                            </td> 
                                             <td><strong class="font-italic"
                                                     v-if="cliente.responseTime"><small>{{cliente.responseTime}}
                                                     </small><small
@@ -375,30 +393,30 @@ if($_SESSION['role']=='cajero'){
             spinIconBox2: false,
             ipListBox3: [],
             spinIconBox3: false,
-            selectSpin:false,
-            getUserSpin:false
+            selectSpin: false,
+            getUserSpin: false
         },
         methods: {
-            getUser:  function() {
-                return new Promise((resolve,reject)=>{ 
-                axios.get('fetchUsers.php', {
-                    params: {
-                        id: this.id,
-                        searchString: this.searchString,
-                        searchOption: this.searchOption
+            getUser: function() {
+                return new Promise((resolve, reject) => {
+                    axios.get('fetchUsers.php', {
+                        params: {
+                            id: this.id,
+                            searchString: this.searchString,
+                            searchOption: this.searchOption
 
-                    }
-                }).then(response => {
-                    console.log(response)
-                    this.clientes = response.data
-                    this.totalRows = response.data.length - 1
-                    this.selectSpin=false
-                    this.getUserSpin=false
-                    resolve("ok")
-                }).catch(e => {
-                    console.log('error' + e)
-                    reject("error")
-                })
+                        }
+                    }).then(response => {
+                        console.log(response)
+                        this.clientes = response.data
+                        this.totalRows = response.data.length - 1
+                        this.selectSpin = false
+                        this.getUserSpin = false
+                        resolve("ok")
+                    }).catch(e => {
+                        console.log('error' + e)
+                        reject("error")
+                    })
 
                 })
             },
@@ -419,7 +437,7 @@ if($_SESSION['role']=='cajero'){
                         .then(function(response) {
                             //handle success
                             console.log(response);
-                            data.ipText = "Actualizado con éxito(G-"+response.data.idGroup+")"
+                            data.ipText = "Actualizado con éxito(G-" + response.data.idGroup + ")"
                             data.ipIconSpin = false
                         })
                         .catch(function(response) {
@@ -436,7 +454,7 @@ if($_SESSION['role']=='cajero'){
                 }
             },
             searchFn: function() {
-                this.getUserSpin=true
+                this.getUserSpin = true
                 this.searchOption = "Todos"
                 this.getUser()
                 //this.clearSearch()
@@ -446,12 +464,12 @@ if($_SESSION['role']=='cajero'){
                 this.searchString = ""
             },
             getSelected: function() {
-                this.selectSpin=true
+                this.selectSpin = true
                 this.searchString = ""
-                this.getUser().then((resolve)=>{
+                this.getUser().then((resolve) => {
                     console.log("promesa termminada despues de change on select!")
                 })
-                
+
             },
             setPing: function(data) {
                 console.log("staus clicked:" + data.ipAddress)
@@ -523,14 +541,14 @@ if($_SESSION['role']=='cajero'){
                     this.pingSuccess = "waiting"
                 }
             },
-            getIpListBox1:  function(data) {
-                return new Promise((resolve,reject)=>{
+            getIpListBox1: function(data) {
+                return new Promise((resolve, reject) => {
                     this.spinIconBox1 = true
                     axios.get('devicePingResponseList.php', {
                         params: {
                             mainServerIp: "192.168.17.1",
                             rowNumbers: "1",
-                            from: "192.168.17.150", 
+                            from: "192.168.17.150",
                             to: "192.168.11.254",
                             byteToChange: "3"
                         }
@@ -546,8 +564,8 @@ if($_SESSION['role']=='cajero'){
                 this.ipListBox1 = [];
                 this.getIpListBox1()
             },
-            getIpListBox2:  function(data) {
-                return new Promise((resolve,reject)=>{
+            getIpListBox2: function(data) {
+                return new Promise((resolve, reject) => {
                     this.spinIconBox2 = true
                     axios.get('devicePingResponseList.php', {
                         params: {
@@ -568,8 +586,8 @@ if($_SESSION['role']=='cajero'){
                 this.ipListBox2 = [];
                 this.getIpListBox2()
             },
-            getIpListBox3:  function(data) {
-                return new Promise((resolve,reject)=>{
+            getIpListBox3: function(data) {
+                return new Promise((resolve, reject) => {
                     this.spinIconBox3 = true
                     axios.get('devicePingResponseList.php', {
                         params: {
@@ -593,14 +611,14 @@ if($_SESSION['role']=='cajero'){
             }
         },
         mounted() {
-            this.getUserSpin=true
-            Promise.all([this.getIpListBox1(),this.getIpListBox2(),this.getIpListBox3(),this.getUser()])
-            .then((resolve)=>{
-                console.log("success")
-            })
-            .catch((reject)=>{
-                console.log("error"+reject)
-            })
+            this.getUserSpin = true
+            Promise.all([ this.getUser()])//this.getIpListBox1(), this.getIpListBox2(), this.getIpListBox3(),
+                .then((resolve) => {
+                    console.log("success")
+                })
+                .catch((reject) => {
+                    console.log("error" + reject)
+                })
         },
     });
     </script>

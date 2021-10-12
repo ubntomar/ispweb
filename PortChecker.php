@@ -1,6 +1,7 @@
 <?php
-$host = 'stackoverflow.com';
-$ports = array(21, 25, 80, 81, 110, 443, 3306);
+// $host = 'stackoverflow.com';
+$host = '192.168.21.1';
+$ports = array(8080);
 
 foreach ($ports as $port)
 {

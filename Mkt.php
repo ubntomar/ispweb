@@ -114,6 +114,38 @@ class Mkt
         $response = $this->client->sendSync(new RouterOS\Request($code));
         return $response;    
     }
+    public function addNat(){
+        $comment="prueba";  
+        $printRequest = new RouterOS\Request('/ip/firewall/nat/print');
+        $printRequest->setQuery(RouterOS\Query::where('to-ports', "8081"));
+        $id = $this->client->sendSync($printRequest)->getProperty('.id');
+        if ($id==NULL){
+            print "Go to adding dst-nat rule!";
+            $addRequest = new RouterOS\Request('/ip/firewall/nat/add'); 
+            $addRequest->setArgument('action', 'dst-nat');
+            $addRequest->setArgument('chain', 'dstnat');
+            $addRequest->setArgument('dst-port', '8081'); 
+            $addRequest->setArgument('protocol', 'tcp'); 
+            $addRequest->setArgument('to-addresses', '192.168.88.100'); 
+            $addRequest->setArgument('to-ports', '8081'); 
+            if ($this->client->sendSync($addRequest)->getType() !== RouterOS\Response::TYPE_FINAL) {
+                print "fail"; 
+            }
+            print "success";
+
+            //add action=dst-nat chain=dstnat dst-port=8080 protocol=tcp to-addresses=192.168.88.100 to-ports=8080
+        }            
+        else{
+            print "dst-nat is already added!";           
+        }   
+    }
     
 } 
-?> 
+
+// if($mkobj=new Mkt("192.168.21.1","agingenieria","agwist2017")){
+//     print "Connected\n";
+//     $mkobj->addNat();     
+// }
+
+
+?>
