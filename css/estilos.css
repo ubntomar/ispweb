@@ -298,6 +298,10 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 }
+.ip .arp-list ul li{
+	font-size: 0.7rem; 
+	color: #646161;  
+}   
 
 
 /* --- --- MEDIAQUERIES --- --- */

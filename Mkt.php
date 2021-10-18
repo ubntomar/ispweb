@@ -17,6 +17,7 @@ class Mkt
         try{
             $this->client = new RouterOS\Client($ipRouter, $user, $pass);  
         } catch(Exception $e){
+            // echo(json_encode(array('error' => 'timeout Mkt.php new')));
             //print "error:$e";
             $this->error=$e;
             $this->success=false;
@@ -114,30 +115,29 @@ class Mkt
         $response = $this->client->sendSync(new RouterOS\Request($code));
         return $response;    
     }
-    public function addNat(){
-        $comment="prueba";  
+    public function addNat($port,$comment,$toAddresses,$check=false){
+        $response=2;
         $printRequest = new RouterOS\Request('/ip/firewall/nat/print');
-        $printRequest->setQuery(RouterOS\Query::where('to-ports', "8081"));
+        $printRequest->setQuery(RouterOS\Query::where('to-ports', "$port"));
         $id = $this->client->sendSync($printRequest)->getProperty('.id');
-        if ($id==NULL){
-            print "Go to adding dst-nat rule!";
+        if ($id==NULL && !$check){
             $addRequest = new RouterOS\Request('/ip/firewall/nat/add'); 
             $addRequest->setArgument('action', 'dst-nat');
             $addRequest->setArgument('chain', 'dstnat');
-            $addRequest->setArgument('dst-port', '8081'); 
+            $addRequest->setArgument('dst-port', $port); 
             $addRequest->setArgument('protocol', 'tcp'); 
-            $addRequest->setArgument('to-addresses', '192.168.88.100'); 
-            $addRequest->setArgument('to-ports', '8081'); 
+            $addRequest->setArgument('to-addresses', $toAddresses); 
+            $addRequest->setArgument('to-ports', $port);
+            $addRequest->setArgument('comment', $comment); 
             if ($this->client->sendSync($addRequest)->getType() !== RouterOS\Response::TYPE_FINAL) {
-                print "fail"; 
+                $response= 2; //fail
             }
-            print "success";
-
-            //add action=dst-nat chain=dstnat dst-port=8080 protocol=tcp to-addresses=192.168.88.100 to-ports=8080
+            $response= 1;//success
         }            
-        else{
-            print "dst-nat is already added!";           
+        if($id!=NULL){ 
+            $response= 3;//"dst-nat is already added!"; 
         }   
+        return $response;
     }
     
 } 

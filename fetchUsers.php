@@ -26,42 +26,40 @@ $today = date("Y-m-d");
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i');
 $ping = array();
-
-// $searchString="herna";
-// $searchOption="Todos"; 
 $searchString=$mysqli -> real_escape_string($_GET["searchString"]);
 $searchOption=$mysqli -> real_escape_string($_GET["searchOption"]);
-
-// if($mkobj=new Mkt($serverIpAddressArea1,$vpnUser,$vpnPassword)){
-//     $exclusivosList=$mkobj->list_all();        
-// }
-
-if($_SERVER['REQUEST_METHOD']==='POST') { 
-
+if($_SERVER['REQUEST_METHOD']==='POST') {  //    Update Ip and others  Block
     $idRow = $_POST['idRow'];
     $ipRow = $_POST['ipRow'];
-    
     $sql_update = "UPDATE `redesagi_facturacion`.`afiliados` SET `ip` = '$ipRow' WHERE (`id` = '$idRow');";
     $result = $mysqli->query($sql_update) or die('error');
     if($result){
         $vpnObject=new VpnUtils($server, $db_user, $db_pwd, $db_name);
         $idGroup=$vpnObject->updateGroupId($idRow,$ipRow);
-        addToNatRule($idRow,$ipRow); 
-        $retObj=(object)["id"=>"$idRow","ip"=>"$ipRow","status"=>"success","idGroup"=>"$idGroup"];
+        $serverIp=serverIP($server, $db_user, $db_pwd, $db_name,$idRow,$ipRow);
+        $id=$idRow;
+        $ip=$ipRow;
+        $response=addToNatRule($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$id,$ip,$router_default_wanIp_cpe_mktik,false); 
+        $dstnatResponse=($response["result"]=="1" || $response["result"]=="3") ? "Actived-Mikrotik":"Inactive";
+        $dstnatTarget=$response["dstnatTarget"];
+        $port=$response["port"];
+        $response=checkPort($ip,$serverIp,$id,$rb_default_dstnat_port);
+        $portStatus=$response["portStatus"];
+        $retObj=(object)["portStatus"=>"$portStatus","id"=>"$idRow","ip"=>"$ipRow","status"=>"success","idGroup"=>"$idGroup","dstnatResponse"=>"$dstnatResponse","port"=>"$port","dstnatTarget"=>"$dstnatTarget","ipAddress"=>"$ip"]; 
         echo json_encode($retObj); 
     }
 }
 
-if ($searchOption=="Todos"){
+if ($searchOption=="Todos"){ 
     if(filter_var($searchString, FILTER_VALIDATE_IP)){
         $queryPart="AND `ip` LIKE '%$searchString%' ";
     }elseif($searchString!="" && !filter_var($searchString, FILTER_VALIDATE_IP) ){
         $queryPart="AND ( (`cliente` LIKE '%$searchString%') OR (`apellido` LIKE '%$searchString%'))  ";
     }else{
-        $queryPart="ORDER BY `id` DESC LIMIT 3";
+        $queryPart="ORDER BY `id` DESC LIMIT 1";
     }
     $sqlSearch="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1 $queryPart  "; 
-    //echo $sqlSearch;
+    // echo $sqlSearch;
     if ($result = $mysqli->query($sqlSearch)) {
         $num=$result->num_rows;
         $counter=0;
@@ -70,11 +68,17 @@ if ($searchOption=="Todos"){
             $id=$row['id'];
             $name=strtoupper($row["cliente"]." ".$row['apellido']);
             $ipAddress=$row["ip"];
-            $portStatus=checkPort($ipAddress); 
             $direccion=$row["direccion"];
             $serverIp=serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress);
+            $response=checkPort($ipAddress,$serverIp,$id,$rb_default_dstnat_port);
+            $portStatus=$response["portStatus"];
+            $portNumber=$response["port"];
+            //$id=$idRow; 
+            $ip=$ipAddress; 
+            $response=addToNatRule($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$id,$ip,$router_default_wanIp_cpe_mktik,true);  
+            $dstnatResponse=($response["result"]=="1" || $response["result"]=="3") ? "Actived-Mikrotik":"Inactive";
+            $dstnatTarget=$response["dstnatTarget"];
             ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down';
-             
             $responseTime=$row["ping"];
             ($row["suspender"])? $suspender="cortado":$suspender="";
             $pingDate=$row["pingDate"];   
@@ -85,11 +89,11 @@ if ($searchOption=="Todos"){
             else{
                 $elapsedTime=""; 
             }
-            $ping[] = array("portStatus"=>"$portStatus","serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "direccion"=>"$direccion", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+            $ping[] = array("dstnatTarget"=>"$dstnatTarget","dstnatResponse"=>$dstnatResponse,"port"=>"$portNumber","portStatus"=>"$portStatus","serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "direccion"=>"$direccion", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
         }
         $ping[]=array("numResult"=>"$num");
     }
-    echo json_encode($ping);
+    echo json_encode($ping); 
 }
 
 if($searchOption=="Cortado"){
@@ -189,19 +193,26 @@ echo json_encode($ping);
 
 function serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress){
     if($ipAddress!="0.0.0.0"){
-        $vpnObject2=new VpnUtils($server, $db_user, $db_pwd, $db_name);
+        $vpnObject2=new VpnUtils($server, $db_user, $db_pwd, $db_name);  
         $idGroup=$vpnObject2->updateGroupId($id,$ipAddress); 
         return $vpnObject2->getServerIp($idGroup); 
     }
     return "0.0.0.0";
 }
-function checkPort($ip){
+function checkPort($ip,$serverIp,$id,$rb_default_dstnat_port){ 
+    $serverLasByte=explode(".",$serverIp)[3];
+    if($serverLasByte=="1"){
+        $portToCheck=$rb_default_dstnat_port;
+    }
+    else {
+        $portToCheck=($id<1000)?"8".$id:$id+2000;//8524 ó 3050 
+    } 
     if(filter_var($ip, FILTER_VALIDATE_IP)){
     $host = $ip;
-    $ports = array(8080);
+    $ports = array($portToCheck);
     foreach ($ports as $port)
         {
-            $connection = @fsockopen($host, $port, $errno, $errstr, 2); 
+            $connection = @fsockopen($host, $port, $errno, $errstr, 2);  
             if (is_resource($connection))
             {
                 $result="Open";
@@ -211,43 +222,51 @@ function checkPort($ip){
             {
                 $result="Closed";
             }
-        } 
-        return $result; 
+        }
+        return  array("port"=>"$portToCheck","portStatus"=>"$result"); 
    } 
    else{
        return "$ip Invalid";
    }
 }
 
-function getArray($row){
-    while($row = $result->fetch_assoc()) { 
-        $counter+=1;
-        $id=$row['id'];
-        $name=strtoupper($row["cliente"]." ".$row['apellido']);
-        $ipAddress=$row["ip"];
-        $serverIp=serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress);
-        ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down'; 
-        
-        $responseTime=$row["ping"];
-        ($row["suspender"])? $suspender="cortado":$suspender="";
-        $pingDate=$row["pingDate"];   
-        if($pingDate){
-            if($elapsedTime=get_date_diff( $pingDate, $today, 2 ));
-            else $elapsedTime="Hoy";             
-        }
-        else{
-            $elapsedTime="";
-        }
-        $ping[] = array("serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "direccion"=>"$direccion", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+
+function addToNatRule($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$idRow,$ipRow,$router_default_wanIp_cpe_mktik,$check){
+    $serverLasByte=explode(".",$serverIp)[3];
+    if($serverLasByte=="1"){
+        $port=$rb_default_dstnat_port;
+        $user=$rb_default_user;
+        $password=$rb_default_password;    
     }
-    $ping[]=array("numResult"=>"$num");
+    else {
+        $user=$vpnUser;
+        $password=$vpnPassword;
+        $port=($idRow<1000)?"8".$idRow:$idRow+2000;//8524 ó 3050
+    }
+    $comment="Rule to can access to client $idRow  from ip $ipRow of server $serverIp  created from  fetchUser line 48";
+    $targetIp=($serverLasByte=="1")?$ipRow:$serverIp;//example 21.1 17.163 ?
+    $dstnatTarget=($serverLasByte=="1")?"Cpe":"Repeater";//example 21.1 17.163 ?
+    $toAddressesParam=($serverLasByte=="1")? $router_default_wanIp_cpe_mktik:$ipRow;
+    $result=2;//fail
+    try{
+        //print "($mkobj=new Mkt($targetIp,$user,$password)){";
+        if($mkobj=new Mkt($targetIp,$user,$password)){
+            if($mkobj->success){
+                $result= $mkobj->addNat($port,$comment,$toAddressesParam,$check); 
+            }
+        }
+    }catch (Exception $e) {
+        // echo 'Caught exception: ',  $e->getMessage(), "\n"; 
+    }
+    return array("result"=>"$result","port"=>"$port","dstnatTarget"=>"$dstnatTarget");
 }
 
-function addToNatRule(){
-    // if($mkobj=new Mkt($serverIpAddressArea1,$vpnUser,$vpnPassword)){
-//     $exclusivosList=$mkobj->list_all();        
-// }
-}
+
+
+
+
+
+
 
 
 ?>

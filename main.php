@@ -162,30 +162,54 @@ if($_SESSION['role']=='cajero'){
                                                     <div class="input-ip">
                                                         <input type="text" v-model="cliente.ipAddress"
                                                             v-on:keyup="cliente.ipText='',cliente.validIp=true">
-                                                    </div>
-                                                    <div class="server-info">
                                                         <button class="border border-rounded"
                                                             v-on:click="updateIp(cliente)"><i
                                                                 v-bind:class="{'animate-spin':cliente.ipIconSpin}"
                                                                 class="icon-spin6 "></i>
                                                         </button>
+                                                    </div>
+                                                    <div class="server-info">
                                                         <small
                                                             v-bind:class="{'border-danger':!cliente.validIp,'border-success':cliente.ipText=='Actualizado con Exito'}"
                                                             class="m-1 p-1 border  border-rounded  font-italic">{{cliente.ipText}}
                                                         </small>
-                                                        <small>Server Ip <a v-bind:href="'http://'+cliente.serverIp"
+                                                    </div>
+                                                    <div class="server-info">
+                                                        <small>Server Ip: <a v-bind:href="'http://'+cliente.serverIp"
                                                                 target="_blank">{{cliente.serverIp}}</a></small>
 
                                                     </div>
-                                                    <div class="router">
-                                                        <small>Router <a target="_blank"
-                                                                :href=" 'http://'+cliente.ipAddress+':8080' ">{{cliente.ipAddress}}:8080</a></small><small class="text-success" > {{cliente.portStatus}}</small>
+                                                    <div class="dst-nat">
+                                                        <small>Dst-nat:</small><small
+                                                            :class="{'text-primary':cliente.dstnatResponse=='Actived-Mikrotik','text-danger':cliente.dstnatResponse=='Inactive'}">&nbsp;{{cliente.dstnatResponse}}</small>
+                                                        <div class="dst-nat-target">
+                                                            <small>Dst-nat target:&nbsp;</small><small class="text-primary">{{cliente.dstnatTarget}}</small>
+                                                        </div>    
                                                     </div>
-                                                </div> 
+                                                    <div class="router">
+                                                        <small>Router: <a target="_blank"
+                                                                :href=" 'http://'+cliente.ipAddress+':'+cliente.port ">{{cliente.ipAddress}}:</a></small><small
+                                                            :class="{'text-success':cliente.portStatus=='Open','text-danger':cliente.portStatus=='Closed'}"> {{cliente.port}}</small>
+                                                    </div>
+                                                    <div class="arp-list">
+                                                        <small>Arp list for :&nbsp;</small><small class="text-success">Cpe</small>&nbsp;/&nbsp;<small class="text-secondary">Repeater</small>
+                                                        <ul>
+                                                            <li>192.168.88.13</li>
+                                                            <li>192.168.88.14</li>
+                                                            <li>192.168.88.15</li>
+                                                            <li>192.168.88.16</li>
+                                                            <li>192.168.88.254</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="queue">
+                                                        <small>Queue:</small><small>success </small>
+                                                        
+                                                    </div>
+                                                </div>
 
 
 
-                                            </td> 
+                                            </td>
                                             <td><strong class="font-italic"
                                                     v-if="cliente.responseTime"><small>{{cliente.responseTime}}
                                                     </small><small
@@ -414,7 +438,7 @@ if($_SESSION['role']=='cajero'){
                         this.getUserSpin = false
                         resolve("ok")
                     }).catch(e => {
-                        console.log('error' + e)
+                        console.log('error' + e) 
                         reject("error")
                     })
 
@@ -435,9 +459,13 @@ if($_SESSION['role']=='cajero'){
                             data: bodyFormData
                         })
                         .then(function(response) {
-                            //handle success
                             console.log(response);
-                            data.ipText = "Actualizado con éxito(G-" + response.data.idGroup + ")"
+                            data.ipText = "Actualizado  con éxito(G-" +response.data.idGroup + ")";
+                            data.dstnatResponse=response.data.dstnatResponse
+                            data.dstnatTarget=response.data.dstnatTarget
+                            data.ipAddress = response.data.ipAddress
+                            data.port = response.data.port
+                            data.portStatus = response.data.portStatus
                             data.ipIconSpin = false
                         })
                         .catch(function(response) {
@@ -612,7 +640,7 @@ if($_SESSION['role']=='cajero'){
         },
         mounted() {
             this.getUserSpin = true
-            Promise.all([ this.getUser()])//this.getIpListBox1(), this.getIpListBox2(), this.getIpListBox3(),
+            Promise.all([this.getUser()]) //this.getIpListBox1(), this.getIpListBox2(), this.getIpListBox3(),
                 .then((resolve) => {
                     console.log("success")
                 })
