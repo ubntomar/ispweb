@@ -11,10 +11,11 @@ else    {
 header('Content-Type: application/json');
 require 'vendor/autoload.php';
 require 'dateHuman.php';
-include("login/db.php");
+require("login/db.php");
 require 'Mkt.php';
 require 'vpnConfig.php';
-include("VpnUtils.php");
+require("VpnUtils.php");
+require("PingTime.php");
 
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
@@ -39,13 +40,21 @@ if($_SERVER['REQUEST_METHOD']==='POST') {  //    Update Ip and others  Block
         $serverIp=serverIP($server, $db_user, $db_pwd, $db_name,$idRow,$ipRow);
         $id=$idRow;
         $ip=$ipRow;
-        $response=addToNatRule($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$id,$ip,$router_default_wanIp_cpe_mktik,false); 
-        $dstnatResponse=($response["result"]=="1" || $response["result"]=="3") ? "Actived-Mikrotik":"Inactive";
-        $dstnatTarget=$response["dstnatTarget"];
-        $port=$response["port"];
+        $pingObject=new PingTime($serverIp);
+        if($pingObject->time(1)){
+            $response=addToNatRule($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$id,$ip,$router_default_wanIp_cpe_mktik,false); 
+            $dstnatResponse=($response["result"]=="1" || $response["result"]=="3") ? "Actived-Mikrotik":"Inactive";
+            $dstnatTarget=$response["dstnatTarget"];
+            $arp=getArp($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
+            $queue=Queue($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
+        }else{
+            $dstnatResponse="Comunication Error";
+            $dstnatTarget="Comunication Error";
+        }
         $response=checkPort($ip,$serverIp,$id,$rb_default_dstnat_port);
         $portStatus=$response["portStatus"];
-        $retObj=(object)["portStatus"=>"$portStatus","id"=>"$idRow","ip"=>"$ipRow","status"=>"success","idGroup"=>"$idGroup","dstnatResponse"=>"$dstnatResponse","port"=>"$port","dstnatTarget"=>"$dstnatTarget","ipAddress"=>"$ip"]; 
+        $port=$response["port"];
+        $retObj=["queue"=>"$queue","arp"=>$arp,"arpTarget"=>"$dstnatTarget","portStatus"=>"$portStatus","id"=>"$idRow","ip"=>"$ipRow","status"=>"success","idGroup"=>"$idGroup","dstnatResponse"=>"$dstnatResponse","port"=>"$port","dstnatTarget"=>"$dstnatTarget","ipAddress"=>"$ip"]; 
         echo json_encode($retObj); 
     }
 }
@@ -72,12 +81,20 @@ if ($searchOption=="Todos"){
             $serverIp=serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress);
             $response=checkPort($ipAddress,$serverIp,$id,$rb_default_dstnat_port);
             $portStatus=$response["portStatus"];
-            $portNumber=$response["port"];
+            $port=$response["port"];
             //$id=$idRow; 
             $ip=$ipAddress; 
-            $response=addToNatRule($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$id,$ip,$router_default_wanIp_cpe_mktik,true);  
-            $dstnatResponse=($response["result"]=="1" || $response["result"]=="3") ? "Actived-Mikrotik":"Inactive";
-            $dstnatTarget=$response["dstnatTarget"];
+            $pingObject=new PingTime($serverIp);
+            if($pingObject->time(1)){
+                $response=addToNatRule($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$id,$ip,$router_default_wanIp_cpe_mktik,false); 
+                $dstnatResponse=($response["result"]=="1" || $response["result"]=="3") ? "Actived-Mikrotik":"Inactive";
+                $dstnatTarget=$response["dstnatTarget"];
+                $arp=getArp($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
+                $queue=Queue($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
+            }else{
+                $dstnatResponse="Comunication Error";
+                $dstnatTarget="Comunication Error";
+            }
             ($row["pingDate"]==$today) ? $pingStatus='up':$pingStatus='down';
             $responseTime=$row["ping"];
             ($row["suspender"])? $suspender="cortado":$suspender="";
@@ -89,7 +106,7 @@ if ($searchOption=="Todos"){
             else{
                 $elapsedTime=""; 
             }
-            $ping[] = array("dstnatTarget"=>"$dstnatTarget","dstnatResponse"=>$dstnatResponse,"port"=>"$portNumber","portStatus"=>"$portStatus","serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "direccion"=>"$direccion", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+            $ping[] = array("queue"=>"$queue","arp"=>$arp,"arpTarget"=>"$dstnatTarget","dstnatTarget"=>"$dstnatTarget","dstnatResponse"=>$dstnatResponse,"port"=>"$port","portStatus"=>"$portStatus","serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "direccion"=>"$direccion", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
         }
         $ping[]=array("numResult"=>"$num");
     }
@@ -260,7 +277,50 @@ function addToNatRule($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_def
     }
     return array("result"=>"$result","port"=>"$port","dstnatTarget"=>"$dstnatTarget");
 }
-
+function Queue($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ipRow){
+    $serverLasByte=explode(".",$serverIp)[3];
+    if($serverLasByte=="1"){
+        $user=$rb_default_user;
+        $password=$rb_default_password;    
+    }
+    else {
+        $user=$vpnUser;
+        $password=$vpnPassword;
+    }
+    $targetIp=($serverLasByte=="1")?$ipRow:$serverIp;//example 21.1 17.163 ?
+    try{
+        if($mkobj=new Mkt($targetIp,$user,$password)){
+            if($mkobj->success){
+                $result= $mkobj->checkQueue($ipRow)=="3"?"Success":"Fail"; 
+            }
+        }
+    }catch (Exception $e) {
+        // echo 'Caught exception: ',  $e->getMessage(), "\n"; 
+    }
+    return $result;
+}
+function getArp($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip){
+    $serverLasByte=explode(".",$serverIp)[3];
+    if($serverLasByte=="1"){
+        $user=$rb_default_user;
+        $password=$rb_default_password;    
+    }
+    else {
+        $user=$vpnUser;
+        $password=$vpnPassword;
+    }
+    $targetIp=($serverLasByte=="1")?$ip:$serverIp;//example 21.1 17.163 ?
+    try{
+        if($mkobj=new Mkt($targetIp,$user,$password)){
+            if($mkobj->success){
+                $result= $mkobj->arp(); 
+            }
+        }
+    }catch (Exception $e) {
+        // echo 'Caught exception: ',  $e->getMessage(), "\n"; 
+    }
+    return $result;
+}
 
 
 

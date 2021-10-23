@@ -9,6 +9,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 include("login/db.php");
 require 'Mkt.php';
 require 'vpnConfig.php';
+require 'VpnUtils.php';
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -27,7 +28,7 @@ $debug = 0;
 									// cam: cambioRow,
 									// vad: vadRow,
 									// vpl: vplanRow,
-									// rec: rec?reconect?
+									// rec: rec?reconect? 
 
 if($_POST["rec"]){
 	$rec = mysqli_real_escape_string($mysqli, $_REQUEST['rec']);
@@ -37,9 +38,12 @@ if($_POST["rec"]){
 		$result = mysqli_query($mysqli, $sql_client_id) or die('error encontrando el cliente');
 		$db_field = mysqli_fetch_assoc($result);
 		$ip=$db_field['ip'];
-		$data=areaCode($ip);
+		//$data=areaCode($ip);
 		$nombre=$db_field['cliente'];
-		$mkobj=new Mkt($data['server'],$vpnUser,$vpnPassword);
+		$vpnObject2=new VpnUtils($server, $db_user, $db_pwd, $db_name);  
+        $idGroup=$vpnObject2->updateGroupId($idc,$ip); 
+        $serverIp=$vpnObject2->getServerIp($idGroup); 
+		$mkobj=new Mkt($serverIp,$vpnUser,$vpnPassword);
 		if($mkobj->success){
 			echo "Conectado a la Rboard cod Server-target-> {{$data['server']}}";
 			removeIp($mkobj->remove_ip($ip,'morosos'),$idc,$mysqli,$ip,$today,$hourMin);       

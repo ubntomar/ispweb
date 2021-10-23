@@ -183,27 +183,28 @@ if($_SESSION['role']=='cajero'){
                                                         <small>Dst-nat:</small><small
                                                             :class="{'text-primary':cliente.dstnatResponse=='Actived-Mikrotik','text-danger':cliente.dstnatResponse=='Inactive'}">&nbsp;{{cliente.dstnatResponse}}</small>
                                                         <div class="dst-nat-target">
-                                                            <small>Dst-nat target:&nbsp;</small><small class="text-primary">{{cliente.dstnatTarget}}</small>
-                                                        </div>    
+                                                            <small>Dst-nat target:&nbsp;</small><small
+                                                                class="text-primary">{{cliente.dstnatTarget}}</small>
+                                                        </div>
                                                     </div>
                                                     <div class="router">
                                                         <small>Router: <a target="_blank"
                                                                 :href=" 'http://'+cliente.ipAddress+':'+cliente.port ">{{cliente.ipAddress}}:</a></small><small
-                                                            :class="{'text-success':cliente.portStatus=='Open','text-danger':cliente.portStatus=='Closed'}"> {{cliente.port}}</small>
+                                                            :class="{'text-success':cliente.portStatus=='Open','text-danger':cliente.portStatus=='Closed'}">
+                                                            {{cliente.port}}</small>
                                                     </div>
                                                     <div class="arp-list">
-                                                        <small>Arp list for :&nbsp;</small><small class="text-success">Cpe</small>&nbsp;/&nbsp;<small class="text-secondary">Repeater</small>
-                                                        <ul>
-                                                            <li>192.168.88.13</li>
-                                                            <li>192.168.88.14</li>
-                                                            <li>192.168.88.15</li>
-                                                            <li>192.168.88.16</li>
-                                                            <li>192.168.88.254</li>
-                                                        </ul>
+                                                        <small>Arp list for :&nbsp;</small><small
+                                                            class="text-success">{{cliente.arpTarget}}</small>
+                                                        <ol>
+                                                            <li :class="{'text-success':cliente.ipAddress==item,'font-weight-bold':cliente.ipAddress==item}"  v-for="item in cliente.arp" :key="">
+                                                                {{ item }}
+                                                            </li>
+                                                        </ol>
                                                     </div>
                                                     <div class="queue">
-                                                        <small>Queue:</small><small>success </small>
-                                                        
+                                                        <small>Queue:&nbsp;</small><small :class="{'font-weight-bold':true,'text-success':cliente.queue=='Success','text-danger':cliente.queue=='Fail' }" >{{cliente.queue}} </small>
+
                                                     </div>
                                                 </div>
 
@@ -431,15 +432,18 @@ if($_SESSION['role']=='cajero'){
 
                         }
                     }).then(response => {
-                        console.log(response)
+                        // console.log(response)
                         this.clientes = response.data
+                        console.log(JSON.stringify(this.clientes))
                         this.totalRows = response.data.length - 1
                         this.selectSpin = false
                         this.getUserSpin = false
                         resolve("ok")
                     }).catch(e => {
-                        console.log('error' + e) 
-                        reject("error")
+                        this.selectSpin = false
+                        this.getUserSpin = false
+                        //console.log('error' + e) 
+                        //reject(e)
                     })
 
                 })
@@ -458,19 +462,20 @@ if($_SESSION['role']=='cajero'){
                             url: "fetchUsers.php",
                             data: bodyFormData
                         })
-                        .then(function(response) {
-                            console.log(response);
-                            data.ipText = "Actualizado  con éxito(G-" +response.data.idGroup + ")";
-                            data.dstnatResponse=response.data.dstnatResponse
-                            data.dstnatTarget=response.data.dstnatTarget
+                        .then(function(response) { 
+                            //console.log(response);
+                            data.ipText = "Actualizado  con éxito(G-" + response.data.idGroup + ")";
+                            data.dstnatResponse = response.data.dstnatResponse
+                            data.dstnatTarget = response.data.dstnatTarget
                             data.ipAddress = response.data.ipAddress
                             data.port = response.data.port
                             data.portStatus = response.data.portStatus
+                            data.arpTarget = response.data.arpTarget
                             data.ipIconSpin = false
                         })
                         .catch(function(response) {
                             //handle error
-                            console.log(response);
+                            //console.log(response);
                             data.ipIconSpin = false
                         });
 

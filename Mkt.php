@@ -18,7 +18,7 @@ class Mkt
             $this->client = new RouterOS\Client($ipRouter, $user, $pass);  
         } catch(Exception $e){
             // echo(json_encode(array('error' => 'timeout Mkt.php new')));
-            //print "error:$e";
+            // print "error:$e";
             $this->error=$e;
             $this->success=false;
         }
@@ -139,13 +139,36 @@ class Mkt
         }   
         return $response;
     }
+    public function checkQueue($ipAddresses){
+        $printRequest = new RouterOS\Request('/queue/simple/print');
+        $printRequest->setQuery(RouterOS\Query::where('target', "$ipAddresses"."/32")); 
+        $id = $this->client->sendSync($printRequest)->getProperty('.id');
+        if ($id==NULL){
+            //Queue dont exist!
+        }            
+        if($id!=NULL){ 
+            $response= 3;//"Queue is already added!"; 
+        }   
+        return $response;
+    }
+    public function arp(){
+        $responses = $this->client->sendSync(new RouterOS\Request('/ip/arp/print'));         
+        $myArray = array();
+        foreach ($responses as $response) {
+            if ($response->getType() === RouterOS\Response::TYPE_DATA) {                
+                $myArray[]= $response->getProperty('address');
+            }
+        }  
+        return $myArray;
+    }
     
 } 
 
-// if($mkobj=new Mkt("192.168.21.1","agingenieria","agwist2017")){
-//     print "Connected\n";
-//     $mkobj->addNat();     
+// if($mkobj=new Mkt("192.168.30.163","agingenieria","agwist2017")){
+//     print "Connected\n"; 
+//     // var_dump($mkobj->arp());       
+//    print($mkobj->checkQueue("192.168.71.16"));      
 // }
-
+ 
 
 ?>

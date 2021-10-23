@@ -298,7 +298,7 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 }
-.ip .arp-list ul li{
+.ip .arp-list ul,ol li{
 	font-size: 0.7rem; 
 	color: #646161;  
 }   
