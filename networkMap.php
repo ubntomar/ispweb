@@ -53,22 +53,22 @@ $json='{
 					"type": "Rb Admin"
 				},
 				{
-					"name": "Cpe->Retiro ",
+					"name": "Cpe Maria->Retiro ",
 					"ip": "192.168.65.2",
 					"type": "ptp"
 				},
 				{
-					"name": "Retiro->Maria . ",
+					"name": "Ap Retiro->Maria . ",
 					"ip": "192.168.65.3",
 					"type": "ptp"
 				},
 				{
-					"name": "Retiro->Guamal Enlace principal 1 de 3 (Maria)",
+					"name": "Ptp Ap Retiro->Guamal Enlace principal 1 de 3 (Maria)",
 					"ip": "192.168.65.111",
 					"type": "ptp"
 				},
 				{
-					"name": "Guamal-Retiro Enlace principal 1 de 3 (Maria)",
+					"name": "Ptp Cpe Guamal->Retiro Enlace principal 1 de 3 (Maria)",
 					"ip": "192.168.65.6",
 					"type": "ptp"
 				},
