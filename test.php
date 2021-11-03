@@ -1,12 +1,12 @@
 <?php
 require("login/db.php");
+$endPoint = 'http://localhost:3001/mail';
 $postdata = http_build_query(
     array(
-        'name' => 'Juan',
+        'name' => 'Matreix Reloada',
         'id' => '1'
     )
 );
-
 $opts = array('http' =>
     array(
         'method' => 'POST',
@@ -15,8 +15,10 @@ $opts = array('http' =>
     )
 );
 $context = stream_context_create($opts);
-$result = file_get_contents($endPoint, false, $context);
-$object=(json_decode($result));
-print $object->message."\n";
-
+$result = json_decode(file_get_contents($endPoint, false, $context));
+if($result->mailStatus=="success"){
+    print "\n Email enviado con Exito";
+}else{
+    print "\n Email Fail";
+}
 ?>

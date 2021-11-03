@@ -1,0 +1,23 @@
+***How many emails do you plan to send or receive each month?
+
+1000
+
+***Why are you considering Postmark?
+Problems with your current email provider? Or is Postmark your first email provider? We’d love to know!
+yes, Postmark is my first email provider.
+I have chosen Postmark since in some articles that I have been able to read I have found very good recommendations of this company.
+
+***What types of messages do you intend to send with Postmark?
+Welcome emails, onboarding emails, newsletters, etc.?
+We are a small wireless internet company for rural areas in our city: Guamal / Meta / Colombia.
+We work with Ubiquiti and Mikrotik device technology. We currently have more than 300 clients and our goal with email is to send them notifications, administer the issue of technical support when they require it. 
+Offering related services is also an important objective.
+
+
+
+***How are new subscribers/recipients acquired for these messages?
+Application sign ups, lead generation services, opt-in forms, etc.? How do you segment, handle bounces, or suppress addresses?
+
+
+Our company is currently growing by voice to voice advertising since our service coverage is in rural areas near our city.
+As we are acquiring new clients, we are also acquiring our email database of our clients and it is to them that we have the focus of sending our email messages that allow us to build loyalty and improve the quality of customer service we provide. currently.

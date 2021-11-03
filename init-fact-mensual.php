@@ -11,7 +11,7 @@ $today = date("Y-m-d");
 $convertdate= date("d-m-Y" , strtotime($today));
 $mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 $monthn = date("n");//****************** IMPORTANTE****Y REVISAR LOS STAND BY*****************************************----------
-$periodo=$mes[10];// hoy 01   de Octubre de 2021 aquí pongo el mes al que le voy a crear la tanda de facturas a todos los afiliados.  AND `suspender`!=1
+$periodo=$mes[11];// hoy 02   de NOVIEMBRE de 2021 aquí pongo el mes al que le voy a crear la tanda de facturas a todos los afiliados.  AND `suspender`!=1
 $cont=0;																
 $sql = "SELECT * FROM `afiliados` WHERE `mesenmora` != -1 AND `activo`=1  AND `eliminar`!=1 AND `standby`!=1 ORDER BY `id` ASC ";
 if ($result = $mysqli->query($sql)) {
@@ -25,7 +25,7 @@ if ($result = $mysqli->query($sql)) {
 		if($vencidos==-1){
 			$makeFact=0;
 			
-		}
+		} 
 		/// 
 		$saldo=$valorf;
 		$sql1 = "INSERT INTO `redesagi_facturacion`.`factura` (`id-factura`, `id-afiliado`, `fecha-pago`, `iva`, `notas`, `descuento`, `valorf`, `valorp`, `saldo`, `cerrado`, `fecha-cierre`, `vencidos`, `periodo`) VALUES (NULL,'$idafiliado', '0000/00/00', '19', 'notas', '0', '$valorf', '0', '$saldo', '0', '0000/00/00', '-10', '$periodo');";
