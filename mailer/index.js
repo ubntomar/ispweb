@@ -22,7 +22,9 @@ app.use(morgan('combined'));
 app.get('/', (req, res) => {
   res.send(ads);
 });
-app.post('/mail', async (req, res) => {
+
+
+app.post('/newuser', async (req, res) => {
   const data = req.body;
   let resultado=await sendEmail(data)
   if (resultado == true) {
@@ -35,6 +37,8 @@ app.post('/mail', async (req, res) => {
     });
   }
 });
+
+
 app.listen(3001, () => {
   console.log('listening on port 3001');
 });

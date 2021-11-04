@@ -4,25 +4,21 @@ class Email
 {
     private $user;
     public  $success=true;
-    public function __construct($ipRouter, $user, $pass)
+    public function __construct()
     {        
-        $this->user = $user;
-        try{
-        } catch(Exception $e){
-            $this->success=false;
-        }
-        return true;
+        
     }
-
     
-    public function sendEmailNewUser($templateId,$name)
+    public function sendEmailNewUser($newUserTemplateId,$name,$periodoDePago,$valorAPagar,$id)
     {   
-        $endPoint = 'http://localhost:3001/mail';
+        $endPoint = 'http://localhost:3001/newuser';
         $postdata = http_build_query(
             array(
-                'name' => 'Matreix Reloada',
-                'id' => '1',
-                'template'=>$templateId
+                'name' => $name,
+                'id' => $id,
+                'template'=>$newUserTemplateId,
+                'periodoDePago'=>$periodoDePago,
+                'valorAPagar'=>$valorAPagar,
             )
         );
         $opts = array('http' =>

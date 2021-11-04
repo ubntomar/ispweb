@@ -258,7 +258,7 @@
 																							</div>
 																							<div class="form-group col-md-2   ">
 																								<small>Factura </small>
-																								<select class="custom-select " id="corte">
+																								<select DISABLED class="custom-select " id="corte">
 																									<?php
 																									$day = date("j");
 																									if (($day > 0 && $day <= 10) || ($day >= 19 && $day <= 31)) {
@@ -275,7 +275,7 @@
 																							</div>
 																							<div class="form-group col-md-2   ">
 																								<small>A partir de:</small>
-																								<select class="custom-select " id="corte-mes">
+																								<select DISABLED class="custom-select " id="mes">
 																									<?php
 																									$mes = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 																									$month = date("n");
@@ -979,7 +979,6 @@
 		<script src="js/dataTables.checkboxes.min.js"></script>
 
 		<script>
-		console.log('holaaaaaa')
 			<?php
 			
 			if ($_GET['opc']) {
@@ -1489,7 +1488,7 @@
 								var phone = $("#phone").val();
 								var email = $("#email").val();
 								var corte = $("#corte").val();
-								var corteMes = $("#corte-mes").val();
+								var corteMes = $("#mes").val();
 								var plan = $("#plan").val();
 								var velocidadPlan = $("#velocidad-plan").val();
 								var ipAddress =$("#ipAddress").val(); 
@@ -1894,8 +1893,8 @@
 
 			});
 
-			$("#corte-mes").on('change', function() {
-				invoicegenerator();
+			$("#mes").on('change', function() {
+				//invoicegenerator();
 			});
 			$("#mergeItems").on('change', function() {
 				if ($('#mergeItems').is(":checked")) {
@@ -1949,7 +1948,7 @@
 				}
 			});
 			$("#valorAfiliacion").keyup(function() {
-				invoicegenerator();
+				invoicegenerator("afiliacion");
 			});
 
 			function afiliacionDivItems(caso) {
@@ -2032,7 +2031,7 @@
 				});
 			}
 
-			function invoicegenerator() {
+			function invoicegenerator(param="") {
 				$("#valorAdicionalServicio").val(0);
 				$("#valorProrrateo").val(0);
 				afiliacionDivItems("nada");
@@ -2042,8 +2041,23 @@
 				var daySelected = parseInt(day[0]);
 				var monthSelected = parseInt(day[1]);
 				var yearSelected = parseInt(day[2]);
+				//
+				var a = new Date();
+        		var dayOfMonth = a.getDate();
+				//
+				if(daySelected>19&&param!="afiliacion"){
+					$("#mes").val(monthSelected+1)
+					alertify.success("Fechas del 20 en adelante pasan a ser facturas corte 1, empezando a pagar del 1 al 7 del siguiente mes.")
+				}else{
+					$("#mes").val(monthSelected)
+					if(parseInt(dayOfMonth)>19){
+						alertify.error("Fecha no permitida")
+						//$( ".selector" ).datepicker( "refresh" ); //reiniciar picker
+					}
+				}
 				var days = daysInMonth(monthSelected, yearSelected);
-				var periodo = parseInt( $("#corte-mes").val() );
+				var periodo = parseInt( $("#mes").val() );
+				console.log("periodo vale:"+periodo)
 				var nextMonth=periodo+1;
 				if (nextMonth==13) nextMonth=1;
 				var month = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -2246,8 +2260,9 @@
 					afiliacionDivItems("caso2"); 
 
 				}
+				console.log("corte vale:"+corte)
 				$("#corte").val(corte);
-				$("#corte-mes").val(increasedMonth);
+				//$("#mes").val(increasedMonth);
 			}
 
 			function tdProrrateo(leftDays, daySelected, monthN, days, valorPlan, monthN2, serviceValueFlag) {

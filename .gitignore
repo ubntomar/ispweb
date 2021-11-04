@@ -3,3 +3,4 @@ login/db.php
 smsender.php 
 scss/*
 crearRepetidor.sh
+mailer/sendgrid.env
