@@ -40,7 +40,7 @@ if($_POST['valorPlan']||$debug){
 	$phone= mysqli_real_escape_string($mysqli, $_REQUEST['phone']);
 	$email= mysqli_real_escape_string($mysqli, $_REQUEST['email']);
 	$corte= mysqli_real_escape_string($mysqli, $_REQUEST['corte']);
-	$corteMes= mysqli_real_escape_string($mysqli, $_REQUEST['corteMes']);
+	$mesAfacturar= mysqli_real_escape_string($mysqli, $_REQUEST['mesAfacturar']);
 	$plan= mysqli_real_escape_string($mysqli, $_REQUEST['plan']);
 	$velocidadPlan= mysqli_real_escape_string($mysqli, $_REQUEST['velocidadPlan']);
 	$generarFactura= mysqli_real_escape_string($mysqli, $_REQUEST['generarFactura']);//It always will be set to 1
@@ -86,8 +86,8 @@ if($_POST['valorPlan']||$debug){
 				$fechaCierre='0000/00/00';
 				$vencidos=0;
 				if($standarServiceFlag==1){
-					//bill #1 4500 saldo 0 Estandar					
-					$periodo=$mes[$corteMes];
+					//bill #1 4500 saldo 0 Estandar//					
+					$periodo=$mes[$mesAfacturar];
 					$notas="Servcio-1er Mes";
 					$valorf=$valorPlan;
 					$valorp=$valorPlan;				
@@ -101,7 +101,7 @@ if($_POST['valorPlan']||$debug){
 				}
 				if($valorProrrateo !="" && $valorProrrateo !=0 ){
 					//bill #1 37589 saldo 0 Basado en prorrateo
-					$periodo="Prorrateo-".$mes[$corteMes];
+					$periodo="Prorrateo-".$mes[$mesAfacturar];
 					$notas="Servcio-1er Mes";
 					$valorf=$valorProrrateo;
 					$valorp=$valorProrrateo;				
@@ -141,7 +141,7 @@ if($_POST['valorPlan']||$debug){
 					else echo "Error-Transacción Issues";
 				}
 				if($valorProrrateo !="" && $valorProrrateo !=0 ){
-					//Transaccion 1 -> Monthly service prorrateo
+					//Transaccion 2 -> Monthly service prorrateo
 					$valorr=$valorProrrateo;
 					$valorap=$valorProrrateo;	
 					$cambio=0;
@@ -157,7 +157,7 @@ if($_POST['valorPlan']||$debug){
 						echo "";
 					else echo "Error-Transacción Issues";
 				}
-				//Transaccion 2 -> Service afiliation
+				//Transaccion 3 -> Service afiliation
 				$valorr=$AfiliacionItemValue;
 				$valorap=$AfiliacionItemValue;	
 				$cambio=0;
@@ -184,7 +184,7 @@ if($_POST['valorPlan']||$debug){
 				$vencidos=0;					
 				if($standarServiceFlag==1){
 					//bill #1 4500 saldo 45000
-					$periodo=$mes[$corteMes];
+					$periodo=$mes[$mesAfacturar];
 					$notas="Servicio-1er Mes";
 					$valorf=$valorPlan;
 					$saldo=$valorPlan;
@@ -197,7 +197,7 @@ if($_POST['valorPlan']||$debug){
 				}
 				if($valorAdicionalServicio !="" && $valorAdicionalServicio !=0  ){
 					//bill #1 2589 saldo 2589
-					$periodo="Prorrateo-".$mes[$corteMes];
+					$periodo="Prorrateo-".$mes[$mesAfacturar];
 					$notas="Servicio-Prorrateo 1er Mes";
 					$valorf=$valorAdicionalServicio;
 					$saldo=$valorAdicionalServicio;
