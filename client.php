@@ -305,7 +305,9 @@
 																									?>
 
 																								</select>
-
+																								
+																								<input type="text" id="dayOfMonthSelected">	
+																								<input type="text" id="monthSelected">	
 																							</div>
 																							<div class="form-group col-md-3 ">
 																								<small>Tipo de Plan.</small>
@@ -355,6 +357,13 @@
 																									<small class="text-info">Valor afililiación incluye valor factura de servicio?.</small>
 																								</div>
 																								
+																							</div>  
+																							<div class="form-group col-md-3 ">
+																								<small>En este momento que está afiliando , el cliente ya le fue instalado el servicio?</small>
+																								<select  class="custom-select " id="serviceIsAlreadyInstalled">
+																									<option value="1" >Si.</option>
+																									<option value="0" SELECTED >No.</option>
+																								</select>
 																							</div>   
 																							<div class="form-group col-md-3 border border-info rounded ml-1" id="valorProrrateoDiv2" >
 																								<small>Total Prorrateo-Pagado </small>
@@ -1489,7 +1498,7 @@
 								var phone = $("#phone").val();
 								var email = $("#email").val();
 								var corte = $("#corte").val();
-								var mesAfacturar = $("#mes").val();
+								var monthSelected = $("#mes").val();
 								var plan = $("#plan").val();
 								var velocidadPlan = $("#velocidad-plan").val();
 								var ipAddress =$("#ipAddress").val(); 
@@ -1504,6 +1513,9 @@
 								var ivaV=iva();
 								var valorAdicionalServicio = $("#valorAdicionalServicio").val();
 								var valorAdicionalServicioDescripcion = $("#valorAdicionalServicioDescipcion").val();
+								var serviceIsAlreadyInstalled= $("#serviceIsAlreadyInstalled").val();
+								var dayOfMonthSelected= $("#dayOfMonthSelected").val();
+								var monthSelected= $("#monthSelected").val();
 								alertify.confirm("Desea imprimir recibo?",
 									function() {
 										recibo = 1;
@@ -1520,7 +1532,7 @@
 												phone: phone,
 												email: email,
 												corte: corte,
-												mesAfacturar: mesAfacturar,
+												monthSelected: monthSelected,
 												plan: plan,
 												velocidadPlan: velocidadPlan,
 												cedula: cedula,
@@ -1536,7 +1548,10 @@
 												valorApagar:valorApagar,
 												iva:ivaV,
 												valorAdicionalServicio:valorAdicionalServicio,
-												valorAdicionalServicioDescripcion:valorAdicionalServicioDescripcion
+												valorAdicionalServicioDescripcion:valorAdicionalServicioDescripcion,
+												serviceIsAlreadyInstalled:serviceIsAlreadyInstalled,
+												dayOfMonthSelected:dayOfMonthSelected,
+												monthSelected:monthSelected
 											},
 											success: function(data) {
 												console.log('los dato devuletos:'+data)//
@@ -1572,7 +1587,7 @@
 												phone: phone,
 												email: email,
 												corte: corte,
-												mesAfacturar: mesAfacturar,
+												monthSelected: monthSelected,
 												plan: plan,
 												velocidadPlan: velocidadPlan,
 												cedula: cedula,
@@ -1588,7 +1603,10 @@
 												valorApagar:valorApagar,
 												iva:ivaV,
 												valorAdicionalServicio:valorAdicionalServicio,
-												valorAdicionalServicioDescripcion:valorAdicionalServicioDescripcion
+												valorAdicionalServicioDescripcion:valorAdicionalServicioDescripcion,
+												serviceIsAlreadyInstalled:serviceIsAlreadyInstalled,
+												dayOfMonthSelected:dayOfMonthSelected,
+												monthSelected:monthSelected
 											},
 											success: function(data) {
 												var result = data.split(':');
@@ -1973,6 +1991,7 @@
 						}	
 					}
 					if(caso=="caso2"){
+						console.log("Caso 2!  Afiliación:"+afiliacion+" valor plan:"+valorPlan+"valorAdicionalServicio:"+valorAdicionalServicio)
 						if (afiliacion >= (valorPlan+valorAdicionalServicio) ){
 							if (fecha != "") {
 								$("#standbyDiv").show();
@@ -2018,7 +2037,8 @@
 				$("#standbyDiv2").hide();
 				$("#standarServiceFlagDiv").hide();
 				$("#AfiliacionItemValueDiv").hide();	
-
+				$("#dayOfMonthSelected").hide();
+				$("#monthSelected").hide(); 
 				$("#tr-prorrateo").hide();
 				$("#left-day").hide();
 				$("#afiliacionProrrateoDiv").hide();
@@ -2048,6 +2068,8 @@
 				var daySelected = parseInt(day[0]);
 				var monthSelected = parseInt(day[1]);
 				var yearSelected = parseInt(day[2]);
+				$("#dayOfMonthSelected").val(daySelected)
+				$("#monthSelected").val(monthSelected)
 				//
 				var a = new Date();
         		var dayOfMonth = a.getDate();
@@ -2313,10 +2335,10 @@
 							$("#valorApagar").val(ServiceToPay);
 							$("#td-total").html("$" + ServiceToPay);
 							$("#td-subtotalServicio-prorrateo").html("$" + result.subtotalValue);
-							$("#valorAdicionalServicio").val(0);
-							$("#valorAdicionalServicioDescripcion").val("");
-							$("#valorProrrateo").val(result.subtotalValue);
-							$("#tr-prorrateo").removeClass("table-danger");
+							//$("#valorAdicionalServicio").val(0);
+							//$("#valorAdicionalServicioDescripcion").val("");
+							$("#valorAdicionalServicio").val(result.subtotalValue);
+							$("#tr-prorrateo").removeClass("table-danger"); 
 							afiliacionTrView(ServiceToPay-valorPLan-result.subtotalValue);
 						}
 						else{
