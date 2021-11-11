@@ -1,10 +1,27 @@
 <?php 
 class Bill 
 {
-    public function __construct(){
+    private $mysqli;
+    public function __construct($server, $db_user, $db_pwd, $db_name){
+        $this->mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
+		if ($this->mysqli->connect_errno) {
+	    	echo "Failed to connect to MySQL: ";
+            return false;
+			}	
+		mysqli_set_charset($this->mysqli,"utf8");
+		date_default_timezone_set('America/Bogota'); 
+        return true;
         
     }
-    public function createBill(){
+    public function createBill($id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos){
+        print "\n generar_factura id_client,periodo,notas,valorf,valorp,saldo,cerrado $id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado";
+
+        $sql1 = "INSERT INTO `redesagi_facturacion`.`factura` (`id-factura`, `id-afiliado`, `fecha-pago`, `iva`, `notas`, `descuento`, `valorf`, `valorp`, `saldo`, `cerrado`, `fecha-cierre`, `vencidos`, `periodo`) VALUES 
+																		  (NULL,'$id_client', '$fechaPago', '$iva', '$notas', '$descuento', '$valorf', '$valorp', '$saldo', '$cerrado', '$fechaCierre', '$vencidos', '$periodo');";
+        //print "\n $sql1 \n";
+        // if($this->mysqli->query($sql1)==true)
+        //     return true;
+        // else return false;	
 
     }
     public function getBill(){
