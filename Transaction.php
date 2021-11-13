@@ -12,8 +12,13 @@ class Transaction
 		mysqli_set_charset($this->mysqli,"utf8");
 		date_default_timezone_set('America/Bogota'); 
     }
-    public function createTransaction(){
-        
+    public function createTransaction($id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion){ 
+        $sqlins="INSERT INTO `redesagi_facturacion`.`transacciones` (`idtransaccion`, `valor-recibido`, `valor-a-pagar`, `cambio`, `id-cliente`, `fecha`,  `hora`, `cajero`, `descripcion`) VALUES 
+																				(NULL, '$valorr', '$valorap', '$cambio', '$id_client', '$fecha',  '$hora', '$cajero', '$descripcion' )";
+        print "\n\n $sqlins \n\n";
+        // if($this->mysqli->query($sqlins)==true)
+        //     return true;
+        // else return false;
     }
     public function getTransaction(){
 

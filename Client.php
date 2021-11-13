@@ -27,8 +27,12 @@ class Client
     public function getClient(){
 
     }
-    public function updateClient(){
-
+    public function updateClient($id_client,$param,$value){
+        print "\nupdateClient $id_client,$param,$value \n";
+        $sql="UPDATE `afiliados` set `$param`='$value' WHERE `id`='$id_client' ";
+        if ($this->mysqli->query($sql) === TRUE)
+        		return true;
+                return false;
     }
     public function deleteClient(){
 

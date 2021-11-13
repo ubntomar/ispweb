@@ -4,26 +4,30 @@
       const sgMail = require('@sendgrid/mail')
       sgMail.setApiKey(process.env.SENDGRID_API_KEY)
       const msg = {
-          to: 'omar.a.hernandez.d@gmail.com',
+          to: data.email,
           from: 'ventas@agingenieria.tech',
-          templateId: 'd-4bdc152f4ac04ddfbacd49948f570213',
+          templateId: data.template,
           dynamicTemplateData: {
               subject: 'Ya casi esta lista esta sopita',
-              name: data.name,
-              city: 'Guamal-Meta',
+              fullName: data.fullName,
+              paymentDay: data.paymentDay,
+              periodo: data.periodo,
+              valorPlan: data.valorPlan,
+              idClient: data.idClient
           }
       }
       console.log("Voy a empezar la promesa")
-      await sgMail
-          .send(msg)
-          .then((res) => {
-              response = true
-          })
-          .catch((error) => {
-              response = false
-          })
-      console.log("ya terminé la promesa y devolvió el valor:"+response )
+    //   await sgMail
+    //       .send(msg)
+    //       .then((res) => {
+    //           response = true
+    //       })
+    //       .catch((error) => {
+    //           response = false
+    //       })
+    //   console.log("ya terminé la promesa y devolvió el valor:"+response )
       return response
+      
   }
 
 
