@@ -1532,7 +1532,6 @@
 												phone: phone,
 												email: email,
 												corte: corte,
-												monthSelected: monthSelected,
 												plan: plan,
 												velocidadPlan: velocidadPlan,
 												cedula: cedula,
@@ -1587,7 +1586,6 @@
 												phone: phone,
 												email: email,
 												corte: corte,
-												monthSelected: monthSelected,
 												plan: plan,
 												velocidadPlan: velocidadPlan,
 												cedula: cedula,
@@ -1613,18 +1611,10 @@
 												var idCl = result[0];
 												var messag = result[1];
 												alertify.success(messag);
-												if (recibo != 1) {
+												if (recibo == 1) {
 													if (idCl != 'Error') {
-														window.location.href = 'recibos.php?rpp=1&idc=' + idCl;
+														window.location.href = 'transacciones.php';
 													}
-												} else {
-													$('#ClientModal').modal('hide');
-													$('#new_client_registration').removeClass("active");
-													$('#new_client_registration_content').hide();
-													$('#sms_notification').removeClass("active");
-													$('#sms_notification_content').hide();
-													$('#active_client_currently').addClass("active");
-													$('#active_client_currently_content').show();
 												}
 
 											}

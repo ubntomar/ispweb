@@ -14,14 +14,14 @@ class Bill
         
     }
     public function createBill($id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos){
-        print "\n generar_factura id_client,periodo,notas,valorf,valorp,saldo,cerrado $id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado";
+        //print "\n generar_factura id_client,periodo,notas,valorf,valorp,saldo,cerrado $id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado";
 
         $sql1 = "INSERT INTO `redesagi_facturacion`.`factura` (`id-factura`, `id-afiliado`, `fecha-pago`, `iva`, `notas`, `descuento`, `valorf`, `valorp`, `saldo`, `cerrado`, `fecha-cierre`, `vencidos`, `periodo`) VALUES 
 																		  (NULL,'$id_client', '$fechaPago', '$iva', '$notas', '$descuento', '$valorf', '$valorp', '$saldo', '$cerrado', '$fechaCierre', '$vencidos', '$periodo');";
         //print "\n $sql1 \n";
-        // if($this->mysqli->query($sql1)==true)
-        //     return true;
-        // else return false;	
+        if($this->mysqli->query($sql1)==true)
+            return true;
+        else return false;	
 
     }
     public function getBill(){

@@ -17,15 +17,15 @@
           }
       }
       console.log("Voy a empezar la promesa")
-    //   await sgMail
-    //       .send(msg)
-    //       .then((res) => {
-    //           response = true
-    //       })
-    //       .catch((error) => {
-    //           response = false
-    //       })
-    //   console.log("ya terminé la promesa y devolvió el valor:"+response )
+      await sgMail
+          .send(msg)
+          .then((res) => {
+              response = true
+          })
+          .catch((error) => {
+              response = false
+          })
+      console.log("ya terminé la promesa y devolvió el valor:"+response )
       return response
       
   }

@@ -2,11 +2,11 @@
 class Email
 {
     private $user;
-    private $endpoint;
+    private $endPoint;
     public  $success=true;
-    public function __construct($endpoint)
+    public function __construct($endPoint)
     {        
-        $this->endpoint=$endPoint;
+        $this->endPoint=$endPoint;
     }
     private function opts($postdata){
         $opts = array('http' =>
@@ -21,21 +21,21 @@ class Email
     public function emailToInstalledNewUser($emailArray)
     {   
         $message= "Ups, Fail!";
-        $endPoint = $this->endpoint;
+        $endPoint = $this->endPoint;
         $postdata = http_build_query(
             $emailArray
         );
         $context = stream_context_create($this->opts($postdata));
-        if($result = json_decode(file_get_contents($endPoint, false, $context))){
-            if($result->mailStatus=="success"){
-                $message= "Enviado con Exito";
-            }
+        $result = json_decode(file_get_contents($endPoint, false, $context));
+        if($result->mailStatus=="success"){
+            $message= "Enviado con Exito";
         }
+        
         return $message;
     }
     public function emailToUserNoInstalledYet($emailArray){
         $message= "Ups, Fail!";
-        $endPoint = $this->endpoint;
+        $endPoint = $this->endPoint;
         $postdata = http_build_query(
             $emailArray
         );
@@ -45,11 +45,21 @@ class Email
                 $message= "Enviado con Exito";
             }
         }
-        return $message;
+        return $message; 
     }
 } 
 
-// $obj=new Email();
+//  $obj=new Email("http://localhost:3001/newuser");
+//     $response=$obj->emailToInstalledNewUser($emailArray=[
+//         "fullName"=> "juan",
+//         "paymentDay"=> "1 al 7",
+//         "periodo"=> "Febrero",
+//         "valorPlan"=> "50000",
+//         "template"=>"d-4bdc152f4ac04ddfbacd49948f570213",
+//         "idClient"=>"958",
+//         "email"=>"omar.a.hernandez.d@gmail.com"
+//         ]);
+//     print "response:".$response;
 
  
 

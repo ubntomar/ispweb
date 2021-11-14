@@ -243,14 +243,14 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
             $cajero= $row['cajero'];
             
         }
-        $ultimopago = "";
-        $pagoAnterior = "";
-        $codigo = 300 + $id;
-        $year = date("Y");
-        $countDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-        $periodo = "1 de $month_name a $countDay de $month_name de $year";
-        $paguehasta = "5 DE $month_name";
-        $suspension = "7 DE $month_name";
+        // $ultimopago = "";
+        // $pagoAnterior = "";
+        // $codigo = 300 + $id;
+        // $year = date("Y");
+        // $countDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        // $periodo = "1 de $month_name a $countDay de $month_name de $year";
+        // $paguehasta = "5 DE $month_name";
+        // $suspension = "7 DE $month_name";
 
         $result->free();
     }
@@ -315,7 +315,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
                         <tbody>
                             
                                 <?php
-                                $sql = "SELECT * FROM `redesagi_facturacion`.`factura` where `id-afiliado` = '$id' AND (`notas` LIKE '%1er Mes%' OR `notas` LIKE '%Afiliacion%') ORDER BY `id-factura` ASC";
+                                $sql = "SELECT * FROM `redesagi_facturacion`.`factura` where `id-afiliado` = '$id' AND (`notas` LIKE '%1er Mes%' OR `notas` LIKE '%Afiliacion%' OR `notas` LIKE '%Prorrateo%') ORDER BY `id-factura` ASC";
                                 //echo "<p>$sql</p>";
                                 $total=0;
                                 $cont=0;
@@ -326,13 +326,15 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
                                         $valorf=$row["valorf"];
                                         $cerrado = $row["cerrado"];
                                         $periodo=$row["periodo"];
-                                        if($notas=="Afiliacion"){
-                                            $descripcion="Instalación  de Internet B Ancha ,equipos en alquiler.
+                                        if($notas=="Afiliacion" || $notas=="Afiliacion de servicio"){
+                                            $descripcion="Afiliación servicio  de Internet B Ancha ,equipos en alquiler.
                                             Paga los $corte de cada mes.
                                             Suspensión ".($corte+6)." de cada mes.";
-                                        }
-                                        else{
-                                            $descripcion="Cobro de servicio de Internet plan $velocidad Mbps Download 1.5 Mpbs Upload ";
+                                            $periodo="";
+                                        }elseif($notas=="Servicio-1er mes"){
+                                            $descripcion="Servicio mensual de Internet ";
+                                        }elseif($notas=="Prorrateo"){
+                                            $descripcion="Días adicionales de servicio, valor de prorrateo "; 
                                         }
                                         if($cerrado==1){
                                             $total+=$valorf;
@@ -343,11 +345,26 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
                                                     <h3>
                                                     $periodo
                                                     </h3>
-                                                    $descripcion
+                                                    $descripcion 
                                                 </td>
                                                 <td class=\"unit\">$$valorf</td>
                                                 <td class=\"qty\">1</td>
                                                 <td class=\"total\">$$valorf</td>
+                                            </tr>";                                            
+                                        }
+                                        if($cerrado==0){
+                                            echo "
+                                            <tr>
+                                                <td class=\"no\">SA$cont</td>
+                                                <td class=\"text-left\">
+                                                    <h3>
+                                                    $periodo
+                                                    </h3>
+                                                    $descripcion <strong>Pendiente de Pago</strong>
+                                                </td>
+                                                <td class=\"unit\">$$valorf</td>
+                                                <td class=\"qty\">1</td>
+                                                <td class=\"total\">Pdte</td> 
                                             </tr>";                                            
                                         }
                                     }
@@ -358,7 +375,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
                             <tr>
                                 <td class="no">C02</td>
                                 <td class="text-left">
-                                    <h3>Adicional</h3>
+                                    <h3></h3>
                                 </td>
                                 <td class="unit">$0</td>
                                 <td class="qty">0</td>

@@ -11,398 +11,869 @@ else    {
 		$role = $_SESSION["role"];
 		$empresa = $_SESSION['empresa'];
 		}
+// $user="Omar";
+// $administrador="Omar";
+// $empresa=1;
 include("login/db.php");
+include("Client.php");
+include("VpnUtils.php");
+include("Bill.php");
+include("Transaction.php");
+include("Email.php"); 
+include("Ticket.php"); 
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
-	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-	}	
-use PHPMailer\PHPMailer\PHPMailer;
-require 'vendor/autoload.php';	
+echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+}	
 mysqli_set_charset($mysqli,"utf8");
 date_default_timezone_set('America/Bogota');
 $today = date("Y-m-d");   
+$fecha=$today;
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i');
-$usuario=$_SESSION['username'];
-$blankDate="0000/00/00";
-$debug=false;
-if($_POST['valorPlan']||$debug){
-	$valorPlan= mysqli_real_escape_string($mysqli, $_REQUEST['valorPlan']);
-	$name= mysqli_real_escape_string($mysqli, $_REQUEST['name']);
-	$lastName= mysqli_real_escape_string($mysqli, $_REQUEST['lastName']);
-	$cedula= mysqli_real_escape_string($mysqli, $_REQUEST['cedula']);
-	$address= mysqli_real_escape_string($mysqli, $_REQUEST['address']);
-	$city= mysqli_real_escape_string($mysqli, $_REQUEST['ciudad']);
-	$pieces = explode("-", $city);
-	$idClientArea=$pieces[0];
-	$ciudad=$pieces[1];
-	$departamento= mysqli_real_escape_string($mysqli, $_REQUEST['departamento']);
-	$phone= mysqli_real_escape_string($mysqli, $_REQUEST['phone']);
-	$email= mysqli_real_escape_string($mysqli, $_REQUEST['email']);
-	$corte= mysqli_real_escape_string($mysqli, $_REQUEST['corte']);
-	$mesAfacturar= mysqli_real_escape_string($mysqli, $_REQUEST['mesAfacturar']);
-	$plan= mysqli_real_escape_string($mysqli, $_REQUEST['plan']);
-	$velocidadPlan= mysqli_real_escape_string($mysqli, $_REQUEST['velocidadPlan']);
-	$generarFactura= mysqli_real_escape_string($mysqli, $_REQUEST['generarFactura']);//It always will be set to 1
-	$ipAddress= mysqli_real_escape_string($mysqli, $_REQUEST['ipAddress']);
-	$mergeItems= mysqli_real_escape_string($mysqli, $_REQUEST['mergeItems']);
-	$stb=0;
-	$recibo= mysqli_real_escape_string($mysqli, $_REQUEST['recibo']);
-	$valorAfiliacion= mysqli_real_escape_string($mysqli, $_REQUEST['valorAfiliacion']);
-	$standby= mysqli_real_escape_string($mysqli, $_REQUEST['standby']);// (el motor mensual debe restarle 1 unidad) standby value depende de el día del mes en curso
-	$standarServiceFlag= mysqli_real_escape_string($mysqli, $_REQUEST['standarServiceFlag']);
-	$AfiliacionItemValue= mysqli_real_escape_string($mysqli, $_REQUEST['AfiliacionItemValue']);
-	$valorProrrateo= mysqli_real_escape_string($mysqli, $_REQUEST['valorProrrateo']);
-	$valorApagar= mysqli_real_escape_string($mysqli, $_REQUEST['valorApagar']);
-	$iva= mysqli_real_escape_string($mysqli, $_REQUEST['iva']);
-	$valorAdicionalServicio= mysqli_real_escape_string($mysqli, $_REQUEST['valorAdicionalServicio']);
-	$mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-	$monthn = date("n");
-	$sql="INSERT INTO `redesagi_facturacion`.`afiliados` (`id`, `cliente`, `apellido`, `cedula`, `direccion`, `ciudad`, `departamento`, `mail`, `telefono`, `pago`, `corte`, `mesenmora`,  `orden_reparto`, `velocidad-plan`, `tipo-cliente`, `registration-date`, `source`, `activo`, `ip`, `standby`, `valorAfiliacion`,`stdbymcount`,`cajero`,`id_client_area`,`id-empresa`) VALUES
-														 (NULL, '$name', '$lastName', '$cedula', '$address', '$ciudad', '$departamento', '$email', '$phone', '$valorPlan','$corte', '$nextPay',  '999', '$velocidadPlan', '$plan', '$today', 'ispdev', '1', '$ipAddress', '$standby', '$AfiliacionItemValue', '$standby', '$usuario', '$idClientArea', '$empresa');";
-	if ($mysqli->query($sql) === TRUE) {
-			$last_id = $mysqli->insert_id;
-			$idafiliado=$last_id;
-			include("VpnUtils.php");
-        	$vpnObject=new VpnUtils($server, $db_user, $db_pwd, $db_name);
-        	$vpnObject->updateGroupId($last_id,$ipAddress); 
-			$sql="INSERT INTO `redesagi_facturacion`.`ticket` (`id-cliente`,`backup-telefono`,`backup-email`,`backup-ipaddress`,`backup-antena`,`backup-velocidad`,`backup-precio-plan`,`backup-router`,`backup-acceso-remoto`,`backup-tipo-instalacion`,`backup-direccion`,`backup-ciudad`,`telefono-contacto`,`solicitud-cliente`,`sugerencia-solucion`,`fecha-creacion-ticket`,`hora-sugerida`,`hora`,`administrador`,`solucion`,`recomendaciones`,`status`,`precio-soporte`) VALUES ('$idafiliado','$backup_telefono','$backup_email','$backup_ipaddress','$backup_antena','$backup_velocidad','$backup_precio_plan','$backup_router','$backup_acceso_remoto','$backup_tipo_instalacion','$backup_direccion','$backup_ciudad','$telefono_contacto','Solicitud instalaciòn servicio de Internet Banda Ancha','$sugerencia_solucion','$today','$hora_sugerida','$hora','$administrador','$solucion','$recomendacion','ABIERTO','$precio_soporte')";
-			if(!$mysqli->query($sql)){
-				$msj= 'error inserting tickets!';
-			}
-			$idTicket=$mysqli->insert_id;
-			$cliente=$name." ".$lastName;
-			$solicitud_cliente="Solicitud instalaciòn servicio de Internet Banda Ancha";
-			$tecnico="ASIGNACION PENDIENTE";
-			$solucion="";
-			sendEmail($idTicket,$cliente,$address,$phone,$today,$solicitud_cliente,$solucion,$recomendaciones,$tecnico,$email,$email_user,$email_password);
-			$sqlping = "INSERT INTO `redesagi_facturacion`.`liveinfo` (`id`, `id-cliente`, `fecha`, `descripcion`) VALUES (NULL,'$last_id','$today', 'Batch of invoices')  ";
-			if($mysqli->query($sqlping)==true)
-				echo "";
-			else echo "Error-liveinfo";				
-			if($mergeItems==1){//First internet service bill is already payed and the other one  Afiliación bill is already payed. b   valorAdicionalServicio    leftDays = days - daySelected;  new_cli  AfiliacionItemValue  $("#AfiliacionItemValue").val(0);   si Valor adicional de Servicio==0 && Standar service flag==0 ==>Total Prorrateo definevalor de servicio
-				$fechaPago=$today;
-				$descuento=0;				
-				$fechaCierre='0000/00/00';
-				$vencidos=0;
-				if($standarServiceFlag==1){
-					//bill #1 4500 saldo 0 Estandar//					
-					$periodo=$mes[$mesAfacturar];
-					$notas="Servcio-1er Mes";
-					$valorf=$valorPlan;
-					$valorp=$valorPlan;				
-					$saldo=0;
-					$cerrado=1;	
-					$sql1 = "INSERT INTO `redesagi_facturacion`.`factura` (`id-factura`, `id-afiliado`, `fecha-pago`, `iva`, `notas`, `descuento`, `valorf`, `valorp`, `saldo`, `cerrado`, `fecha-cierre`, `vencidos`, `periodo`) VALUES 
-																		  (NULL,'$idafiliado', '$fechaPago', '$iva', '$notas', '$descuento', '$valorf', '$valorp', '$saldo', '$cerrado', '$fechaCierre', '$vencidos', '$periodo');";
-					if($mysqli->query($sql1)==true)
-						echo "";
-					else echo "Error-Factura de Servicio Issues";	
-				}
-				if($valorProrrateo !="" && $valorProrrateo !=0 ){
-					//bill #1 37589 saldo 0 Basado en prorrateo
-					$periodo="Prorrateo-".$mes[$mesAfacturar];
-					$notas="Servcio-1er Mes";
-					$valorf=$valorProrrateo;
-					$valorp=$valorProrrateo;				
-					$saldo=0;
-					$cerrado=1;	
-					$sql1 = "INSERT INTO `redesagi_facturacion`.`factura` (`id-factura`, `id-afiliado`, `fecha-pago`, `iva`, `notas`, `descuento`, `valorf`, `valorp`, `saldo`, `cerrado`, `fecha-cierre`, `vencidos`, `periodo`) VALUES (NULL,'$idafiliado', '$fechaPago', '$iva', '$notas', '$descuento', '$valorf', '$valorp', '$saldo', '$cerrado', '$fechaCierre', '$vencidos', '$periodo');";
-					if($mysqli->query($sql1)==true)
-						echo "";
-					else echo "Error-Factura de Servicio Issues";	
-				}
+$usuario="Omar";//$_SESSION['username'];
 
-				//bill #2 180  saldo 0
-				$notas="Afiliacion";
-				$periodo="Afiliación";
-				$valorf=$AfiliacionItemValue;
-				$saldo=0;
-				$cerrado=1;	
-				$sql1 = "INSERT INTO `redesagi_facturacion`.`factura` (`id-factura`, `id-afiliado`, `fecha-pago`, `iva`, `notas`, `descuento`, `valorf`, `valorp`, `saldo`, `cerrado`, `fecha-cierre`, `vencidos`, `periodo`) VALUES (NULL,'$idafiliado', '$fechaPago', '$iva', '$notas', '$descuento', '$valorf', '$valorp', '$saldo', '$cerrado', '$fechaCierre', '$vencidos', '$periodo');";
-				if($mysqli->query($sql1)==true)
-					echo "";
-				else echo "Error-Factura de Servicio Issues";
-				if($standarServiceFlag==1){
-					//Transaccion 1 -> Monthly service planStandar
-					$valorr=$valorPlan;
-					$valorap=$valorPlan;	
-					$cambio=0;
-					$id_cliente=$last_id;
-					$fecha=$today;
-					$aprobado="";
-					$hora=$hourMin;
-					$cajero=$usuario;
-					$descripcion=" Servicio-1er mes";
-					$sqlins="INSERT INTO `redesagi_facturacion`.`transacciones` (`idtransaccion`, `valor-recibido`, `valor-a-pagar`, `cambio`, `id-cliente`, `fecha`,  `hora`, `cajero`, `descripcion`) VALUES 
-																				(NULL, '$valorr', '$valorap', '$cambio', '$id_cliente', '$today',  '$hora', '$cajero', '$descripcion' )";
-					if($mysqli->query($sqlins)==true)
-						echo "";
-					else echo "Error-Transacción Issues";
-				}
-				if($valorProrrateo !="" && $valorProrrateo !=0 ){
-					//Transaccion 2 -> Monthly service prorrateo
-					$valorr=$valorProrrateo;
-					$valorap=$valorProrrateo;	
-					$cambio=0;
-					$id_cliente=$last_id;
-					$fecha=$today;
-					$aprobado="";
-					$hora=$hourMin;
-					$cajero=$usuario;
-					$descripcion=" Servicio-1er mes";
-					$sqlins="INSERT INTO `redesagi_facturacion`.`transacciones` (`idtransaccion`, `valor-recibido`, `valor-a-pagar`, `cambio`, `id-cliente`, `fecha`,  `hora`, `cajero`, `descripcion`) VALUES 
-																					(NULL, '$valorr', '$valorap', '$cambio', '$id_cliente', '$today', '$hora', '$cajero', '$descripcion' )";
-					if($mysqli->query($sqlins)==true)
-						echo "";
-					else echo "Error-Transacción Issues";
-				}
-				//Transaccion 3 -> Service afiliation
-				$valorr=$AfiliacionItemValue;
-				$valorap=$AfiliacionItemValue;	
-				$cambio=0;
-				$id_cliente=$last_id;
-				$fecha=$today;
-				$aprobado="";
-				$hora=$hourMin;
-				$cajero=$usuario;
-				$descripcion=" Afiliación";	
-				$sqlins="INSERT INTO `redesagi_facturacion`.`transacciones` (`idtransaccion`, `valor-recibido`, `valor-a-pagar`, `cambio`, `id-cliente`, `fecha`,  `hora`, `cajero`, `descripcion`) VALUES 
-																				(NULL, '$valorr', '$valorap', '$cambio', '$id_cliente', '$today', '$hora', '$cajero', '$descripcion' )";
-				if($mysqli->query($sqlins)==true)
-					echo "";
-				else echo "Error-Transacción Issues";		
-				
-			}
-			if($mergeItems==0){//First internet service bill is NOT !!! payed and the other one  Afiliación bill is already payed.
-				//$idafiliado=$mysqli->insert_id;
-				$fechaPago='0000/00/00';
-				$iva=19;
-				$notas="SysdevNota";
-				$descuento=0;				
-				$valorp=0;					
-				$vencidos=0;					
-				if($standarServiceFlag==1){
-					//bill #1 4500 saldo 45000
-					$periodo=$mes[$mesAfacturar];
-					$notas="Servicio-1er Mes";
-					$valorf=$valorPlan;
-					$saldo=$valorPlan;
-					$cerrado=0;	
-					$fechaCierre=$blankDate;
-					$sql1 = "INSERT INTO `redesagi_facturacion`.`factura` (`id-factura`, `id-afiliado`, `fecha-pago`, `iva`, `notas`, `descuento`, `valorf`, `valorp`, `saldo`, `cerrado`, `fecha-cierre`, `vencidos`, `periodo`) VALUES (NULL,'$idafiliado', '$fechaPago', '$iva', '$notas', '$descuento', '$valorf', '$valorp', '$saldo', '$cerrado', '$fechaCierre', '$vencidos', '$periodo');";
-					if($mysqli->query($sql1)==true)
-						echo "";
-					else echo "Error-Factura de Servicio Issues";	
-				}
-				if($valorAdicionalServicio !="" && $valorAdicionalServicio !=0  ){
-					//bill #1 2589 saldo 2589
-					$periodo="Prorrateo-".$mes[$mesAfacturar];
-					$notas="Servicio-Prorrateo 1er Mes";
-					$valorf=$valorAdicionalServicio;
-					$saldo=$valorAdicionalServicio;
-					$cerrado=0;	
-					$fechaCierre=$blankDate;
-					$sql1 = "INSERT INTO `redesagi_facturacion`.`factura` (`id-factura`, `id-afiliado`, `fecha-pago`, `iva`, `notas`, `descuento`, `valorf`, `valorp`, `saldo`, `cerrado`, `fecha-cierre`, `vencidos`, `periodo`) VALUES (NULL,'$idafiliado', '$fechaPago', '$iva', '$notas', '$descuento', '$valorf', '$valorp', '$saldo', '$cerrado', '$fechaCierre', '$vencidos', '$periodo');";
-					if($mysqli->query($sql1)==true)
-						echo "";
-					else echo "Error-Factura de Servicio Issues";	
-				}
-				//bill #2 180  saldo 0
-				$notas="Afiliacion";
-				$periodo="Afiliación";
-				$valorf=$AfiliacionItemValue;
-				$saldo=0;
-				$cerrado=1;	
-				$fechaCierre=$today;
-				$sql1 = "INSERT INTO `redesagi_facturacion`.`factura` (`id-factura`, `id-afiliado`, `fecha-pago`, `iva`, `notas`, `descuento`, `valorf`, `valorp`, `saldo`, `cerrado`, `fecha-cierre`, `vencidos`, `periodo`) VALUES (NULL,'$idafiliado', '$fechaPago', '$iva', '$notas', '$descuento', '$valorf', '$valorp', '$saldo', '$cerrado', '$fechaCierre', '$vencidos', '$periodo');";
-				if($mysqli->query($sql1)==true)
-					echo "";
-				else echo "Error-Factura de Servicio Issues";				
-				//Transaccion 2 -> Service afiliation
-				$valorr=$AfiliacionItemValue ;
-				$valorap=$AfiliacionItemValue ;	
-				$cambio=0;
-				$id_cliente=$last_id;
-				$fecha=$today;
-				$aprobado="";
-				$hora=$hourMin;
-				$cajero=$usuario;
-				$descripcion=" Afiliación-servicio pdte";	
-				$sqlins="INSERT INTO `redesagi_facturacion`.`transacciones` (`idtransaccion`, `valor-recibido`, `valor-a-pagar`, `cambio`, `id-cliente`, `fecha`,  `hora`, `cajero`, `descripcion`) VALUES 
-																				(NULL, '$valorr', '$valorap', '$cambio', '$id_cliente', '$today', '$hora', '$cajero', '$descripcion' )";
-				if($mysqli->query($sqlins)==true)
-					echo "";
-				else echo "Error-Transacción Issues";
-				
-				
-			}
-		    echo "$last_id:Usuario agregado con exito!!";
+//
+$valorPlan= mysqli_real_escape_string($mysqli, $_REQUEST['valorPlan']);
+$name= mysqli_real_escape_string($mysqli, $_REQUEST['name']);
+$lastName= mysqli_real_escape_string($mysqli, $_REQUEST['lastName']);
+$cedula= mysqli_real_escape_string($mysqli, $_REQUEST['cedula']);
+$address= mysqli_real_escape_string($mysqli, $_REQUEST['address']);
+$city= mysqli_real_escape_string($mysqli, $_REQUEST['ciudad']); 
+$pieces = explode("-", $city);
+$idClientArea=$pieces[0];
+$ciudad=$pieces[1];
+$departamento= mysqli_real_escape_string($mysqli, $_REQUEST['departamento']);
+$phone= mysqli_real_escape_string($mysqli, $_REQUEST['phone']);
+$email= mysqli_real_escape_string($mysqli, $_REQUEST['email']);
+$corte= mysqli_real_escape_string($mysqli, $_REQUEST['corte']);
+$plan= mysqli_real_escape_string($mysqli, $_REQUEST['plan']);
+$velocidadPlan= mysqli_real_escape_string($mysqli, $_REQUEST['velocidadPlan']);
+$ipAddress= mysqli_real_escape_string($mysqli, $_REQUEST['ipAddress']);
+$mergeItems= mysqli_real_escape_string($mysqli, $_REQUEST['mergeItems']);
+// $recibo= mysqli_real_escape_string($mysqli, $_REQUEST['recibo']);
+$valorAfiliacion= mysqli_real_escape_string($mysqli, $_REQUEST['valorAfiliacion']);
+$AfiliacionItemValue= mysqli_real_escape_string($mysqli, $_REQUEST['AfiliacionItemValue']);
+$valorProrrateo= mysqli_real_escape_string($mysqli, $_REQUEST['valorProrrateo']);
+$iva= mysqli_real_escape_string($mysqli, $_REQUEST['iva']);
+$valorAdicionalServicio= mysqli_real_escape_string($mysqli, $_REQUEST['valorAdicionalServicio']);
+$serviceIsAlreadyInstalled= mysqli_real_escape_string($mysqli, $_REQUEST['serviceIsAlreadyInstalled']);
+$dayOfMonthSelected= mysqli_real_escape_string($mysqli, $_REQUEST['dayOfMonthSelected']);
+$monthSelected= mysqli_real_escape_string($mysqli, $_REQUEST['monthSelected']);
+//********************* ///////////////////////////////////////////////////////////////////////////////*************************************************************/
+//$name= "Omar Alberto";
+// $lastName= "Hernandez Diaz";
+// $cedula= "17446879";
+// $address= "Cra 9#13-45";
+// $idClientArea="2";
+// $ciudad="Guamal";
+// $departamento= "Meta";
+// $phone= "3147654655";
+// $email= "ag.ingenieria.wist@gmail.com";
+// $plan= "Residencial";  
+// $velocidadPlan= "5";
+// $ipAddress= "192.168.20.130";
+// $serviceIsAlreadyInstalled=false; 
+//////////////////////////////////////////////
+// $dayOfMonthSelected=11;
+// $monthSelected=11;
+// $corte= "1";
+// $valorPlan= 60000;
+// $valorProrrateo= "100"; //si > 0 => SI
+// $valorAfiliacion= "250000";
+// $mergeItems= 1;//Se incluye primer mes de servicio? -
+// $AfiliacionItemValue= "200000";
+// $valorAdicionalServicio= "105000"; 
+/////////////////////////////////////////////// 
+// $iva= 19;
+$cambio=0;
+$activo=1;
+$standby=0;
+$nextPay="0";
+$billDeliveryNumber="0";
+$source="ispdev";
+$fechaPago=$today;
+$descuento=0;
+$fechaCierre=$fechaPago;
+$vencidos=0;
+$valorAdicionalServicioDescripcion= "";
+$fullName="$name $lastName";
+$mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+$monthn = date("n");
+$phoneContact=$phone;
+//***** */
+$clientAfiliateDaySelected =$dayOfMonthSelected;  
+$dias_de_pago="";
+$currentMonth=$monthn;
+//print " \n Mes actual: {$mes[$currentMonth]} \n ";
+$nextMonth=$currentMonth==12?1:$currentMonth+1;
+$oneMonthMoreTonextMonth=$nextMonth==12?1:$nextMonth+1;
+$twoMonthMoreTonextMonth=$oneMonthMoreTonextMonth==12?1:$oneMonthMoreTonextMonth+1;
+$periodo="";
+$prorateo_checked=$valorProrrateo=="0"?false:true;
+$prorrateo=$valorProrrateo;
+$clientObject=new Client($server, $db_user, $db_pwd, $db_name);
+$id_client=afiliar_cliente($clientObject,$name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source, $activo, $ipAddress, $standby, $AfiliacionItemValue,  $usuario, $idClientArea, $empresa);
+//print "\n id_client:$id_client";
+$vpnObject=new VpnUtils($server, $db_user, $db_pwd, $db_name);
+$vpnObject->updateGroupId($id_client,$ipAddress); 
+$cajero=$usuario;
+$hora=$hourMin;
+$valorServicioAdicional=$valorAdicionalServicio;
+$afiliation_include_first_month=$mergeItems;
+$dateld = new DateTime('now');
+$dateld->modify('last day of this month');
+$lastDayofMonth=$dateld->format('d');
+$billObject=new Bill($server, $db_user, $db_pwd, $db_name);
+$transactionObject=new Transaction($server, $db_user, $db_pwd, $db_name);
+$emailObject=new Email($endpoint=$endPointNewuser);
+$idClient=$id_client;
+if($AfiliacionItemValue<0){
+    $response="error";
+    exit;
+}
+$tickeObject=new Ticket($server, $db_user, $db_pwd, $db_name,$idClient,$today,$hourMin,$administrador);
 
-		} 
-		else {
-		    echo "Error: " . $sql . "<br>" . $conn->error;
-		} 
+if ($clientAfiliateDaySelected ==1){
+    $corte =1;
+    $dias_de_pago="1 al 7 de cada mes ";
+    if ($monthSelected == $currentMonth){
+        $periodo =$mes[$currentMonth];
+        mesActual($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,0,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$billLastDay=false,$oneMonthMoreTonextMonth);//verificar que el valor deProrrateo esté en 0 en client.php
+    }
+    if ($monthSelected == $nextMonth){
+        $periodo =$mes[$nextMonth];
+        mesSiguiente($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$oneMonthMoreTonextMonth,0,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$billLastDay=false);//verificar que el valor deProrrateo esté en 0 en client.php
+        updateAfiliado($clientObject,$id_client,"standby",1); 
+    }
+}
+if ($clientAfiliateDaySelected >= 2 && $clientAfiliateDaySelected <=10){
+    $corte =1;
+    $dias_de_pago="1 al 7 de cada mes";
+    if ($monthSelected == $currentMonth){
+        $periodo =$mes[$currentMonth];
+        mesActual($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$prorateo_checked,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$billLastDay=false,$oneMonthMoreTonextMonth);
+    }
+    if ($monthSelected == $nextMonth){  
+        $periodo =$mes[$nextMonth];
+        mesSiguiente($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$oneMonthMoreTonextMonth,$prorateo_checked,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$billLastDay=false);
+        updateAfiliado($clientObject,$id_client,"standby",1); 
+    }
+}
+if ($clientAfiliateDaySelected>10 && $clientAfiliateDaySelected<15){
+    $corte=15;
+    $dias_de_pago="15 al 20 de cada mes ";
+    if ($monthSelected == $currentMonth){
+        $periodo =$mes[$currentMonth];   
+        mesActualConServicioAdicional($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$valorServicioAdicional,$prorateo_checked,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth);
+        
+    }
+    if ($monthSelected == $nextMonth){
+        $periodo =$mes[$nextMonth];
+        mesSiguienteConServicioAdicional($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$valorServicioAdicional,$prorateo_checked,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$oneMonthMoreTonextMonth);
+        updateAfiliado($clientObject,$id_client,"standby",1);
+    }
+}
+if ($clientAfiliateDaySelected ==15){
+    $corte =15;
+    $dias_de_pago="15 al 20 de cada mes";
+    if ($monthSelected == $currentMonth){ 
+        $periodo =$mes[$currentMonth];
+        mesActual($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,0,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$billLastDay=false,$oneMonthMoreTonextMonth);//verificar que el valor deProrrateo esté en 0 en client.php
+    }
+    if ($monthSelected == $nextMonth){
+        $mes[$nextMonth];
+        mesSiguiente($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$oneMonthMoreTonextMonth,0,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$billLastDay=false);//verificar que el valor deProrrateo esté en 0 en client.php
+        updateAfiliado($clientObject,$id_client,"standby",1); 
+    }
+} 
+if ($clientAfiliateDaySelected > 15 && $clientAfiliateDaySelected <=19){
+    $corte =15;
+    $dias_de_pago="15 al 20 de cada mes";
+    if ($monthSelected == $currentMonth){
+        $periodo =$mes[$currentMonth];
+        mesActual($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$prorateo_checked,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$billLastDay=false,$oneMonthMoreTonextMonth);
+    }
+    if ($monthSelected == $nextMonth){  
+        $periodo =$mes[$nextMonth];
+        mesSiguiente($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$oneMonthMoreTonextMonth,$prorateo_checked,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$billLastDay=false);
+        updateAfiliado($clientObject,$id_client,"standby",1); 
+    }
+}
+if ($clientAfiliateDaySelected >=20 && $clientAfiliateDaySelected<$lastDayofMonth){
+    $corte=1;
+    $dias_de_pago="1 al 7 de cada mes ";
+    $cambio="";
+    if ($monthSelected == $currentMonth){
+        $periodo=$nextMonth; //(***Se debe generar para que el cliente sepa que está pagando el mes siguiente);//,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos
+        if ($prorateo_checked){
+            if ($afiliation_include_first_month){
+                //Valor de factura de mensualidad 0
+                //genera factura estandar
+                $valorf=$valorPlan;
+                $valorp=$valorPlan;				
+                $saldo=0;
+                $cerrado=1;
+                $notas="Servicio-1er mes";	
+                generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+                $valorr=$valorPlan;
+                $valorap=$valorPlan;	
+                $fecha=$today;
+                $aprobado=0;;
+                $descripcion=$notas;
+                //generar transaccion de de servicio estandar .
+                generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+                //genera factura de servicio ADICIONAL (p.e 4 días)
+                $valorf=$valorServicioAdicional;
+                $valorp=$valorServicioAdicional;				
+                $saldo=0;
+                $cerrado=1;	
+                $notas="Prorrateo";
+                generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+                $valorr=$valorServicioAdicional;
+                $valorap=$valorServicioAdicional;	
+                $fecha=$today;
+                $aprobado=0;;
+                $descripcion=$notas;
+                //se genera transaccion de servicio ADICIONAL(p.e 4 días) 
+                generar_transaccion($transactionObject,$billObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+                $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$oneMonthMoreTonextMonth];
+                //print "\n $billMessageperiod \n";    
+            }else{//No genera transaccion
+                //genera factura estandar
+                $valorf=$valorPlan;				
+                $valorp=0;				
+                $saldo=$valorPlan;
+                $cerrado=0;	
+                $notas="Servicio-1er mes";
+                generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+                //genera factura de servicio ADICIONAL (p.e 4 días)
+                $valorf=$valorServicioAdicional;				
+                $valorp=0;				
+                $saldo=$valorServicioAdicional;
+                $cerrado=0;
+                $notas="Prorrateo";
+                generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+                $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$nextMonth];
+                //print "\n $billMessageperiod \n";
+            }      
+        }else{
+            $valorf=$valorPlan;
+            if ($afiliation_include_first_month){
+                //Valor de factura de mensualidad 0
+                $valorp=$valorPlan;				
+                $saldo=0;
+                $cerrado=1;
+                $notas="Servicio-1er mes";	
+                generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+                $valorr=$valorPlan;
+                $valorap=$valorPlan;	
+                $fecha=$today;
+                $aprobado=0;;
+                $descripcion=$notas;
+                generar_transaccion($transactionObject,$billObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+                $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$oneMonthMoreTonextMonth]; 
+                //print "\n $billMessageperiod \n";   
+            }else{//No genera transaccion
+                //Valor de factura de mensualidad =>$plan mensual
+                $valorp=0;				
+                $saldo=$valorPlan;
+                $cerrado=0;	
+                $notas="Servicio-1er mes";
+                generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+                $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$nextMonth];
+                //print "\n $billMessageperiod \n";
+            } 
+        }
+        updateAfiliado($clientObject,$id_client,"standby",1);                                      
+    }
+    if($monthSelected == $nextMonth){
+        $periodo=$nextMonth+1; 
+        if ($prorateo_checked){
+            $valorf=$prorrateo;
+            if ($afiliation_include_first_month){
+                //Valor de factura de mensualidad 0
+                //genera factura estandar
+                $valorf=$valorPlan;
+                $valorp=$valorPlan;				
+                $saldo=0;
+                $cerrado=1;
+                $notas="Servicio-1er mes";	
+                generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+                $valorr=$valorPlan;
+                $valorap=$valorPlan;	
+                $fecha=$today;
+                $aprobado=0;;
+                $descripcion=$notas;
+                //generar transaccion de de servicio estandar .
+                generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+                //genera factura de servicio ADICIONAL (p.e 4 días)
+                $valorf=$valorServicioAdicional;
+                $valorp=$valorServicioAdicional;				
+                $saldo=0;
+                $cerrado=1;	
+                $notas="Prorrateo";
+                generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+                $valorr=$valorServicioAdicional;
+                $valorap=$valorServicioAdicional;	
+                $fecha=$today;
+                $aprobado=0;;
+                $descripcion=$notas;
+                //se genera transaccion de servicio ADICIONAL(p.e 4 días)
+                generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+                $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de :".$mes[$twoMonthMoreTonextMonth]; 
+                //print "\n $billMessageperiod \n";   
+            }else{//No genera transaccion
+                //genera factura estandar
+                $valorf=$valorPlan;				
+                $valorp=0;				
+                $saldo=$valorPlan;
+                $cerrado=0;	
+                $notas="Servicio-1er mes";
+                generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+                //genera factura de servicio ADICIONAL (p.e 4 días)
+                $valorf=$valorServicioAdicional;				
+                $valorp=0;				
+                $saldo=$valorServicioAdicional;
+                $cerrado=0;
+                $notas="Prorrateo";
+                generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+                $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$oneMonthMoreTonextMonth];     
+                //print "\n $billMessageperiod \n";                                   
+            }      
+        }else{
+            $valorf=$valorPlan;
+            if ($afiliation_include_first_month){
+                //Valor de factura de mensualidad 0
+                $valorp=$valorPlan;				
+                $saldo=0;
+                $cerrado=1;
+                $notas="Servicio-1er mes";	
+                generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+                $valorr=$valorPlan;
+                $valorap=$valorPlan;	
+                $fecha=$today;
+                $aprobado=0;;
+                $descripcion=$notas;
+                generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+                $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de :".$mes[$twoMonthMoreTonextMonth];
+                //print "\n $billMessageperiod \n";    
+            }else{//No genera transaccion
+                //Valor de factura de mensualidad =>$plan mensual
+                $valorp=0;				
+                $saldo=$valorPlan;
+                $cerrado=0;	
+                $notas="Servicio-1er mes";
+                generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+                $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$oneMonthMoreTonextMonth]; 
+                //print "\n $billMessageperiod \n";                                       
+            } 
+        }
+        updateAfiliado($clientObject,$id_client,"standby",2);                                       
+    }
+}
+if ($clientAfiliateDaySelected ==$lastDayofMonth){
+    //print "\n He seleccionado el último día del mes! \n";
+    $corte =1;
+    $dias_de_pago="1 al 7 de cada mes";
+    if ($monthSelected == $currentMonth){
+        $periodo =$mes[$nextMonth];
+        mesActual($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,0,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$billLastDay=true,$oneMonthMoreTonextMonth);//verificar que el valor deProrrateo esté en 0 en client.php ,$billLastDay=false
+        updateAfiliado($clientObject,$id_client,"standby",1); 
+    }
+    if ($monthSelected == $nextMonth){
+        $periodo =$mes[$nextMonth]+1;
+        mesSiguiente($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$oneMonthMoreTonextMonth,0,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$billLastDay=true);//verificar que el valor deProrrateo esté en 0 en client.php
+        updateAfiliado($clientObject,$id_client,"standby",2); 
+    }
+}
+//factura de item value afiliacon saldo 0 siempre //
+facturaAfiliacion($billObject,$id_client,$periodo,$notas="Afiliacion de servicio",$valorf=$AfiliacionItemValue,$valorp=$AfiliacionItemValue,$saldo=0,$cerrado=1,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+transaccionFacturaAfiliacion($transactionObject,$id_client,$cajero,$hora,$valorr=$AfiliacionItemValue,$valorap=$AfiliacionItemValue,$cambio=0,$fecha,$aprobado=1,$descripcion="Afiliacion de servicio"); 
 
-				
-}	
-function sendEmail($idTicket,$cliente,$direccio,$telefon,$fecha_creacion_ticket,$solicitud_cliente,$solucio,$recomendacione,$tecnic,$emai,$email_user,$email_password){
-	$numeroDeCaso="2541".$idTicket;
-	$titular=strtoupper($cliente);
-	$direccion=strtoupper($direccio);
-	$telefono=$telefon;
-	$fechaApertura=$fecha_creacion_ticket;
-	$status="CERRADO";
-	$solicitud=ucfirst($solicitud_cliente);
-	$solucion=ucfirst($solucio);
-	$recomendaciones=ucfirst($recomendacione);
-	$tecnico=strtoupper($tecnic);
-	$email=$emai;
-	$today = date("d-m-Y");
-	$mail = new PHPMailer;
-	$mail->isSMTP();
-	$mail->SMTPDebug = 0;
-	$mail->Host = 'smtp.flockmail.com';
-	$mail->Port = 587;
-	$mail->SMTPAuth = true;
-	$mail->Username = $email_user;
-	$mail->Password = $email_password;
-	$mail->isHTML(true);
-	$mail->setFrom('cliente@ispexperts.com', 'Ticket Internet -INSTALACION'); 
-	$mail->addReplyTo('cliente@ispexperts.com', 'Dpto de Soporte');
-	$mail->addAddress($email, 'Cliente Residencial');
-	$mail->Subject = 'AG INGENIERIA- Solicitud #'.$numeroDeCaso;
-	$style_table="
-			style='
-				border-radius:3px;
-				padding:5px;
-				'
-			";
-	$style_thead="
-			style='
-				color:#fff;
-				background-color:#111d5e;
-				padding:10px;
-				text-align-center;
-				border:0px;
-				'
-			";
-	$style_th="
-			style='
-				padding:10px;
-				'
-			";
-	$style_title="
-			style='
-			background-color:#0275d8;
-			padding:6px;
-			margin:3px;
-			color:#fff;
-			'
-			";  
-	$style_tbody="
-			style='
-			background-color:#fff;
-			color:#000;
-			'
-			";              
-	$style_tfoot="
-			style='
-			margin-top:20px;
-			'
-			";              
-	$style_td="
-			style='
-			padding:10px;
-			'
-			";              
-	$style_div="
-			style='
-			padding:10px;
-			'
-			";              
-	$style_div_thead_td="
-			style='
-			padding:10px;
-			text-align:left;
-			'
-			";              
-	$style_tr="
-			style='
-			padding:10px;
-			'
-			";              
-	$style_tr_tfoot="
-			style='
-			padding:10px;
-			border:0px;
-			'
-			";  
-	$mailContent = "
-	<table border='1' $style_table>
-		<thead $style_thead>
-			<th  colspan='2' $style_th>
-				<h3>Bienvenido a AG INGENIERIA WIST, Gracias por elegirnos como tu proveedor de servicio de Internet Banda Ancha</h3>
-				<p>Ahora el siguiente paso es ponernos en contacto contigo para definir dìa exacto y hora exacta de instalaciòn, te estaremos informando!!</p>
-				<div $style_div_thead_td>
-					<p><strong>Titular: </strong>$titular</p>
-					<p><strong>Direcciòn: </strong>$direccion</p>
-					<p><strong>Telèfono: </strong>$telefono</p>
-					<p><strong>Fecha apertura de caso: </strong>$fechaApertura</p>
-					<p><span>ESTADO DE TICKET: </span><strong>ABIERTO-INSTALACION PENDIENTE</strong></p>
-				</div>    
-			</th> 
-		</thead>
-		<tbody $style_tbody>
-			<tr $style_tr>
-				<td $style_td>
-					<strong $style_title>SOLICITUD</strong>
-					<div $style_div>$solicitud</div>
-				</td>
-				<td $style_td>
-					<strong $style_title>SOLUCION</strong>
-					<div $style_div>$solucion</div>
-				</td>
-			</tr>
-			<tr $style_tr>
-				<td $style_td>
-					<strong $style_title>RECOMENDACIONES</strong>
-					<div $style_div>$recomendaciones</div>
-				</td>
-				<td $style_td>
-					<strong $style_title>TECNICO</strong>
-					<div $style_div>$tecnico</div>
-				</td>
-			</tr>
-			
-		</tbody>
-		<tfoot>
-			<tr $style_tr_tfoot>
-				<td $style_td colspan='2'>
-					<div $style_div>
-						<p>
-							Dirección de Servicio al Cliente Bogotá D.C,Colombia
-						</p>
-						<p>
-							Tel.3134308121-3147654655
-						</p>
-						<p>
-							<a href='#'>E-mail:cliente@ispexperts.com</a>
-						</p>
-					</div>
-				</td>
-			</tr>
-		</tfoot>
-	</table>";
-	$mail->Body = $mailContent;
-	try {
-		$mail->send();
-		return true;
-	} catch (Exception $e) {
-		//echo "Mailer Error: " . $mail->ErrorInfo;
-		return false;
-	}
+if($serviceIsAlreadyInstalled){
+    emailToInstalledNewUser($emailObject,$tokenToInstalledUserNew,$fullName,$periodo,$valorPlan,$id_client,$dias_de_pago,$email);
+}else{
+    emailToUserNoInstalledYet($emailObject,$tokenToNotInstalledUserNewYet,$fullName,$periodo,$valorPlan,$id_client,$dias_de_pago,$email);
+    generar_Ticket($tickeObject,$phoneContact);
+}
+echo "$idClient:Usuario agregado con exito!!";
+function afiliar_cliente($clientObject,$name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source="ispdev", $activo, $ipAddress, $standby, $AfiliacionItemValue,  $usuario, $idClientArea, $empresa){
+    $id_client=$clientObject->createClient($name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source="ispdev", $activo="1", $ipAddress, $standby, $AfiliacionItemValue,  $usuario, $idClientArea, $empresa);
+    return $id_client; 
+}    
+function mesActual($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$prorateo_checked,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$billLastDay=false,$oneMonthMoreTonextMonth){
+    if ($prorateo_checked){
+        $valorf=$prorrateo;
+        if ($afiliation_include_first_month){
+            //factura de mensualidad paga
+            //Valor de factura de mensualidad 0
+            $valorp=$prorrateo;				
+            $saldo=0;
+            $cerrado=1;	
+            $notas="Servicio-1er mes-Prorrateo";
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $valorr=$prorrateo;
+            $valorap=$prorrateo;	
+            $fecha=$today;
+            $aprobado=0;;
+            $descripcion=$notas;
+            generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$nextMonth];  
+            //print "\n $billMessageperiod \n";                                       
+        }else{//No genera transaccion
+            //Valor de factura de mensualidad $prorrateo
+            $valorp=0;				
+            $saldo=$prorrateo;
+            $cerrado=0;
+            $notas="Servicio-1er mes-Prorrateo";
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$currentMonth];
+            //print "\n $billMessageperiod \n";                                        
+        }
+    }else{//No hayProrrateo
+        $valorf=$valorPlan;				
+        if ($afiliation_include_first_month){//factura de mensualidad paga
+            //Valor de factura de mensualidad 0
+            //se genera factura  estandar
+            $valorp=$valorPlan;				
+            $saldo=0;
+            $cerrado=1;
+            $notas="Servicio-1er mes";	
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $valorr=$valorPlan;
+            $valorap=$valorPlan;	
+            $fecha=$today;
+            $aprobado=0;;
+            $descripcion=$notas;
+            //se genera transaccion  factura  estandar
+            generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+            if($billLastDay==false){
+                $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de :". $mes[$nextMonth];  
+            }else{
+                $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de :". $mes[$oneMonthMoreTonextMonth];  
+            }
+            //print "\n $billMessageperiod \n";                                      
+        }else{//No genera transaccion
+
+            //se genera factura  estandar
+            $valorp=0;				
+            $saldo=$valorPlan;
+            $cerrado=0;	
+            $notas="Servicio-1er mes";
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            if($billLastDay==false){
+                $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$currentMonth];
+            }else{
+                $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de :".$mes[$nextMonth];  
+            }
+            //print "\n $billMessageperiod \n";                                        
+        }
+    }  
+}
+function mesActualConServicioAdicional($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$valorServicioAdicional,$prorateo_checked,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth){
+    if ($prorateo_checked){
+        if ($afiliation_include_first_month){
+            
+            //se genera factura de servicio estandar .
+            $valorf=$valorPlan;
+            $valorp=$valorPlan;				
+            $saldo=0;
+            $cerrado=1;
+            $notas="Servicio-1er mes";	
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $valorr=$valorPlan;
+            $valorap=$valorPlan;	
+            $fecha=$today;
+            $aprobado=0;;
+            $descripcion=$notas;
+            //se genera transaccion de de servicio estandar.
+            generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+            //se genera factura de servicio ADICIONAL(p.e 4 días)
+            $valorf=$valorServicioAdicional;
+            $valorp=$valorServicioAdicional;				
+            $saldo=0;
+            $cerrado=1;
+            $notas="Prorrateo";	
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $valorr=$valorServicioAdicional;
+            $valorap=$valorServicioAdicional;	
+            $fecha=$today;
+            $aprobado=0;;
+            $descripcion=$notas;
+            //se genera transaccion de servicio ADICIONAL(p.e 4 días)
+            generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+            
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$nextMonth];
+            //print "\n $billMessageperiod \n";                                        
+        }else{//No genera transaccion
+            //se genera factura de servicio estandar.
+            $valorf=$valorPlan;
+            $valorp=0;				
+            $saldo=$valorPlan;
+            $cerrado=0;	
+            $notas="Servicio-1er mes";
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            //se genera factura de servicio ADICIONAL(p.e 4 días)
+            $valorf=$valorServicioAdicional;
+            $valorp=0;				
+            $saldo=$valorServicioAdicional;
+            $cerrado=0;	
+            $notas="Prorrateo";
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$currentMonth];
+            //print "\n $billMessageperiod \n";                                        
+        }
+    }else{//No hayProrrateo
+        $valorf=$valorPlan;				
+        if ($afiliation_include_first_month){//factura de mensualidad paga
+            //Valor de factura de mensualidad 0
+            //se genera factura de servicio estandar .
+            $valorp=$valorPlan;				
+            $saldo=0;
+            $cerrado=1;
+            $notas="Servicio-1er mes";	
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $valorr=$valorPlan;
+            $valorap=$valorPlan;	
+            $fecha=$today;
+            $aprobado=0;;
+            $descripcion=$notas;
+            //se genera transaccion  de servicio estandar.
+            generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$nextMonth]; 
+            //print "\n $billMessageperiod \n";                                       
+        }else{//No genera transaccion
+            //se genera factura de servicio estandar.
+            $valorp=0;				
+            $saldo=$valorPlan;
+            $cerrado=0;	
+            $notas="Servicio-1er mes";
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$currentMonth];  
+            //print "\n $billMessageperiod \n";                                      
+        }
+    }  
+}
+function mesSiguiente($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$oneMonthMoreTonextMonth,$prorateo_checked,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$billLastDay=false){
+    if ($prorateo_checked){
+        $valorf=$prorrateo;
+        if ($afiliation_include_first_month){//factura de mensualidad paga
+            //Valor de factura de mensualidad 0
+            $valorp=$prorrateo;				
+            $saldo=0;
+            $cerrado=1;
+            $notas="Servicio-1er mes-prorrateo";
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $valorr=$prorrateo;
+            $valorap=$prorrateo;	
+            $fecha=$today;
+            $aprobado=0;;
+            $descripcion=$notas;
+            generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de :".$mes[$oneMonthMoreTonextMonth];
+            //print "\n $billMessageperiod \n";                                        
+        }else{//No genera transaccion
+            $valorp=0;				
+            $saldo=$prorrateo;
+            $cerrado=0;
+            $notas="Servicio-1er mes-Prorrateo";
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$nextMonth];
+            //print "\n $billMessageperiod \n";                                        
+        }
+    }else{//No hayProrrateo
+        $valorf=$valorPlan;
+        if ($afiliation_include_first_month){//factura de mensualidad paga
+            //Valor de factura de mensualidad 0
+            //se genera factura  estandar
+            $valorp=$valorPlan;				
+            $saldo=0;
+            $cerrado=1;
+            $notas="Servicio-1er mes";	
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $valorr=$valorPlan;
+            $valorap=$valorPlan;	
+            $fecha=$today;
+            $aprobado=0;;
+            $descripcion=$notas;
+            generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$oneMonthMoreTonextMonth];
+            //print "\n $billMessageperiod \n";                                        
+        }else{//No genera transaccion
+            //Valor de factura de mensualidad =>$plan mensual
+            $valorp=$valorPlan;				
+            $saldo=$valorPlan;
+            $cerrado=0;	
+            $notas="Servicio-1er mes";
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);                                      
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$nextMonth];
+            //print "\n $billMessageperiod \n";                                        
+        }
+    } 
+}
+function mesSiguienteConServicioAdicional($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$valorServicioAdicional,$prorateo_checked,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$oneMonthMoreTonextMonth){
+    if ($prorateo_checked){
+        if ($afiliation_include_first_month){
+            //se genera factura de servicio estandar .
+            $valorf=$valorPlan;
+            $valorp=$valorPlan;				
+            $saldo=0;
+            $cerrado=1;
+            $notas="Servicio-1er mes";	
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $valorr=$valorPlan;
+            $valorap=$valorPlan;	
+            $fecha=$today;
+            $aprobado=0;;
+            $descripcion=$notas;
+            //se genera transaccion de de servicio estandar.
+            generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+            //se genera factura de servicio ADICIONAL(p.e 4 días)
+            $valorf=$valorServicioAdicional;
+            $valorp=$valorServicioAdicional;				
+            $saldo=0;
+            $cerrado=1;
+            $notas="Prorrateo";	
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $valorr=$valorServicioAdicional;
+            $valorap=$valorServicioAdicional;	
+            $fecha=$today;
+            $aprobado=0;;
+            $descripcion=$notas;
+            //se genera transaccion de servicio ADICIONAL(p.e 4 días)
+            generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+            
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$oneMonthMoreTonextMonth];
+            //print "\n $billMessageperiod \n";                                        
+        }else{//No genera transaccion
+            //se genera factura de servicio estandar.
+            $valorf=$valorPlan;
+            $valorp=0;				
+            $saldo=$valorPlan;
+            $cerrado=0;	
+            $notas="Servicio-1er mes";
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            //se genera factura de servicio ADICIONAL(p.e 4 días)
+            $valorf=$valorServicioAdicional;
+            $valorp=0;				
+            $saldo=$valorServicioAdicional;
+            $cerrado=0;	
+            $notas="Prorrateo";
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$nextMonth];  
+            //print "\n $billMessageperiod \n";                                      
+        }
+    }else{//No hayProrrateo
+        $valorf=$valorPlan;				
+        if ($afiliation_include_first_month){//factura de mensualidad paga
+            //Valor de factura de mensualidad 0
+            //se genera factura de servicio estandar .
+            $valorp=$valorPlan;				
+            $saldo=0;
+            $cerrado=1;
+            $notas="Servicio-1er mes";	
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $valorr=$valorPlan;
+            $valorap=$valorPlan;	
+            $fecha=$today;
+            $aprobado=0;;
+            $descripcion=$notas;
+            //se genera transaccion  de servicio estandar.
+            generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion);
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de :".$mes[$oneMonthMoreTonextMonth]; 
+            //print "\n $billMessageperiod \n";                                         
+        }else{//No genera transaccion
+            //se genera factura de servicio estandar.
+            $valorp=0;				
+            $saldo=$valorPlan;
+            $cerrado=0;	
+            $notas="Servicio-1er mes";
+            generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+            $billMessageperiod="Próximo pago los días :  $dias_de_pago   a partir de : ".$mes[$nextMonth]; 
+            //print "\n $billMessageperiod \n";                                        
+        }
+    }  
+}
+function emailToInstalledNewUser($emailObject,$tokenToInstalledUserNew,$fullName,$periodo,$valorPlan,$id_client,$dias_de_pago,$email){
+    //print "\n  ToInstalledUserNew,fullName,periodo,valorPlan,id_client,dias_de_pago,email $tokenToInstalledUserNew,$fullName,$periodo,$valorPlan,$id_client,$dias_de_pago,$email ";
+    if($email!=""){
+        $emailArray=[
+        "fullName"=> $fullName,
+        "paymentDay"=> $dias_de_pago,
+        "periodo"=> $periodo,
+        "valorPlan"=> $valorPlan,
+        "template"=>$tokenToInstalledUserNew,
+        "idClient"=>$id_client,
+        "email"=>$email
+        ];
+        $emailObject->emailToInstalledNewUser($emailArray);
+    }
+    
+}
+function emailToUserNoInstalledYet($emailObject,$tokenToNotInstalledUserNewYet,$fullName,$periodo,$valorPlan,$id_client,$dias_de_pago,$email){
+    if($email!=""){
+        $emailArray=[
+        "fullName"=> $fullName,
+        "paymentDay"=> $dias_de_pago,
+        "periodo"=> $periodo,
+        "valorPlan"=> $valorPlan,
+        "template"=>$tokenToNotInstalledUserNewYet,
+        "idClient"=>$id_client,
+        "email"=>$email
+        ];
+        $emailObject->emailToInstalledNewUser($emailArray);
+    }
+}
+function  generar_Ticket($tickeObject,$telefonoContacto){
+    //print "\n generar_Ticket() ,telefonoContacto : $telefonoContacto \n";
+    $tickeObject->createTicketNewClient($telefonoContacto,$recomendacion="");
+}
+function facturaDiasAdicionales($valorAdicionalServicio,$valorAdicionalServicioDescripcion){
+    //print "\n facturaDiasAdicionales()";
+}
+function facturaAfiliacion($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos){
+    ////print "\nfacturaAfiliacion() $AfiliacionItemValue";
+    $billObject->createBill($id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+}
+function transaccionFacturaAfiliacion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion){
+    $transactionObject->CreateTransaction($id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado="1",$descripcion);
+}
+function generar_factura($billObject,$id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos){
+    $billObject->createBill($id_client,$periodo,$notas,$valorf,$valorp,$saldo,$cerrado,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos);
+}
+function generar_transaccion($transactionObject,$id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion){
+    ////print "\n generar_transaccion($transactionObject,) id_client,cajero,hora,valorr,valorap,cambio,fecha,aprobado,descripcion * $id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado,$descripcion";
+    $transactionObject->CreateTransaction($id_client,$cajero,$hora,$valorr,$valorap,$cambio,$fecha,$aprobado="1",$descripcion);
+}
+function updateAfiliado($clientObject,$id_client,$param,$value){     
+    $clientObject->updateClient($id_client,$param,$value);  
+}
 
 
-}	
- ?>
+//////////      
+
+ 
+
+
+/**
+*Tipos de factura:          Factura estandar
+*                           Factura deProrrateo
+*                           Factura de servicio adicional
+
+*Tipos de transaccion       Transaccion de Factura estandar
+*                           Transaccion de Factura deProrrateo
+*                           Transaccion de Servicio adicional
+*/
+// if($Fechas ==1){
+//     if($currentMonth){
+        
+//         if($currentMonth_pago){
+//             //se genera factura  estandar
+//             //se genera transaccion  factura  estandar
+//         }else{
+//             //se genera factura  estandar
+//         }
+//     }
+// }
+// if($Fechas >= 2 && $fecha <= 10){
+//     if($currentMonth){
+//         if($prorrateo){
+//             if($currentMonth_pago){
+//                 //se genera factura de prorrteo 
+//                 //se genera transaccion factura de prorrteo 
+//             }else{
+//                 //se genera factura de prorrteo
+//             }
+//         }else{
+//             if($currentMonth_pago){
+//                 //se genera  factura  estandar 
+//                 //se genera transaccion  factura  estandar 
+//             }else{
+//                 //se genera  factura  estandar
+//             } 
+//         }
+//     }
+// }
+// if($Fechas >10 && $fecha<15 ){
+//     //corte 15
+//     if($currentMonth){
+//         if($prorrateo){
+//             if($currentMonth_pago){
+//                 //se genera factura de servicio estandar .
+//                 //se genera factura de servicio ADICIONAL(p.e 4 días)
+//                 //se genera transaccion de de servicio estandar.
+//                 //se genera transaccion de servicio ADICIONAL(p.e 4 días)
+//             }else{
+//                 //se genera factura de servicio estandar.
+//                 //se genera factura de servicio ADICIONAL(p.e 4 días)
+//             }
+//         }else{
+//             if($currentMonth_pago){
+//                 //se genera factura de servicio estandar .
+//                 //se genera transaccion de de servicio estandar.
+//             }else{
+//                 //se genera factura de servicio estandar.
+//             }
+//         }
+//     }else{
+
+//     }
+// }
+// if($Fechas ==15){
+//     if($currentMonth){
+//         if($currentMonth_pago){
+//             //se genera factura  estandar
+//             //se genera transaccion  factura  estandar
+//         }else{
+//             //se genera factura  estandar
+//         }
+//     }
+// } 
+// if($Fecha >15 && $fecha <=19){
+//     if($currentMonth){
+//         if($prorrateo){
+//             if($currentMonth_pago){
+//                 //se genera factura de prorrteo
+//                 //se genera transaccion factura de prorrteo  
+//             }else{
+//                 //se genera factura de prorrteo
+//             }
+//         }else{
+//             if($currentMonth_pago){
+//                 //se genera factura estandar
+//                 //se genera transaccion factura estandar  
+//             }else{
+//                 //se genera factura estandar
+//             }
+//         }
+//     }else{
+
+//     }
+// } 
+
+// if($Fecha >=20 && $fecha<$lastDayofMonth){
+//     if($currentMonth){
+//         if ($prorrateo){
+//             if($currentMonth_pago){
+//                 //genera factura estandar
+//                 //genera factura de servicio ADICIONAL (p.e 4 días)
+//                 //se genera transaccion de de servicio estandar mes completo.
+//                 //se genera transaccion de servicio ADICIONAL(p.e 4 días)
+//             }else{
+//                 //genera factura estandar
+//                 //genera factura de servicio ADICIONAL (p.e 4 días)
+//             }
+//         }else{
+//             if($currentMonth_pago){
+//                 //genera factura estandar
+//                 //se genera transaccion de de servicio estandar mes completo.
+//             }else{
+//                 //genera factura estandar
+//             }
+//         }
+//     }else{
+//     }
+// } 
+
+?> 
