@@ -1190,7 +1190,7 @@
 										if (phonenumber($("#phone").val()) == true) {
 											$("#phone").removeClass("border border-danger");
 											$("#phone").addClass("border border-success");
-											if (validEmail($("#email").val())) {
+											if (validEmail($("#email").val())) { 
 												$("#email").removeClass("border border-danger");
 												$("#email").addClass("border border-success");
 												if (validEmail($("#email-confirmar").val()) && ($("#email-confirmar").val() == $("#email").val())) {
@@ -1611,9 +1611,10 @@
 												var idCl = result[0];
 												var messag = result[1];
 												alertify.success(messag);
+												console.log(data)
 												if (recibo == 1) {
 													if (idCl != 'Error') {
-														window.location.href = 'transacciones.php';
+														window.location.href = 'transacciones.php'; 
 													}
 												}
 
@@ -2435,6 +2436,7 @@
 			}
 
 			function validEmail(email) {
+				if (email=="")return true;
 				var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 				return re.test(email);
 			}

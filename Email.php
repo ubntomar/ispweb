@@ -20,7 +20,7 @@ class Email
     }
     public function emailToInstalledNewUser($emailArray)
     {   
-        $message= "Ups, Fail!";
+        $message= false;
         $endPoint = $this->endPoint;
         $postdata = http_build_query(
             $emailArray
@@ -28,13 +28,13 @@ class Email
         $context = stream_context_create($this->opts($postdata));
         $result = json_decode(file_get_contents($endPoint, false, $context));
         if($result->mailStatus=="success"){
-            $message= "Enviado con Exito";
+            $message= true;
         }
         
         return $message;
     }
     public function emailToUserNoInstalledYet($emailArray){
-        $message= "Ups, Fail!";
+        $message= false;
         $endPoint = $this->endPoint;
         $postdata = http_build_query(
             $emailArray
@@ -42,7 +42,7 @@ class Email
         $context = stream_context_create($this->opts($postdata));
         if($result = json_decode(file_get_contents($endPoint, false, $context))){
             if($result->mailStatus=="success"){
-                $message= "Enviado con Exito";
+                $message= true;
             }
         }
         return $message; 
