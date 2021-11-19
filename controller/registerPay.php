@@ -27,7 +27,7 @@ $htmlObject=new Html();
 
         <section>
             <div class="section-title">
-                <h1>REGISTRAR PAGOS</h1>
+                <h1>AREA DE  PAGOS</h1>
             </div>
             <div class=box-container>
 
@@ -37,34 +37,21 @@ $htmlObject=new Html();
                     </div>
                     <div>
                         <div class="box-content">
-                            <table id="clientList" class="display compact stripe cell-border" cellspacing="0"
-                                width="100%">
-                                <thead class="bg-primary">
+                            <table id="clientList" class="display compact stripe cell-border" cellspacing="0" width="100%">
+                                <thead>
                                     <tr>
-                                        <td>Nombre Titular</td>
-                                        <td>Dirección</td>
-                                        <td>Antiguedad en meses</td>
-                                        <td>Saldo</td>
-                                        <td>Fecha de Ingreso</td>
-                                        <td>Corte</td>
-                                        <td>Cedula Titular</td>
-                                        <td>Telefono</td>
-                                        <td>Pay</td>
+                                        <th>Nombre Titular</th>
+                                        <th>Dirección</th>
+                                        <th>Antiguedad en meses</th>
+                                        <th>Saldo</th>
+                                        <th>Fecha de Ingreso</th>
+                                        <th>Corte</th>
+                                        <th>Cedula Titular</th>
+                                        <th>Telefono</th>
+                                        <th>Pay</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <td>Nombre Titular</td>
-                                        <td>Dirección</td>
-                                        <td>Antiguedad en meses</td>
-                                        <td>Saldo</td>
-                                        <td>Fecha de Ingreso</td>
-                                        <td>Corte</td>
-                                        <td>Cedula Titular</td>
-                                        <td>Telefono</td>
-                                        <td>Pay</td>
-                                    </tr>
-                                </tfoot>
+                                
                                 <tbody>
                                     <?php
 									$sql="SELECT * from `jurisdicciones` WHERE `jurisdicciones`.`id` = $jurisdiccion";
@@ -186,34 +173,34 @@ $htmlObject=new Html();
 									}
 									?>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="payModal" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Detalles de Pago</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
+                                    <div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Detalles de Pago</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
 
-                                                <div class="modal-body">
-                                                    <div class="fetched-data"></div>
+                                            <div class="modal-body">
+                                                <div class="fetched-data"></div>
 
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" id="cancelbutton" class="btn btn-secondary"
-                                                        data-dismiss="modal">Cancelar</button>
-                                                    <button type="button" id="paybutton"
-                                                        class="btn btn-primary">Pagar</button>
-                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" id="cancelbutton" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancelar</button>
+                                                <button type="button" id="paybutton"
+                                                    class="btn btn-primary">Pagar</button>
                                             </div>
                                         </div>
                                     </div>
+                            </div>  
 
                                 </tbody>
                             </table>
+                              
                         </div>
                     </div>
                 </div>
@@ -227,6 +214,7 @@ $htmlObject=new Html();
 </body>
 
 <script>
+    
 $('#payModal').on('show.bs.modal', function(e) {
 
     var rowid = $(e.relatedTarget).data('id');
@@ -434,7 +422,7 @@ $('#payModal').on('show.bs.modal', function(e) {
             $('#btn-paym').click(function() {
                 $.ajax({
                     type: 'post',
-                    url: './ajax/payModal_payment.php',
+                    url: './ajax/payModalPayment.php',
                     data: {
                         rowid: rowid,
                         cedula: cedula,
@@ -583,7 +571,7 @@ $(document).ajaxComplete(function() {
                         ",vad: " + vadRow + ",vpl: " + vplanRow);
                     $.ajax({
                         type: 'post',
-                        url: 'fetch_payFact.php',
+                        url: './ajax/payFact.php',
                         data: {
                             idc: idcRow,
                             vap: vapRow,
@@ -689,7 +677,7 @@ var app = new Vue({
     },
     mounted() {
         let table = new DataTable('#clientList', {
-            "iDisplayLength": 15,
+            "iDisplayLength": 5,
             "order": [
                 [4, "desc"]
             ],
@@ -697,10 +685,7 @@ var app = new Vue({
             "paging": true,
             "searching": true,
             "info": true,
-            fixedHeader: {
-                header: true,
-                footer: true
-            }
+            
         });
     },
 });

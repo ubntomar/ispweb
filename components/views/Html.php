@@ -10,11 +10,10 @@ class Html{
             <meta name="viewport"
                 content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
             <title>Wisdev-Administrador ISP</title>
-
+            <link rel="stylesheet" href="'.$path.'css/bootstrap-css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
             <link rel="stylesheet" href="'.$path.'css/fontello.css" />
             <link rel="stylesheet" href="'.$path.'css/animation.css">
-            <link rel="stylesheet" href="'.$path.'css/bootstrap.css"> 
             <link rel="stylesheet" href="'.$path.'css/style.css" />
             <link rel="stylesheet" href="'.$path.'css/dataTables.checkboxes.css">
             <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
@@ -25,6 +24,7 @@ class Html{
     }
     public function jsScript($path=""){
         $content='
+        <scrip src="'.$path.'js/bootstrap-js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
