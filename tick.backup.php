@@ -47,7 +47,7 @@ else    {
     </header>
     <nav class="navTop">
         <ul>
-            <li><a href="<?php if($_SESSION['role']!='tecnico')echo "./controller/registerPay.php";?>"><i
+            <li><a href="<?php if($_SESSION['role']!='tecnico')echo "register-pay.php";?>"><i
                         class="icon-money"></i>Registrar Pago</a></li>
             <li><a href="<?php if($_SESSION['role']!='tecnico')echo "transacciones.php";?>"><i
                         class="icon-print"></i>Transacciones</a></li>

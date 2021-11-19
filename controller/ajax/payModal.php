@@ -11,7 +11,7 @@ else    {
 if($_POST['rowid']) {
 		$id = $_POST['rowid'];
 		$cedula = $_POST['cedula']; 
-		$telefono = $_POST['telefono'];  
+		$telefono = $_POST['telefono'];   
 		include("login/db.php");
 		$mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 		if ($mysqli->connect_errno) {

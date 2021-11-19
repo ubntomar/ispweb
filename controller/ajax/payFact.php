@@ -8,7 +8,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 }
 include("login/db.php");
 require 'Mkt.php';
-require 'vpnConfig.php';
+require 'vpnConfig.php'; 
 require 'VpnUtils.php';
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {

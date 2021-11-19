@@ -1611,7 +1611,7 @@
 												var idCl = result[0];
 												var messag = result[1];
 												alertify.success(messag);
-												console.log(data)
+												//console.log(data)
 												if (recibo == 1) {
 													if (idCl != 'Error') {
 														window.location.href = 'transacciones.php'; 
