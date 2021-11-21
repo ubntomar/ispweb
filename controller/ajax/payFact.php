@@ -1,15 +1,15 @@
 <?php
 session_start();
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-		header('Location: login/index.php');
-		exit;
+		// header('Location: ../../login/index.php');
+		// exit;
 	} else {
 	$user = $_SESSION['username'];
 }
-include("login/db.php");
-require 'Mkt.php';
-require 'vpnConfig.php'; 
-require 'VpnUtils.php';
+include("../../login/db.php"); 
+require '../../Mkt.php';
+require '../../vpnConfig.php'; 
+require '../../VpnUtils.php';
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;

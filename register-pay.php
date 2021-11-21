@@ -687,10 +687,7 @@ $templateObject=new Template();
                 "paging": true,
                 "searching": true,
                 "info": true,
-                fixedHeader: {
-                    header: true,
-                    footer: true
-                }
+                
             });
         }
 

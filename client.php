@@ -989,7 +989,7 @@
 		<script src="js/dataTables.checkboxes.min.js"></script>
 
 		<script>
-			<?php
+			<?php     
 			
 			if ($_GET['opc']) {
 				echo "
