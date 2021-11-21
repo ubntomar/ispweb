@@ -4,6 +4,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 		header('Location: login/index.php');
 		exit;
 	} else {
+    header("Location: controller/registerPay.php"); 
 	$user = $_SESSION['username'];
 	$name = $_SESSION['name'];
 	$lastName = $_SESSION['lastName'];

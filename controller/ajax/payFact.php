@@ -1,8 +1,8 @@
 <?php
 session_start();
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-		// header('Location: ../../login/index.php');
-		// exit;
+		header('Location: ../../login/index.php');
+		exit;
 	} else {
 	$user = $_SESSION['username'];
 }
@@ -45,7 +45,7 @@ if($_POST["rec"]){
         $serverIp=$vpnObject2->getServerIp($idGroup); 
 		$mkobj=new Mkt($serverIp,$vpnUser,$vpnPassword);
 		if($mkobj->success){
-			echo "Conectado a la Rboard cod Server-target-> {{$data['server']}}";
+			//echo "Conectado a la Rboard cod Server-target-> {{$data['server']}}";
 			removeIp($mkobj->remove_ip($ip,'morosos'),$idc,$mysqli,$ip,$today,$hourMin);       
 		}
 		else {

@@ -38,20 +38,20 @@ Class TemplateDark{
         ';
         return $content; 
     }
-    public function navLeft($role){
+    public function navLeft($role,$path="../"){
         $content='
         <nav class="navLeft">
             <ul>
                 <li class="selected"><a href="tick.php"><i class="icon-pinboard"></i><span>Tickets</span></a></li>
-                <li><a href="'.($role!='tecnico'?"fact.php":"#").'"><i
+                <li><a href="'.$path.($role!='tecnico'?"fact.php":"#").'"><i
                             class="icon-docs"></i><span>Facturas</span></a></li>
-                <li><a href="'.($role!='tecnico'?"client.php":"#").'"><i
+                <li><a href="'.$path.($role!='tecnico'?"client.php":"#").'"><i
                             class="icon-users"></i><span>Clientes</span></a></li>
-                <li><a href="'.($role!='tecnico'?"mktik.php":"#").'"><i
+                <li><a href="'.$path.($role!='tecnico'?"mktik.php":"#").'"><i
                             class="icon-network"></i><span>Mktik</span></a></li>
-                <li><a href="'.($role!='tecnico'?"egr.php":"#").'"><i
+                <li><a href="'.$path.($role!='tecnico'?"egr.php":"#").'"><i
                             class="icon-money"></i><span>Egresos</span></a></li>
-                <li><a href="./login/logout.php"><i class="icon-logout"></i><span>Salir</span></a></li>
+                <li><a href="'.$path.'login/logout.php"><i class="icon-logout"></i><span>Salir</span></a></li>
             </ul>
         </nav>
         ';

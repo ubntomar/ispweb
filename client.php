@@ -88,7 +88,7 @@
 								<a href="#" class="nav-link"><i class="icon-money"></i>Cierre de caja <span class="sr-only">(Actual)</span></a>
 							</li>
 							<li class="nav-item">
-								<a href="register-pay.php" class="nav-link "><i class="icon-money"></i>Registrar Pago</a>
+								<a href="controller/registerPay.php" class="nav-link "><i class="icon-money"></i>Registrar Pago</a>
 							</li>
 							<li class="nav-item  ">
 								<a href="transacciones.php" class="nav-link  "><i class="icon-print "></i>Transacciones</a>

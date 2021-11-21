@@ -174,8 +174,27 @@ if($_POST['rowid']) {
 						<tr id=\"tr-valor-descontar\">
 			          		<td>Valor descontar:</td><td><input class=\"form-control\" id=\"valor-descontar\"  value=\"\" placeholder=\"Cuanto descuenta?\"><span class=\"bg-info text-white px-1 ml-1\">$<small class=\" money-descontar\"></small></span></td>
 			          	</tr>
-			          	
-			          </table>";
+			          </table>
+					  <div>
+					  	<p>-</p>
+					  	<p class=\"text-info font-weight-bold font-italic\">Nuevo</p>
+					  </div>
+					  <div class=\"border border-info rounded\">
+							<div class=\" font-weight-light  p-3\">
+								<div>
+								Desea agregar dinero a billetera?<input class=\"form-control form-control-sm\" id=\"valor-wallet\" type=\"number\" min=\"0\" step=\"1\"  value=\"\" placeholder=\"Cuanto pagan adelantado?\">
+								</div> 
+								<div class=\"mt-3 text-secondary\">
+									<small>**Cada cliente tiene su billetera personal, mientras tengo saldo se va a usar para pagar la factura cada mes!</small>
+								</div>
+								<div class=\"text-secondary\"> 
+									<small>**La billetera se puede recargar directamente aquí ingresando el valor de pago por adelantado o en la opcion WALLET  del menú principal</small>
+								</div>
+							</div>
+					  </div> 
+					 
+					 
+					  ";
 			         
 			echo $varHtml;
 			}

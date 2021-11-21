@@ -30,6 +30,7 @@ class Html{
         <script type="text/javascript" src="'.$path.'js/dataTables.checkboxes.min.js"></script>  
         <script type="text/javascript" src="'.$path.'js/vue.js"></script>  
         <script type="text/javascript" src="'.$path.'js/alertify.min.js"></script>   
+        <script type="text/javascript" src="'.$path.'js/simple.money.format.js"></script>    
         ';
         
         

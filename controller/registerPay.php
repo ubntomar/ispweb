@@ -36,7 +36,7 @@ $htmlObject=new Html();
     <?=$templateObject->navTop($_SESSION['role'],$path="../")?>
 
     <main id="app">
-        <?=$templateObject->navLeft($_SESSION['role'])?>
+        <?=$templateObject->navLeft($_SESSION['role'],$path="../")?>
         <!-- section -->
 
         <section>
@@ -51,6 +51,10 @@ $htmlObject=new Html();
                     </div>
                     <div>
                         <div class="box-content">
+                            <form style="display: hidden" action="../printable.php" method="POST" id="form">
+                                <input type="hidden" id="idt" name="idt" value="0" />
+                                <input type="hidden" id="rpp" name="rpp" value="register-pay" />
+                            </form>
                             <table id="clientList" class="display compact stripe cell-border" cellspacing="0"
                                 width="100%">
                                 <thead>
@@ -87,7 +91,7 @@ $htmlObject=new Html();
                                 $result->free();
                             }
                         }
-                        $sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`activo`=1 AND `afiliados`.`eliminar`!=1  $arrayidArea  ORDER BY `afiliados`.`id`  ASC LIMIT 20 ";
+                        $sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`activo`=1 AND `afiliados`.`eliminar`!=1  $arrayidArea  ORDER BY `afiliados`.`id`  ASC  ";
                         if ($result = $mysqli->query($sql)) {
                             while ($row = $result->fetch_assoc()) {
                                 $idCliente = $row["id"];
@@ -100,7 +104,7 @@ $htmlObject=new Html();
                                 $ip=$row["ip"];
                                 $pingDate=$row["pingDate"];
                                 $pingCurrentStatus=($pingDate==$today) ? "Ping ok!" : "<small class=\"bg-danger text-white p-1\">Ping Error</small>";   
-                                $style_cell = "";
+                                $style_cell = "class=\"font-weight-bold h6\" "; 
                                 $style2_cell = "";
                                 $ts1 = strtotime($registration_date);
                                 $ts2 = strtotime($today);
@@ -132,10 +136,10 @@ $htmlObject=new Html();
                                     $resultt->free();
                                 }
                                 if ($vtotal > 0 && $diff == 0) {
-                                    $style_cell = "class=\"text-warning bg-dark\" ";
+                                    $style_cell = "class=\"text-warning bg-dark font-weight-bold h6\" ";
                                 }
                                 if ($vtotal > 0 && $diff == 1 && $corte == 1 && $registration_day > 15) {
-                                    $style_cell = "class=\"text-info bg-dark\" ";
+                                    $style_cell = "class=\"text-info bg-dark font-weight-bold h6\" ";
                                 }
 
                                 if ($row["eliminar"] == 1) {
@@ -170,10 +174,10 @@ $htmlObject=new Html();
 
                                 $telefono = $row["telefono"]; 
                                 echo "<tr class=\"text-center  \">";
-                                echo "<td> {$row["cliente"]}  {$row["apellido"]} $statusText </td>";
-                                echo "<td><small>{$row["direccion"]} {$row["ciudad"]} -{$row['id']}</small></td>"; 
+                                echo "<td class=\" font-weight-bold\"> {$row["cliente"]}  {$row["apellido"]} $statusText </td>";
+                                echo "<td><small>{$row["direccion"]} {$row["ciudad"]} -{$row['id']}</small></td>";  
                                 echo "<td>$diff</td>";
-                                echo "<td><small 	$style_cell >$$vtotal</small><div><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money\"></i></a></div></td>";
+                                echo "<td><small 	$style_cell  >$$vtotal</small><div><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money\"></i></a></div></td>";
                                 // echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small><input type=\"text\" value=\"\" placeholder=\"$ip\" id=\"{$row['id']}\"
                                 // class=\"form-control form-control-sm ml-1\"></small></p><button v-on:click=\"ipUpdate({$row['id']})\" class=\"border border-rounded icon-arrows-ccw\"></button>
                                 // <p class=\"mb-0\"><small>$pingCurrentStatus</small></p></div></td>"; 
@@ -227,9 +231,9 @@ $htmlObject=new Html();
         </section>
 
     </main>
-   
 
-<?=$htmlObject->jsScript($path="../")?>  
+
+    <?=$htmlObject->jsScript($path="../")?>
 </body>
 
 <script>
@@ -614,6 +618,7 @@ $(document).ajaxComplete(function() {
                             rec: rec
                         },
                         success: function(data) {
+                            console.log("data" + data)
                             var arr = data.split('/');
                             var msj = arr[0];
                             var cod = arr[1];
@@ -634,7 +639,6 @@ $(document).ajaxComplete(function() {
         $('#payModal').modal('hide');
     });
 })
-
 </script>
 </body>
 

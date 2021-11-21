@@ -79,8 +79,8 @@ if($_SESSION['role']=='tecnico'){
                                     class="sr-only">(Actual)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="register-pay.php" class="nav-link "><i class="icon-money"></i>Registrar Pago</a>
-                        </li>
+                            <a href="controller/registerPay.php" class="nav-link "><i class="icon-money"></i>Registrar Pago</a>
+                        </li> 
                         <li class="nav-item  ">
                             <a href="transacciones.php" class="nav-link link-border "><i
                                     class="icon-print "></i>Transacciones</a>
