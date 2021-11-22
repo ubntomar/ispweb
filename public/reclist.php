@@ -25,14 +25,14 @@ if($_SESSION['role']=='cajero'){
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Wisdev-Administrador ISP</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
-    <link rel="stylesheet" href="bower_components/DataTables/media/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="bower_components/alertify/css/alertify.min.css" />
+    <link rel="stylesheet" href="../bower_components/DataTables/media/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../bower_components/alertify/css/alertify.min.css" />
 
-    <link rel="stylesheet" href="bower_components/alertify/css/themes/default.min.css" />
-    <link rel="stylesheet" href="css/fontello.css">
-    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="../bower_components/alertify/css/themes/default.min.css" />
+    <link rel="stylesheet" href="../css/fontello.css">
+    <link rel="stylesheet" href="../css/estilos.css">
     <style>
     .caja {
         border-bottom: 1px solid #000;
@@ -190,12 +190,12 @@ if($_SESSION['role']=='cajero'){
     </div>
 
 
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
-    <script src="bower_components/Popper/popper.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/alertify/js/alertify.min.js"></script>
-    <script src="bower_components/AutoFormatCurrency/simple.money.format.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
+    <script src="../bower_components/Popper/popper.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../bower_components/alertify/js/alertify.min.js"></script>
+    <script src="../bower_components/AutoFormatCurrency/simple.money.format.js"></script>
 
     <script type="text/javascript">
     $(document).ready(function() {

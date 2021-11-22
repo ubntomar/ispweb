@@ -29,14 +29,14 @@ $htmlObject=new Html();
 ?>
 <!DOCTYPE html>
 <html lang="es">
-<?=$htmlObject->head($path="../")?>
+<?=$htmlObject->head($path="../")?> 
 
 <body>
     <?=$templateObject->header($user="omar")?>
-    <?=$templateObject->navTop($_SESSION['role'],$path="../")?>
+    <?=$templateObject->navTop($_SESSION['role'],$path="")?>
 
     <main id="app">
-        <?=$templateObject->navLeft($_SESSION['role'],$path="../")?>
+        <?=$templateObject->navLeft($_SESSION['role'],$path="")?>
         <!-- section -->
 
         <section>

@@ -31,12 +31,12 @@ if($_SESSION['role']=='tecnico'){
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.min.css">
-    <link rel="stylesheet" href="bower_components/alertify/css/alertify.min.css" />
+    <link rel="stylesheet" href="../ower_components/alertify/css/alertify.min.css" />
 
-    <link rel="stylesheet" href="bower_components/alertify/css/themes/default.min.css" />
-    <link rel="stylesheet" href="css/fontello.css">
-    <link rel="stylesheet" href="css/estilos.css">
-    <link rel="stylesheet" href="css/dataTables.checkboxes.css">
+    <link rel="stylesheet" href="../bower_components/alertify/css/themes/default.min.css" />
+    <link rel="stylesheet" href="../css/fontello.css">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/dataTables.checkboxes.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -583,9 +583,9 @@ if($_SESSION['role']=='tecnico'){
     </script>
     <!-- <script src="bower_components/Popper/popper.min.js"></script> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="bower_components/alertify/js/alertify.min.js"></script>
-    <script src="bower_components/AutoFormatCurrency/simple.money.format.js"></script>
-    <script src="js/dataTables.checkboxes.min.js"></script>
+    <script src="../bower_components/alertify/js/alertify.min.js"></script>
+    <script src="../bower_components/AutoFormatCurrency/simple.money.format.js"></script>
+    <script src="../js/dataTables.checkboxes.min.js"></script>
 
     <script type="text/javascript">
     $(document).ready(function() {

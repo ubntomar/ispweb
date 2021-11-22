@@ -18,11 +18,11 @@ else    {
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <title>Wisdev-Administrador ISP</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet" />
-    <link rel="stylesheet" href="css/fontello.css" />
-    <link rel="stylesheet" href="css/animation.css">
-    <link rel="stylesheet" href="bower_components/alertify/css/alertify.min.css" />
-    <link rel="stylesheet" href="bower_components/alertify/css/themes/default.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../css/fontello.css" />
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="../bower_components/alertify/css/alertify.min.css" />
+    <link rel="stylesheet" href="../bower_components/alertify/css/themes/default.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
@@ -778,7 +778,7 @@ else    {
         </div>
     </footer>
 </body>
-<script src="bower_components/alertify/js/alertify.min.js"></script>
+<script src="../bower_components/alertify/js/alertify.min.js"></script>
 <script>
 var app = new Vue({
     el: "#app",

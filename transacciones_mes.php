@@ -115,7 +115,7 @@ echo "
                 echo "<td class=\" align-middle \"><small>".$row["fecha"]." ".$row["hora"]."</small> </td>";
                 echo "<td class=\" align-middle \"> {$row["cajero"]} </td>";
                 echo "<td class=\" align-middle \"><a href=\"printable.php?idt=$idtransaccion&rpp=0\" class=\"text-primary icon-client \" ><i class=\" icon-print  \"></i></a></td>";
-                echo "<td class=\" align-middle \"><a href=\"recibos.php?idc=$idafi&rpp=0\" class=\"text-info icon-client \" target=\"_blank\" ><i class=\" icon-print  \"></i></a></td>";
+                echo "<td class=\" align-middle \"><a href=\"public/recibos.php?idc=$idafi&rpp=0\" class=\"text-info icon-client \" target=\"_blank\" ><i class=\" icon-print  \"></i></a></td>";
                 echo "</tr>";		
             }
             else{
