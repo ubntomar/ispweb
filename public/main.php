@@ -1,20 +1,14 @@
 <?php 
 session_start();
 if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true){
-		header('Location: login/index.php');
+		header('Location: ../login/index.php');
 		exit;
 }
 else{
     $user=$_SESSION['username'];
     if($_SESSION['role']=='cajero'){
-        header('Location: register-pay.php');
+        header('Location: registerPay.php');
     }
-    if($_SESSION['role']=='cajero'){
-        header('Location: register-pay.php');
-    }
-}
-if($_SESSION['role']=='cajero'){
-    header('Location: register-pay.php');
 }
 ?>
 <!DOCTYPE html>
@@ -61,7 +55,7 @@ if($_SESSION['role']=='cajero'){
                                 <span class="sr-only">(Actual)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php if($_SESSION['role']!='tecnico')echo "register-pay.php";?>"
+                            <a href="<?php if($_SESSION['role']!='tecnico')echo "registerPay.php";?>"
                                 class="nav-link "><i class="icon-money"></i>Registrar Pago</a>
                         </li>
                         <li class="nav-item  ">
@@ -99,7 +93,7 @@ if($_SESSION['role']=='cajero'){
                     <a href="mktik.php"><i class="icon-network"></i><span>Mktik</span></a>
                     <a href="<?php if($_SESSION['role']!='tecnico')echo "egr.php";?>"><i
                             class="icon-money"></i><span>Egresos</span></a>
-                    <a href="login/logout.php"><i class="icon-logout"></i><span>Salir</span></a>
+                    <a href="../login/logout.php"><i class="icon-logout"></i><span>Salir</span></a>
                 </nav>
             </div>
 
@@ -424,7 +418,7 @@ if($_SESSION['role']=='cajero'){
         methods: {
             getUser: function() {
                 return new Promise((resolve, reject) => {
-                    axios.get('fetchUsers.php', {
+                    axios.get('../fetchUsers.php', {
                         params: {
                             id: this.id,
                             searchString: this.searchString,
@@ -459,7 +453,7 @@ if($_SESSION['role']=='cajero'){
                 if (this.validateIpAddress(ipAddress)) {
                     axios({
                             method: "post",
-                            url: "fetchUsers.php",
+                            url: "../fetchUsers.php",
                             data: bodyFormData
                         })
                         .then(function(response) { 
@@ -508,7 +502,7 @@ if($_SESSION['role']=='cajero'){
                 console.log("staus clicked:" + data.ipAddress)
                 data.responseTime = "Esperando"
                 data.pingStatus = "******"
-                axios.get('devicePingResponse.php', {
+                axios.get('../devicePingResponse.php', {
                     params: {
                         ip: data.ipAddress
                     }
@@ -528,7 +522,7 @@ if($_SESSION['role']=='cajero'){
                 this.pingSuccess = "waiting"
                 if (this.validateIpAddress(this.ipAddressInput)) {
                     this.spinIcon = true
-                    axios.get('devicePingResponse.php', {
+                    axios.get('../devicePingResponse.php', {
                         params: {
                             ip: this.ipAddressInput,
                             mainServerIp: this.mainServerIp
@@ -577,7 +571,7 @@ if($_SESSION['role']=='cajero'){
             getIpListBox1: function(data) {
                 return new Promise((resolve, reject) => {
                     this.spinIconBox1 = true
-                    axios.get('devicePingResponseList.php', {
+                    axios.get('../devicePingResponseList.php', {
                         params: {
                             mainServerIp: "192.168.17.1",
                             rowNumbers: "1",
@@ -600,7 +594,7 @@ if($_SESSION['role']=='cajero'){
             getIpListBox2: function(data) {
                 return new Promise((resolve, reject) => {
                     this.spinIconBox2 = true
-                    axios.get('devicePingResponseList.php', {
+                    axios.get('../devicePingResponseList.php', {
                         params: {
                             mainServerIp: "192.168.30.1",
                             rowNumbers: "1",
@@ -622,7 +616,7 @@ if($_SESSION['role']=='cajero'){
             getIpListBox3: function(data) {
                 return new Promise((resolve, reject) => {
                     this.spinIconBox3 = true
-                    axios.get('devicePingResponseList.php', {
+                    axios.get('../devicePingResponseList.php', {
                         params: {
                             mainServerIp: "192.168.26.1",
                             rowNumbers: "1",

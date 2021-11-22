@@ -25,8 +25,8 @@ $role=$_SESSION["role"];
 if($urlprev) 
     $urltext="Location: ../$urlprev";
 else {
-    if($role=="tecnico") $urltext="Location: ../tick.php?role=$role";     
-    if($role!="tecnico") $urltext="Location: ../register-pay.php?role=$role";      
+    if($role=="tecnico") $urltext="Location: ../public/tick.php?role=$role";     
+    if($role!="tecnico") $urltext="Location: ../public/registerPay.php?role=$role";       
 }
 header($urltext); /* Redirect browser */
 

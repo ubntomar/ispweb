@@ -2,13 +2,13 @@
 	session_start();
 	if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
 			{
-			header('Location: login/index.php');
+			header('Location: ./login/index.php');
 			exit;
 			}
 	else    {
 			$user=$_SESSION['username'];
 			}
-	include("login/db.php");
+	include("./login/db.php");
 	$mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 	if ($mysqli->connect_errno) {
 		echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -207,9 +207,9 @@ else
 			$('#exampleModal').on('hidden.bs.modal', function () {
 				<?php 
 				if ($rpp==0)
-					echo "window.location.assign(\"transacciones.php\");";
+					echo "window.location.assign(\"public/transacciones.php\");";
 				else
-					echo "window.location.assign(\"register-pay.php\");";
+					echo "window.location.assign(\"public/registerPay.php\");"; 
 				 ?>
 			});
 		   	
