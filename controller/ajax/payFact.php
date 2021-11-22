@@ -5,11 +5,13 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 		exit;
 	} else {
 	$user = $_SESSION['username'];
+	$idCajero = $_SESSION['idCajero'];
 }
 include("../../login/db.php"); 
 require '../../Mkt.php';
 require '../../vpnConfig.php'; 
 require '../../VpnUtils.php';
+require '../Wallet.php'; 
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -29,6 +31,7 @@ $debug = 0;
 									// vad: vadRow,
 									// vpl: vplanRow,
 									// rec: rec?reconect? 
+									// valorWallet:valorWallet
 
 if($_POST["rec"]){
 	$rec = mysqli_real_escape_string($mysqli, $_REQUEST['rec']);
@@ -62,7 +65,6 @@ if($_POST["rec"]){
 		
 	} 
 }
-
 if (($_POST['vap'] >= 0) || ($debug == 1)) { //paga todo	//paga todo   //paga todo   //paga todo   //paga todo  //paga todo	 		
 	if ($debug != 1) {
 		$idc = mysqli_real_escape_string($mysqli, $_REQUEST['idc']);
@@ -281,6 +283,18 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 		$result->free();
 	} else {
 		echo "Error <br>" . $mysqli->error;
+	}
+}
+if($_POST["valorWallet"]){
+	$valorWallet = mysqli_real_escape_string($mysqli, $_REQUEST['valorWallet']);
+	if($valorWallet){
+		$idClient=mysqli_real_escape_string($mysqli, $_REQUEST['idc']);
+		$wallet= new Wallet($server, $db_user, $db_pwd, $db_name);
+		//create wallet action="add"
+		$wallet->createWallet($idClient, $action="add", $value=$valorWallet, $date=$today, $hour=$hourMin, $idCajero, $source="registerPay.php", $comment="payFact.php");
+		//update client
+		$WalletMoneyTosave=($wallet->getClientItem($idClient,"wallet-money"))+$valorWallet;//wallet-id,wallet-money. 
+		$wallet->updateClient($idClient, $param="wallet-money",$value=$WalletMoneyTosave);//primero debo saber cuanto hay disponible y luego sumar.
 	}
 }
 

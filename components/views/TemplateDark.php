@@ -33,6 +33,7 @@ Class TemplateDark{
                 <li><a href="'.($role!='tecnico'?"registerPay.php":"#").'"><i class="icon-money"></i>Registrar Pago</a></li>
                 <li><a href="'.$path.($role!='tecnico'?"transacciones.php":"#").'"><i class="icon-print"></i>Transacciones</a></li>
                 <li><a href="'.$path.($role!='tecnico'?"reclist.php":"#").'"><i class="icon-money"></i>Formato Recibo</a></li> 
+                <li><a href="'.$path.($role!='tecnico'?"wallet.php":"#").'"><i class="icon-money"></i>Billetera</a></li> 
             </ul>
         </nav>
         ';

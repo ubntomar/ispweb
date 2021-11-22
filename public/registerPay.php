@@ -281,10 +281,10 @@ $('#payModal').on('show.bs.modal', function(e) {
         else
             alertify.error('Telefono valor invalido, no sera actualizada!!');
     }
-    console.log("./ajax/payModal.php")
+    console.log("../controller/ajax/payModal.php")
     $.ajax({
         type: 'post',
-        url: './ajax/payModal.php',
+        url: '../controller/ajax/payModal.php',
         data: {
             rowid: rowid,
             cedula: cedula,
@@ -457,7 +457,7 @@ $('#payModal').on('show.bs.modal', function(e) {
             $('#btn-paym').click(function() {
                 $.ajax({
                     type: 'post',
-                    url: './ajax/payModalPayment.php',
+                    url: '../controller/ajax/payModalPayment.php',
                     data: {
                         rowid: rowid,
                         cedula: cedula,
@@ -571,6 +571,7 @@ $(document).ajaxComplete(function() {
                     let vaa = 0;
                     let vad = 0;
                     let rec = 0;
+                    let valorWallet=$("#valor-wallet").val();
                     if ($('#checkbox-reconectar').is(":checked")) {
                         rec = 1
                     }
@@ -606,7 +607,7 @@ $(document).ajaxComplete(function() {
                         ",vad: " + vadRow + ",vpl: " + vplanRow);
                     $.ajax({
                         type: 'post',
-                        url: './ajax/payFact.php',
+                        url: '../controller/ajax/payFact.php',
                         data: {
                             idc: idcRow,
                             vap: vapRow,
@@ -615,7 +616,8 @@ $(document).ajaxComplete(function() {
                             cam: cambioRow,
                             vad: vadRow,
                             vpl: vplanRow,
-                            rec: rec
+                            rec: rec,
+                            valorWallet:valorWallet
                         },
                         success: function(data) {
                             console.log("data" + data)

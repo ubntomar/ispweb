@@ -36,6 +36,7 @@ if (mysqli_num_rows($result)) //if exist then check for password
     $empresa=$db_field['id-empresa'];
     $sharedCode=$db_field['shared-code'];
     $idAreaDefault=$db_field['id-area-default'];
+    $idCajero=$id;
     
     //3.3 $hashed_password=crypt($password,$db_field['password']); 
 
@@ -63,6 +64,7 @@ if (mysqli_num_rows($result)) //if exist then check for password
                 $_SESSION["empresa"] = $empresa;
                 $_SESSION["sharedCode"] = $sharedCode;
                 $_SESSION["idAreaDefault"] = $idAreaDefault;
+                $_SESSION["idCajero"] = $idCajero;
                 echo json_encode(array('result' => 1));
             } else {
                 echo json_encode(array('result' => "$msg_email_1 <br /><a href=\"" . $url . "\\resend_key.php?user=" . $username . "\">$msg_email_2</a>."));
@@ -77,7 +79,7 @@ if (mysqli_num_rows($result)) //if exist then check for password
         $hashed_password = crypt($password, $db_field['password']);
         $query = "select * from " . $table_name . " where username='$username' and password='$hashed_password'";
         $result = mysqli_query($con, $query) or die('error');
-        if (mysqli_num_rows($result)) //if passwords match then check actvation status
+        if (mysqli_num_rows($result)) //if passwords match then check actvation status.
         {
             $query = "select * from " . $table_name . " where username='$username' and password='$hashed_password' and activ_status in(1)";
             $result = mysqli_query($con, $query) or die('error');
@@ -92,6 +94,7 @@ if (mysqli_num_rows($result)) //if exist then check for password
                 $_SESSION["empresa"] = $empresa;
                 $_SESSION["sharedCode"] = $sharedCode;
                 $_SESSION["idAreaDefault"] = $idAreaDefault;
+                $_SESSION["idCajero"] = $idCajero;
                 echo json_encode(array('result' => 1));
             } else {
                 echo json_encode(array('result' => "$msg_email_1 <br /><a href=\"" . $url . "\\resend_key.php?user=" . $username . "\">$msg_email_2</a>."));
