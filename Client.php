@@ -34,17 +34,34 @@ class Client
         }
         return $value;
     }
-    public function updateClient($id_client,$param,$value){
-        //print "\nupdateClient $id_client,$param,$value \n";
-        $sql="UPDATE `redesagi_facturacion`.`afiliados` set `$param`='$value' WHERE `id`='$id_client' ";
-        if ($this->mysqli->query($sql) === TRUE)
-        		$response= true;
-                $response= false;
+    public function updateClient($clienteId,$param,$value,$operator="="){
+        // print "\nupdateClient $clienteId,$param,$value \n";
+        $sql="UPDATE `redesagi_facturacion`.`afiliados` set `$param` $operator '$value' WHERE `id`='$clienteId' ";
+        // print $sql;
+        if ($this->mysqli->query($sql) === TRUE){
+            $response= true;
+        }else{
+            $response= false;
+        }
         return $response;
         }
     public function deleteClient(){
 
     }
 }
+
+// $clientObject=new Client("localhost", "mikrotik", "Agwist1.", "redesagi_facturacion");
+// $clienteId=25;//$data["id"]; 
+// //Update afiliados table 
+// $param="wallet-money";
+// $value="1202";
+// $res=$clientObject->updateClient($clienteId,$param,$value,$operator="=");
+// if($res){
+//     echo json_encode("success");
+// }else{
+//     echo json_encode("fail $clienteId  -- $value "); 
+// }
+
+
 
 ?>

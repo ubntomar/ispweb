@@ -285,13 +285,12 @@ var app = new Vue({
         },
         checkFormNewTicket: function() {
             let valid = true
-            let wallet=0
             if(this.clientNewTicketSelected.money==0){
                 this.clientNewTicketSelected.money="";
                 valid=false
             }else{
-            wallet=(this.clientNewTicketSelected.wallet>=0?this.clientNewTicketSelected.wallet*1:0*1)+(this.clientNewTicketSelected.money>=0?this.clientNewTicketSelected.money*1:0*1)
-            console.log("wallet value:${wallet}"+wallet)
+                this.clientNewTicketSelected.wallet=(this.clientNewTicketSelected.wallet>=0?this.clientNewTicketSelected.wallet*1:0*1)+(this.clientNewTicketSelected.money>=0?this.clientNewTicketSelected.money*1:0*1)
+                console.log("wallet value:${wallet}"+this.clientNewTicketSelected.wallet)
             }
             if (this.clientNewTicketSelected.telefono.length != 10) {
                 this.clientNewTicketSelected.telefono = ""
@@ -321,10 +320,18 @@ var app = new Vue({
                     ticketData: this.clientNewTicketSelected
                 }
             }).then(response => {
-                console.log("Respuesta:" + response.data)
+                console.log("Respuesta:" + JSON.stringify(response.data))//JSON.stringify
                 
-                if (response.data != "success") {
-                    alertify.error("No fue posible guardar el ticket!!!")
+                if (response.data.client == true) {
+                    alertify.success("Dinero fue agregado con éxito!")
+                }else{
+                    alertify.error("Error al cargar el dinero al cliente, favor comunicarse con el administrador del sistema")
+
+                }
+                if (response.data.idWallet > 0 ) {
+                    alertify.success("Transaccion realizada con éxito!")
+                }else{
+                    alertify.error("Error al crear el registro de transacción de dinero, favor comunicarse con el administrador del sistema")
                 }
             }).catch(e => {
                 console.log("error: " + e)
