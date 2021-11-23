@@ -353,9 +353,25 @@ section .w100 {
   padding: 12px;
 }
 
+section .form-group .wallet-current-money {
+  text-align: center;
+}
+
 section .form-group .new-cli {
   max-width: 400px;
 }
+section .form-group .wallet-new-money {
+  text-align: center;
+  background-color: #5cb85c;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 1rem auto;
+  padding: 3rem;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
 
 section .form-group .radio-button {
   display: flex;

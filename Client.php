@@ -3,15 +3,15 @@ class Client
 {
     public $mysqli;
     public function __construct($server, $db_user, $db_pwd, $db_name){
+        $response= true;
         $this->mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 		if ($this->mysqli->connect_errno) {
 	    	echo "Failed to connect to MySQL: ";
-            return false;
+            $response= false;
 			}	
 		mysqli_set_charset($this->mysqli,"utf8");
 		date_default_timezone_set('America/Bogota'); 
-        return true;
-        
+        return $response;
     }
     public function createClient($name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source="ispdev", $activo="1", $ipAddress, $standby, $AfiliacionItemValue,  $usuario, $idClientArea, $empresa){
         //print "\n =afiliar_cliente($name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source, $activo, $ipAddress, $standby, $AfiliacionItemValue,  $usuario, $idClientArea, $empresa)  \n";
@@ -36,11 +36,12 @@ class Client
     }
     public function updateClient($id_client,$param,$value){
         //print "\nupdateClient $id_client,$param,$value \n";
-        $sql="UPDATE `afiliados` set `$param`='$value' WHERE `id`='$id_client' ";
+        $sql="UPDATE `redesagi_facturacion`.`afiliados` set `$param`='$value' WHERE `id`='$id_client' ";
         if ($this->mysqli->query($sql) === TRUE)
-        		return true;
-                return false;
-    }
+        		$response= true;
+                $response= false;
+        return $response;
+        }
     public function deleteClient(){
 
     }

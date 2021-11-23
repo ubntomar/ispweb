@@ -9,6 +9,7 @@ class Html{
             <meta charset="UTF-8" />
             <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
             <title>Wisdev-Administrador ISP</title>
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet" />
             <link rel="stylesheet" href="'.$path.'css/bootstrap-css/bootstrap.css"> 
             <link rel="stylesheet" type="text/css" href="'.$path.'css/jquery.dataTables.css">
             <link rel="stylesheet" href="'.$path.'css/dataTables.checkboxes.css">
@@ -31,6 +32,7 @@ class Html{
         <script type="text/javascript" src="'.$path.'js/vue.js"></script>  
         <script type="text/javascript" src="'.$path.'js/alertify.min.js"></script>   
         <script type="text/javascript" src="'.$path.'js/simple.money.format.js"></script>    
+        <script type="text/javascript" src="'.$path.'js/axios.min.js"></script>    
         ';
         
         

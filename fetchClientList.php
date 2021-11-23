@@ -38,7 +38,9 @@ if ($result = $mysqli->query($sqlSearch)) {
 		$ciudad=$row["ciudad"];
 		$telefono=$row["telefono"];
 		$apuntamiento=$row["apuntamiento"];
-		$list[]=["id"=>"$id","cliente"=>"$cliente","apellido"=>"$apellido","ip"=>"$ip","fecha"=>"$today","email"=>"$mail","direccion"=>"$direccion","ciudad"=>"$ciudad","telefono"=>"$telefono","apuntamiento"=>"$apuntamiento"];
+		$wallet=$row["wallet-money"];
+		$cedula=$row["cedula"];
+		$list[]=["id"=>"$id","cliente"=>"$cliente","apellido"=>"$apellido","ip"=>"$ip","fecha"=>"$today","email"=>"$mail","direccion"=>"$direccion","ciudad"=>"$ciudad","telefono"=>"$telefono","apuntamiento"=>"$apuntamiento","wallet"=>"$wallet","cedula"=>"$cedula"];
 	}
 }
 $jsonList=json_encode($list);
