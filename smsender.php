@@ -44,10 +44,10 @@ if ($_POST['datos']||1) {
 
     }
     echo "mensaje:".$msj;
-    echo "telefonos:".$telefono; 
+    echo "telefonos:".$telefono; //
     $curl = curl_init();
     $query = http_build_query(array(
-    'key' => '7569901a3b138f406d2c7acc4704838c7047dbb5600511a41029d',
+    'key' => $smsKey,
     'client' => '1856',
     'phone' => $telefono,
     'sms' => $msj,

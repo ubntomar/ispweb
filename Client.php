@@ -27,7 +27,7 @@ class Client
 
     }
     public function getClientItem($idClient,$item){
-        $sql="SELECT `$item` FROM `redesagi_facturacion`.`afiliados` WHERE `id`=$idClient ";
+        $sql="SELECT `$item` FROM `redesagi_facturacion`.`afiliados` WHERE `id` = '$idClient' ";
         if($result=$this->mysqli->query($sql)){
             $row=$result->fetch_assoc();
             $value=$row[$item];

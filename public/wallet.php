@@ -74,7 +74,7 @@ $htmlObject=new Html();
                                             </thead>
                                             <tbody>
                                                 <tr v-for="client in clientes" :key="client.id"
-                                                    @click="selectedRowNewTicket(client.id,client.cliente+' '+client.apellido,client)">
+                                                    @click="selectedRowNewWallet(client.id,client.cliente+' '+client.apellido,client)">
                                                     <td>{{client.cedula}}</td>
                                                     <td>{{client.cliente}} {{client.apellido}}</td>
                                                     <td>{{client.direccion}}</td>
@@ -109,7 +109,7 @@ $htmlObject=new Html();
                 </div>
                 <div class="box new-ticket " v-bind:class="{'hide-new-ticket':hideResultModal}">
                     <div class="new-ticket-modal-content">
-                        <form v-on:submit.prevent="checkFormNewTicket()">
+                        <form v-on:submit.prevent="checkFormNewWallet()">
                             <div class="title-modal">
                                 <h3>Agregar dinero a Billetera(cuenta)  personal</h3>
                             </div>
@@ -183,25 +183,26 @@ $htmlObject=new Html();
                             <table>
                                 <thead>
                                     <tr>
-                                        <th># Ticket</th>
                                         <th>Cliente</th>
-                                        <th>Ip Address</th>
-                                        <th>Fecha apertura</th>
+                                        <th>Recarga</th>
+                                        <th>Fecha</th>
+                                        <th>Cajero</th>
+                                        <th>Nuevo Saldo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="ticketAbierto in ticketsAbiertos" :key="ticketAbierto.id"
-                                        @click="selectedRowTicketAbiero(ticketAbierto.id,ticketAbierto)">
-                                        <td>{{ticketAbierto.id}}</td>
-                                        <td>{{ticketAbierto.cliente}} {{ticketAbierto.apellido}}</td>
-                                        <td>{{ticketAbierto.ip}}</td>
-                                        <td>{{ticketAbierto.fechaCreacionTicket}}</td>
+                                    <tr v-for="WalletList in WalletsList" :key="WalletList.id">
+                                        <td>{{WalletList.cliente}} {{WalletList.apellido}}</td>
+                                        <td>{{WalletList.recarga}}</td>
+                                        <td>{{WalletList.date}}</td>
+                                        <td>{{WalletList.cajero}}</td>
+                                        <td>{{WalletList.nuevoSaldo}}</td>
                                     </tr>
 
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td>{{totalRowsAbiertos}} rows</td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -210,14 +211,7 @@ $htmlObject=new Html();
                             </table>
                         </div>
                     </div>
-                    <div class="selected-client">
-                        <p>Cliente seleccionado</p>
-                        <input disabled type="text" :value="abiertoTicketSelectedClient"
-                            placeholder="Selecciona cliente">
-                        <input type="hidden" id="" :value="abiertoTicketSelectedId">
-                        <button :disabled='!abiertoTicketSelectedId'
-                            @click="continueToAbiertoTicketModal(true)">Continuar</button>
-                    </div>
+                    
                     
                 </div>
                 
@@ -242,26 +236,17 @@ var app = new Vue({
         searchClientContent: "",
         clientes: [],
         clientNewTicketSelected: [],
-        ticketsAbiertos: [],
+        WalletsList: [],
         clientAbiertoTicketSelected: [],
-        ticketsCerrados: [],
-        clientCerradoTicketSelected: [],
         totalRows: "",
         totalRowsAbiertos: "",
-        totalRowsCerrados: "",
         newTicketSelectedClient: "",
         newTicketSelectedId: "",
         abiertoTicketSelectedClient: "",
         abiertoTicketSelectedId: "",
-        cerradoTicketSelectedClient: "",
-        cerradoTicketSelectedId: "",
         hideTicketResult: true,
         hideResultModal: true,
-        hideTicketAbiertoModal: true,
-        hideTicketsClosedModal: true,
-        radioButtonDisabled: false,
-        ipAddressContentFlag: true,
-        selectedNewClient: "",
+        hideWalletListModal: true,
         newClientCheck: false,
         file1: "",
         file2: "",
@@ -269,29 +254,22 @@ var app = new Vue({
         img2Error: ""
     },
     methods: {
-        continueToAbiertoTicketModal: function(data) {
+        continueToAbiertoWalletModal: function(data) {
             this.hideTicketResult = true
             if (data) {
-                this.hideTicketAbiertoModal = false
+                this.hideWalletListModal = false
             } else
-                this.hideTicketAbiertoModal = true
+                this.hideWalletListModal = true
         },
-        continueToClosedTicketsModal: function(data) {
-            this.hideTicketResult = true
-            if (data)
-                this.hideTicketsClosedModal = false
-            else
-                this.hideTicketsClosedModal = true
-        },
-        checkFormNewTicket: function() {
+        
+        checkFormNewWallet: function() {
             let valid = true
             if(this.clientNewTicketSelected.money==0){
                 this.clientNewTicketSelected.money="";
                 valid=false
-            }else{
-                this.clientNewTicketSelected.wallet=(this.clientNewTicketSelected.wallet>=0?this.clientNewTicketSelected.wallet*1:0*1)+(this.clientNewTicketSelected.money>=0?this.clientNewTicketSelected.money*1:0*1)
-                console.log("wallet value:${wallet}"+this.clientNewTicketSelected.wallet)
             }
+            
+            
             if (this.clientNewTicketSelected.telefono.length != 10) {
                 this.clientNewTicketSelected.telefono = ""
                 valid = false
@@ -309,6 +287,8 @@ var app = new Vue({
             if (valid) {
                 let r = confirm("Confirmar!");
                 if (r) {
+                    this.clientNewTicketSelected.wallet=(this.clientNewTicketSelected.wallet>=0?this.clientNewTicketSelected.wallet*1:0*1)+(this.clientNewTicketSelected.money>=0?this.clientNewTicketSelected.money*1:0*1)
+                    console.log("wallet value:${wallet}"+this.clientNewTicketSelected.wallet)
                     this.saveNewWallet()
                     this.hideResultModal = true
                 }
@@ -365,25 +345,19 @@ var app = new Vue({
                 console.log('error' + e)
             })
         },
-        
-        
-        selectedRowNewTicket: function(id, client, clientObject) {
+        getWallet: function() {
+            axios.get('../controller/axios/walletList.php', {
+            }).then(response => {
+                this.WalletsList = response.data
+            }).catch(e => {
+                console.log('error' + e)
+            })
+        },
+        selectedRowNewWallet: function(id, client, clientObject) {
             this.newTicketSelectedId = id
             this.newTicketSelectedClient = client
             this.clientNewTicketSelected = clientObject
             this.clientNewTicketSelected.ipBackup = this.clientNewTicketSelected.ip
-        },
-        selectedRowTicketAbiero: function(id, ticketSelectedObjet) {
-            this.abiertoTicketSelectedClient = ticketSelectedObjet.cliente + " " + ticketSelectedObjet
-                .apellido
-            this.abiertoTicketSelectedId = id
-            this.clientAbiertoTicketSelected = ticketSelectedObjet
-        },
-        selectedRowTicketCerrado: function(id, ticketSelectedObjet) {
-            this.cerradoTicketSelectedClient = ticketSelectedObjet.cliente + " " + ticketSelectedObjet
-                .apellido
-            this.cerradoTicketSelectedId = id
-            this.clientCerradoTicketSelected = ticketSelectedObjet
         },
         validateIpAddress: function(data) {
             var ipformat =
@@ -465,6 +439,7 @@ var app = new Vue({
         }
     },
     mounted() {
+        this.getWallet()
     },
 });
 </script>
