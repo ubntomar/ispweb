@@ -13,7 +13,9 @@ class Company {
         return $response;
     }
     public function getCompanyItem($idCompany,$item){
+        $value=false;
         $sql="SELECT `$item` FROM `redesagi_facturacion`.`empresa` WHERE `id` = '$idCompany' ";
+        //print "\n $sql \n";
         if($result=$this->mysqli->query($sql)){
             $row=$result->fetch_assoc();
             $value=$row[$item];

@@ -313,6 +313,16 @@ var app = new Vue({
                 }else{
                     alertify.error("Error al crear el registro de transacción de dinero, favor comunicarse con el administrador del sistema")
                 }
+                if (response.data.sms == "success" ) {
+                    alertify.success("Sms enviado con éxito!")
+                }else{
+                    alertify.error("Error al enviar SMS")
+                }
+                if (response.data.email) {
+                    alertify.success("Email enviado con éxito!")
+                }else{
+                    alertify.error("Error al enviar Email")
+                }
             }).catch(e => {
                 console.log("error: " + e)
             })

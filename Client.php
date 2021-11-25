@@ -1,13 +1,13 @@
 <?php 
 class Client 
 {
-    private $mysqli;
+    public $mysqli;
     public function __construct($server, $db_user, $db_pwd, $db_name){
         $response= true;
         $this->mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 		if ($this->mysqli->connect_errno) {
 	    	echo "Failed to connect to MySQL: ";
-            $response= false;
+            $response= false;//
 			}	
 		mysqli_set_charset($this->mysqli,"utf8");
 		date_default_timezone_set('America/Bogota'); 

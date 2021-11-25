@@ -1,8 +1,11 @@
   async function sendEmail(data = "") {
       var response = "xxx"
-      require('dotenv').config();
+      //require('dotenv').config();
+      const path = require('path'); 
+      require('dotenv').config({ path: path.join(__dirname, '.env') });
       const sgMail = require('@sendgrid/mail')
       sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+      console.log("la api ke"+process.env.SENDGRID_API_KEY)
       const msg = {
           to: data.email,
           from: 'ventas@agingenieria.tech',
@@ -16,7 +19,7 @@
               idClient: data.idClient
           }
       }
-      console.log("Voy a empezar la promesa")
+      console.log("Voy a empezar la promesa") 
       await sgMail
           .send(msg)
           .then((res) => {

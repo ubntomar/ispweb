@@ -1,14 +1,14 @@
 <?php
-// session_start();
-// if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
-// 		{
-// 		header('Location: login/index.php');
-// 		exit;
-// 		}
-// else    {
-// 		$user=$_SESSION['username'];
-// 		}
-// header('Content-Type: application/json'); 
+session_start();
+if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
+		{
+		header('Location: login/index.php');
+		exit;
+		}
+else    {
+		$user=$_SESSION['username'];
+		}
+header('Content-Type: application/json'); 
 require ("../../dateHuman.php");
 require ("../../login/db.php");
 require ("../../Client.php");
