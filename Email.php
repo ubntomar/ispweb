@@ -47,6 +47,27 @@ class Email
         }
         return $message; 
     }
+    public function emailAfterPayment($emailArray){
+        $message= false;
+        $endPoint = $this->endPoint;
+        $postdata = http_build_query(
+            $emailArray
+        );
+        $context = stream_context_create($this->opts($postdata));
+        if($result = json_decode(file_get_contents($endPoint, false, $context))){
+            if($result->mailStatus=="success"){
+                $message= true;
+            }
+        }
+        return $message;            
+    }
+    public function emailValidate($email){
+        $response=false;
+        if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $response=true;
+        }
+        return $response;
+    }
 } 
 
 //  $obj=new Email("http://localhost:3001/newuser");

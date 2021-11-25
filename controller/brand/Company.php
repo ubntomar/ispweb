@@ -12,24 +12,19 @@ class Company {
 		date_default_timezone_set('America/Bogota'); 
         return $response;
     }
-    public function getCompanyItem($idCashier,$item){
-        $sql="SELECT `$item` FROM `redesagi_facturacion`.`empresa` WHERE `id` = '$idCashier' ";
+    public function getCompanyItem($idCompany,$item){
+        $sql="SELECT `$item` FROM `redesagi_facturacion`.`empresa` WHERE `id` = '$idCompany' ";
         if($result=$this->mysqli->query($sql)){
             $row=$result->fetch_assoc();
             $value=$row[$item];
         }
         return $value;
     }
-
-
-
 }
 
-$companyObj= new Company("localhost", "mikrotik", "Agwist1.", "redesagi_facturacion");
-$companyObj->getCompanyItem($idCashier=,$item);
-
-
-
+// $companyObj= new Company("localhost", "mikrotik", "Agwist1.", "redesagi_facturacion");
+// $companyName=$companyObj->getCompanyItem($idCompany="1",$item="nombre");
+// print $companyName;
 
 ?>
 
