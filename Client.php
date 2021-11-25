@@ -1,7 +1,7 @@
 <?php 
 class Client 
 {
-    public $mysqli;
+    private $mysqli;
     public function __construct($server, $db_user, $db_pwd, $db_name){
         $response= true;
         $this->mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
