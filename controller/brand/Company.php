@@ -24,7 +24,6 @@ class Company {
     }
 }
 
-// $companyObj= new Company("localhost", "mikrotik", "Agwist1.", "redesagi_facturacion");
 // $companyName=$companyObj->getCompanyItem($idCompany="1",$item="nombre");
 // print $companyName;
 

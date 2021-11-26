@@ -50,7 +50,6 @@ class Client
     }
 }
 
-// $clientObject=new Client("localhost", "mikrotik", "Agwist1.", "redesagi_facturacion");
 // $clienteId=25;//$data["id"]; 
 // //Update afiliados table 
 // $param="wallet-money";

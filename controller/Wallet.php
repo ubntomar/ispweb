@@ -29,7 +29,6 @@ class Wallet extends Client{
     }
 }
 //
-// $wallet= new Wallet("localhost", "mikrotik", "Agwist1.", "redesagi_facturacion");
 //print $wallet->createWallet($idClient=2, $action="substract", $value=50000, $date="2021/11/18", $hour="08:50 am", $idCajero=10, $source="Wallet Class", $comment="nadita")."\n";
 // print $wallet->updateWallet("1","source","test from class")==true?"success":"fail!";
 // print "\n".$wallet->updateClient($id_client=1,$param="cliente",$value="Adrian Guzmán Bermudez")==true?"success":"fail!"."\n";

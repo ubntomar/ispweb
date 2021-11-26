@@ -65,7 +65,6 @@ class Sms extends Client {
 // require("Sms.php") 
 // require("../brand/Company.php");
 // require("../../Email.php");
-// $companyObj=new Company("localhost", "mikrotik", "Agwist1.", "redesagi_facturacion");
 // $smsObj=new Sms("localhost", "mikrotik", "Agwist1.", "redesagi_facturacion");
 // $idClient=25;
 // $prefix="+57";
