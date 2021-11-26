@@ -2,8 +2,8 @@
 session_start();
 if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
 		{
-		// header('Location: ../../login/index.php');
-		// exit;
+		header('Location: ../../login/index.php');
+		exit;
 		}
 else    {
 		$user=$_SESSION['username'];
@@ -108,11 +108,11 @@ if($_POST['rowid']) {
 						}	
 				}
 			if($fl==0){
-				$varHtml.="<td class=\"small\">Pago Anterior:</td><td>Ninguno.<a href='factura_new_cli.php?rpp=1&idc=$id' target='_blank'> Afiliación:</a>$registration Corte:$corte</td>
+				$varHtml.="<td class=\"small\">Pago Anterior:</td><td>Ninguno.<a href='../../factura_new_cli.php?rpp=1&idc=$id' target='_blank'> Afiliación:</a>$registration Corte:$corte</td>
 				</tr>"; 	
 			}
 			else{
-				$varHtml.="</tr><tr><td class=\"small\">Contrato de afiliación:</td><td><a href='factura_new_cli.php?rpp=1&idc=$id' target='_blank'> Afiliación:</a></td></tr>"; 	
+				$varHtml.="</tr><tr><td class=\"small\">Contrato de afiliación:</td><td><a href='../../factura_new_cli.php?rpp=1&idc=$id' target='_blank'> Afiliación:</a></td></tr>"; 	
 
 			}
 			$result->free();         	

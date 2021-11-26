@@ -1,17 +1,20 @@
 <?php
-session_start();
-if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-		header('Location: ../../login/index.php');
-		exit;
-	} else {
-	$user = $_SESSION['username'];
-	$idCajero = $_SESSION['idCajero'];
-}
+// session_start();
+// if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+// 		header('Location: ../../login/index.php');
+// 		exit;
+// 	} else {
+// 	$user = $_SESSION['username'];
+// 	$idCajero = $_SESSION['idCajero'];
+// }
 include("../../login/db.php"); 
 require '../../Mkt.php';
 require '../../vpnConfig.php'; 
 require '../../VpnUtils.php';
 require '../Wallet.php'; 
+require '../sms/Sms.php';  
+require("../brand/Company.php");
+require("../../Email.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -22,6 +25,7 @@ $today = date("Y-m-d");
 $convertdate = date("d-m-Y", strtotime($today));
 $hourMin = date('H:i');
 $usuario = $_SESSION['username'];
+$response="";
 $debug = 0;
 									// idc: idcRow, 
 									// vap: vapRow,
@@ -82,7 +86,7 @@ if (($_POST['vap'] >= 0) || ($debug == 1)) { //paga todo	//paga todo   //paga to
 	if ($mysqli->query($sqlins) === TRUE) {
 		$last_id_tra = $mysqli->insert_id;
 	} else {
-		echo "Error: " . $sqlins . "<br>" . $conn->error;
+		$response= "Error: " . $sqlins . "<br>" . $conn->error;
 	}
 	$sql = "SELECT * FROM `factura`  WHERE `factura`.`id-afiliado`='$idc' AND `factura`.`cerrado`='0'  ORDER BY `factura`.`id-factura` ASC";
 	$vtotal = 0;
@@ -103,14 +107,14 @@ if (($_POST['vap'] >= 0) || ($debug == 1)) { //paga todo	//paga todo   //paga to
 					if ($mysqli->query($sqlin) === TRUE) {
 						if ($mysqli->query($sqlup) === TRUE) {
 							if ($cnt == $row_cnt)
-								echo "Pago realizado con exito!/" . $last_id_tra;
+							$response= "Pago realizado con exito!/" . $last_id_tra;
 							else
-								echo "";
+							$response= "";
 						} else {
-							echo "Error Recaudo:" . $sqlin . "<br>" . $mysqli->error;
+							$response= "Error Recaudo:" . $sqlin . "<br>" . $mysqli->error;
 						}
 					} else {
-						echo "Error Factura: " . $sqlup . "<br>" . $mysqli->error;
+						$response= "Error Factura: " . $sqlup . "<br>" . $mysqli->error;
 					}
 					$vap -= $saldo;
 				}
@@ -171,7 +175,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 	if ($mysqli->query($sqlins) === TRUE) {
 		$last_id_tra = $mysqli->insert_id;
 	} else {
-		echo "Error: " . $sqlins . "<br>" . $conn->error;
+		$response= "Error: " . $sqlins . "<br>" . $conn->error;
 	}
 
 	$sql = "SELECT * FROM `factura`  WHERE `factura`.`id-afiliado`='$idc' AND `factura`.`cerrado`='0'  ORDER BY `factura`.`id-factura` ASC ";
@@ -240,14 +244,14 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 					if ($mysqli->query($sqlin) === TRUE) {
 						if ($mysqli->query($sqlup) === TRUE) {
 							if ($cnt == $row_cnt)
-								echo "\n Pago realizado con exito!/" . $last_id_tra;
+							$response= "Pago realizado con exito!/" . $last_id_tra;
 							else
-								echo "";
+								$response= "";
 						} else {
-							echo "Error Recaudo:" . $sqlin . "<br>" . $mysqli->error;
+							$response= "Error Recaudo:" . $sqlin . "<br>" . $mysqli->error;
 						}
 					} else {
-						echo "Error Factura: " . $sqlup . "<br>" . $mysqli->error;
+						$response= "Error Factura: " . $sqlup . "<br>" . $mysqli->error;
 					}
 					if ($cerrarAbono == 1)
 						$vaa = 0;
@@ -268,7 +272,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 						//echo "\n 199:$sqlup";
 						if ($mysqli->query($sqlup) === TRUE) {
 							if ($cnt == $row_cnt)
-								echo "\nPago realizado con exito!/" . $last_id_tra;
+							$response="Pago realizado con exito!/" . $last_id_tra;
 							else
 								echo "";
 						} else {
@@ -297,7 +301,40 @@ if($_POST["valorWallet"]){
 		$wallet->updateClient($idClient, $param="wallet-money",$value=$WalletMoneyTosave);//primero debo saber cuanto hay disponible y luego sumar.
 	}
 }
+/////SMS && EMAIL
+$walletObject=new Wallet($server, $db_user, $db_pwd, $db_name);
+$companyObj=new Company($server, $db_user, $db_pwd, $db_name);
+$smsObj=new Sms($server, $db_user, $db_pwd, $db_name);
+$idClient=mysqli_real_escape_string($mysqli, $_REQUEST['idc']);
+$prefix=$prefixCode;//"+57";
+$key=$smsKey;
+$endPoint=$mailEndPoint;
+// $email="ag.ingenieria.wist@gmail.com";
+$fullName=$walletObject->getClientItem($idClient,$item="cliente")."  ".$walletObject->getClientItem($idClient,$item="apellido");
+$companyName=$companyObj->getCompanyItem($idCompany=1,$item="nombre");
+$companyAddress=$companyObj->getCompanyItem($idCompany=1,$item="direccion");
+$message="Gracias por tu pago!. Sigue disfrutando del servicio. $companyName $companyAddress(Meta)";
+$telefono=$walletObject->getClientItem($idClient,$item="telefono");
+$data[] =["idClient"=>$idClient,"phone"=>$telefono]; 
+$sms= $smsObj->sendSms($data,$message,$key)["status"];
+$email=$walletObject->getClientItem($idClient,$item="mail");
+$emailRespone="el email NO es valido";
+$emailObj=new Email($endPoint);
+if(($emailObj->emailValidate($email)) && $fullName){
+	$emailRespone="el email si es valido!";
+    if($responseEmail=$emailObj->emailAfterPayment($emailArray=[
+        "fullName"=> $fullName,
+        "template"=>$tokenToPaymentDone,
+        "idClient"=>$idClient,
+        "email"=>$email
+        ])){ 
+			$emailRespone=$responseEmail;   
+		}
+}
+///////END/////// 
+echo $response."mail-response:".$emailRespone;
 
+//
 function removeIp($remove,$idc,$mysqli,$ip,$today,$hourMin){      
     if($remove==1){
 		//echo "Ip $ip removida con éxito de morosos $idc\n";

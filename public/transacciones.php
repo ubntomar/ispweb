@@ -85,6 +85,9 @@ if($_SESSION['role']=='tecnico'){
                             <a href="transacciones.php" class="nav-link link-border "><i
                                     class="icon-print "></i>Transacciones</a>
                         </li>
+                        <li class="nav-item  ">
+                            <a href="wallet.php" class="nav-link  "><i
+                                    class="icon-print "></i>Billetera</a> 
                         <li class="nav-item">
                             <a href="#" class="nav-link"><i class="icon-mail"></i>Contacto</a>
                         </li>
@@ -110,7 +113,7 @@ if($_SESSION['role']=='tecnico'){
 
                 <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
                     <a href="tick.php"><i class="icon-pinboard"></i><span>Tickets</span></a>
-                    <a href="fact.php"><i class="icon-docs-1"></i><span>Facturas</span></a>
+                    <a href="fact.php"><i class="icon-money"></i><span>Facturas</span></a>
                     <a href="client.php"><i class="icon-users"></i><span>Clientes</span></a>
                     <a href="mktik.php"><i class="icon-network"></i><span>Mktik</span></a>
                     <a href="egr.php"><i class="icon-money"></i><span>Egresos</span></a>
