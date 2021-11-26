@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const {sendEmail,sendEmailPayment} = require('./src/mail')
+const {sendEmail,sendEmailPayment,sendEmailToCompany} = require('./src/mail')
 const app = express();
 // defining an array to work as the database (temporary solution)
 const ads = [{
@@ -40,6 +40,19 @@ app.post('/newuser', async (req, res) => {
 app.post('/mail', async (req, res) => {
   const data = req.body;
   let resultado=await sendEmailPayment(data)
+  if (resultado == true) {
+    res.status(200).send({
+      "mailStatus": "success"
+    })
+  } else {
+    res.status(200).send({
+      "mailStatus": "fail"
+    });
+  }
+});
+app.post('/mailCompany', async (req, res) => {
+  const data = req.body;
+  let resultado=await sendEmailToCompany(data)
   if (resultado == true) {
     res.status(200).send({
       "mailStatus": "success"
