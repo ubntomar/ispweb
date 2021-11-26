@@ -62,37 +62,6 @@ class Sms extends Client {
 }
 
 
-// require("Sms.php") 
-// require("../brand/Company.php");
-// require("../../Email.php");
-// $smsObj=new Sms("localhost", "mikrotik", "Agwist1.", "redesagi_facturacion");
-// $idClient=25;
-// $prefix="+57";
-// $key="7569901a3b138f406d2c7acc4704838c7047dbb5600511a41029d";
-// $endPoint="http://localhost:3001/mail";
-// $email="ag.ingenieria.wist@gmail.com";
-// $fullName=$smsObj->getClientItem($idClient,$item="cliente")."  ".$smsObj->getClientItem($idClient,$item="apellido");
-// $companyName=$companyObj->getCompanyItem($idCompany=1,$item="nombre");
-// $companyAddress=$companyObj->getCompanyItem($idCompany=1,$item="direccion");
-// $message="Gracias por tu pago!. Sigue disfrutando del servicio. $companyName $companyAddress(Meta)";
-// // $data[] =["idClient"=>$idClient,"phone"=>"3147654655"];
-// $data[] =["idClient"=>$idClient,"phone"=>"3162950915"]; 
-// $data[] =["idClient"=>$idClient,"phone"=>"3147654655"]; 
-// $data[] =["idClient"=>$idClient,"phone"=>"3215450397"]; 
-// print $smsObj->sendSms($data,$message,$key)["status"];
-// $emailObj=new Email($endPoint);
-// if(($emailObj->emailValidate($email)) && $fullName){
-//     $response=$emailObj->emailAfterPayment($emailArray=[
-//         "fullName"=> $fullName,
-//         "template"=>"d-d451365d82394c369b47f375cd19ed6b",
-//         "idClient"=>$idClient,
-//         "email"=>$email
-//         ]);
-//     print "Email response:".$response;   
-// }
- 
-
-
 
 
 ?>
