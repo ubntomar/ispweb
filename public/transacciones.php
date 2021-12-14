@@ -13,6 +13,7 @@ else{
     $jurisdiccion = $_SESSION['jurisdiccion'];
     $empresa = $_SESSION['empresa'];
     $sharedCode = $_SESSION['sharedCode'];
+    $convenio = $_SESSION['convenio'];
 }
 if($_SESSION['role']=='tecnico'){
 	header('Location: tick.php');
@@ -142,23 +143,27 @@ if($_SESSION['role']=='tecnico'){
 								else{
 									$sqlcaj="AND `transacciones`.`cajero`='$caj' ";	
 								}								
-							}	
-							$sqlcajero="SELECT DISTINCT `transacciones`.`cajero` FROM `transacciones` ";
-							echo $sqlcajero;									
-							$i=0;
-							if ($result = $mysqli->query($sqlcajero)) {
-								while ($row = $result->fetch_assoc()) {
-									$i+=1;
-									$cajero=$row["cajero"];
-									$caje[$i]=$cajero;										
-									if($caj==$cajero)
-										$tx="selected";
-									else
-										$tx="";
-
-									echo"<option value=\"$cajero\"  $tx >$cajero</option>";
-								}
-							}																						  
+							}
+                            if(!$convenio){
+                                $sqlcajero="SELECT DISTINCT `transacciones`.`cajero` FROM `transacciones` ";
+                                echo $sqlcajero;									
+                                $i=0;
+                                if ($result = $mysqli->query($sqlcajero)) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $i+=1;
+                                        $cajero=$row["cajero"];
+                                        $caje[$i]=$cajero;										
+                                        if($caj==$cajero)
+                                            $tx="selected";
+                                        else
+                                            $tx="";
+    
+                                        echo"<option value=\"$cajero\"  $tx >$cajero</option>";
+                                    }
+                                }																						  
+                            }else{
+                                $caje[0]=$user;
+                            }	
 											echo"</select>";	
 		    							echo"</div>";
 		    				  
@@ -187,7 +192,10 @@ if($_SESSION['role']=='tecnico'){
                                         </tfoot>
                                         <tbody>
 
-                                            <?php 					
+                                            <?php 	
+                                            if($convenio==1){
+                                                $sqlcaj="AND `transacciones`.`cajero` = '$user' ";
+                                            }				
 											$sql = "SELECT * FROM `transacciones` WHERE MONTH(fecha) = $month AND YEAR(fecha) = $year AND DAY(fecha) = $today $sqlcaj ORDER BY `transacciones`.`idtransaccion` DESC ";
 											if ($result = $mysqli->query($sql)) {
 												$recaudo=0;
@@ -302,7 +310,7 @@ if($_SESSION['role']=='tecnico'){
                                     <small id="" class="form-text text-muted">Hasta el día...</small>
                                 </div>
                                 <div>
-                                    <button type="text" class="btn btn-primary mb-2" id="btn_enviar">
+                                    <button <?php echo $convenio?"DISABLED":""  ?> type="text" class="btn btn-primary mb-2" id="btn_enviar">
                                         <span class=" spinner-border-sm" role="status" aria-hidden="true"
                                             id="spinner-enviar"></span>
                                         Enviar
@@ -469,7 +477,7 @@ if($_SESSION['role']=='tecnico'){
 
 									echo "  </tbody>
 										</table>";
-								?>
+								        ?>
                                     </div>
 
 

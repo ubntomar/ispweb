@@ -32,7 +32,7 @@ Class TemplateDark{
             <ul>
                 <li><a href="'.($role!='tecnico'?"registerPay.php":"#").'"><i class="icon-money"></i>Registrar Pago</a></li>
                 <li><a href="'.$path.($role!='tecnico'?"transacciones.php":"#").'"><i class="icon-print"></i>Transacciones</a></li>
-                <li><a href="'.$path.($role!='tecnico'?"reclist.php":"#").'"><i class="icon-money"></i>Formato Recibo</a></li> 
+                <li><a href="'.$path.($role!='tecnico' && $role!='convenio'?"reclist.php":"#").'"><i class="icon-money"></i>Formato Recibo</a></li> 
                 <li><a href="'.$path.($role!='tecnico'?"wallet.php":"#").'"><i class="icon-money"></i>Billetera</a></li> 
             </ul>
         </nav>
@@ -44,15 +44,15 @@ Class TemplateDark{
         <nav class="navLeft">
             <ul>
                 <li class="selected"><a href="tick.php"><i class="icon-pinboard"></i><span>Tickets</span></a></li>
-                <li><a href="'.$path.($role!='tecnico'?"fact.php":"#").'"><i
+                <li><a href="'.$path.($role!='tecnico' && $role!='convenio'?"fact.php":"#").'"><i
                             class="icon-docs"></i><span>Facturas</span></a></li>
-                <li><a href="'.$path.($role!='tecnico'?"client.php":"#").'"><i
+                <li><a href="'.$path.($role!='tecnico' && $role!='convenio'?"client.php":"#").'"><i
                             class="icon-users"></i><span>Clientes</span></a></li>
-                <li><a href="'.$path.($role!='tecnico'?"mktik.php":"#").'"><i
+                <li><a href="'.$path.($role!='tecnico' && $role!='convenio'?"mktik.php":"#").'"><i
                             class="icon-network"></i><span>Mktik</span></a></li>
-                <li><a href="'.$path.($role!='tecnico'?"egr.php":"#").'"><i
+                <li><a href="'.$path.($role!='tecnico' && $role!='convenio'?"egr.php":"#").'"><i
                             class="icon-money"></i><span>Egresos</span></a></li>
-                <li><a href="'.$path.'login/logout.php"><i class="icon-logout"></i><span>Salir</span></a></li>
+                <li><a href="'.$path.'../login/logout.php"><i class="icon-logout"></i><span>Salir</span></a></li>
             </ul>
         </nav>
         ';

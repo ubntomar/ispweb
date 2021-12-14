@@ -23,7 +23,7 @@ if ($result = $mysqli->query($sql)) {
             $part = explode(".", $ip);
             if ($part[2]=="30" || $part[2]=="60"){
                 print "\n $cont- $ip : \t\t\t Actualizo la red de Salcedo. id_client_area: 4325 ";
-                $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`id_client_area`='4325' WHERE `afiliados`.`id`='$id'  ";
+                //$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`id_client_area`='4325' WHERE `afiliados`.`id`='$id'  ";
                 if($result2 = $mysqli->query($sqlUpd)){						
                     echo " Actualizacion con éxito!! \n";	
                 }
@@ -33,7 +33,7 @@ if ($result = $mysqli->query($sql)) {
             }
             else{
                 print "\n $cont- $ip : Actualizo las demas. id_client_area: 4324 ";
-                $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`id_client_area`='4324' WHERE `afiliados`.`id`='$id'  ";
+                //$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`id_client_area`='4324' WHERE `afiliados`.`id`='$id'  ";
                 if($result2 = $mysqli->query($sqlUpd)){						
                     echo " Actualizacion con éxito!! \n";	
                 }

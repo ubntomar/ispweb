@@ -11,22 +11,20 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true)
 else    {
 		$user=$_SESSION['username'];
 		}
+require ("vpnConfig.php");    
 include("PingTime.php");
-include("login/db.php");
-require 'Mkt.php';
-require 'vpnConfig.php';
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($debug) {
     $mainServerIp="192.168.21.1";
-    $from="192.168.16.70";
-    $to  ="192.168.16.254";
+    $from="192.168.16.1";
+    // $to  ="192.168.16.254";
     $byteToChange=3;
-    $rowNumbers=5;
+    $rowNumbers=1;
 }
 else{
     $mainServerIp=mysqli_real_escape_string($mysqli, $_REQUEST['mainServerIp']);
     $from=mysqli_real_escape_string($mysqli, $_REQUEST['from']);
-    $to  =mysqli_real_escape_string($mysqli, $_REQUEST['to']);
+    // $to  =mysqli_real_escape_string($mysqli, $_REQUEST['to']);
     $byteToChange=mysqli_real_escape_string($mysqli,$_REQUEST['byteToChange']);
     $rowNumbers=mysqli_real_escape_string($mysqli,$_REQUEST['rowNumbers']);
 }
@@ -36,9 +34,7 @@ $ipList =array();
 if(($rowNumbers+$valueBytetoChange)>254)$rowNumbers=254-$valueBytetoChange;
 $device= new PingTime($mainServerIp);  
 if($device->time()){
-    if($mkobj=new Mkt($serverIpAddressArea1,$vpnUser,$vpnPassword)){
-        $exclusivosList=$mkobj->list_all();        
-    }
+    
     $counter=0;
     $cont=-1;
     while($counter<$rowNumbers  || ($valueBytetoChange+$counter>=254)  ) {
@@ -56,10 +52,7 @@ if($device->time()){
             $device2= new PingTime($dotSeparated);
             $pingResponse = ($device2->time()) ?  true :  false ;
         }        
-        $matchMkListIp=0;
-        foreach ($exclusivosList as $value) {
-            if($value['ip']==$dotSeparated)	$matchMkListIp=1;
-        }
+        
         if ($pingResponse) {
             $DefaultJson="{}";
             $fileJsonString= file_get_contents("ipAlive.json");
@@ -104,7 +97,7 @@ if($device->time()){
         else{
         }            
     }        
-    if( !$pingResponse && !$rt->num_rows &&  !$matchMkListIp && !$fileIpMatch ){
+    if( !$pingResponse && !$rt->num_rows && !$fileIpMatch ){
         array_push($ipList,$dotSeparated); 
     }else{
         $counter-=1;

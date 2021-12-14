@@ -15,6 +15,18 @@ if(!$pingObject->time(15)){
 }else{
     print "\n$ipAddress responde con normalidad!";
 }
+$ipAddress="190.158.140.232"; 
+$pingObject=new PingTime($ipAddress);
+if(!$pingObject->time(15)){  
+    $messageToTelegram="Alerta!  Ip publica $ipAddress de la red 32 no responde, mensaje enviado desde Aws Server. Revisar por favor!!";
+    $stringFormatted = preg_replace('/\s+/', '\\t', $messageToTelegram);
+    print "mensaje formateado: $stringFormatted";
+    $curl="curl -X POST \"$telegramApi\" -d \"chat_id=$telegramChatid&text=$messageToTelegram\"";
+    exec($curl,$result);
+    print "\nmessage has been sent  to Telegram!";
+}else{
+    print "\n$ipAddress responde con normalidad!";
+}
 
 $jsonDecoded=json_decode($json,true);
 foreach ($jsonDecoded as $map){

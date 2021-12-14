@@ -46,6 +46,7 @@ if($_SERVER['REQUEST_METHOD']==='POST') {  //    Update Ip and others  Block
             $dstnatResponse=($response["result"]=="1" || $response["result"]=="3") ? "Actived-Mikrotik":"Inactive";
             $dstnatTarget=$response["dstnatTarget"];
             $arp=getArp($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
+            $signal=getSignal($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
             $queue=Queue($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
         }else{
             $dstnatResponse="Comunication Error";
@@ -54,7 +55,7 @@ if($_SERVER['REQUEST_METHOD']==='POST') {  //    Update Ip and others  Block
         $response=checkPort($ip,$serverIp,$id,$rb_default_dstnat_port);
         $portStatus=$response["portStatus"];
         $port=$response["port"];
-        $retObj=["queue"=>"$queue","arp"=>$arp,"arpTarget"=>"$dstnatTarget","portStatus"=>"$portStatus","id"=>"$idRow","ip"=>"$ipRow","status"=>"success","idGroup"=>"$idGroup","dstnatResponse"=>"$dstnatResponse","port"=>"$port","dstnatTarget"=>"$dstnatTarget","ipAddress"=>"$ip"]; 
+        $retObj=["signal"=>"$signal","queue"=>"$queue","arp"=>$arp,"arpTarget"=>"$dstnatTarget","portStatus"=>"$portStatus","id"=>"$idRow","ip"=>"$ipRow","status"=>"success","idGroup"=>"$idGroup","dstnatResponse"=>"$dstnatResponse","port"=>"$port","dstnatTarget"=>"$dstnatTarget","ipAddress"=>"$ip"]; 
         echo json_encode($retObj); 
     }
 }
@@ -90,6 +91,7 @@ if ($searchOption=="Todos"){
                 $dstnatResponse=($response["result"]=="1" || $response["result"]=="3") ? "Actived-Mikrotik":"Inactive";
                 $dstnatTarget=$response["dstnatTarget"];
                 $arp=getArp($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
+                $signal=getSignal($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
                 $queue=Queue($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
             }else{
                 $dstnatResponse="Comunication Error";
@@ -106,7 +108,7 @@ if ($searchOption=="Todos"){
             else{
                 $elapsedTime=""; 
             }
-            $ping[] = array("queue"=>"$queue","arp"=>$arp,"arpTarget"=>"$dstnatTarget","dstnatTarget"=>"$dstnatTarget","dstnatResponse"=>$dstnatResponse,"port"=>"$port","portStatus"=>"$portStatus","serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "direccion"=>"$direccion", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
+            $ping[] = array("signal"=>"$signal","queue"=>"$queue","arp"=>$arp,"arpTarget"=>"$dstnatTarget","dstnatTarget"=>"$dstnatTarget","dstnatResponse"=>$dstnatResponse,"port"=>"$port","portStatus"=>"$portStatus","serverIp"=>"$serverIp","ipText"=>"","ipIconSpin"=>false,"validIp"=>"true","counter"=>"$counter","id"=>"$id", "name"=>"$name", "direccion"=>"$direccion", "ipAddress"=>"$ipAddress", "pingStatus"=>"$pingStatus", "responseTime"=>"$responseTime","suspender"=>"$suspender","elapsedTime"=>$elapsedTime);
         }
         $ping[]=array("numResult"=>"$num");
     }
@@ -300,8 +302,8 @@ function Queue($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_pa
     return $result;
 }
 function getArp($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip){
-    $serverLasByte=explode(".",$serverIp)[3];
-    if($serverLasByte=="1"){
+    $serverLastByte=explode(".",$serverIp)[3];
+    if($serverLastByte=="1"){
         $user=$rb_default_user;
         $password=$rb_default_password;    
     }
@@ -309,7 +311,7 @@ function getArp($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_p
         $user=$vpnUser;
         $password=$vpnPassword;
     }
-    $targetIp=($serverLasByte=="1")?$ip:$serverIp;//example 21.1 17.163 ?
+    $targetIp=($serverLastByte=="1")?$ip:$serverIp;//example 21.1 17.163 ?
     try{
         if($mkobj=new Mkt($targetIp,$user,$password)){
             if($mkobj->success){
@@ -319,6 +321,24 @@ function getArp($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_p
     }catch (Exception $e) {
         // echo 'Caught exception: ',  $e->getMessage(), "\n"; 
     }
+    return $result;
+}
+function getSignal($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip){
+    $serverLastByte=explode(".",$serverIp)[3];
+    if($serverLastByte=="1"){
+        $user=$rb_default_user;
+        $password=$rb_default_password; 
+        try{
+            if($mkobj=new Mkt($ip,$user,$password)){
+                if($mkobj->success){
+                    $result= $mkobj->checkSignal(); 
+                }
+            }
+        }catch (Exception $e) {
+            // echo 'Caught exception: ',  $e->getMessage(), "\n"; 
+        }   
+    }
+       
     return $result;
 }
 

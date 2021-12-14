@@ -1,12 +1,12 @@
 <?php
-// session_start();
-// if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-// 		header('Location: ../../login/index.php');
-// 		exit;
-// 	} else {
-// 	$user = $_SESSION['username'];
-// 	$idCajero = $_SESSION['idCajero'];
-// }
+session_start();
+if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+		header('Location: ../../login/index.php');
+		exit;
+	} else {
+	$user = $_SESSION['username'];
+	$idCajero = $_SESSION['idCajero'];
+}
 include("../../login/db.php"); 
 require '../../Mkt.php';
 require '../../vpnConfig.php'; 
@@ -302,13 +302,19 @@ if($_POST["valorWallet"]){
 	}
 }
 /////SMS && EMAIL
+$endPoint=$mailEndPoint;
+$key=$smsKey;
+$prefix=$prefixCode;//"+57";
+$idClient=mysqli_real_escape_string($mysqli, $_REQUEST['idc']);
 $walletObject=new Wallet($server, $db_user, $db_pwd, $db_name);
 $companyObj=new Company($server, $db_user, $db_pwd, $db_name);
 $smsObj=new Sms($server, $db_user, $db_pwd, $db_name);
-$idClient=mysqli_real_escape_string($mysqli, $_REQUEST['idc']);
-$prefix=$prefixCode;//"+57";
-$key=$smsKey;
-$endPoint=$mailEndPoint;
+$emailObj=new Email($endPoint);
+//Update email from pyment modal
+$emailInput=mysqli_real_escape_string($mysqli, $_REQUEST['emailInput']);
+if(($emailObj->emailValidate($emailInput))){
+	$walletObject->updateClient($idClient,$param="mail",$value=$emailInput,$operator="=");
+}
 // $email="ag.ingenieria.wist@gmail.com";
 $fullName=$walletObject->getClientItem($idClient,$item="cliente")."  ".$walletObject->getClientItem($idClient,$item="apellido");
 $companyName=$companyObj->getCompanyItem($idCompany=1,$item="nombre");
@@ -319,7 +325,7 @@ $data[] =["idClient"=>$idClient,"phone"=>$telefono];
 $sms= $smsObj->sendSms($data,$message,$key)["status"];
 $email=$walletObject->getClientItem($idClient,$item="mail");
 $emailRespone="el email NO es valido";
-$emailObj=new Email($endPoint);
+$responseEmail="";
 if(($emailObj->emailValidate($email)) && $fullName){
 	$emailRespone="el email si es valido!";
     if($responseEmail=$emailObj->emailAfterPayment($emailArray=[
@@ -332,7 +338,7 @@ if(($emailObj->emailValidate($email)) && $fullName){
 		}
 }
 ///////END/////// 
-echo $response."mail-response:".$emailRespone;
+echo $response;//."response email:$responseEmail"  
 
 //
 function removeIp($remove,$idc,$mysqli,$ip,$today,$hourMin){      

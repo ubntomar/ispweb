@@ -7,6 +7,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     $user = $_SESSION['name'];
     $role = $_SESSION["role"];
     $id_tecnico = $_SESSION["id"];
+    $idCajero = $_SESSION['idCajero'];
 }
 require("../../login/db.php");
 require("../Wallet.php");
@@ -35,7 +36,7 @@ $param="wallet-money";
 $value=$data["wallet"];
 $valueToCharge=$data["money"];
 $res=$walletObject->updateClient($clienteId,$param,$value,$operator="="); 
-$idWallet=$walletObject->createWallet($clienteId, $action="add", $value=$valueToCharge, $date=$today, $hour=$hourMin, $idCajero=$user, $source="wallet->saveNewWallet", $comment="");
+$idWallet=$walletObject->createWallet($clienteId, $action="add", $value=$valueToCharge, $date=$today, $hour=$hourMin, $idCajero, $source="wallet->saveNewWallet", $comment="");
 
 /////SMS && EMAIL
 $companyObj=new Company($server, $db_user, $db_pwd, $db_name);

@@ -9,7 +9,7 @@ class Wallet extends Client{
             $last_id = $this->mysqli->insert_id;
             $idWallet=$last_id;
         }
-        return $idWallet;//
+        return $idWallet;////
     }
     public function getWallet($idWallet){
 

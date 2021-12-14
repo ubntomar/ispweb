@@ -14,15 +14,17 @@ class Mkt
         $this->ip = $ipRouter;
         $this->user = $user;
         $this->pass = $pass;
+        $response=true;
         try{
             $this->client = new RouterOS\Client($ipRouter, $user, $pass);  
         } catch(Exception $e){
             // echo(json_encode(array('error' => 'timeout Mkt.php new')));
             // print "error:$e";
+            $response=false;
             $this->error=$e;
             $this->success=false;
         }
-        return true;
+        return $response;
     }
 
     
@@ -59,6 +61,27 @@ class Mkt
             }
         } 
     return $myArray;
+    }
+    public function verifyList($list,$ip) 
+    {         
+        $responses = $this->client->sendSync(new RouterOS\Request('/ip/firewall/address-list/print'));         
+        $res=false;
+        foreach ($responses as $response) {
+            try{
+            if ($response->getType() === RouterOS\Response::TYPE_DATA) {
+                if($ip==$response->getProperty('address')){
+                    if($list==$response->getProperty('list')){
+                        print "\ncliente si apareceen la lista!!\n";
+                        $res=true;
+                    }
+                }
+                }
+            }
+            catch(Exception $e){
+                echo "Error  en ip firewall list";
+            }
+        } 
+    return $res;
     }
     public function add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
     {   
@@ -151,6 +174,15 @@ class Mkt
         }   
         return $response;
     }
+    public function checkSignal(){
+        $printRequest = new RouterOS\Request('/interface/wireless/registration-table/print');
+        $signal = $this->client->sendSync($printRequest)->getProperty('signal-strength');
+        $response=0;           
+        if($signal!=NULL){ 
+            $response= $signal;
+        }   
+        return $response;
+    }
     public function arp(){
         $responses = $this->client->sendSync(new RouterOS\Request('/ip/arp/print'));         
         $myArray = array();
@@ -163,12 +195,13 @@ class Mkt
     }
     
 } 
+//////////
+if($mkobj=new Mkt("192.168.26.1","agingenieria","agwist2017")){
+    if($mkobj->success){
+        var_dump($mkobj->verifyList("morosos","192.168.26.130"));      
+    }       
+}
 
-// if($mkobj=new Mkt("192.168.30.163","agingenieria","agwist2017")){
-//     print "Connected\n"; 
-//     // var_dump($mkobj->arp());       
-//    print($mkobj->checkQueue("192.168.71.16"));      
-// }
  
 
 ?>

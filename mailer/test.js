@@ -7,7 +7,7 @@ pathToAttachment = "/tmp/bill/web-example.pdf";
 attachment = fs.readFileSync(pathToAttachment).toString("base64");
 
 const msg = {
-    to: 'omar.a.hernandez.d@gmail.com',
+    to: 'ag.ingenieria.wist@gmail.com',
     from: 'ventas@agingenieria.tech',
     subject: 'Factura generada',
     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
@@ -20,7 +20,7 @@ const msg = {
         }
     ]
 }
-
+ 
 sgMail.send(msg).catch(err => {
   console.log(err);
 });

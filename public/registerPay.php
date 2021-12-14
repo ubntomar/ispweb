@@ -10,6 +10,8 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 	$role = $_SESSION['role'];
 	$jurisdiccion = $_SESSION['jurisdiccion'];
 	$empresa = $_SESSION['empresa'];
+    $idCajero = $_SESSION['idCajero'];
+    $convenio=$_SESSION['convenio'];
 }
 if($_SESSION['role']=='tecnico'){
 	header('Location: tick.php');
@@ -32,7 +34,7 @@ $htmlObject=new Html();
 <?=$htmlObject->head($path="../")?> 
 
 <body>
-    <?=$templateObject->header($user="omar")?>
+    <?=$templateObject->header($user=$name)?>
     <?=$templateObject->navTop($_SESSION['role'],$path="")?>
 
     <main id="app">
@@ -41,7 +43,7 @@ $htmlObject=new Html();
 
         <section>
             <div class="section-title">
-                <h1>AREA DE PAGOS</h1>
+                <h1>AREA DE PAGOS  <?=strtoupper($name)?></h1>
             </div>
             <div class=box-container>
 
@@ -67,7 +69,6 @@ $htmlObject=new Html();
                                         <th>Corte</th>
                                         <th>Cedula Titular</th>
                                         <th>Telefono</th>
-                                        <th>Pay</th>
                                     </tr>
                                 </thead>
 
@@ -88,10 +89,10 @@ $htmlObject=new Html();
                                     $idArea=$row["id-area"];
                                     $arrayidArea.=($cn==$num_rows)? "`id_client_area` = $idArea ) AND `afiliados`.`id-empresa` = $empresa ":"`id_client_area` = $idArea OR";
                                 }
-                                $result->free();
+                                $result->free();   
                             }
                         }
-                        $sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`activo`=1 AND `afiliados`.`eliminar`!=1  $arrayidArea  ORDER BY `afiliados`.`id`  ASC  ";
+                        $sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`activo`=1 AND `afiliados`.`eliminar`!=1   $arrayidArea  ORDER BY `afiliados`.`id`  ASC  ";
                         if ($result = $mysqli->query($sql)) {
                             while ($row = $result->fetch_assoc()) {
                                 $idCliente = $row["id"];
@@ -102,7 +103,9 @@ $htmlObject=new Html();
                                 $idGRoup = ($row["id-repeater-subnets-group"]==0)?"G-0":"";
                                 $standby = $row["standby"];
                                 $ip=$row["ip"];
+                                $signal=$row["signal-strenght"];
                                 $pingDate=$row["pingDate"];
+                                $clientWidthConvenio=$row["convenio"];
                                 $pingCurrentStatus=($pingDate==$today) ? "Ping ok!" : "<small class=\"bg-danger text-white p-1\">Ping Error</small>";   
                                 $style_cell = "class=\"font-weight-bold h6\" "; 
                                 $style2_cell = "";
@@ -177,15 +180,28 @@ $htmlObject=new Html();
                                 echo "<td class=\" font-weight-bold\"> {$row["cliente"]}  {$row["apellido"]} $statusText </td>";
                                 echo "<td><small>{$row["direccion"]} {$row["ciudad"]} -{$row['id']}</small></td>";  
                                 echo "<td>$diff</td>";
-                                echo "<td><small 	$style_cell  >$$vtotal</small><div><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money\"></i></a></div></td>";
+                                if($convenio){ 
+                                    if($clientWidthConvenio){
+                                        echo "<td><small 	$style_cell  >$$vtotal</small><div><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money h3\"></i></a></div><div class=\"p-1 border border-secondary rounded \"><p class=\"mb-0 text-secondary\"><small>Billetera</small></p><p class=\"mb-0 text-secondary\"><small>($".number_format($row["wallet-money"]).")</small></p></div></td>";//
+                                    }else{
+                                        echo "<td><small>Ojo, este cliente paga a Omar hay que darle mis datos.</small></td>";//
+                                    }
+
+                                }else{
+                                    if($clientWidthConvenio){
+                                        echo "<td><div class=\"p-1 border border-secondary rounded \"><p class=\"mb-0 text-secondary\"><small>Convenio:</small></p><p class=\"mb-0 text-secondary\"><small>Este cliente DEBE pagar por Nequi al número: <strong>322-378-23-24</strong> y reportar el pago al mismo número: 322-378-23-24</small></p></div></td>";//
+                                    }else{
+                                        echo "<td><small 	$style_cell  >$$vtotal</small><div><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money h3\"></i></a></div><div class=\"p-1 border border-secondary rounded \"><p class=\"mb-0 text-secondary\"><small>Billetera</small></p><p class=\"mb-0 text-secondary\"><small>($".number_format($row["wallet-money"]).")</small></p></div></td>";//
+                                    }
+
+                                }
                                 // echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small><input type=\"text\" value=\"\" placeholder=\"$ip\" id=\"{$row['id']}\"
-                                // class=\"form-control form-control-sm ml-1\"></small></p><button v-on:click=\"ipUpdate({$row['id']})\" class=\"border border-rounded icon-arrows-ccw\"></button>
-                                // <p class=\"mb-0\"><small>$pingCurrentStatus</small></p></div></td>"; 
-                                echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small>ip:'$ip'</small></p><p class=\"mb-0\"><small>$pingCurrentStatus</small></p></div></td>";    
+                                // class=\"form-control form-control-sm ml-1\"></small></p><button v-on:click=\"ipUpdate({$row['id']})\" class=\"border border-rounded icon-arrows-ccw\"></button> 
+                                // <p class=\"mb-0\"><small>$pingCurrentStatus</small></p></div></td>";   
+                                echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small>ip:'$ip'</small></p><p class=\"mb-0\"><small>$pingCurrentStatus</small></p><p class=\"mb-0\"><small>Señal:$signal</small></p></div></td>";    
                                 echo "<td class=\" align-middle \"><small>C-" . $row["corte"] . "*$standby</small><p><small>$idGRoup</small></p></td>";
                                 echo "<td class=\" align-middle \">$textCedula</td>"; 
                                 echo "<td class=\" align-middle \">$textTelefono</td>";          
-                                echo "<td class=\" align-middle \"><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money\"></i></a></td>";
                                 echo "</tr>";
                             }
                             $result->free(); 
@@ -572,6 +588,7 @@ $(document).ajaxComplete(function() {
                     let vad = 0;
                     let rec = 0;
                     let valorWallet=$("#valor-wallet").val();
+                    let emailInput=$("#emailInput").val();
                     if ($('#checkbox-reconectar').is(":checked")) {
                         rec = 1
                     }
@@ -617,7 +634,8 @@ $(document).ajaxComplete(function() {
                             vad: vadRow,
                             vpl: vplanRow,
                             rec: rec,
-                            valorWallet:valorWallet
+                            valorWallet:valorWallet,
+                            emailInput:emailInput
                         },
                         success: function(data) {
                             console.log("data" + data)
@@ -629,7 +647,7 @@ $(document).ajaxComplete(function() {
                                 cod);
                             alertify.success(msj);
                             $("#idt").val(cod);
-                           // $("#form").submit();
+                            $("#form").submit(); 
                         }
                     });
                 } else

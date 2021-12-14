@@ -2,12 +2,13 @@
 session_start();
 if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
 		{
-		// header('Location: ../../login/index.php');
-		// exit;
+		header('Location: ../../login/index.php');
+		exit;
 		}
 else    {
-		$user=$_SESSION['username'];
-		}
+        $user = $_SESSION['username'];
+	    $idCajero = $_SESSION['idCajero'];
+		} 
 if($_POST['rowid']) {
 		$id = $_POST['rowid'];
 		$cedula = $_POST['cedula']; 

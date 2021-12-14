@@ -48,7 +48,7 @@ class Email
         return $message; 
     }
     public function emailAfterPayment($emailArray){
-        $message= false;
+        $message= "fail";
         $endPoint = $this->endPoint;
         $postdata = http_build_query(
             $emailArray

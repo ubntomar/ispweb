@@ -47,6 +47,7 @@ if($_POST['rowid']) {
 			$multiplicador=$row["mesenmora"];
 			$registration=$row["registration-date"];
 			$corte=$row["corte"];
+			$email=$row["mail"];
 			$date1 = new DateTime($today);
 			$date2 = new DateTime($row["suspenderFecha"]);
 			$days  = $date2->diff($date1)->format('%a');
@@ -188,11 +189,16 @@ if($_POST['rowid']) {
 									<small>**Cada cliente tiene su billetera personal, mientras tengo saldo se va a usar para pagar la factura cada mes!</small>
 								</div>
 								<div class=\"text-secondary\"> 
-									<small>**La billetera se puede recargar directamente aquí ingresando el valor de pago por adelantado o en la opcion WALLET  del menú principal</small>
+									<small>**La billetera se puede recargar directamente aquí ingresando el valor de pago por adelantado o en la opcion Biletera  del menú principal</small>
 								</div>
 							</div>
 					  </div> 
-					 
+					<div>
+						<p>-</p>
+						<p class=\"text-info font-weight-bold font-italic\">email:
+						<input class=\"form-control\" id=\"emailInput\" value=\"$email\" placeholder=\"Ingrese email por favor\" >
+						</p>
+					</div>
 					 
 					  ";
 			         

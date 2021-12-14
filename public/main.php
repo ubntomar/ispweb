@@ -26,7 +26,7 @@ else{
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.min.css" />
     <link rel="stylesheet" href="../bower_components/alertify/css/alertify.min.css" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css" />
-    <link rel="stylesheet" href="bower_components/alertify/css/themes/default.min.css" />
+    <!-- <link rel="stylesheet" href="bower_components/alertify/css/themes/default.min.css" /> -->
     <link rel="stylesheet" href="../css/fontello.css" />
     <link rel="stylesheet" href="../css/dataTables.checkboxes.css" />
     <link rel="stylesheet" href="../css/animation.css">
@@ -171,6 +171,11 @@ else{
                                                     <div class="server-info">
                                                         <small>Server Ip: <a v-bind:href="'http://'+cliente.serverIp"
                                                                 target="_blank">{{cliente.serverIp}}</a></small>
+
+                                                    </div>
+                                                    <div class="server-info">
+                                                        <small>Signal: <a v-bind:href="'http://'+cliente.ipAddress"
+                                                                target="_blank">{{cliente.signal}}</a></small>
 
                                                     </div>
                                                     <div class="dst-nat">
@@ -571,7 +576,7 @@ else{
             getIpListBox1: function(data) {
                 return new Promise((resolve, reject) => {
                     this.spinIconBox1 = true
-                    axios.get('../devicePingResponseList.php', {
+                    axios.get('../devicePingResponseList.php', {//
                         params: {
                             mainServerIp: "192.168.17.1",
                             rowNumbers: "1",
@@ -580,7 +585,8 @@ else{
                             byteToChange: "3"
                         }
                     }).then(response => {
-                        this.ipListBox1 = response.data
+                        this.ipListBox1=response.data[0].includes("192")?response.data:""
+                        console.log(response.data)
                         this.spinIconBox1 = false
                         resolve("ok")
                     })

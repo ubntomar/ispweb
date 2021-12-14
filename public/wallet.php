@@ -36,7 +36,7 @@ $htmlObject=new Html();
         <section>
             <div class="section-title">
                 <img src="img/support.png" alt="">
-                <h1>ADMINISTRAR BILETERA DEL CLIENTE</h1>
+                <h1>ADMINISTRAR BILLETERA DEL CLIENTE</h1>
             </div>
             <div class=box-container>
                 <div class="box box-new-ticket">
@@ -187,16 +187,16 @@ $htmlObject=new Html();
                                         <th>Recarga</th>
                                         <th>Fecha</th>
                                         <th>Cajero</th>
-                                        <th>Nuevo Saldo</th>
+                                        <th>Disponible</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="WalletList in WalletsList" :key="WalletList.id">
                                         <td>{{WalletList.cliente}} {{WalletList.apellido}}</td>
-                                        <td>{{WalletList.recarga}}</td>
+                                        <td><strong>${{new Intl.NumberFormat('de-DE').format(WalletList.recarga)}}</td>
                                         <td>{{WalletList.date}}</td>
                                         <td>{{WalletList.cajero}}</td>
-                                        <td>{{WalletList.nuevoSaldo}}</td>
+                                        <td><strong>${{new Intl.NumberFormat('de-DE').format(WalletList.nuevoSaldo)}}</strong></td>
                                     </tr>
 
                                 </tbody>
