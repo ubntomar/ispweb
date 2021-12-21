@@ -1,9 +1,13 @@
 <?php
-$file = 'people.txt';
-// Open the file to get existing content
-// $current = file_get_contents($file);
-// Append a new person to the file
-$current .= "hbo\n";
-// Write the contents back to the file
-file_put_contents($file, $current); 
+$connection = ssh2_connect('192.168.16.231', 22);
+$cmd="mca-status | grep signal";
+if (ssh2_auth_password($connection, 'ubnt', 'agwist2017')) {
+  echo "Authentication Successful!\n";
+  if($output = ssh2_exec($connection, $cmd)) {
+    stream_set_blocking($output, true);
+    echo stream_get_contents($output);
+}
+} else {
+  print('Authentication Failed...');
+}
 ?>

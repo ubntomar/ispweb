@@ -103,8 +103,12 @@ $htmlObject=new Html();
                                 $idGRoup = ($row["id-repeater-subnets-group"]==0)?"G-0":"";
                                 $standby = $row["standby"];
                                 $ip=$row["ip"];
-                                $signal=$row["signal-strenght"];
+                                $signal=(($row["signal-strenght"]*-1)>0&&($row["signal-strenght"]*-1)<70)?$row["signal-strenght"]." buena":$row["signal-strenght"]." mala";
+                                if($row["signal-strenght"]*1==0)$signal="?"; 
+                                $sshLoginType=$signal=="?"?$row["ssh-login-type"]."-":$row["ssh-login-type"];
+                                if($row["ssh-login-type"]=="router")$signal=" NO APLICA";
                                 $pingDate=$row["pingDate"];
+                                $suspenderStatus= (  ($row["suspender-list-status"]==false) )?"FALSO!":"";
                                 $clientWidthConvenio=$row["convenio"];
                                 $pingCurrentStatus=($pingDate==$today) ? "Ping ok!" : "<small class=\"bg-danger text-white p-1\">Ping Error</small>";   
                                 $style_cell = "class=\"font-weight-bold h6\" "; 
@@ -159,7 +163,7 @@ $htmlObject=new Html();
                                     $days  = $date2->diff($date1)->format('%a'); 
                                     ($days==0)? $d="-Hoy":$d="";
                                     $style = "border-info text-danger ";
-                                    $statusText = "<p><small class=\"px-1 border $style rounded \">Cortado-[ $days días $d ]</small></p>";
+                                    $statusText = "<div><small class=\"px-1 border $style rounded \">Cortado-[ $days días $d ][$suspenderStatus]</small></div>";
                                 }
                                 $textCedula = $cedula;
                                 if ($cedula == 0) {
@@ -198,7 +202,7 @@ $htmlObject=new Html();
                                 // echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small><input type=\"text\" value=\"\" placeholder=\"$ip\" id=\"{$row['id']}\"
                                 // class=\"form-control form-control-sm ml-1\"></small></p><button v-on:click=\"ipUpdate({$row['id']})\" class=\"border border-rounded icon-arrows-ccw\"></button> 
                                 // <p class=\"mb-0\"><small>$pingCurrentStatus</small></p></div></td>";   
-                                echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small>ip:'$ip'</small></p><p class=\"mb-0\"><small>$pingCurrentStatus</small></p><p class=\"mb-0\"><small>Señal:$signal</small></p></div></td>";    
+                                echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small>ip:'$ip'</small></p><p class=\"mb-0\"><small>$pingCurrentStatus -</small></p><p class=\"mb-0\"><small>Antena: $sshLoginType</small></p><p class=\"mb-0\"><small>Señal:$signal</small></p></div></td>"; ///$sshLoginType   
                                 echo "<td class=\" align-middle \"><small>C-" . $row["corte"] . "*$standby</small><p><small>$idGRoup</small></p></td>";
                                 echo "<td class=\" align-middle \">$textCedula</td>"; 
                                 echo "<td class=\" align-middle \">$textTelefono</td>";          

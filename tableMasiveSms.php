@@ -50,7 +50,7 @@ else{
     $cityText=" and `id_client_area` != ? ";
     $cityValue="-3";
 }
-
+//
 $criterioFacturacionSuspencion="{$_POST["criterioFacturacionSuspencion"]}";
 if (($_POST["corte"]==1 || $_POST["corte"]==15 )) {
     $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? $cityText and `corte` = ? and `suspender` = ? and  (`activo` = 1) and (`eliminar` = 0) and `id-empresa` = ?";
@@ -62,7 +62,8 @@ if  ($_POST["corte"]=="") {
     $sqlprepared="SELECT * FROM redesagi_facturacion.afiliados  where ( `cliente` like ? or `apellido` like ? ) and `direccion` like ? $cityText and `suspender` = ?  and  (`activo` = 1) and (`eliminar` = 0) and `id-empresa` = ?";
     $stmt = $mysqli->prepare($sqlprepared);
     $stmt->bind_param("sssiii",$name,$name,$direccion,$cityValue,$criterioFacturacionSuspencion,$empresa); 
-}   
+}
+
 $stmt->execute();
 $result = $stmt->get_result();
 if($result->num_rows === 0) {exit("No hay resultados....");echo "<h1>no hay resultados</h1>"; } 

@@ -8,10 +8,11 @@ class PingTime {
         $this->ipAddress=$ipAddress; 
     }
 
-    public function time($c=1){
+    public function time($c=3){
+        $res=null;
         if(filter_var($this->ipAddress, FILTER_VALIDATE_IP))
-            if($this->ping($c))  return $this->time;
-            else    return null;    
+            if($this->ping($c))  $res= $this->time;
+        return $res;
     }
 
     public function ping($c){

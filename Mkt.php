@@ -71,14 +71,14 @@ class Mkt
             if ($response->getType() === RouterOS\Response::TYPE_DATA) {
                 if($ip==$response->getProperty('address')){
                     if($list==$response->getProperty('list')){
-                        print "\ncliente si apareceen la lista!!\n";
+                        // print "\ncliente si apareceen la lista!!\n";
                         $res=true;
                     }
                 }
                 }
             }
             catch(Exception $e){
-                echo "Error  en ip firewall list";
+                $res=false;
             }
         } 
     return $res;
@@ -195,12 +195,12 @@ class Mkt
     }
     
 } 
-//////////
-if($mkobj=new Mkt("192.168.26.1","agingenieria","agwist2017")){
-    if($mkobj->success){
-        var_dump($mkobj->verifyList("morosos","192.168.26.130"));      
-    }       
-}
+//////
+// if($mkobj=new Mkt("192.168.26.182","agingenieria","agwist2017")){
+//     if($mkobj->success){
+//         var_dump($mkobj->verifyList("morosos","192.168.79.124"));      
+//     }       
+// }
 
  
 

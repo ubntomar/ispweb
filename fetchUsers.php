@@ -16,6 +16,7 @@ require 'Mkt.php';
 require 'vpnConfig.php';
 require("VpnUtils.php");
 require("PingTime.php");
+require("controller/brand/Ubiquiti.php");
 
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
@@ -46,7 +47,7 @@ if($_SERVER['REQUEST_METHOD']==='POST') {  //    Update Ip and others  Block
             $dstnatResponse=($response["result"]=="1" || $response["result"]=="3") ? "Actived-Mikrotik":"Inactive";
             $dstnatTarget=$response["dstnatTarget"];
             $arp=getArp($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
-            $signal=getSignal($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
+            $signal=getSignal($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$ubiquiti_default_user,$ubiquiti_default_password,$vpnUser,$vpnPassword,$ip);
             $queue=Queue($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
         }else{
             $dstnatResponse="Comunication Error";
@@ -91,7 +92,7 @@ if ($searchOption=="Todos"){
                 $dstnatResponse=($response["result"]=="1" || $response["result"]=="3") ? "Actived-Mikrotik":"Inactive";
                 $dstnatTarget=$response["dstnatTarget"];
                 $arp=getArp($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
-                $signal=getSignal($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
+                $signal=getSignal($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$ubiquiti_default_user,$ubiquiti_default_password,$vpnUser,$vpnPassword,$ip);
                 $queue=Queue($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip);
             }else{
                 $dstnatResponse="Comunication Error";
@@ -211,12 +212,13 @@ echo json_encode($ping);
 
 
 function serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress){
+    $res="0.0.0.0";
     if($ipAddress!="0.0.0.0"){
         $vpnObject2=new VpnUtils($server, $db_user, $db_pwd, $db_name);  
         $idGroup=$vpnObject2->updateGroupId($id,$ipAddress); 
-        return $vpnObject2->getServerIp($idGroup); 
+        $res= $vpnObject2->getServerIp($idGroup); 
     }
-    return "0.0.0.0";
+    return $res;
 }
 function checkPort($ip,$serverIp,$id,$rb_default_dstnat_port){ 
     $serverLasByte=explode(".",$serverIp)[3];
@@ -323,7 +325,7 @@ function getArp($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_p
     }
     return $result;
 }
-function getSignal($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$vpnUser,$vpnPassword,$ip){
+function getSignal($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$ubiquiti_default_user,$ubiquiti_default_password,$vpnUser,$vpnPassword,$ip){
     $serverLastByte=explode(".",$serverIp)[3];
     if($serverLastByte=="1"){
         $user=$rb_default_user;
@@ -338,8 +340,27 @@ function getSignal($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_defaul
             // echo 'Caught exception: ',  $e->getMessage(), "\n"; 
         }   
     }
-       
-    return $result;
+    if(!$result){
+        $port=22;
+        $connection = @fsockopen($ip, $port,$errno, $errstr, 10);//last parameter is timeout
+        if (is_resource($connection)){
+            //print "si da ssh $ip";
+            try {
+                //code...
+                $obj=new Ubiquiti($ip,$ubiquiti_default_user,$ubiquiti_default_password);
+                $result=0;
+                if($obj->status){   
+                    $result=$obj->getUbiquitiSignal();
+                     //print "id $id ---$time {$row["user"]} {$row["password"]} $ipValue: ok SIGNAL: $signal \n";
+                }
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+        }else{
+            //echo "no da ssh";
+        }
+    }
+    return $result; 
 }
 
 

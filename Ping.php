@@ -4,7 +4,7 @@ Class Ping  extends mysqli
 {
     private $ip=0;
     private $idUser;
-    private $byte3=0:
+    private $byte3=0;
     public function __construct(){
     }
     public function update($id,$ip){
