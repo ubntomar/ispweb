@@ -229,11 +229,6 @@ $json='{
 					"name": "Red Orlando Ap Granada",
 					"ip": "192.168.26.203",
 					"type": "ptp"
-				},
-				{
-					"name": "Red Orlando Ap Central",
-					"ip": "192.168.26.123",
-					"type": "ptp"
 				}
 			]
 		}] 
