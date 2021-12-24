@@ -1,4 +1,21 @@
 <?php
+session_start();
+if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+		header('Location: ../login/index.php');
+		exit;
+	} else {
+	$user = $_SESSION['username'];
+	$name = $_SESSION['name'];
+	$lastName = $_SESSION['lastName'];
+	$role = $_SESSION['role'];
+	$jurisdiccion = $_SESSION['jurisdiccion'];
+	$idEmpresa = $_SESSION['empresa'];
+    $idCajero = $_SESSION['idCajero'];
+    $convenio=$_SESSION['convenio'];
+}
+if($_SESSION['role']=='tecnico'){
+	header('Location: ../public/tick.php');
+}
 // Id Empresa:  1
 //     AG INGENIERIA - B
 //     Omar Hernandez Diaz
@@ -209,12 +226,11 @@ mysqli_set_charset($mysqli,"utf8");
                         <form v-on:submit.prevent>
                             <div>
                                 <p>*1-Crear nuevo grupo de repetidor  (Table "repeater_subnets_group") id , descripcion , date    "27"  -> (Every User belong to only one repeater!)</p>
-                                <p v-if="!newIdRepeaterSubnetsGroup"><input class="button" type="button"  @click="requestIdSubnet()" value="Crear" ><i v-if="selectSpinSubnet" v-bind:class="{'animate-spin':selectSpinSubnet}" class="icon-spin6 "></i></p>
-                                <p v-if="newIdRepeaterSubnetsGroup"><small class="success">success</small>Repetidor disponible:<strong>id-repeater-subnets-group: {{newIdRepeaterSubnetsGroup}}</strong></p>
+                                <p v-if="!idRepeaterSubnetsGroup"><input class="button" type="button"  @click="requestIdSubnet()" value="Crear" ><i v-if="selectSpinSubnet" v-bind:class="{'animate-spin':selectSpinSubnet}" class="icon-spin6 "></i></p>
+                                <p v-if="idRepeaterSubnetsGroup"><small class="success">success</small>Repetidor disponible:<strong>id-repeater-subnets-group: {{idRepeaterSubnetsGroup}}</strong></p>
                             </div>
-                            <div v-if="newIdRepeaterSubnetsGroup">
+                            <div v-if="idRepeaterSubnetsGroup">
                                 <p>*2-Crear nuevo Segmento de Ip "xxx"  ppp0 ppp1 ppp2    **(Table "items_repeater_subnet_group" ->Unique Lan Segments! )</p>
-                                <p>id,id-repeater-subnets-group,ip-segment,descripcion,ubicacion,active,id-aws-vpn-client,aws-vpn-interface-name-main,aws-vpn-interface-name-secondary,aws-vpn-interface-name-tertiary</p>
                                 <div class="radio-group">
                                         <ul>
                                             <li>SELECCIONE NOMBRE DEL REPETIDOR</li>
@@ -240,12 +256,11 @@ mysqli_set_charset($mysqli,"utf8");
                                     <i v-if="selectSpin" v-bind:class="{'animate-spin':selectSpin}" class="icon-spin6 "></i>
                                     <small class="submitErrro" v-if="radioError">Error, {{radioErrorText}}</small>
                                 </p>
-                                <p v-if="createdNewIpSegment"><small class="success">success</small>Nuevo segmento de red alistado para  {{repeaterName}} es por la <strong>{{newIpSegment}} =>-9595-id-items-repeater-subnet-group</strong> </p>
-                                <p v-if="tableItemSubnetCreated"><small class="success">success</small><small> Tabla items_repeater_subnet_group creada con éxito!</small></p>
+                                <p v-if="createdNewIpSegment"><small class="success">success</small>Nuevo segmento de red alistado para  {{repeaterName}} es por la <strong>{{newIpSegment}}</strong> </p>
+                                <p v-if="tableItemSubnetCreated"><small class="success">success</small><small> Tabla items_repeater_subnet_group creada con éxito!, nuevo id: {{idItemsRepeaterSubnetGroup}}</small></p>
                             </div>
                             <div v-if="createdNewIpSegment"> 
                                 <p>*3- Crear nuevo servidor repetdior =>   **(table "vpn_tarjets") ! Here it define every server  ip</p>
-                                <p>id,fecha,server-name,server-ip,username,password,id-repeater-subnets-group,active,id-empresa,id-grupos-empresa,load-script</p>
                                 <div class="radio-group">
                                         <ul>
                                             <li>SELECCIONE DIRECCION IP DEL REPETIDOR EN CAMPO</li>
@@ -268,10 +283,10 @@ mysqli_set_charset($mysqli,"utf8");
                                         
                                 </div>
                                 <p v-if="createdNewIpSegment">
-                                    <input class="button"  type="submit" @click="createServerButtom()" value="Crear">
+                                    <input class="button"  type="submit" @click="createServerButtom()" value="Crear vpn_tarjets">
                                     <i v-if="selectSpin" v-bind:class="{'animate-spin':selectSpin}" class="icon-spin6 "></i>
                                 </p>
-                                <p v-if="createdNewServer"><small class="success">success</small>Table vpn_targets creada con éxito </p>
+                                <p v-if="createdNewServer"><small class="success">success</small>Table vpn_targets creada con éxito ..el id es:{{idVpnTarget}}</p>
                             </div>
                             <div v-if="createdNewIpSegment">
                                 <p>*4-Actualizar la ip del afiliado (table afiliados) junto con su grupo Id(`repeater_subnets_group`)</p>
@@ -284,12 +299,14 @@ mysqli_set_charset($mysqli,"utf8");
                                                 <li>id , ip-segment, descripcion , id-items-repeater-subnet-group</li>
                                                 <li>SE DEBE CREAR ESTA TABLE Y LUEGO EXTRAE EL id y luego se almacena convertido  en id-static-route</li>
                                             </ul>
+                                            <p v-if="StaticRoutersCreated"><small class="success">success</small>Table static_routes creada con éxito ..el id es:<strong>{{idStaticRoutes}}</strong></p>
                                 </div>
                                 <div style="background-color:#e8c9c9;" class="steps">
                                             <p>TABLA : `static_route_steps` : id, step, id-static-route , local-server-ip , dst-ip-address , gateway , id-aws-vpn-client </p>
                                             <ul v-for="awsSelected in awsSelecteds" >
                                                 <li>step:{{awsSelected.number}} id-static-route:? local-server-ip:{{awsSelected.localServerIp}}  dst-ip-address: {{dstAddress}}  gateway: {{!awsSelected.gateway?gatewayCatched:awsSelected.gateway}} id-aws-vpn-client:{{picked}} </li>
                                             </ul>
+                                            <p v-if="StaticRouteStepsCreated"><small class="success">success</small>Table(s) static_route_steps creada con éxito </p>
                                 </div>
                             </div>
                         </form> 
@@ -309,9 +326,12 @@ var app = new Vue({
     el: "#app",
     data: {
         endpoint: "fetch/repeaterAPI.php?",
+        StaticRouteStepsCreated:false,
+        idStaticRoutes:null,
+        StaticRoutersCreated:false,
         tableItemSubnetCreated:false,
         selectSpinSubnet:false,
-        newIdRepeaterSubnetsGroup: null,
+        idRepeaterSubnetsGroup: null,
         createdNewIpSegment: null,
         newIpSegment: null,
         dstAddress:null,
@@ -369,23 +389,103 @@ var app = new Vue({
                         
                     },
         gatewayCatched:null,
-        awsSelecteds:{},            
+        awsSelecteds:{},
+        idItemsRepeaterSubnetGroup:null,
+        idVpnTarget:null,            
                         
     },
     methods: {
-        createtableItemSubnet: async function(){
-            console.log("voya crear la table items subnet repeater")
-            //id,id-repeater-subnets-group,ip-segment,descripcion,ubicacion,active,id-aws-vpn-client,aws-vpn-interface-name-main,aws-vpn-interface-name-secondary,aws-vpn-interface-name-tertiary
+        createTablestaticRouteSteps:async function(number,idStaticRoutes,localServerIp,dstAddress,gateway,idAwsVpnClient){
+            console.log(`info para crear steps: ${number}  ${idStaticRoutes}  ${localServerIp}  ${dstAddress}  ${gateway}  ${idAwsVpnClient}`)
             const response = await fetch(this.endpoint, {
                 method: 'POST',
+                headers : { 
+                    'Accept': 'application/json'
+                },
                 body: new URLSearchParams({
-                    parametro: '10',
+                    option:"staticRouteSteps",
+                    step:number,
+                    idStaticRoutes,
+                    localServerIp,
+                    dstAddress,
+                    gateway,
+                    idAwsVpnClient
                 })
             })
             let promiseResponse = await response.json();
-            //this.newIpSegment=promiseResponse.ipSegment
-            console.log("valor recibido:")
-            console.log(promiseResponse.id)
+            if(promiseResponse.id!=0)this.StaticRouteStepsCreated=true
+        },
+        staticRouteSteps:function(){
+            const myObj = this.awsSelecteds
+            for (let x in myObj) {
+                let number=myObj[x].number
+                let idStaticRoutes=this.idStaticRoutes
+                let localServerIp=myObj[x].localServerIp
+                let dstAddress=this.dstAddress
+                let gateway=!myObj[x].gateway?this.gatewayCatched:myObj[x].gateway
+                let idAwsVpnClient=this.picked
+                this.createTablestaticRouteSteps(number,idStaticRoutes,localServerIp,dstAddress,gateway,idAwsVpnClient)
+            }
+            
+        },
+        createTableStaticRoutes: async function(){
+            const response = await fetch(this.endpoint, {
+                method: 'POST',
+                headers : { 
+                    'Accept': 'application/json'
+                },
+                body: new URLSearchParams({
+                    option:"staticRoutes",
+                    newIpSegment:this.newIpSegment,
+                    repeaterName:this.repeaterName,
+                    idItemsRepeaterSubnetGroup:this.idItemsRepeaterSubnetGroup,
+
+                })
+            })
+            let promiseResponse = await response.json();
+            this.idStaticRoutes=promiseResponse.id
+            this.StaticRoutersCreated=true
+            this.staticRouteSteps()
+        },
+        createTableVpnTargets:async function(){
+            //``, ``, `server-name`, `server-ip`, ``, ``, `id-repeater-subnet-group`, ``, `id-empresa`, ``, ``
+            let idEmpresa=<?=$idEmpresa?>;
+            console.log("voya crear la table VpnTargets cin idEmpresa:"+idEmpresa)
+            const response = await fetch(this.endpoint, {
+                method: 'POST',
+                headers : { 
+                    'Accept': 'application/json'
+                },
+                body: new URLSearchParams({
+                    option:"vpnTargets",
+                    repeaterName:this.repeaterName,
+                    ipServer:this.ipServer,
+                    idRepeaterSubnetsGroup:this.idRepeaterSubnetsGroup,
+                    idEmpresa:idEmpresa,
+                })
+            })
+            let promiseResponse = await response.json();
+            this.idVpnTarget=promiseResponse.id
+            console.log("nuevo vpn_target creado , el id es:"+promiseResponse.id)
+            this.createTableStaticRoutes()
+        },
+        createtableItemSubnet: async function(){
+            console.log("voya crear la table items subnet repeater")
+            const response = await fetch(this.endpoint, {
+                method: 'POST',
+                headers : { 
+                    'Accept': 'application/json'
+                },
+                body: new URLSearchParams({
+                    option:"itemRepeater",
+                    idRepeaterSubnetsGroup:this.idRepeaterSubnetsGroup,
+                    newIpSegment:this.newIpSegment,
+                    repeaterName:this.repeaterName,
+                    picked:this.picked,
+                })
+            })
+            let promiseResponse = await response.json();
+            this.idItemsRepeaterSubnetGroup=promiseResponse.id
             this.tableItemSubnetCreated=true
         }, 
         requestIdSubnet:function(){
@@ -396,10 +496,12 @@ var app = new Vue({
                 if(this.validateIpAddress(this.ipServer)){
                     if (this.isPrivateIP(this.ipServer)){
                         this.selectSpin=true
-                        // this.createdNewServer=true
                         console.log("ip valida")
                         this.ipErrorText=false
-                        this.gatewayCatched=this.ipServer 
+                        this.gatewayCatched=this.ipServer
+                        this.createTableVpnTargets()
+                        this.selectSpin=false
+                        this.createdNewServer=true 
                     }else{
                         console.log("ip NO es privada")
                     }
@@ -407,15 +509,14 @@ var app = new Vue({
                     console.log("ip NO valida")
                     this.ipErrorText=true
                     this.selectSpin=false
-                    // this.createdNewServer=false
+                    
                 }
         },
         radioSelected:function(value){
             this.picked=value
             this.radioError=false
             this.awsSelecteds=this.awsVpnClients[value][0]['steps']
-            console.log("picked vale"+this.picked)
-            //console.log(JSON.stringify(this.awsSelecteds))
+            
         },
         getNewIpSegment: async function(){
             const response = await fetch(this.endpoint + new URLSearchParams({option: 'ipSegment'}),
@@ -442,7 +543,7 @@ var app = new Vue({
                     },
                 });
             promiseResponse = await response.json();
-            this.newIdRepeaterSubnetsGroup=promiseResponse.id==0?0:promiseResponse.id
+            this.idRepeaterSubnetsGroup=promiseResponse.id==0?0:promiseResponse.id
             //this.selectSpin=false
             this.selectSpinSubnet=false
 
@@ -452,7 +553,7 @@ var app = new Vue({
                 this.selectSpin=true
                 this.nameErrorText=false
                 this.radioError=false
-                console.log("Create segment para el nuevo repetidor "+this.newIdRepeaterSubnetsGroup)
+                console.log("Create segment para el nuevo repetidor "+this.idRepeaterSubnetsGroup)
                 console.log("Vpn seleccionado es "+this.picked)
                 this.getNewIpSegment()
             }else{

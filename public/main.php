@@ -107,7 +107,7 @@ else{
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <div class="d-flex align-items-center">
                                     <div></div>
-                                    <div><input type="text" value="" id="search"
+                                    <div><input type="text" value="" id="search" placeholder="1 Nombre 1 Apellido o IP"
                                             class="form-control form-control-sm ml-1" v-model="searchString"></div>
                                     <div><button class="icon-search form-control form-control-sm "
                                             v-on:click="searchFn"></button>
@@ -118,7 +118,7 @@ else{
                                 <div>
                                     <select class="form-control form-control-sm" v-model="searchOption"
                                         v-on:change="getSelected">
-                                        <option>Todos</option>
+                                        <option selected>Todos</option>
                                         <option>Cortado</option>
                                         <option>Ping OK</option>
                                         <option>Ping Down</option>
@@ -429,7 +429,7 @@ else{
                             searchString: this.searchString,
                             searchOption: this.searchOption
 
-                        }
+                        },timeout: 20000
                     }).then(response => {
                         // console.log(response)
                         this.clientes = response.data
@@ -489,8 +489,7 @@ else{
                 this.getUserSpin = true
                 this.searchOption = "Todos"
                 this.getUser()
-                //this.clearSearch()
-
+                //this.clearSearch() 
             },
             clearSearch: function() {
                 this.searchString = ""

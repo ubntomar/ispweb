@@ -1,6 +1,7 @@
 <?php
 use PEAR2\Net\RouterOS;
 require_once 'PEAR2_Net_RouterOS-1.0.0b6/src/PEAR2/Autoload.php';   
+// require_once 'PEAR2_Net_RouterOS-1.0.0b6.phar';   
 class Mkt
 {
     private $ip;
@@ -19,7 +20,7 @@ class Mkt
             $this->client = new RouterOS\Client($ipRouter, $user, $pass);  
         } catch(Exception $e){
             // echo(json_encode(array('error' => 'timeout Mkt.php new')));
-            // print "error:$e";
+            print "error:$e";
             $response=false;
             $this->error=$e;
             $this->success=false;
@@ -195,12 +196,12 @@ class Mkt
     }
     
 } 
-//////
-// if($mkobj=new Mkt("192.168.26.182","agingenieria","agwist2017")){
-//     if($mkobj->success){
-//         var_dump($mkobj->verifyList("morosos","192.168.79.124"));      
-//     }       
-// }
+////
+if($mkobj=new Mkt("192.168.26.182","agingenieria","agwist2017")){
+    if($mkobj->success){
+        var_dump($mkobj->verifyList("morosos","192.168.79.124"));      
+    }       
+}
 
  
 

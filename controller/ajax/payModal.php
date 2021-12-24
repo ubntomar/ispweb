@@ -8,11 +8,11 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true)
 else    {
 		$user=$_SESSION['username'];
 		}
-if($_POST['rowid']) {
+include("../../login/db.php");
+if($_POST['rowid']||true) {
 		$id = $_POST['rowid'];
 		$cedula = $_POST['cedula']; 
 		$telefono = $_POST['telefono'];   
-		include("../../login/db.php");
 		$mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 		if ($mysqli->connect_errno) {
 	    	echo "Failed to connect to MySQL: " . $mysqli->connect_error;

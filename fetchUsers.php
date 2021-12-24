@@ -17,7 +17,7 @@ require 'vpnConfig.php';
 require("VpnUtils.php");
 require("PingTime.php");
 require("controller/brand/Ubiquiti.php");
-
+//
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -65,10 +65,14 @@ if ($searchOption=="Todos"){
     if(filter_var($searchString, FILTER_VALIDATE_IP)){
         $queryPart="AND `ip` LIKE '%$searchString%' ";
     }elseif($searchString!="" && !filter_var($searchString, FILTER_VALIDATE_IP) ){
-        $queryPart="AND ( (`cliente` LIKE '%$searchString%') OR (`apellido` LIKE '%$searchString%'))  ";
-    }else{
-        $queryPart="ORDER BY `id` DESC LIMIT 1";
+        $name=explode(" ",$searchString)[0];
+        $ln=explode(" ",$searchString)[1];
+        $lastName=$ln!=null?$ln:"";
+        $queryPart="AND ( (`cliente` LIKE '%$name%') OR (`apellido` LIKE '%$lastName%'))  ORDER BY `id` DESC LIMIT 1"; 
+        echo $queryPart;
     }
+    //$queryPart.=" ORDER BY `id` DESC LIMIT 1";
+    
     $sqlSearch="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1 $queryPart  "; 
     // echo $sqlSearch;
     if ($result = $mysqli->query($sqlSearch)) {

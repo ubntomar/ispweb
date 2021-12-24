@@ -41,7 +41,7 @@ class VpnUtils
 							if($idGroup){
 								$sqlUpdate="UPDATE `afiliados` SET `id-repeater-subnets-group`=$idGroup WHERE `id`=$idCliente";
 							}else{
-								print "\n client: {$row['cliente']} ip : $ip  segment:$segmentIp pertenece a grupo: $idGroup \n";
+								//print "\n client: {$row['cliente']} ip : $ip  segment:$segmentIp pertenece a grupo: $idGroup \n";
 								$sqlUpdate="UPDATE `afiliados` SET `id-repeater-subnets-group`=0 WHERE `id`=$idCliente";
                                 $status=false;
 							}
