@@ -1,6 +1,6 @@
 <?php
 
-echo"arranca okg";
+echo"arranca okg"; 
 include("login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
@@ -50,7 +50,7 @@ if ($result = $mysqli->query($sql)) {
         }
 		
 		}
-    	$result->free();
+    	//$result->free(); ubicar esta linea
 	}
 
  echo "termina en :$cont"; 

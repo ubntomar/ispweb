@@ -9,10 +9,10 @@ else    {
 		$user=$_SESSION['username'];
 		}
 include("../../login/db.php");
-if($_POST['rowid']||true) {
-		$id = $_POST['rowid'];
-		$cedula = $_POST['cedula']; 
-		$telefono = $_POST['telefono'];   
+if($_POST['rowid']){
+		$id =$_POST['rowid'];
+		$cedula =$_POST['cedula']; 
+		$telefono=$_POST['telefono'];   
 		$mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 		if ($mysqli->connect_errno) {
 	    	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -66,7 +66,7 @@ if($_POST['rowid']||true) {
 			          		<td>Direccion:</td><td>".$row["direccion"]."</td>
 			          	</tr>
 			          	<tr>";
-			$sql = "SELECT * FROM `factura`  WHERE `factura`.`id-afiliado`='$id' AND `factura`.`fecha-pago`!= '0000-00-00'   ORDER BY `factura`.`id-factura` DESC";
+			$sql = "SELECT * FROM `redesagi_facturacion`.`factura` WHERE `factura`.`id-afiliado`='$id' AND CAST(`factura`.`fecha-pago` AS CHAR(10)) != '0000-00-00' AND `factura`.`fecha-pago` IS NOT NULL ORDER BY `factura`.`id-factura` DESC";
 			//echo $sql;
 			if($result = $mysqli->query($sql)){
 				$rowf = $result->fetch_assoc();   
@@ -76,14 +76,14 @@ if($_POST['rowid']||true) {
 					$fl=1;
 				else
 					$fl=0;		
-				//echo "flag =1 pero idfsctura es:$idFactura";
-				}
-			else{
+					//echo "flag =1 pero idfsctura es:$idFactura";
+				$result->free();
+			}else{
+
 				echo "Error:".$mysqli->error;
 				$idFactura=0;
 				
-				}				
-			$result->free();
+			}				
 			$sql = "SELECT * FROM `recaudo` WHERE `idfactura` = $idFactura ORDER BY `idrecaudo` DESC ";
 			//echo "<br>".$sql;
 			if($fl==1){
@@ -103,7 +103,8 @@ if($_POST['rowid']||true) {
 							$varHtml.="<td>Pago Anterior:</td><td>00/00/0000</td>"; 	
 							}	 
 						
-						}
+					$result->free();         	
+					}
 					else{
 						echo "Error:".$mysqli->error;	
 						}	
@@ -116,7 +117,6 @@ if($_POST['rowid']||true) {
 				$varHtml.="</tr><tr><td class=\"small\">Contrato de afiliación:</td><td><a href='../../factura_new_cli.php?rpp=1&idc=$id' target='_blank'> Afiliación:</a></td></tr>"; 	
 
 			}
-			$result->free();         	
 			          	
 			$varHtml.="  
 						

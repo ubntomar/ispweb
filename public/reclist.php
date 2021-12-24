@@ -155,9 +155,9 @@ if($_SESSION['role']=='cajero'){
 													echo "</tr>";		
 													}
 											    	
+                                                $result->free();
 												}
 														
-											    	$result->free();
 												
 										?>
 

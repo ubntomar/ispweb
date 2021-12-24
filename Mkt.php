@@ -1,14 +1,14 @@
 <?php
 use PEAR2\Net\RouterOS;
-require_once 'PEAR2_Net_RouterOS-1.0.0b6/src/PEAR2/Autoload.php';   
-// require_once 'PEAR2_Net_RouterOS-1.0.0b6.phar';   
+require_once '/home/ubuntu/mikrotik-pear/vendor/autoload.php'; //ponia problemas si lo ponia desde html!
+// ok=>   /usr/local/bin/composer require pear2/net_transmitter:1.0.0b1 pear2/cache_shm pear2/net_routeros:dev-develop@dev
 class Mkt
 {
     private $ip;
     private $user;
     private $pass;
     private $client;
-    public  $success=true;
+    public  $success=true; 
     public $error;  
     public function __construct($ipRouter, $user, $pass)
     {        
@@ -197,7 +197,7 @@ class Mkt
     
 } 
 ////
-if($mkobj=new Mkt("192.168.26.182","agingenieria","agwist2017")){
+if($mkobj=new Mkt("192.168.21.1","agingenieria","agwist2017")){
     if($mkobj->success){
         var_dump($mkobj->verifyList("morosos","192.168.79.124"));      
     }       

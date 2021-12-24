@@ -365,8 +365,8 @@ if($_SESSION['role']=='tecnico'){
                                 }
                                 $sumRecaudoMensualidad=$recaudo-$sumAfiliacion;
                                 $distinctCajeros=array_unique($cajeroArray);
-                            }
                             $result->free();
+                            }
 						?>
                         <div class="columna col-lg-5">
                             <div class="widget estadisticas">
@@ -417,8 +417,8 @@ if($_SESSION['role']=='tecnico'){
                                                 }
                                             }
                                             $sumRecaudoMensualidad=$recaudo-$sumAfiliacion;
+                                            $result->free();   
                                         }
-                                        $result->free();   
                                         echo "  <div class=\"caja\">
                                                 <p><i class=\"icon-user\"></i>$name</p>
                                                 <h3>$".number_format($recaudo)."</h3> 

@@ -424,6 +424,7 @@ if($result = $mysqli->query($sql)){
 						$valorPagoF=number_format($rowf2["valor-a-pagar"],0);
 
 					}
+				$resultz->free();
 				}
 				else{
 					echo "Error:".$mysqli->error;
@@ -432,24 +433,24 @@ if($result = $mysqli->query($sql)){
 				if($pagoAnterior)
 					break;
 			}
-			 
+		$resultw->free(); 
 		}
 		else{
 			echo "Error:".$mysqli->error;	
 		}	
-		$resultw->free();
+		
 		if($pagoAnterior)
 			break;
 	}  
+$result->free();
 }
 else{
 	echo "Error:".$mysqli->error;
 	$idFactura=0;
 }				
-$result->free();
 	
 
-$result->free();
+
 //$ultimopago=$row['ultimopago'];
 
 $sql = "SELECT * FROM `factura`  WHERE `factura`.`id-afiliado`='$id' AND `factura`.`cerrado`='0'  ORDER BY `factura`.`id-factura` DESC";

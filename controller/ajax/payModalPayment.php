@@ -67,6 +67,7 @@ if($_POST['rowid']) {
                     </tr>
                     "; 
                     }
+            $result->free();
             }
             //table footer			
             $table_content.="   
@@ -84,7 +85,7 @@ if($_POST['rowid']) {
             </table>	
             ";
             echo $table_content;
-            $result->free();			
+            			
 			
 			}
  		}

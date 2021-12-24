@@ -65,7 +65,7 @@ if($_POST['rowid']) {
 			          		<td>Direccion:</td><td>".$row["direccion"]."</td>
 			          	</tr>
 			          	<tr>";
-			$sql = "SELECT * FROM `factura`  WHERE `factura`.`id-afiliado`='$id' AND `factura`.`fecha-pago`!= '0000-00-00'   ORDER BY `factura`.`id-factura` DESC";
+			$sql = "SELECT * FROM `factura`  WHERE `factura`.`id-afiliado`='$id' AND CAST(`factura`.`fecha-pago` AS CHAR(10)) != '0000-00-00' AND `factura`.`fecha-pago` IS NOT NULL   ORDER BY `factura`.`id-factura` DESC";
 			//echo $sql;
 			if($result = $mysqli->query($sql)){
 				$rowf = $result->fetch_assoc();   
@@ -76,13 +76,13 @@ if($_POST['rowid']) {
 				else
 					$fl=0;		
 				//echo "flag =1 pero idfsctura es:$idFactura";
-				}
+			$result->free();
+			}
 			else{
 				echo "Error:".$mysqli->error;
 				$idFactura=0;
 				
 				}				
-			$result->free();
 			$sql = "SELECT * FROM `recaudo` WHERE `idfactura` = $idFactura ORDER BY `idrecaudo` DESC ";
 			//echo "<br>".$sql;
 			if($fl==1){
@@ -101,12 +101,12 @@ if($_POST['rowid']) {
 						else{
 							$varHtml.="<td>Pago Anterior:</td><td>00/00/0000</td>"; 	
 							}	 
-						
-						}
+						$result->free(); 
+					}
 					else{
 						echo "Error:".$mysqli->error;	
 						}	
-				}
+			}
 			if($fl==0){
 				$varHtml.="<td class=\"small\">Pago Anterior:</td><td>Ninguno.<a href='factura_new_cli.php?rpp=1&idc=$id' target='_blank'> Afiliación:</a>$registration Corte:$corte</td>
 				</tr>"; 	
@@ -115,7 +115,7 @@ if($_POST['rowid']) {
 				$varHtml.="</tr><tr><td class=\"small\">Contrato de afiliación:</td><td><a href='factura_new_cli.php?rpp=1&idc=$id' target='_blank'> Afiliación:</a></td></tr>"; 	
 
 			}
-			$result->free();         	
+			        	
 			          	
 			$varHtml.="  
 						
@@ -154,9 +154,9 @@ if($_POST['rowid']) {
 					$saldo=$rowf["saldo"];
 					$vtotal+=$saldo;
 					$varHtml.="<option  >Cod:".$idFactura."-".$periodo."-Valor:$".number_format($saldo)."</option>";	
-					}
-			    	$result->free();
-				}  	
+				}
+				$result->free();
+			}  	
 			if($cont==0)$varHtml.="<option>No hay pddtes.</option>";     		
 			$varHtml.="</select>";		
 			

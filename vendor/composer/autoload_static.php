@@ -26,6 +26,10 @@ class ComposerStaticInit1c1e3d94f9e32e4c9c295355db8ca797
         array (
             'Zend\\Diactoros\\' => 15,
         ),
+        'T' => 
+        array (
+            'Twilio\\' => 7,
+        ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
@@ -56,6 +60,10 @@ class ComposerStaticInit1c1e3d94f9e32e4c9c295355db8ca797
         'Zend\\Diactoros\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-diactoros/src',
+        ),
+        'Twilio\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twilio/sdk/src/Twilio',
         ),
         'Psr\\Http\\Message\\' => 
         array (
@@ -96,11 +104,41 @@ class ComposerStaticInit1c1e3d94f9e32e4c9c295355db8ca797
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'PEAR2\\Net\\Transmitter\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear2/net_routeros/vendor/pear2/net_transmitter/src',
+                1 => __DIR__ . '/..' . '/pear2/net_transmitter/src',
+            ),
+            'PEAR2\\Net\\RouterOS\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear2/net_routeros/src',
+            ),
+            'PEAR2\\Console\\Color' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear2/net_routeros/vendor/pear2/console_color/src',
+            ),
+            'PEAR2\\Cache\\SHM' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear2/net_routeros/vendor/pear2/cache_shm/src',
+                1 => __DIR__ . '/..' . '/pear2/cache_shm/src',
+            ),
+        ),
+    );
+
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit1c1e3d94f9e32e4c9c295355db8ca797::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit1c1e3d94f9e32e4c9c295355db8ca797::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit1c1e3d94f9e32e4c9c295355db8ca797::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit1c1e3d94f9e32e4c9c295355db8ca797::$classMap;
 
         }, null, ClassLoader::class);
     }

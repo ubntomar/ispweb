@@ -241,7 +241,7 @@
             $registrationDate = $row['registration-date'];
             $velocidad = $row['velocidad-plan'];
             $cajero= $row['cajero'];
-            
+            $result->free();
         }
         // $ultimopago = "";
         // $pagoAnterior = "";
@@ -252,7 +252,7 @@
         // $paguehasta = "5 DE $month_name";
         // $suspension = "7 DE $month_name";
 
-        $result->free();
+        
     }
     ?>
     <div id="invoice">

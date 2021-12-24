@@ -2,5 +2,6 @@ vpnConfig.php
 login/db.php
 smsender.php 
 scss/*
+vendor/*
 crearRepetidor.sh
 mailer/sendgrid.env

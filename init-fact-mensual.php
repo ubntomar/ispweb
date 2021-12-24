@@ -65,7 +65,7 @@
 // 		}
 
 // 		}
-//     	$result->free();
+//     	//$result->free();  //OJO UBICAR BIEN ESTE LINEA
 // 	}
 //  echo "termina en :$cont";  
 
