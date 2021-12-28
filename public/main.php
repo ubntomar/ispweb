@@ -170,7 +170,12 @@ else{
                                                     </div>
                                                     <div class="server-info">
                                                         <small>Server Ip: <a v-bind:href="'http://'+cliente.serverIp"
-                                                                target="_blank">{{cliente.serverIp}}</a></small>
+                                                                target="_blank">{{cliente.serverIp}}</a>
+                                                                <button class="border border-rounded" v-on:click="pingtoIp(cliente.serverIp)">
+                                                                    <i v-bind:class="{'animate-spin':pingToServerSpin}" class="icon-spin6 "></i>
+                                                                </button>
+                                                        </small>
+                                                        <small v-bind:class=" {'text-success':ipTargetStatus=='up','text-danger':ipTargetStatus=='down'} ">time:{{ipTargetTime}} ms {{ipTargetStatus}}</small>
 
                                                     </div>
                                                     <div class="server-info">
@@ -246,6 +251,34 @@ else{
                                 </div>
                             </div>
 
+                        </div>
+                        <div class="mt-2 mb-3 nuevo_contenido p-2 border border-info rounded">
+                            <div class="d-flex justify-content-center">
+                                <h3 class="titulo">Repetidores actualmente</h3>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table"> 
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Nombre de Repetidor</th>
+                                            <th>Ip de Repetidor</th>
+                                            <th>Lan de los clientes</th>
+                                            <th>fecha</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="repeater in repeaters" >
+                                            <td><small>{{repeater.id}}</small></td> 
+                                            <td><small>{{repeater.serverName}}</small></td>
+                                            <td>{{repeater.serverIp}}</td>
+                                            <td>{{repeater.ipSegment}}</td>
+                                            <td>{{repeater.fecha}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                            </div>
                         </div>
                     </div>
 
@@ -418,9 +451,21 @@ else{
             ipListBox3: [],
             spinIconBox3: false,
             selectSpin: false,
-            getUserSpin: false
+            getUserSpin: false,
+            repeaters:[] ,
+            ipTargetTime:null,
+            ipTargetStatus:null,
+            pingToServerSpin:false,
         },
         methods: {
+            getRepeaterList:async function(){
+                
+                const endPoint=`../controller/axios/repeaterApi.php?option=getRepeaterList`
+                let res = await axios.get(endPoint);
+                let data = res.data;
+                console.log(data);
+                this.repeaters=data
+            },
             getUser: function() {
                 return new Promise((resolve, reject) => {
                     axios.get('../fetchUsers.php', {
@@ -429,22 +474,27 @@ else{
                             searchString: this.searchString,
                             searchOption: this.searchOption
 
-                        },timeout: 20000
+                        },timeout: 30000
                     }).then(response => {
-                        // console.log(response)
+                         //console.log(response)
                         this.clientes = response.data
-                        console.log(JSON.stringify(this.clientes))
+                        //console.log(JSON.stringify(this.clientes))
                         this.totalRows = response.data.length - 1
                         this.selectSpin = false
                         this.getUserSpin = false
+                        //console.log("voya hacer ping al servidor"+response.data[0].serverIp)
+                        if(response.data[0].serverIp){
+                            this.pingtoIp(response.data[0].serverIp)
+                        }
                         resolve("ok")
                     }).catch(e => {
                         this.selectSpin = false
                         this.getUserSpin = false
                         //console.log('error' + e) 
-                        //reject(e)
+                        //reject(e) 
                     })
-
+                    this.ipTargetTime=null
+                    this.ipTargetStatus=null
                 })
             },
             updateIp: function(data) {
@@ -462,7 +512,7 @@ else{
                             data: bodyFormData
                         })
                         .then(function(response) { 
-                            //console.log(response);
+                            ////console.log(response);
                             data.ipText = "Actualizado  con éxito(G-" + response.data.idGroup + ")";
                             data.dstnatResponse = response.data.dstnatResponse
                             data.dstnatTarget = response.data.dstnatTarget
@@ -474,7 +524,7 @@ else{
                         })
                         .catch(function(response) {
                             //handle error
-                            //console.log(response);
+                            ////console.log(response);
                             data.ipIconSpin = false
                         });
 
@@ -489,6 +539,7 @@ else{
                 this.getUserSpin = true
                 this.searchOption = "Todos"
                 this.getUser()
+                
                 //this.clearSearch() 
             },
             clearSearch: function() {
@@ -498,17 +549,18 @@ else{
                 this.selectSpin = true
                 this.searchString = ""
                 this.getUser().then((resolve) => {
-                    console.log("promesa termminada despues de change on select!")
+                    //console.log("promesa termminada despues de change on select!")
                 })
 
             },
             setPing: function(data) {
-                console.log("staus clicked:" + data.ipAddress)
+                console.log(`staus clicked: ${data.ipAddress} con id cliente: ${data.id}`)
                 data.responseTime = "Esperando"
                 data.pingStatus = "******"
                 axios.get('../devicePingResponse.php', {
                     params: {
-                        ip: data.ipAddress
+                        ip: data.ipAddress,
+                        id: data.id,
                     }
                 }).then(response => {
                     data.responseTime = response.data.time
@@ -518,9 +570,30 @@ else{
                         data.pingStatus = "down"
                     }
                 }).catch(e => {
-                    console.log('error' + e)
+                    //console.log('error' + e)
                 })
 
+            },
+            pingtoIp: function(ipAddress) {
+                //console.log("making ping to server")
+                this.pingToServerSpin=true;
+                axios.get('../devicePingResponse.php', {
+                    params: {
+                        ip: ipAddress
+                    }
+                }).then(response => {
+                    if (response.data.time){
+                        this.ipTargetTime = response.data.time
+                        this.ipTargetStatus = "up"
+                    } 
+                    else {
+                        this.ipTargetStatus = "down"
+                    }
+                    this.pingToServerSpin=false;
+                }).catch(e => {
+                    //console.log('error' + e)
+                })
+                
             },
             pingToIpButtonClick: function(data) {
                 this.pingSuccess = "waiting"
@@ -545,7 +618,7 @@ else{
                         }
                     }).catch(e => {
                         this.spinIcon = false
-                        console.log('error' + e)
+                        //console.log('error' + e)
                     })
                 } else {
                     this.pingDataError = true;
@@ -585,7 +658,7 @@ else{
                         }
                     }).then(response => {
                         this.ipListBox1=response.data[0].includes("192")?response.data:""
-                        console.log(response.data)
+                        //console.log(response.data)
                         this.spinIconBox1 = false
                         resolve("ok")
                     })
@@ -643,13 +716,14 @@ else{
             }
         },
         mounted() {
+            this.getRepeaterList()
             this.getUserSpin = true
             Promise.all([this.getUser()]) //this.getIpListBox1(), this.getIpListBox2(), this.getIpListBox3(),
                 .then((resolve) => {
-                    console.log("success")
+                    //console.log("success")
                 })
                 .catch((reject) => {
-                    console.log("error" + reject)
+                    //console.log("error" + reject)
                 })
         },
     });

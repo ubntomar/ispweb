@@ -20,7 +20,7 @@ class Mkt
             $this->client = new RouterOS\Client($ipRouter, $user, $pass);  
         } catch(Exception $e){
             // echo(json_encode(array('error' => 'timeout Mkt.php new')));
-            print "error:$e";
+            //print "error:$e";
             $response=false;
             $this->error=$e;
             $this->success=false;
@@ -197,11 +197,11 @@ class Mkt
     
 } 
 ////
-if($mkobj=new Mkt("192.168.21.1","agingenieria","agwist2017")){
-    if($mkobj->success){
-        var_dump($mkobj->verifyList("morosos","192.168.79.124"));      
-    }       
-}
+// if($mkobj=new Mkt("192.168.16.245","admin","agwist2017")){
+//     if($mkobj->success){
+//         var_dump($mkobj->checkSignal());      
+//     }       
+// }
 
  
 

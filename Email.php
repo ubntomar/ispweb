@@ -70,18 +70,18 @@ class Email
     }
 } 
 
-//  $obj=new Email("http://localhost:3001/newuser");
-//     $response=$obj->emailToInstalledNewUser($emailArray=[
-//         "fullName"=> "Jorge Hernandez",
-//         "paymentDay"=> "1 al 7",
-//         "periodo"=> "Febrero",
-//         "valorPlan"=> "50000",
-//         "template"=>"d-4bdc152f4ac04ddfbacd49948f570213",
-//         "idClient"=>"958",
-//         "email"=>"omar.a.hernandez.d@gmail.com"
-//         ]);
-//     print "response:".$response;
-//     var_dump($response);//
+ $obj=new Email("http://localhost:3001/newuser");
+    $response=$obj->emailToInstalledNewUser($emailArray=[
+        "fullName"=> "Jorge Hernandez",
+        "paymentDay"=> "1 al 7",
+        "periodo"=> "Febrero",
+        "valorPlan"=> "50000",
+        "template"=>"d-4bdc152f4ac04ddfbacd49948f570213",
+        "idClient"=>"958",
+        "email"=>"omar.a.hernandez.d@gmail.com"
+        ]);
+    print "response:".$response;
+    var_dump($response);//
 
  
 

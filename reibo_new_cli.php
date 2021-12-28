@@ -385,6 +385,7 @@ if($_GET['idc']) {
 		$corte=$row['corte'];
 		$direccion=$row['direccion'];
 		$pago=$row['pago'];
+		$result->free();
 	}		
 	$ultimopago="";
 	$pagoAnterior="";	
@@ -395,7 +396,7 @@ if($_GET['idc']) {
 	$paguehasta="5 DE $month_name";
 	$suspension="7 DE $month_name";
 	
-	$result->free();
+	
 	}
 ?>	
 <table style="table-layout:fixed;font-size:11px;" width="200" border="0">

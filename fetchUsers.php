@@ -1,15 +1,15 @@
 <?php 
-session_start();
-if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
-		{
-		header('Location: login/index.php');
-		exit;
-		}
-else    {
-		$user=$_SESSION['username'];
-		}
+// session_start();
+// if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
+// 		{
+// 		header('Location: login/index.php');
+// 		exit;
+// 		}
+// else    {
+// 		$user=$_SESSION['username'];
+// 		}
 header('Content-Type: application/json');
-require 'vendor/autoload.php';
+// require 'vendor/autoload.php';
 require 'dateHuman.php';
 require("login/db.php");
 require 'Mkt.php';
@@ -17,7 +17,6 @@ require 'vpnConfig.php';
 require("VpnUtils.php");
 require("PingTime.php");
 require("controller/brand/Ubiquiti.php");
-//
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -61,20 +60,21 @@ if($_SERVER['REQUEST_METHOD']==='POST') {  //    Update Ip and others  Block
     }
 }
 
-if ($searchOption=="Todos"){ 
+if ($searchOption=="Todos"){
+    $queryPart=""; 
     if(filter_var($searchString, FILTER_VALIDATE_IP)){
         $queryPart="AND `ip` LIKE '%$searchString%' ";
     }elseif($searchString!="" && !filter_var($searchString, FILTER_VALIDATE_IP) ){
         $name=explode(" ",$searchString)[0];
         $ln=explode(" ",$searchString)[1];
         $lastName=$ln!=null?$ln:"";
-        $queryPart="AND ( (`cliente` LIKE '%$name%') OR (`apellido` LIKE '%$lastName%'))  ORDER BY `id` DESC LIMIT 1"; 
-        echo $queryPart;
+        $queryPart=$lastName==""? "AND ( (`cliente` REGEXP '$name' ) )":"AND ( (`cliente` REGEXP '$name' ) AND (`apellido` REGEXP '^{$lastName[0]}{$lastName[1]}') )"; 
+        // echo $queryPart;
     }
     //$queryPart.=" ORDER BY `id` DESC LIMIT 1";
     
-    $sqlSearch="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1 $queryPart  "; 
-    // echo $sqlSearch;
+    $sqlSearch="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1 $queryPart ORDER BY `id` DESC LIMIT 1 "; 
+    //echo $sqlSearch;
     if ($result = $mysqli->query($sqlSearch)) {
         $num=$result->num_rows;
         $counter=0;
@@ -211,7 +211,7 @@ if($searchOption=="Ping Down"){
         }
         $ping[]=array("numResult"=>"$num");
     }
-echo json_encode($ping);   
+echo ($ping);   
 }
 
 
@@ -330,6 +330,7 @@ function getArp($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_p
     return $result;
 }
 function getSignal($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_default_password,$ubiquiti_default_user,$ubiquiti_default_password,$vpnUser,$vpnPassword,$ip){
+    $result=0; 
     $serverLastByte=explode(".",$serverIp)[3];
     if($serverLastByte=="1"){
         $user=$rb_default_user;

@@ -672,7 +672,7 @@
 												<tbody>
 													<?php
 													$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,activo,`velocidad-plan`,ip,pago FROM `redesagi_facturacion`.`afiliados` WHERE `afiliados`.`eliminar` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =1 ORDER BY `id` DESC ";
-                                                    if ($result = $mysqli->query($sql))
+                                                    if ($result = $mysqli->query($sql)){
 														while ($row = $result->fetch_assoc()) {
 															$cod = $row["id"];
 															$sqlz = "SELECT id,cliente,apellido,telefono,direccion,corte,activo,`velocidad-plan`,ip,pago,cerrado, COUNT(`factura`.`cerrado`) as counts 
@@ -709,10 +709,11 @@
 																	echo "<td><button type=\"button\" class=\"btn btn-light smsclientAtrasado\" id=\"$cod\" ><i class=\"icon-export text-success\"></i></button></td>";
 																	echo "</tr>";
 																}
-															}
 															$resultz->free();
+															}
 														}
-													$result->free();
+														$result->free();
+													}
 													?>
 												</tbody>
 											</table>
@@ -744,7 +745,7 @@
 												<tbody>
 													<?php
 													$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,activo,`velocidad-plan`,ip,pago FROM `redesagi_facturacion`.`afiliados` WHERE `afiliados`.`eliminar` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =15 ORDER BY `id` DESC ";
-													if ($result = $mysqli->query($sql))
+													if ($result = $mysqli->query($sql)){
 														while ($row = $result->fetch_assoc()) {
 															$cod = $row["id"];
 															$sqlz = "SELECT id,cliente,apellido,telefono,direccion,corte,activo,`velocidad-plan`,ip,pago,cerrado,  COUNT(`factura`.`cerrado`) as counts 
@@ -781,10 +782,11 @@
 																	echo "<td><button type=\"button\" class=\"btn btn-light smsclientAtrasadoc15\" id=\"$cod\" ><i class=\"icon-export text-success\"></i></button></td>";
 																	echo "</tr>";
 																}
+																$resultz->free();
 															}
-															//$resultz->free();
 														}
-													$result->free();
+														$result->free();
+													}
 													?>
 												</tbody>
 											</table>

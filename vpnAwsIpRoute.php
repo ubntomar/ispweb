@@ -28,7 +28,7 @@ if ($val) {
                 }
         }else{
                 system('clear');
-                print "\nError!, example for correct use: php vpnAwsIpRoute.php  -p:\"id-empresa\" -p:\"100\" \n\n";
+                print "\nError!, example for correct use: php vpnAwsIpRoute.php  -p:\"id-empresa\" -p:\"1\" \n\n";
         }
 }else{
         system('clear');
@@ -37,7 +37,7 @@ if ($val) {
 }
 if($validInitParams){
 $fileContent.="#!/bin/sh
-# This is  file. 
+# This is  file was created at $convertdate. 
 # This script is run by the pppd after the link is established.
 # It uses run-parts to run scripts in /etc/ppp/ip-up.d, so to add routes,
 # set IP address, run the mailq etc. you should create script(s) there.

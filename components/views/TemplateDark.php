@@ -7,7 +7,7 @@ Class TemplateDark{
         $content='
         <header>
             <div class="logo">
-                <a href="../main.php">
+                <a href="main.php">
                     <h1>Isp Experts</h1>
                 </a>
                 <h4>Monitoreo y administraciòn</h4>

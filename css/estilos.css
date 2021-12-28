@@ -307,7 +307,7 @@ body {
 /* --- --- MEDIAQUERIES --- --- */
 @media screen and (max-width: 768px) {
 	.row{
-		background-color: aqua;
+		background-color: rgb(179, 212, 212);
 	}
 	.barra-lateral {
 		min-height: auto;
@@ -335,11 +335,11 @@ body {
 }
 @media screen and (max-width: 990px) { 
 	.barra-lateral {
-		background-color: #b66081;
+		background-color: #1f1d1e;
 		min-height: auto;
 	}
 	.barra-lateral .menu a {
-		background-color: #b74848;
+		background-color: #252324;
 		display: inline-block;
 		border-bottom: none;
 	}
