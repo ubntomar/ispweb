@@ -175,6 +175,19 @@ class Mkt
         }   
         return $response;
     }
+    public function ipRoute($dstAddresses){
+        $printRequest = new RouterOS\Request('/ip/route/print');
+        $printRequest->setQuery(RouterOS\Query::where('dst-address', "$dstAddresses")); 
+        $id = $this->client->sendSync($printRequest)->getProperty('.id');
+        if ($id==NULL){
+            $response=NULL;
+            //ip route dont exist!
+        }            
+        if($id!=NULL){ 
+            $response= 3;//"ip route is already added!"; 
+        }   
+        return $response;
+    }
     public function checkSignal(){
         $printRequest = new RouterOS\Request('/interface/wireless/registration-table/print');
         $signal = $this->client->sendSync($printRequest)->getProperty('signal-strength');
