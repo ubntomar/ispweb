@@ -1,6 +1,6 @@
 <?php
 use PEAR2\Net\RouterOS;
-require_once '/home/ubuntu/mikrotik-pear/vendor/autoload.php'; //ponia problemas si lo ponia desde html!
+require_once '/home/ubuntu/vendor/autoload.php'; //ponia problemas si lo ponia desde html!
 // ok=>   /usr/local/bin/composer require pear2/net_transmitter:1.0.0b1 pear2/cache_shm pear2/net_routeros:dev-develop@dev
 class Mkt
 {
@@ -209,7 +209,7 @@ class Mkt
     }
     
 } 
-////
+//
 // if($mkobj=new Mkt("192.168.16.245","admin","agwist2017")){
 //     if($mkobj->success){
 //         var_dump($mkobj->checkSignal());      

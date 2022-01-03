@@ -1,5 +1,5 @@
 <?php
-require("/var/www/html"."/Client.php");
+require("/var/www/ispexperts"."/Client.php");  
 class Wallet extends Client{
 
     public function createWallet($idClient, $action, $value, $date, $hour, $idCajero, $source, $comment){

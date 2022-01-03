@@ -23,10 +23,13 @@ class Repeater
                 if($queryResult=$this->mysqli->query($sql)){
                     $rowAray=$queryResult->fetch_Assoc();
                     $ipSegment=$rowAray["ip-segment"];
+                    $ping=$rowAray["ping"];
+                    $pingDate=$rowAray["ping-date"];
+                    $remoteRoute=$rowAray["remote-route"];
                     $queryResult->free(); 
                 }
                 if(explode(".",$serverIp)[3]!=1){
-                    $response[]=[ "id"=>"$id","fecha"=>"$fecha","serverName"=>"$serverName","serverIp"=>"$serverIp","username"=>"$username","password"=>"$password","idRepeaterSubnetGroup"=>"$idRepeaterSubnetGroup","idEmpresa"=>"$idEmpresa","idGruposEmpresa"=>"$idGruposEmpresa","ipSegment"=>"$ipSegment" ];
+                    $response[]=[ "id"=>"$id","fecha"=>"$fecha","serverName"=>"$serverName","serverIp"=>"$serverIp","username"=>"$username","password"=>"$password","idRepeaterSubnetGroup"=>"$idRepeaterSubnetGroup","idEmpresa"=>"$idEmpresa","idGruposEmpresa"=>"$idGruposEmpresa","ipSegment"=>"$ipSegment","ping"=>"$ping","ping-date"=>"$pingDate","remote-route"=>"$remoteRoute" ];
                 }
             }
             $result->free();
@@ -43,6 +46,17 @@ class Repeater
         }
         return $response;
     }
+    public function updateRepeater($tableName,$item,$operator="=",$value,$idTarget){
+        $sql="UPDATE `redesagi_facturacion`.`$tableName` set `$item` $operator '$value' WHERE `id`='$idTarget' ";
+        // print $sql;
+        if ($this->mysqli->query($sql) === TRUE){
+            $response= true;
+        }else{
+            $response= false;
+        }
+        return $response;
+    }
+    
 }
 
 // $repeaterObject=new Repeater("localhost", "mikrotik", "-Agwist2017Agwist1.", "redesagi_facturacion");

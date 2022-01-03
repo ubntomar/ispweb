@@ -6,7 +6,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 	} else {
 	$user = $_SESSION['username'];
 	$idCajero = $_SESSION['idCajero'];
-}
+} 
 include("../../login/db.php"); 
 require '../../Mkt.php';
 require '../../vpnConfig.php'; 

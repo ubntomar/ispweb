@@ -1,8 +1,7 @@
   async function sendEmail(data = "") {
       var response = "xxx"
-      require('dotenv').config();
       const sgMail = require('@sendgrid/mail')
-      sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY)//first paste export....... in ~/.profile, run: . ~/.profile , check: printenv 
       console.log("la api ke"+process.env.SENDGRID_API_KEY)
       const msg = {
           to: data.email,

@@ -38,7 +38,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
 if($_SERVER['REQUEST_METHOD']==='POST' ){ 
     switch($_POST["option"]){
         case "itemRepeater":{
-            $idRepeaterSubnetsGroup=$mysqli -> real_escape_string($_POST["idRepeaterSubnetsGroup"]);
+            $idRepeaterSubnetsGroup=$mysqli -> real_escape_string($_POST["idRepeaterSubnetsGroup"]); 
             $newIpSegment=$mysqli -> real_escape_string($_POST["newIpSegment"]);
             $repeaterName=$mysqli -> real_escape_string($_POST["repeaterName"]); 
             $idAwsVpnClient= $mysqli -> real_escape_string($_POST["picked"]);

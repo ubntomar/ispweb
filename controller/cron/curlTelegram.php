@@ -1,7 +1,7 @@
 <?php
-include("PingTime.php");
-include("networkMap.php");
-include("login/db.php");
+include("../../PingTime.php");
+include("../../utils/networkMap.php"); 
+include("../../login/db.php");
 
 $ipAddress="181.60.60.55";
 $pingObject=new PingTime($ipAddress);

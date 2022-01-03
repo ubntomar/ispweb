@@ -1,0 +1,16 @@
+{
+    "name": "ispexperts.com Server",
+    "host": "ec2-54-159-208-183.compute-1.amazonaws.com",
+    "protocol": "sftp",
+    "port": 22,
+    "username": "ubuntu",   
+    "privateKeyPath": "/home/omar/.ssh/id_rsa200",
+    "remotePath": "/var/www/html",
+    "uploadOnSave": true,
+    "watcher": {
+        "files": "**/*.{css,css.map,js}",
+        "autoUpload": true,
+        "autoDelete": true
+    } 
+}
+        

@@ -61,21 +61,31 @@ if($_SERVER['REQUEST_METHOD']==='POST') {  //    Update Ip and others  Block
 }
 
 if ($searchOption=="Todos"){
-    $queryPart=""; 
+    $queryPart="";
+    $sql=""; 
     if(filter_var($searchString, FILTER_VALIDATE_IP)){
         $queryPart="AND `ip` LIKE '%$searchString%' ";
+        $sqlSearch="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1 $queryPart ORDER BY `id` DESC LIMIT 1 ";
+        $sql=$sqlSearch;
     }elseif($searchString!="" && !filter_var($searchString, FILTER_VALIDATE_IP) ){
         $name=explode(" ",$searchString)[0];
         $ln=explode(" ",$searchString)[1];
         $lastName=$ln!=null?$ln:"";
         $queryPart=$lastName==""? "AND ( (`cliente` REGEXP '$name' ) )":"AND ( (`cliente` REGEXP '$name' ) AND (`apellido` REGEXP '^{$lastName[0]}{$lastName[1]}') )"; 
-        // echo $queryPart;
+        $queryPart2=$lastName==""? "AND ( (`cliente` REGEXP '$name' ) )":"AND ( (`cliente` REGEXP '$searchString' )   )"; 
+        $sqlSearch1="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1 $queryPart ORDER BY `id` DESC LIMIT 1 "; 
+        $sqlSearch2="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1 $queryPart2 ORDER BY `id` DESC LIMIT 1 "; 
+        if ($result = $mysqli->query($sqlSearch1)) {
+            $num=$result->num_rows;
+            if($num){
+                $sql=$sqlSearch1;
+            }else{
+                $sql=$sqlSearch2;
+            }
+            $result->free();
+        }
     }
-    //$queryPart.=" ORDER BY `id` DESC LIMIT 1";
-    
-    $sqlSearch="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1 $queryPart ORDER BY `id` DESC LIMIT 1 "; 
-    //echo $sqlSearch;
-    if ($result = $mysqli->query($sqlSearch)) {
+    if ($result = $mysqli->query($sql)) {
         $num=$result->num_rows;
         $counter=0;
         while($row = $result->fetch_assoc()) {

@@ -270,15 +270,15 @@ else{
                                     <tbody>
                                         <tr v-for="repeater in repeaters" >
                                             <td><small>{{repeater.id}}</small></td> 
-                                            <td><small>{{repeater.serverName}}</small></td>
+                                            <td><small>{{repeater.serverName}}</small></td>  
                                             <td>{{repeater.serverIp}}</td>
-                                            <td>{{repeater.ipSegment}}</td>
-                                            <td>{{repeater.fecha}}</td>
+                                            <td  ><strong v-if="repeater.ping" v-bind:class="{'bg-success':'repeater.ping','text-light':'repeater.ping','p-2':'repeater.ping'}" >O.K</strong> {{repeater.ipSegment}} </td>
+                                            <td>{{repeater.fecha}}</td> 
                                         </tr>
                                     </tbody>
                                 </table>
                                 
-                            </div>
+                            </div> 
                         </div>
                     </div>
 
@@ -463,7 +463,7 @@ else{
                 const endPoint=`../controller/axios/repeaterApi.php?option=getRepeaterList`
                 let res = await axios.get(endPoint);
                 let data = res.data;
-                console.log(data);
+                //console.log(data);
                 this.repeaters=data
             },
             getUser: function() {

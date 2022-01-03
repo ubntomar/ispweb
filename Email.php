@@ -83,6 +83,5 @@ class Email
     print "response:".$response;
     var_dump($response);//
 
- 
 
 ?>

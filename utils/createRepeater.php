@@ -470,22 +470,21 @@ var app = new Vue({
             this.createTableStaticRoutes()
         },
         createtableItemSubnet: async function(){
-            console.log("voya crear la table items subnet repeater")
             const response = await fetch(this.endpoint, {
                 method: 'POST',
                 headers : { 
-                    'Accept': 'application/json'
+                    'Accept': 'application/json' 
                 },
-                body: new URLSearchParams({
-                    option:"itemRepeater",
+                body: new URLSearchParams({    
+                    option:"itemRepeater", 
                     idRepeaterSubnetsGroup:this.idRepeaterSubnetsGroup,
                     newIpSegment:this.newIpSegment,
-                    repeaterName:this.repeaterName,
+                    repeaterName:this.repeaterName,   
                     picked:this.picked,
                 })
-            })
+            }) 
             let promiseResponse = await response.json();
-            this.idItemsRepeaterSubnetGroup=promiseResponse.id
+            this.idItemsRepeaterSubnetGroup=promiseResponse.id     
             this.tableItemSubnetCreated=true
         }, 
         requestIdSubnet:function(){
