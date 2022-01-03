@@ -1,9 +1,9 @@
 <?php 
-require 'PingTime.php';
-require 'Mkt.php';
-require 'CheckDevice.php';
-require("VpnUtils.php");
-include("login/db.php");
+require '../../PingTime.php';
+require '../../Mkt.php';
+require '../../CheckDevice.php';
+require("../../VpnUtils.php");
+include("../../login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;

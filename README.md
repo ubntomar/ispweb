@@ -10,4 +10,10 @@ sudo apt install php libapache2-mod-php php-mysql
 SENDGRID_API_KEY)//first paste export....... in ~/.profile, run: . ~/.profile , check: printenv 
 
 ojo, require("/var/www/(ispexperts)"."/Client.php"); =>    Wallet.php
+
+    pendiente Naalí Colón Po Switch rb.. repetidor
+    Pendiente pasar ips de Yulieth La Vara por la 123
+	pendiente crear repetidor ..Javier Pardo
+	pendiente crear repetidor Opitas ..Milena sarmiento  117.13
+	pendiene crear repetidor natalì colòn.
     
