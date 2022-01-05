@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
     switch($_GET["option"]){
         case "repeaterSignal":{
             $ipAddress=$mysqli -> real_escape_string($_GET["ipAddress"]);
-            $ubiquitiObject=new Ubiquiti($ipRouter=$ipAddress, $user=$rb_default_repeater_user, $pass=$rb_default_repeater_password);
+            $ubiquitiObject=new Ubiquiti($ipRouter=$ipAddress, $user=$ubiquiti_default_repeater_user, $pass=$ubiquiti_default_repeater_password);
             $signal=$ubiquitiObject->getUbiquitiSignal();
             $response= '{"signal": "'.$signal.'"}';
             break;
