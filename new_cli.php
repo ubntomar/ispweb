@@ -13,11 +13,11 @@ else    {
 		$empresa = $_SESSION['empresa'];
 		}
 //////////////////////////////////////////////////////////////////////  
-//////////////////////////////////      
+////////////////////////////////      
 // $user="Omar";
 // $administrador="Omar";
 // $empresa=1;
-//////////////////////////////////
+////////////////////////////////
 include("login/db.php");
 include("Client.php");
 include("VpnUtils.php");
@@ -35,7 +35,7 @@ $today = date("Y-m-d");
 $fecha=$today;
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i');
-$usuario=$_SESSION['username'];//$_SESSION['username'];
+$usuario=$_SESSION['username'];//$_SESSION['username']; 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $valorPlan= mysqli_real_escape_string($mysqli, $_REQUEST['valorPlan']);

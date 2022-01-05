@@ -42,7 +42,6 @@ if ($result = $mysqli->query($sqlSearch)) {
         }
     }
 }
-// echo "Script ping updater ejecutado: $today::$hourMin\n";
 
 
 

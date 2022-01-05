@@ -625,7 +625,7 @@ $(document).ajaxComplete(function() {
                     }
                     console.log("valores q voy a enviar \n idc: " + idcRow + ",vap:" + vapRow +
                         ",vaa:" + vaaRow + ",vre: " + vreRow + ",cam: " + cambioRow +
-                        ",vad: " + vadRow + ",vpl: " + vplanRow);
+                        ",vad: " + vadRow + ",vpl: " + vplanRow+ ",reconectar: " + rec);
                     $.ajax({
                         type: 'post',
                         url: '../controller/ajax/payFact.php',
@@ -651,7 +651,7 @@ $(document).ajaxComplete(function() {
                                 cod);
                             alertify.success(msj);
                             $("#idt").val(cod);
-                            $("#form").submit(); 
+                            //$("#form").submit();   
                         }
                     });
                 } else

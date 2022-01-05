@@ -13,7 +13,7 @@ class Sms extends Client {
             }
         }
         $phoneListFormated=substr_replace($phoneListString ,"",-1);
-        // print "\n telefonos:$phoneListFormated\n";
+        // print "\n telefonos:$phoneListFormated\n"; 
         $curl = curl_init();
         $query = http_build_query(array(
             'key' => $apiKey,

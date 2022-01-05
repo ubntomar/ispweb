@@ -233,7 +233,8 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 					//echo "\n vad vale:$vad y la variable descuento vale:$descuento \n";
 
 					$sqlin = "INSERT INTO `redesagi_facturacion`.`recaudo` (`idrecaudo`, `idfactura`, `fecha-hoy`,`hora`, `notas`, `valorp`, `abonar`, `vendedor`) VALUES (NULL, '$idFactura', '$today','$hourMin', 'nota', '0', '$valorAbonar', '$usuario');";
-					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '$newSaldoTotal1fact', `cerrado` = '$cierreFact', `fecha-pago` = '$today', `fecha-cierre` = '$fechaCierreFact', `descuento` = '$descuento', `idtransaccion` = '$last_id_tra'  WHERE `factura`.`id-factura` = $idFactura ";
+					$fc=$fechaCierreFact=='null'?$fechaCierreFact:"'$fechaCierreFact'";
+					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '$newSaldoTotal1fact', `cerrado` = '$cierreFact', `fecha-pago` = '$today', `fecha-cierre` = $fc, `descuento` = '$descuento', `idtransaccion` = '$last_id_tra'  WHERE `factura`.`id-factura` = $idFactura ";
 					//echo "\n 167: $sqlup";
 					if ($mysqli->query($sqlin) === TRUE) {
 						if ($mysqli->query($sqlup) === TRUE) {

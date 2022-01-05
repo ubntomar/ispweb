@@ -394,7 +394,7 @@ var app = new Vue({
         idVpnTarget:null,            
                         
     },
-    methods: {
+    methods: { 
         createTablestaticRouteSteps:async function(number,idStaticRoutes,localServerIp,dstAddress,gateway,idAwsVpnClient){
             console.log(`info para crear steps: ${number}  ${idStaticRoutes}  ${localServerIp}  ${dstAddress}  ${gateway}  ${idAwsVpnClient}`)
             const response = await fetch(this.endpoint, {

@@ -54,13 +54,11 @@ if($_POST["rec"]){
 		if($mkobj->success){
 			//echo "Conectado a la Rboard cod Server-target-> {{$data['server']}}";
 			removeIp($mkobj->remove_ip($ip,'morosos'),$idc,$mysqli,$ip,$today,$hourMin);       
-		}
-		else {
+		}else {
 			$txt= "-$today-$hourMin  No fue posible conectar a la Rboard 1, reconectar pendiente";
 			$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0' , `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='1'  WHERE `afiliados`.`id`= '$idc' ";
 			if($result2 = $mysqli->query($sqlUpd)){					
-			}
-			else{
+			}else{
 				$txt.= "-Error al actualizar cliente Mysql `shutoffpending`=1\n";	
 			}
 			file_put_contents('cut.log', $txt.PHP_EOL , FILE_APPEND );
@@ -109,12 +107,12 @@ if (($_POST['vap'] >= 0) || ($debug == 1)) { //paga todo	//paga todo   //paga to
 							if ($cnt == $row_cnt)
 							$response= "Pago realizado con exito!/" . $last_id_tra;
 							else
-							$response= "";
+							$response= "error en: $sqlup";
 						} else {
-							$response= "Error Recaudo:" . $sqlin . "<br>" . $mysqli->error;
+							$response= "Error Recaudo:" . $sqlup . "<br>" . $mysqli->error;
 						}
 					} else {
-						$response= "Error Factura: " . $sqlup . "<br>" . $mysqli->error;
+						$response= "Error Factura: " . $sqlin . "<br>" . $mysqli->error;
 					}
 					$vap -= $saldo;
 				}
@@ -196,7 +194,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 				$vtotal += $saldo;
 				$cerrarAbono = 0;
 				$paga1fact = -1;
-				$fechaCierreFact = "0000/00/00";
+				$fechaCierreFact = 'null';
 				$cierreFact = 0;
 				$text = "";
 				if (($vaa == $saldo) && ($vaa != 0))
@@ -239,19 +237,20 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 					//echo "\n vad vale:$vad y la variable descuento vale:$descuento \n";
 
 					$sqlin = "INSERT INTO `redesagi_facturacion`.`recaudo` (`idrecaudo`, `idfactura`, `fecha-hoy`,`hora`, `notas`, `valorp`, `abonar`, `vendedor`) VALUES (NULL, '$idFactura', '$today','$hourMin', 'nota', '0', '$valorAbonar', '$usuario');";
-					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '$newSaldoTotal1fact', `cerrado` = '$cierreFact', `fecha-pago` = '$today', `fecha-cierre` = '$fechaCierreFact', `descuento` = '$descuento', `idtransaccion` = '$last_id_tra'  WHERE `factura`.`id-factura` = $idFactura ";
+					$fc=$fechaCierreFact=='null'?$fechaCierreFact:"'$fechaCierreFact'";
+					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '$newSaldoTotal1fact', `cerrado` = '$cierreFact', `fecha-pago` = '$today', `fecha-cierre` = $fc, `descuento` = '$descuento', `idtransaccion` = '$last_id_tra'  WHERE `factura`.`id-factura` = $idFactura ";
 					//echo "\n 167: $sqlup";
 					if ($mysqli->query($sqlin) === TRUE) {
 						if ($mysqli->query($sqlup) === TRUE) {
 							if ($cnt == $row_cnt)
 							$response= "Pago realizado con exito!/" . $last_id_tra;
 							else
-								$response= "";
+								$response= "linea 248";
 						} else {
-							$response= "Error Recaudo:" . $sqlin . "<br>" . $mysqli->error;
+							$response= "Error Recaudo:" . $sqlup . "<br>" . $mysqli->error;
 						}
 					} else {
-						$response= "Error Factura: " . $sqlup . "<br>" . $mysqli->error;
+						$response= "Error Factura: " . $sqlin . "<br>" . $mysqli->error;
 					}
 					if ($cerrarAbono == 1)
 						$vaa = 0;
@@ -276,10 +275,10 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 							else
 								echo "";
 						} else {
-							echo "Error Recaudo:" . $sqlin . "<br>" . $mysqli->error;
+							$response="Error Recaudo:" . $sqlup . "<br>" . $mysqli->error;
 						}
 					} else {
-						echo "Error Factura: " . $sqlup . "<br>" . $mysqli->error;
+						$response="Error Factura: " . $sqlin . "<br>" . $mysqli->error;
 					}
 				}
 				//echo "\n *************************FIN***************************************\n";	 
@@ -304,7 +303,7 @@ if($_POST["valorWallet"]){
 /////SMS && EMAIL
 $endPoint=$mailEndPoint;
 $key=$smsKey;
-$prefix=$prefixCode;//"+57";
+$prefix=$prefixCode;//"+57"; 
 $idClient=mysqli_real_escape_string($mysqli, $_REQUEST['idc']);
 $walletObject=new Wallet($server, $db_user, $db_pwd, $db_name);
 $companyObj=new Company($server, $db_user, $db_pwd, $db_name);
@@ -338,7 +337,7 @@ if(($emailObj->emailValidate($email)) && $fullName){
 		}
 }
 ///////END/////// 
-echo $response;//."response email:$responseEmail"  
+echo "res:".$response."response email:$responseEmail";//."response email:$responseEmail"  
 
 //
 function removeIp($remove,$idc,$mysqli,$ip,$today,$hourMin){      

@@ -4,7 +4,13 @@
 $json='{
 	"map": [{
 		"Red-Retiro": [{
-			"ruta": [{
+			"ruta": [
+				{
+					"name": "Vpn Entre Cloud Server y Leo Acacias  ",
+					"ip": "192.168.42.11",
+					"type": "Comunicacion Princiapl"
+				},
+				{
 					"name": "Public Ip Red Leo ",
 					"ip": "181.60.60.57",
 					"type": "Modem de Claro"
@@ -42,7 +48,13 @@ $json='{
 			]
 		}],
         "Red-Montecristo": [{
-			"ruta": [{
+			"ruta": [
+				{
+					"name": "Vpn Entre Cloud Server y Maria Acacias   ",
+					"ip": "192.168.42.10",
+					"type": "Comunicacion Princiapl"
+				},
+				{
 					"name": "Public Ip Maria ",
 					"ip": "181.60.60.121",
 					"type": "Modem de Claro"

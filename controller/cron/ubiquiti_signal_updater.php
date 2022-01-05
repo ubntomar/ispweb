@@ -18,10 +18,10 @@ if ($mysqli->connect_errno) {
     }	
 mysqli_set_charset($mysqli,"utf8");
 
-// $UbiquitiCredentials[]=["user"=>"ubnt","password"=>"-Agwist2017"];
-// $UbiquitiCredentials[]=["user"=>"ubnt","password"=>"Agwist1."];
+$UbiquitiCredentials[]=["user"=>"ubnt","password"=>"-Agwist2017"];
+$UbiquitiCredentials[]=["user"=>"ubnt","password"=>"Agwist1."];
 // $UbiquitiCredentials[]=["user"=>"ubnt","password"=>"ubnt"];
-// $UbiquitiCredentials[]=["user"=>"ubnt","password"=>"ubnt1234"];
+$UbiquitiCredentials[]=["user"=>"ubnt","password"=>"ubnt1234"];
 $UbiquitiCredentials[]=["user"=>"ubnt","password"=>"agwist2017"];
 
 $clientObject=new Client($server, $db_user, $db_pwd, $db_name);

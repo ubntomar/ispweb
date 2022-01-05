@@ -170,12 +170,17 @@ else{
                                                     </div>
                                                     <div class="server-info">
                                                         <small>Server Ip: <a v-bind:href="'http://'+cliente.serverIp"
-                                                                target="_blank">{{cliente.serverIp}}</a>
+                                                                target="_blank">{{cliente.serverIp}} (señal:{{signalOfRepeater}})</a>
                                                                 <button class="border border-rounded" v-on:click="pingtoIp(cliente.serverIp)">
                                                                     <i v-bind:class="{'animate-spin':pingToServerSpin}" class="icon-spin6 "></i>
                                                                 </button>
                                                         </small>
                                                         <small v-bind:class=" {'text-success':ipTargetStatus=='up','text-danger':ipTargetStatus=='down'} ">time:{{ipTargetTime}} ms {{ipTargetStatus}}</small>
+
+                                                    </div>
+                                                    <div class="server-info" v-if="serverType">
+                                                        <small>Antena Servidor: <a v-bind:href="'http://'+cliente.ipAddress"
+                                                                target="_blank">{{serverType}}</a></small>
 
                                                     </div>
                                                     <div class="server-info">
@@ -431,6 +436,10 @@ else{
     var app = new Vue({
         el: "#app",
         data: {
+            mikrotikEndpoint: "../utils/fetch/mikrotikAPI.php?option=repeaterSignal",
+            ubiquitiEndpoint: "../utils/fetch/ubiquitiAPI.php?option=repeaterSignal",
+            serverType:null,
+            signalOfRepeater:null,
             stat: false,
             cont: "0",
             thename: "",
@@ -593,7 +602,37 @@ else{
                 }).catch(e => {
                     //console.log('error' + e)
                 })
-                
+                this.repeaterSignal(ipAddress)
+            },
+            repeaterSignal: async function(ipAddress){
+                var param="&ipAddress="+ipAddress
+                var url = this.mikrotikEndpoint+param
+                console.log(`Tryng Mikrotik,ip address: ${url}`)
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers : { 
+                        'Accept': 'application/json'
+                    }
+                })
+                let promiseResponse = await response.json();
+                if(promiseResponse.status!='fail'){
+                    this.signalOfRepeater=promiseResponse.signal
+                    this.serverType="Mikrotik"
+                }else{
+                    var url = this.ubiquitiEndpoint+param
+                    console.log(`Tryng Ubiquiti,ip address: ${url}`)
+                    const response = await fetch(url, {
+                        method: 'GET',
+                        headers : { 
+                            'Accept': 'application/json'
+                        }
+                    })
+                    let promiseResponse = await response.json();
+                    if(promiseResponse.status!='fail'){
+                        this.signalOfRepeater=promiseResponse.signal
+                        this.serverType="Ubiquiti"
+                    }
+                }
             },
             pingToIpButtonClick: function(data) {
                 this.pingSuccess = "waiting"

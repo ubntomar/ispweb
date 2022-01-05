@@ -16,4 +16,7 @@ ojo, require("/var/www/(ispexperts)"."/Client.php"); =>    Wallet.php
 	pendiente crear repetidor ..Javier Pardo
 	pendiente crear repetidor Opitas ..Milena sarmiento  117.13
 	pendiene crear repetidor natalì colòn.
+	pendiente repetidor yenny arias
+	pendiente repetidor sabanasdel rosarioo alexander hernandez
+	
     
