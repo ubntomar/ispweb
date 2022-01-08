@@ -1,6 +1,6 @@
 <?php
-include("../../login/db.php"); 
-require '../../Mkt.php'; 
+include("/var/www/ispexperts/login/db.php"); 
+require '/var/www/ispexperts/Mkt.php'; 
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
     print "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -10,6 +10,11 @@ date_default_timezone_set('America/Bogota');
 $today = date("Y-m-d");
 $convertdate = date("d-m-Y", strtotime($today));
 $hourMin = date('H:i');
+$file = '/var/www/ispexperts/controller/cron/logs.txt';
+$current = file_get_contents($file);
+$current.="\nFilename:".basename(__FILE__, '.php')."  Date: $today $hourMin\n";
+file_put_contents($file, $current);
+print "\n".basename(__FILE__, '.php')." --archivo creado $today $hourMin!\n";
 $user="aws";
 $idEmpresa=1;//AG INGENIERIA GUAMAL-CASTILLA
 $groupArray=[];

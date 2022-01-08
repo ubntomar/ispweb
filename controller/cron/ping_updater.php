@@ -1,8 +1,8 @@
 <?php 
-require '../../PingTime.php';
-require '../../Mkt.php';
-require '../../CheckDevice.php';
-include("../../login/db.php");
+require '/var/www/ispexperts/PingTime.php';
+require '/var/www/ispexperts/Mkt.php';
+require '/var/www/ispexperts/CheckDevice.php';
+include("/var/www/ispexperts/login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error; 

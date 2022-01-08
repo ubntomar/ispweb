@@ -1,9 +1,9 @@
 <?php
 
-require("../../PingTime.php");
-require("../../Client.php");
-require("../../login/db.php");
-require("../../Mkt.php");
+require("/var/www/ispexperts/PingTime.php");
+require("/var/www/ispexperts/Client.php");
+require("/var/www/ispexperts/login/db.php");
+require("/var/www/ispexperts/Mkt.php");
 date_default_timezone_set('America/Bogota');
 $date = new DateTime('NOW');
 $date->format('Y-m-d');

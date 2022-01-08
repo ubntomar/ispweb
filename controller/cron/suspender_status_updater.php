@@ -1,9 +1,9 @@
 <?php 
-require '../../PingTime.php';
-require '../../Mkt.php';
-require '../../CheckDevice.php';
-require("../../VpnUtils.php");
-include("../../login/db.php");
+require '/var/www/ispexperts/PingTime.php';
+require '/var/www/ispexperts/Mkt.php';
+require '/var/www/ispexperts/CheckDevice.php';
+require("/var/www/ispexperts/VpnUtils.php");
+include("/var/www/ispexperts/login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -14,10 +14,17 @@ $today = date("Y-m-d");
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i');
 $sqlSearch="SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1 AND `suspender`=1  ";
+$file = 'logs.txt';
+$today = date("Y-m-d");
+$current = file_get_contents($file);
+
 if ($result = $mysqli->query($sqlSearch)) {
     while($row = $result->fetch_assoc()) {
         $listStatus=1;
         $id=$row["id"];
+        $name=$row["cliente"];
+        $lastName=$row["apellido"];
+        $address=$row["direccion"];
         $ipAddress=$row['ip'];
         print "ip address $ipAddress";
         $serverIp=serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress);
@@ -30,6 +37,17 @@ if ($result = $mysqli->query($sqlSearch)) {
                     if($mkobj=new Mkt($serverIp,$rb_server_default_user,$rb_default_password)){
                         if($mkobj->success){
                             $listStatus= $mkobj->verifyList("morosos",$ipAddress)==true?1:0;
+                            if(!$listStatus){
+                                //client must be inserted in 'morosos'!
+                                $res=$mkobj->add_address($ip=$ipAddress,$listName="morosos",$idUser=$id,$name,$lastName,$direccion=$address,$fecha=$convertdate); 
+                                if($res==1){
+                                    print "\n \t\t\t\t\t$name $lastName Agregado a morosos con éxito \n";
+                                    $current.="$id $name $lastName Agregado a morosos con éxito";
+                                }else{
+                                    print "\n \t\t\t\t\t$name $lastName NO FUE Agregado a morosos con éxito \n";
+                                    $current.="$id $name $lastName NO FUE Agregado a morosos con éxito";
+                                }
+                            }
                         }
                     }
                 }catch (Exception $e) {
@@ -43,7 +61,7 @@ if ($result = $mysqli->query($sqlSearch)) {
     }
 }
 
-
+file_put_contents($file, $current);
 
 function serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress){
     $res="0.0.0.1";

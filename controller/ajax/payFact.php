@@ -337,7 +337,7 @@ if(($emailObj->emailValidate($email)) && $fullName){
 		}
 }
 ///////END/////// 
-echo "res:".$response."response email:$responseEmail";//."response email:$responseEmail"  
+echo "res:".$response;//."response email:$responseEmail";//."response email:$responseEmail"  
 
 //
 function removeIp($remove,$idc,$mysqli,$ip,$today,$hourMin){      

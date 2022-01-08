@@ -1,9 +1,9 @@
-0 */6 * * * php /var/www/ispexperts/controller/cron/ping_repeater_updater.php 
-30 12 */1 * * php /var/www/ispexperts/controller/cron/suspender_status_updater.php 
-30 12 */1 * * php /var/www/ispexperts/controller/cron/mikrotik_signal_updater.php 
-5 12 */1 * * php /var/www/ispexperts/controller/cron/ubiquiti_signal_updater.php 
-30 11 */1 * * php /var/www/ispexperts/controller/cron/router_client_type.php 
-30 13 */1 * * php /var/www/ispexperts/controller/cron/ping_updater.php 
-*/30 * * * * php /var/www/ispexperts/controller/cron/cron_reconect.php 
-*/30 * * * * php /var/www/ispexperts/controller/cron/cron_shut_off.php 
-*/30 * * * * php /var/www/ispexperts/controller/cron/curlTelegram.php 
+0 */6 * * * php /var/www/ispexperts/controller/cron/ping_repeater_updater.php >> /var/www/ispexperts/controller/cron/clogs.txt
+30 12 */1 * * php /var/www/ispexperts/controller/cron/suspender_status_updater.php >> /var/www/ispexperts/controller/cron/clogs.txt
+30 12 */1 * * php /var/www/ispexperts/controller/cron/mikrotik_signal_updater.php >> /var/www/ispexperts/controller/cron/clogs.txt
+5 12 */1 * * php /var/www/ispexperts/controller/cron/ubiquiti_signal_updater.php >> /var/www/ispexperts/controller/cron/clogs.txt
+30 11 */1 * * php /var/www/ispexperts/controller/cron/router_client_type.php >> /var/www/ispexperts/controller/cron/clogs.txt
+30 13 */1 * * php /var/www/ispexperts/controller/cron/ping_updater.php >> /var/www/ispexperts/controller/cron/clogs.txt
+*/30 * * * * php /var/www/ispexperts/controller/cron/cron_reconect.php >> /var/www/ispexperts/controller/cron/clogs.txt
+*/30 * * * * php /var/www/ispexperts/controller/cron/cron_shut_off.php >> /var/www/ispexperts/controller/cron/clogs.txt
+*/5 * * * * php /var/www/ispexperts/controller/cron/curlTelegram.php >> /var/www/ispexperts/controller/cron/clogs.txt

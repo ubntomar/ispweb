@@ -36,12 +36,12 @@ class Repeater
         }
         return $response;
     }
-    public function getRepeaterItem($table='vpn_targets',$item,$serverIp){
+    public function getRepeaterItem($table='vpn_targets',$item,$value,$target){
         $response=null;
-        $sql="SELECT * from `redesagi_facturacion`.`$table` WHERE `$item`='$serverIp '";
+        $sql="SELECT * from `redesagi_facturacion`.`$table` WHERE `$item`='$value'";
         if($result=$this->mysqli->query($sql)){
             $row=$result->fetch_assoc();
-            $response=$row["id"];
+            $response=$row[$target];
             $result->free();
         }
         return $response;

@@ -1,9 +1,9 @@
 <?php
 //0 */6 * * * php /var/www/html/controller/cron/ping_repeater_updater.php     =>every 6 hours 
-require("../../login/db.php");
-require("../../Mkt.php");
-require("../../PingTime.php");
-require("../src/Repeater.php");
+require("/var/www/ispexperts/login/db.php");
+require("/var/www/ispexperts/Mkt.php");
+require("/var/www/ispexperts/PingTime.php");
+require("/var/www/ispexperts/controller/src/Repeater.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: " . $mysqli->connect_error;

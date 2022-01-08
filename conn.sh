@@ -1,1 +1,1 @@
-ssh ubuntu@ec2-54-159-208-183.compute-1.amazonaws.com
+ssh -i ~/.ssh/ali_rsa.pem root@47.88.79.231

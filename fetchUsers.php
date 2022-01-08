@@ -356,6 +356,7 @@ function getSignal($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_defaul
         }   
     }
     if(!$result){
+        $result=null;
         $port=22;
         $connection = @fsockopen($ip, $port,$errno, $errstr, 10);//last parameter is timeout
         if (is_resource($connection)){
@@ -367,7 +368,12 @@ function getSignal($serverIp,$rb_default_dstnat_port,$rb_default_user,$rb_defaul
                 if($obj->status){   
                     $result=$obj->getUbiquitiSignal();
                      //print "id $id ---$time {$row["user"]} {$row["password"]} $ipValue: ok SIGNAL: $signal \n";
-                }
+                }else{
+                    $obj2=new Ubiquiti($ip,$ubiquiti_default_user,"-Agwist2017");
+                    $result=0;
+                    if($obj2->status){   
+                        $result=$obj2->getUbiquitiSignal();}
+                    }
             } catch (\Throwable $th) {
                 //throw $th;
             }

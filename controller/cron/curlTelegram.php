@@ -1,8 +1,14 @@
 <?php
-include("../../PingTime.php");
-include("../../utils/networkMap.php"); 
-include("../../login/db.php");
-
+include("/var/www/ispexperts/PingTime.php");
+include("/var/www/ispexperts/utils/networkMap.php"); 
+include("/var/www/ispexperts/login/db.php");
+$file = '/var/www/ispexperts/controller/cron/logs.txt';
+$today = date("Y-m-d"); 
+$hourMin = date('H:i');
+$current = file_get_contents($file);
+$current.="\nFilename:".basename(__FILE__, '.php')."  Date: $today $hourMin\n";
+file_put_contents($file, $current);
+print "\n".basename(__FILE__, '.php')." --archivo creado $today $hourMin!\n";
 $ipAddress="181.60.60.55";
 $pingObject=new PingTime($ipAddress);
 if(!$pingObject->time(15)){
@@ -15,18 +21,7 @@ if(!$pingObject->time(15)){
 }else{
     print "\n$ipAddress responde con normalidad!";
 }
-$ipAddress="190.158.140.232"; 
-$pingObject=new PingTime($ipAddress);
-if(!$pingObject->time(15)){  
-    $messageToTelegram="Alerta!  Ip publica $ipAddress de la red 32 no responde, mensaje enviado desde Aws Server. Revisar por favor!!";
-    $stringFormatted = preg_replace('/\s+/', '\\t', $messageToTelegram);
-    print "mensaje formateado: $stringFormatted";
-    $curl="curl -X POST \"$telegramApi\" -d \"chat_id=$telegramChatid&text=$messageToTelegram\"";
-    exec($curl,$result);
-    print "\nmessage has been sent  to Telegram!";
-}else{
-    print "\n$ipAddress responde con normalidad!";
-}
+
 
 $jsonDecoded=json_decode($json,true);
 foreach ($jsonDecoded as $map){
@@ -61,6 +56,6 @@ function sendTelegram($ipAddress,$name,$time=15,$telegramApi,$telegramChatid){
         print "\n$ipAddress responde con normalidad!";
     } 
 }
-
+print "\n".basename(__FILE__, '.php')." --ejecucion terminada $today $hourMin!\n";
 
 ?>

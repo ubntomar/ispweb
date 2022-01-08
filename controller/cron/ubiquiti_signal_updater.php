@@ -1,9 +1,9 @@
 <?php
 
-require("../../PingTime.php");
-require("../../Client.php");
-require("../brand/Ubiquiti.php");
-require("../../login/db.php");
+require("/var/www/ispexperts/PingTime.php");
+require("/var/www/ispexperts/Client.php");
+require("/var/www/ispexperts/controller/brand/Ubiquiti.php");
+require("/var/www/ispexperts/login/db.php");
 date_default_timezone_set('America/Bogota');
 $date = new DateTime('NOW');
 $date->format('Y-m-d');

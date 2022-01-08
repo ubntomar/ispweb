@@ -584,7 +584,7 @@ else{
 
             },
             pingtoIp: function(ipAddress) {
-                //console.log("making ping to server")
+                this.serverType=null
                 this.pingToServerSpin=true;
                 axios.get('../devicePingResponse.php', {
                     params: {
@@ -598,7 +598,7 @@ else{
                     else {
                         this.ipTargetStatus = "down"
                     }
-                    this.pingToServerSpin=false;
+                    
                 }).catch(e => {
                     //console.log('error' + e)
                 })
@@ -608,31 +608,32 @@ else{
                 var param="&ipAddress="+ipAddress
                 var url = this.mikrotikEndpoint+param
                 console.log(`Tryng Mikrotik,ip address: ${url}`)
-                const response = await fetch(url, {
+                const mikrotikResponse = await fetch(url, {
                     method: 'GET',
                     headers : { 
                         'Accept': 'application/json'
                     }
                 })
-                let promiseResponse = await response.json();
-                if(promiseResponse.status!='fail'){
+                let promiseResponse = await mikrotikResponse.json();
+                if(promiseResponse.status!='fail' && promiseResponse.signal !='0' ){
                     this.signalOfRepeater=promiseResponse.signal
                     this.serverType="Mikrotik"
                 }else{
                     var url = this.ubiquitiEndpoint+param
                     console.log(`Tryng Ubiquiti,ip address: ${url}`)
-                    const response = await fetch(url, {
+                    const ubiquitiResponse = await fetch(url, {
                         method: 'GET',
                         headers : { 
                             'Accept': 'application/json'
                         }
                     })
-                    let promiseResponse = await response.json();
-                    if(promiseResponse.status!='fail'){
-                        this.signalOfRepeater=promiseResponse.signal
+                    let promiseRes = await ubiquitiResponse.json(); 
+                    if(promiseRes.status!='fail'){
+                        this.signalOfRepeater=promiseRes.signal
                         this.serverType="Ubiquiti"
                     }
                 }
+                this.pingToServerSpin=false;
             },
             pingToIpButtonClick: function(data) {
                 this.pingSuccess = "waiting"

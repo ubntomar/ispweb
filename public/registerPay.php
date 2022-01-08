@@ -651,7 +651,7 @@ $(document).ajaxComplete(function() {
                                 cod);
                             alertify.success(msj);
                             $("#idt").val(cod);
-                            //$("#form").submit();   
+                            $("#form").submit();   
                         }
                     });
                 } else
