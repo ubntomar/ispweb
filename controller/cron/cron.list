@@ -6,4 +6,7 @@
 30 13 */1 * * php /var/www/ispexperts/controller/cron/ping_updater.php >> /var/www/ispexperts/controller/cron/clogs.txt
 */30 * * * * php /var/www/ispexperts/controller/cron/cron_reconect.php >> /var/www/ispexperts/controller/cron/clogs.txt
 */30 * * * * php /var/www/ispexperts/controller/cron/cron_shut_off.php >> /var/www/ispexperts/controller/cron/clogs.txt
-*/5 * * * * php /var/www/ispexperts/controller/cron/curlTelegram.php >> /var/www/ispexperts/controller/cron/clogs.txt
+*/5 * * * * php /var/www/ispexperts/controller/cron/curlTelegram.php
+30 9 * * * php /var/www/ispexperts/controller/cron/messages.php
+0 1 * * * mysqldump redesagi_facturacion > /root/redesagi_facturacion_bk.sql
+*/15 * * * * php /var/www/ispexperts/controller/cron/cron_battery_sensor.php
