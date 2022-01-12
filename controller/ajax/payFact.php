@@ -318,7 +318,7 @@ if(($emailObj->emailValidate($emailInput))){
 $fullName=$walletObject->getClientItem($idClient,$item="cliente")."  ".$walletObject->getClientItem($idClient,$item="apellido");
 $companyName=$companyObj->getCompanyItem($idCompany=1,$item="nombre");
 $companyAddress=$companyObj->getCompanyItem($idCompany=1,$item="direccion");
-$message="Gracias por tu pago!. Sigue disfrutando del servicio. $companyName $companyAddress(Meta)";
+$message="Gracias por tu pago!. Sigue disfrutando del servicio. $companyName $companyAddress";
 $telefono=$walletObject->getClientItem($idClient,$item="telefono");
 $data[] =["idClient"=>$idClient,"phone"=>$telefono]; 
 $sms= $smsObj->sendSms($data,$message,$key)["status"];

@@ -51,7 +51,7 @@ $companyName=$companyObj->getCompanyItem($idCompany=1,$item="nombre");
 $companyAddress=$companyObj->getCompanyItem($idCompany=1,$item="direccion");
 $message="Gracias por tu pago!. Sigue disfrutando del servicio. $companyName $companyAddress(Meta)";
 $data[] =["idClient"=>$idClient,"phone"=>$telefono]; 
-$sms= $smsObj->sendSms($data,$message,$key)["status"];
+$sms= $smsObj->sendSms($data,$message,$key)["status"];//
 $emailRespone="";
 $emailObj=new Email($endPoint);
 if(($emailObj->emailValidate($email)) && $fullName){

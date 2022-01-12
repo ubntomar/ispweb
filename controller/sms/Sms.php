@@ -1,19 +1,26 @@
 <?php
-class Sms extends Client { 
+class Sms extends Client {  
     
     public function sendSms($data,$message,$apiKey){ 
+        //var_dump($data);
         $phoneListString="";
         foreach ($data as $key => $value) {
-            $idClient=$value["idClient"];
-            $phone=$value["phone"];
-            if ($this->validate_phone_number($phone)){
-                $phoneListString.="$phone,";
-            }else{
-                parent::updateClient($idClient,$param="telefono",$value="",$operator="=");
+            if(isset($value["idClient"])){
+                $idClient=$value["idClient"];
+                if(isset($value["phone"])){
+                    $phone=$value["phone"];
+                    if ($this->validate_phone_number($phone)){
+                        $phoneListString.="$phone,";
+                    }else{
+                        parent::updateClient($idClient,$param="telefono",$value="",$operator="=");
+                    }
+                }
             }
         }
         $phoneListFormated=substr_replace($phoneListString ,"",-1);
         // print "\n telefonos:$phoneListFormated\n"; 
+        // print "\n Messge:$message\n"; 
+        // print "\n apiKey:$apiKey\n"; 
         $curl = curl_init();
         $query = http_build_query(array(
             'key' => $apiKey,

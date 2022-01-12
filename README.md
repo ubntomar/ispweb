@@ -18,5 +18,7 @@ ojo, require("/var/www/(ispexperts)"."/Client.php"); =>    Wallet.php
 	pendiene crear repetidor natalì colòn.
 	pendiente repetidor yenny arias
 	pendiente repetidor sabanasdel rosarioo alexander hernandez
+	pendiene repetidor Javier Pardo
 	
-    
+    /var/www/ispexperts/controller/cron/clogs.txt 
+    /var/www/ispexperts/controller/cron/logs.txt 
