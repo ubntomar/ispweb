@@ -87,7 +87,7 @@ $json='{
 				{
 					"name": "Servidor principal Guamal",
 					"ip": "192.168.21.1",
-					"type": "ptp"
+					"type": "ptp" 
 				},
 				{
 					"name": "Cpe ptp Guamal->Montecristo",
