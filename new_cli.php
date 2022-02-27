@@ -54,6 +54,7 @@ $corte= mysqli_real_escape_string($mysqli, $_REQUEST['corte']);
 $plan= mysqli_real_escape_string($mysqli, $_REQUEST['plan']);
 $velocidadPlan= mysqli_real_escape_string($mysqli, $_REQUEST['velocidadPlan']);
 $ipAddress= mysqli_real_escape_string($mysqli, $_REQUEST['ipAddress']);
+$quote= mysqli_real_escape_string($mysqli, $_REQUEST['quote']);
 $mergeItems= mysqli_real_escape_string($mysqli, $_REQUEST['mergeItems']);
 $valorAfiliacion= mysqli_real_escape_string($mysqli, $_REQUEST['valorAfiliacion']);
 $AfiliacionItemValue= mysqli_real_escape_string($mysqli, $_REQUEST['AfiliacionItemValue']);
@@ -118,7 +119,7 @@ $periodo="";
 $prorateo_checked=($valorProrrateo=="0"&&$valorAdicionalServicio=="0")?false:true; 
 $prorrateo=$valorProrrateo;
 $clientObject=new Client($server, $db_user, $db_pwd, $db_name);
-$id_client=afiliar_cliente($clientObject,$name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source, $activo, $ipAddress, $standby, $AfiliacionItemValue,  $usuario, $idClientArea, $empresa);
+$id_client=afiliar_cliente($clientObject,$name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source, $activo, $ipAddress,$quote, $standby, $AfiliacionItemValue,  $usuario, $idClientArea, $empresa);
 $content.= "\n id_client:$id_client"; 
 $vpnObject=new VpnUtils($server, $db_user, $db_pwd, $db_name);
 $vpnObject->updateGroupId($id_client,$ipAddress); 
@@ -406,8 +407,8 @@ if($serviceIsAlreadyInstalled){
 // echo "content-$content";
 //END DEBUG
 echo "$idClient:Usuario agregado con exito!!";
-function afiliar_cliente($clientObject,$name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source="ispdev", $activo, $ipAddress, $standby, $AfiliacionItemValue,  $usuario, $idClientArea, $empresa){
-    $id_client=$clientObject->createClient($name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source="ispdev", $activo="1", $ipAddress, $standby, $AfiliacionItemValue,  $usuario, $idClientArea, $empresa);
+function afiliar_cliente($clientObject,$name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source="ispdev", $activo, $ipAddress,$quote, $standby, $AfiliacionItemValue,  $usuario, $idClientArea, $empresa){
+    $id_client=$clientObject->createClient($name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source="ispdev", $activo="1", $ipAddress,$quote, $standby, $AfiliacionItemValue,  $usuario, $idClientArea, $empresa);
     return $id_client; 
 }    
 function mesActual($transactionObject,$fechaPago,$iva,$descuento,$fechaCierre,$vencidos,$billObject,$dias_de_pago,$mes,$prorateo_checked,$prorrateo,$afiliation_include_first_month,$valorPlan,$id_client,$cajero,$hora,$fecha,$periodo,$today,$cambio=0,$nextMonth,$currentMonth,$billLastDay=false,$oneMonthMoreTonextMonth){

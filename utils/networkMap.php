@@ -31,7 +31,7 @@ $json='{
 					"type": "ptp"
 				},
 				{
-					"name": "Ap Caño Cachirre",
+					"name": "Ap Caño Cachirre ¿?- Ojo por q puede ser daño la rb donde estoy conectado lo que genera que toda la 30 esté caida.",
 					"ip": "192.168.30.13",
 					"type": "ptp"
 				},
@@ -95,7 +95,7 @@ $json='{
 					"type": "ptp"
 				},
 				{
-					"name": "Ap Ptp Montecristo->Guamal",
+					"name": "Ap Ptp Montecristo->Guamal. Apagado todo Montecristo???",
 					"ip": "192.168.21.44",
 					"type": "ptp"
 				},

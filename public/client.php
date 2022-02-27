@@ -221,6 +221,13 @@
 																				<label>Ip Address</label>
 																				<input class="form-control" type="text" value="0.0.0.0" id="ipAddress">
 																			</div>
+																			<div class="form-group col-md-4 ">
+																				<label>Cotizacion?</label>
+																				<select  id="quote">
+																					<option value="0">No</option>
+																					<option value="1">Si</option>
+																				</select>
+																			</div>
 																			<div class="form-group col-md-2 ">
 																				<label></label>
 																				<button type="button" class="btn btn-success" id="continue-btn-registration">Continuar</button>
@@ -1504,6 +1511,7 @@
 								var plan = $("#plan").val();
 								var velocidadPlan = $("#velocidad-plan").val();
 								var ipAddress =$("#ipAddress").val(); 
+								var quote =$("#quote").val(); 
 								var generarFactura = $("#generar-factura").val();
 								var valorAfiliacion = $("#valorAfiliacion").val();
 								var mergeItems = $("#mergeItems").val();
@@ -1539,6 +1547,7 @@
 												cedula: cedula,
 												generarFactura: generarFactura,
 												ipAddress: ipAddress,
+												quote: quote,
 												mergeItems: mergeItems,
 												recibo: recibo,
 												valorAfiliacion: valorAfiliacion,
@@ -1563,7 +1572,7 @@
 												if (recibo == 1) {
 													if (idCl != 'Error') {
 														window.open('../factura_new_cli.php?rpp=1&idc='+idCl, '_blank');
-														window.location.href = 'transacciones.php';
+														//window.location.href = 'transacciones.php';
 													}
 												}
 
@@ -1593,6 +1602,7 @@
 												cedula: cedula,
 												generarFactura: generarFactura,
 												ipAddress: ipAddress,
+												quote: quote,
 												mergeItems: mergeItems,
 												recibo: recibo,
 												valorAfiliacion: valorAfiliacion,
@@ -1616,7 +1626,7 @@
 												//console.log(data)
 												if (recibo == 1) {
 													if (idCl != 'Error') {
-														window.location.href = 'transacciones.php'; 
+														//window.location.href = 'transacciones.php'; 
 													}
 												}
 
@@ -2062,7 +2072,7 @@
 				var monthSelected = parseInt(day[1]);
 				var yearSelected = parseInt(day[2]);
 				$("#dayOfMonthSelected").val(daySelected)
-				$("#monthSelected").val(monthSelected)
+				$("#monthSelected").val(parseInt(monthSelected))
 				//
 				var a = new Date();
         		var dayOfMonth = a.getDate();
@@ -2076,14 +2086,15 @@
 					$("#tr-servicio").show();
 				}
 				if(daySelected>19&&param!="afiliacion"){
-					$("#mes").val(monthSelected+1)
+					$("#mes").val(parseInt(monthSelected)+1)
 					alertify.success("Fechas del 20 en adelante pasan a ser facturas corte 1, empezando a pagar del 1 al 7 del siguiente mes.")
 				}else{
-					$("#mes").val(monthSelected)
-					if(parseInt(dayOfMonth)>19){
-						alertify.error("Fecha no permitida")
-						//$( ".selector" ).datepicker( "refresh" ); //reiniciar picker
-					}
+					$("#mes").val(parseInt(monthSelected))
+					// if(parseInt(dayOfMonth)>19){
+					// 	alertify.error("Fecha no permitida ,dia seleccionado vale"+dayOfMonth+"param vale"+param)
+					// 	console.log("Fecha no permitida ,dia seleccionado vale "+dayOfMonth+" param vale"+param)
+					// 	//$( ".selector" ).datepicker( "refresh" ); //reiniciar picker
+					// }
 				}
 				var days = daysInMonth(monthSelected, yearSelected);
 				var periodo = parseInt( $("#mes").val() );

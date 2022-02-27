@@ -4,13 +4,13 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const fs = require("fs");
 
 pathToAttachment = "/tmp/redesagi_facturacion_bk.sql";
-attachment = fs.readFileSync(pathToAttachment).toString("base64");
+attachment = fs.readFileSync(pathToAttachment).toString("base64"); 
 
 const msg = {
-    to: 'ag.ingenieria.wist@gmail.com',
+    to: 'omar.a.hernandez.d@gmail.com',
     from: 'ventas@agingenieria.tech',
     subject: 'Backup base de datos Ispexperts.com',
-    html: '<strong>Adjunto backup</strong>',
+    html: '<strong>Adjunto  backup diario!</strong>',
     attachments: [
         {
           content: attachment,

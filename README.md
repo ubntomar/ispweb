@@ -11,14 +11,18 @@ SENDGRID_API_KEY)//first paste export....... in ~/.profile, run: . ~/.profile , 
 
 ojo, require("/var/www/(ispexperts)"."/Client.php"); =>    Wallet.php
 
-    pendiente Naalí Colón Po Switch rb.. repetidor
-    Pendiente pasar ips de Yulieth La Vara por la 123
+	https://www.ispexperts.com/utils/createRepeater.php
+
+	
+    Pendiente crear repetidor hector triviño.. repetidor
+	122 , crear repetidor encanto
 	pendiente crear repetidor ..Javier Pardo
 	pendiente crear repetidor Opitas ..Milena sarmiento  117.13
-	pendiene crear repetidor natalì colòn.
 	pendiente repetidor yenny arias
-	pendiente repetidor sabanasdel rosarioo alexander hernandez
 	pendiene repetidor Javier Pardo
 	
     /var/www/ispexperts/controller/cron/clogs.txt 
     /var/www/ispexperts/controller/cron/logs.txt 
+
+	pdte al registrar usuario corroborar q no eesté ya registrado
+	pdte al pagar saber si el cliente es del área de san lorenzo
