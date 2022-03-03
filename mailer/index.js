@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const {sendEmail,sendEmailPayment,sendEmailToCompany} = require('./src/mail')
+const {sendEmail,sendEmailPayment,sendEmailToCompany,backup} = require('./src/mail')
 const app = express();
 // defining an array to work as the database (temporary solution)
 const ads = [{
@@ -63,12 +63,12 @@ app.post('/mailCompany', async (req, res) => {
     });
   }
 });
-app.post('/bk', async (req, res) => {
-  const data = req.body;
-  let resultado=await backup(data)
+app.get('/bk', async (req, res) => {
+  let resultado=await backup()
   if (resultado == true) {
+    let message=`success ${new Date}`
     res.status(200).send({
-      "mailStatus": "success"
+      "mailStatus": message
     })
   } else {
     res.status(200).send({
@@ -76,6 +76,7 @@ app.post('/bk', async (req, res) => {
     });
   }
 });
+
 app.listen(3001, () => {
   console.log('listening on port 3001');
 });

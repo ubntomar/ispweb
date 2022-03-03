@@ -1572,7 +1572,7 @@
 												if (recibo == 1) {
 													if (idCl != 'Error') {
 														window.open('../factura_new_cli.php?rpp=1&idc='+idCl, '_blank');
-														//window.location.href = 'transacciones.php';
+														window.location.href = 'transacciones.php';
 													}
 												}
 
@@ -1626,7 +1626,7 @@
 												//console.log(data)
 												if (recibo == 1) {
 													if (idCl != 'Error') {
-														//window.location.href = 'transacciones.php'; 
+														window.location.href = 'transacciones.php'; 
 													}
 												}
 

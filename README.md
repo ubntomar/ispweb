@@ -12,6 +12,7 @@ SENDGRID_API_KEY)//first paste export....... in ~/.profile, run: . ~/.profile , 
 ojo, require("/var/www/(ispexperts)"."/Client.php"); =>    Wallet.php
 ojo, verificar el archivo ipAlive.json enla raiz del projecto....ahí se guardan las ips ya asignadas en el sistema
 
+db_redesagi.tar.gz  must be converted to zip on the PC.
 
 	https://www.ispexperts.com/utils/createRepeater.php
 
