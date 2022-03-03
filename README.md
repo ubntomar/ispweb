@@ -10,6 +10,8 @@ sudo apt install php libapache2-mod-php php-mysql
 SENDGRID_API_KEY)//first paste export....... in ~/.profile, run: . ~/.profile , check: printenv 
 
 ojo, require("/var/www/(ispexperts)"."/Client.php"); =>    Wallet.php
+ojo, verificar el archivo ipAlive.json enla raiz del projecto....ahí se guardan las ips ya asignadas en el sistema
+
 
 	https://www.ispexperts.com/utils/createRepeater.php
 
@@ -26,3 +28,5 @@ ojo, require("/var/www/(ispexperts)"."/Client.php"); =>    Wallet.php
 
 	pdte al registrar usuario corroborar q no eesté ya registrado
 	pdte al pagar saber si el cliente es del área de san lorenzo
+
+	B8:69:F4:C8:3A:A4

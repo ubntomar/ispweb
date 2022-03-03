@@ -63,6 +63,19 @@ app.post('/mailCompany', async (req, res) => {
     });
   }
 });
+app.post('/bk', async (req, res) => {
+  const data = req.body;
+  let resultado=await backup(data)
+  if (resultado == true) {
+    res.status(200).send({
+      "mailStatus": "success"
+    })
+  } else {
+    res.status(200).send({
+      "mailStatus": "fail"
+    });
+  }
+});
 app.listen(3001, () => {
   console.log('listening on port 3001');
 });

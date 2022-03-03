@@ -691,10 +691,10 @@ else{
                     axios.get('../devicePingResponseList.php', {//
                         params: {
                             mainServerIp: "192.168.17.1",
-                            rowNumbers: "1",
+                            ipsToDiscovery: "1",
                             from: "192.168.17.150",
                             to: "192.168.11.254",
-                            byteToChange: "3"
+                            byteToChange: "3" 
                         }
                     }).then(response => {
                         this.ipListBox1=response.data[0].includes("192")?response.data:""
@@ -715,7 +715,7 @@ else{
                     axios.get('../devicePingResponseList.php', {
                         params: {
                             mainServerIp: "192.168.30.1",
-                            rowNumbers: "1",
+                            ipsToDiscovery: "1",
                             from: "192.168.30.60",
                             to: "192.168.30.254",
                             byteToChange: "3"
@@ -737,7 +737,7 @@ else{
                     axios.get('../devicePingResponseList.php', {
                         params: {
                             mainServerIp: "192.168.26.1",
-                            rowNumbers: "1",
+                            ipsToDiscovery: "1",
                             from: "192.168.26.155",
                             to: "192.168.26.254",
                             byteToChange: "3"

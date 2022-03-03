@@ -1,9 +1,10 @@
+console.log("sending email...")
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
+console.log("la api ke"+process.env.SENDGRID_API_KEY)
 const fs = require("fs");
 
-pathToAttachment = "/tmp/redesagi_facturacion_bk.sql";
+pathToAttachment = "/tmp/db_redesagi.tar.gz";
 attachment = fs.readFileSync(pathToAttachment).toString("base64"); 
 
 const msg = {
@@ -14,8 +15,8 @@ const msg = {
     attachments: [
         {
           content: attachment,
-          filename: "redesagi_facturacion_bk.sql",
-          type: "application/sql",
+          filename: "db_redesagi.tar.gz",
+          type: "application/tar.gz",
           disposition: "attachment"
         }
     ]
@@ -24,3 +25,4 @@ const msg = {
 sgMail.send(msg).catch(err => {
   console.log(err);
 });
+console.log("end sending email...")
