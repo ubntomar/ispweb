@@ -26,6 +26,7 @@ if ($mysqli->connect_errno) {
 mysqli_set_charset($mysqli, "utf8");
 date_default_timezone_set('America/Bogota');
 $today = date("Y-m-d");
+$yesterday = date("Y-m-d",strtotime("-1 days"));
 $templateObject=new TemplateDark();    
 $htmlObject=new Html();
 ?>
@@ -110,7 +111,7 @@ $htmlObject=new Html();
                                 $pingDate=$row["pingDate"];
                                 $suspenderStatus= (  ($row["suspender-list-status"]==false) )?"FALSO!":"";
                                 $clientWidthConvenio=$row["convenio"];
-                                $pingCurrentStatus=($pingDate==$today) ? "Ping ok!" : "<small class=\"bg-danger text-white p-1\">Ping Error</small>";   
+                                $pingCurrentStatus=($pingDate==$today||$pingDate==$yesterday) ? "<small class=\"bg-success text-white p-1\">Ping OK->$pingDate</small>" : "<small class=\"bg-danger text-white p-1\">Ping Error->$pingDate</small>";   
                                 $style_cell = "class=\"font-weight-bold h6\" "; 
                                 $style2_cell = "";
                                 $ts1 = strtotime($registration_date);
@@ -161,9 +162,18 @@ $htmlObject=new Html();
                                     $date1 = new DateTime($today);
                                     $date2 = new DateTime($row["suspenderFecha"]);
                                     $days  = $date2->diff($date1)->format('%a'); 
-                                    ($days==0)? $d="-Hoy":$d="";
+                                    ($days==0)? $d="Hoy":$d="$days dias";
+                                    if($row["suspender-list-status-date"]){ 
+                                        $date3 = new DateTime($row["suspender-list-status-date"]);
+                                        $verifiedDays  = $date3->diff($date1)->format('%a'); 
+                                        ($verifiedDays==0)? $dVerified="Hoy":$dVerified="$verifiedDays dias";
+                                        $styleV = "border-info text-info ";
+                                        $textVerified="<div><small class=\"p-1  $styleV  \">Verificado:$dVerified</small></div>";
+                                    }
+                                    else $textVerified="";
                                     $style = "border-info text-danger ";
-                                    $statusText = "<div><small class=\"px-1 border $style rounded \">Cortado-[ $days días $d ][$suspenderStatus]</small></div>";
+                                    $statusText = 
+                                    "<div><small class=\"px-1 border $style rounded \">Cortado:$d $suspenderStatus </small>$textVerified</div>"; 
                                 }
                                 $textCedula = $cedula;
                                 if ($cedula == 0) {

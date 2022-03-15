@@ -2,7 +2,7 @@
 class Client 
 {
     public $mysqli;
-    public function __construct($server, $db_user, $db_pwd, $db_name){
+    public function __construct($server, $db_user, $db_pwd, $db_name){ 
         $response= true;
         $this->mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 		if ($this->mysqli->connect_errno) {
@@ -36,7 +36,7 @@ class Client
     }
     public function updateClient($clienteId,$param,$value,$operator="="){
         // print "\nupdateClient $clienteId,$param,$value \n";
-        $sql="UPDATE `redesagi_facturacion`.`afiliados` set `$param` $operator '$value' WHERE `id`='$clienteId' ";
+        $sql="UPDATE `redesagi_facturacion`.`afiliados` set `$param` $operator '$value' WHERE `id`='$clienteId' "; 
         // print $sql;
         if ($this->mysqli->query($sql) === TRUE){
             $response= true;

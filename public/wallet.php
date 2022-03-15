@@ -308,8 +308,9 @@ var app = new Vue({
                     alertify.error("Error al cargar el dinero al cliente, favor comunicarse con el administrador del sistema")
 
                 }
-                if (response.data.idWallet > 0 ) {
+                if (response.data.idWallet > 0 ) { 
                     alertify.success("Transaccion realizada con éxito!")
+                    this.getWallet()
                 }else{
                     alertify.error("Error al crear el registro de transacción de dinero, favor comunicarse con el administrador del sistema")
                 }

@@ -37,7 +37,7 @@ $value=$data["wallet"];
 $valueToCharge=$data["money"];
 $res=$walletObject->updateClient($clienteId,$param,$value,$operator="="); 
 $idWallet=$walletObject->createWallet($clienteId, $action="add", $value=$valueToCharge, $date=$today, $hour=$hourMin, $idCajero, $source="wallet->saveNewWallet", $comment="");
-
+// echo "createWallet($clienteId, $action='add', $value=$valueToCharge, $date=$today, $hour=$hourMin, $idCajero, $source='wallet->saveNewWallet', $comment='')";
 /////SMS && EMAIL
 $companyObj=new Company($server, $db_user, $db_pwd, $db_name);
 $smsObj=new Sms($server, $db_user, $db_pwd, $db_name);
@@ -61,11 +61,11 @@ if(($emailObj->emailValidate($email)) && $fullName){
         "idClient"=>$idClient,
         "email"=>$email
         ]);
-    $emailRespone=$response;   
+    $emailRespone=$response;    
 }
 ///////END/////// 
 
-// $json='{"client":"'.$res.'","idWallet":"'.$idWallet.'"}';  
+// $json='{"client":"'.$res.'","idWallet":"'.$idWallet.'"}';   
 $json='{"client":"'.$res.'","idWallet":"'.$idWallet.'","sms":"'.$sms.'","email":"'.$emailRespone.'"}'; 
 echo $json;
 
