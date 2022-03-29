@@ -96,7 +96,7 @@ $htmlObject=new Html();
                                         </table>
                                     </div>
                                     <div class="aditional-info" v-if="info.planPrice">
-                                        <p>Velocidad {{info.speed}} Megas -- Plan de ${{info.planPrice}}</p>
+                                        <p> Id:{{info.id}} Velocidad {{info.speed}} Megas -- Plan de ${{info.planPrice}}</p>
                                     </div>
                                     <div v-if="menuBill" class="selected-client">
                                         <input type="hidden" :value="newTicketSelectedClient" disabled
@@ -121,14 +121,14 @@ $htmlObject=new Html();
                 </div>
                 <div class="box new-ticket " v-bind:class="{'hide':hideResultModalPlan}">
                     <div class="new-ticket-modal-content">
-                        <form v-on:submit.prevent="checkFormsaveData()">
+                        <form id="formFactData" method="POST" v-on:submit.prevent="checkFormsaveData()">
                             <div class="title-modal">
                                 <h3>PLAN DEL CLIENTE</h3>
                             </div>
                             <div class="form-new-ticket">
                                 <div class="form-group new-cli">
                                     <label for="cli">Cliente</label>
-                                    <input disabled type="text" id="cli" :value="clientDataSaveSelected.cliente">
+                                    <input disabled type="text" id="cliente" :value="clientDataSaveSelected.cliente">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="apellido">Apellido</label>
@@ -321,6 +321,7 @@ var app = new Vue({
         searchClientContent: "",
         clientes: [],
         clientDataSaveSelected: [],
+        clientNewTicketSelected: [],
         WalletsList: [],
         clientAbiertoTicketSelected: [],
         totalRows: "",
@@ -345,7 +346,7 @@ var app = new Vue({
             speed:null,
             planPrice:null
         },
-        
+
     },
     methods: {
         continueToAbiertoWalletModal: function(data) {
@@ -362,7 +363,24 @@ var app = new Vue({
         },  
         checkFormsaveData:function(){
             console.log("Actualizar la info en la base de datos")
-
+            const data = new FormData();
+            data.append('option', 'updateClient');
+            data.append('id', this.clientDataSaveSelected.id);
+            data.append('planPrice', this.clientDataSaveSelected.planPrice);
+            data.append('speed', this.clientDataSaveSelected.speed);
+            fetch('../controller/bill/billAPI.php', {
+            method: 'POST',
+            body: data
+            }).then(response=> {
+                if(response.ok) {
+                    return response.text()
+                } else {
+                    throw "Error en la llamada";
+                }
+                }).then(texto=> {
+                    console.log(texto);
+                }).catch(err=> {
+                    console.log(err); });
 
         },
 
@@ -422,6 +440,7 @@ var app = new Vue({
             this.clientDataSaveSelected.ipBackup = this.clientDataSaveSelected.ip,
             this.selectedId=id
             this.menuBill=true
+            this.info.id=clientObject.id
             this.info.speed=clientObject.speed
             this.info.planPrice=clientObject.planPrice
         },
