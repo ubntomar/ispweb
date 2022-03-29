@@ -26,6 +26,8 @@ $convertdate = date("d-m-Y", strtotime($today));
 $hourMin = date('H:i');
 $usuario = $_SESSION['username'];
 $response="";
+$descuento=0;//Mysql strict mode dont accept ''
+$idtransaccion=0;
 $debug = 0;
 									// idc: idcRow, 
 									// vap: vapRow,
@@ -194,7 +196,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 				$vtotal += $saldo;
 				$cerrarAbono = 0;
 				$paga1fact = -1;
-				$fechaCierreFact = 'null';
+				$fechaCierreFact = null;
 				$cierreFact = 0;
 				$text = "";
 				if (($vaa == $saldo) && ($vaa != 0))
@@ -230,16 +232,16 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 							$descuento=$saldo;
 							$dctoTotal-=$descuento;
 							$descParcial-=1;
-							//echo "\n descParcial>1 y descuento vale:$saldo ";
+							//echo "\n descParcial>1 y descuento vale:$saldo ";  
 						}
 					}
 		
 					//echo "\n vad vale:$vad y la variable descuento vale:$descuento \n";
 
 					$sqlin = "INSERT INTO `redesagi_facturacion`.`recaudo` (`idrecaudo`, `idfactura`, `fecha-hoy`,`hora`, `notas`, `valorp`, `abonar`, `vendedor`) VALUES (NULL, '$idFactura', '$today','$hourMin', 'nota', '0', '$valorAbonar', '$usuario');";
-					$fc=$fechaCierreFact=='null'?$fechaCierreFact:"'$fechaCierreFact'";
-					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '$newSaldoTotal1fact', `cerrado` = '$cierreFact', `fecha-pago` = '$today', `fecha-cierre` = $fc, `descuento` = '$descuento', `idtransaccion` = '$last_id_tra'  WHERE `factura`.`id-factura` = $idFactura ";
-					//echo "\n 167: $sqlup";
+					$fc=$fechaCierreFact==null?'null':$fechaCierreFact; 
+					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '$newSaldoTotal1fact', `cerrado` = '$cierreFact', `fecha-pago` = '$today', `fecha-cierre` = $fc, `descuento` = '$descuento', `idtransaccion` = $last_id_tra  WHERE `factura`.`id-factura` = $idFactura ";
+					// echo "\n : $sqlup";
 					if ($mysqli->query($sqlin) === TRUE) {
 						if ($mysqli->query($sqlup) === TRUE) {
 							if ($cnt == $row_cnt)
@@ -321,7 +323,7 @@ $companyAddress=$companyObj->getCompanyItem($idCompany=1,$item="direccion");
 $message="Gracias por tu pago!. Sigue disfrutando del servicio. $companyName $companyAddress";
 $telefono=$walletObject->getClientItem($idClient,$item="telefono");
 $data[] =["idClient"=>$idClient,"phone"=>$telefono]; 
-$sms= $smsObj->sendSms($data,$message,$key)["status"];
+$sms= $smsObj->sendSms($data,$message,$key)["status"]; 
 $email=$walletObject->getClientItem($idClient,$item="mail");
 $emailRespone="el email NO es valido";
 $responseEmail="";

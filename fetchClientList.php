@@ -40,7 +40,9 @@ if ($result = $mysqli->query($sqlSearch)) {
 		$apuntamiento=$row["apuntamiento"];
 		$wallet=$row["wallet-money"];
 		$cedula=$row["cedula"];
-		$list[]=["id"=>"$id","cliente"=>"$cliente","apellido"=>"$apellido","ip"=>"$ip","fecha"=>"$today","email"=>"$mail","direccion"=>"$direccion","ciudad"=>"$ciudad","telefono"=>"$telefono","apuntamiento"=>"$apuntamiento","wallet"=>"$wallet","cedula"=>"$cedula"];
+		$planPrice=$row["pago"];
+		$speed=$row["velocidad-plan"];
+		$list[]=["id"=>"$id","cliente"=>"$cliente","apellido"=>"$apellido","ip"=>"$ip","fecha"=>"$today","email"=>"$mail","direccion"=>"$direccion","ciudad"=>"$ciudad","telefono"=>"$telefono","apuntamiento"=>"$apuntamiento","wallet"=>"$wallet","cedula"=>"$cedula","planPrice"=>"$planPrice","speed"=>"$speed"];
 	}
 }
 $jsonList=json_encode($list);

@@ -369,7 +369,27 @@ else{
                                             <i class="icon-ok"></i>
                                         </div>
                                     </div>
-
+                                    <div class="widget estadisticas text-left ">
+                                        <div>
+                                            <div class="title-caja text-light  mt-2 bg-secondary"><span>VOLTAGE HEALTH</span>
+                                            <button v-on:click="voltageReload()" class="ml-1 border border-rounded "><i
+                                                v-bind:class="{'animate-spin':spinIconVoltage}" class="icon-spin6 "></i>
+                                            </button>
+                                        </div>
+                                        </div>
+                                        <div class="p-2"> 
+                                            <div>
+                                                <i class="icon-network"></i><span>  {{ipVoltageBox2.dc}} Volts</span>
+                                            </div>
+                                            <div>
+                                                <i class="icon-network"></i><span>   {{ipVoltageBox2.rele?"Charger Battery ON ":"Charger Battery OFF"}}</span>
+                                            </div>
+                                            <div>
+                                                <i class="icon-network"></i><span>   {{ipVoltageBox2.ac}} AC/DC Volts</span>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -456,7 +476,13 @@ else{
             ipListBox1: [],
             spinIconBox1: false,
             ipListBox2: [],
+            ipVoltageBox2: {
+                "dc":"",
+                "rele":"",
+                "ac":""
+            },
             spinIconBox2: false,
+            spinIconVoltage: false,
             ipListBox3: [],
             spinIconBox3: false,
             selectSpin: false,
@@ -727,9 +753,27 @@ else{
                     })
                 })
             },
+            getVoltage: function(data) {
+                return new Promise((resolve, reject) => {
+                    this.spinIconVoltage = true
+                    axios.get('../utils/voltageMonitor.php', {
+                        params: {
+                            location: "retiro"
+                        }
+                    }).then(response => {
+                        this.ipVoltageBox2 = JSON.parse(response.data)
+                        this.spinIconVoltage = false
+                        resolve("ok")
+                    })
+                })
+            },
             ipListBox2reload: function(data) {
                 this.ipListBox2 = [];
                 this.getIpListBox2()
+            },
+            voltageReload: function(data) {
+                this.ipVoltageBox2 = {}
+                this.getVoltage()
             },
             getIpListBox3: function(data) {
                 return new Promise((resolve, reject) => {
@@ -757,6 +801,7 @@ else{
         },
         mounted() {
             this.getRepeaterList()
+            this.getVoltage()
             this.getUserSpin = true
             Promise.all([this.getUser()]) //this.getIpListBox1(), this.getIpListBox2(), this.getIpListBox3(),
                 .then((resolve) => {

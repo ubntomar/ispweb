@@ -106,12 +106,7 @@ main {
   padding: 20px;
 }
 
-.navLeft ul li:hover {
-  border-left: 3px solid #34c22f;
-  border-right: 3px solid #34c22f;
-  /* background-color: #34c22f; */
-}
-
+/* background-color: #34c22f; */
 .navLeft ul li a {
   text-decoration: none;
   color: #fff;
@@ -164,7 +159,7 @@ section .box-container .box-new-ticket {
 }
 
 section .box {
-  padding: 5px;
+  padding: 5rem;
   font-weight: normal;
   margin: 0px;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
@@ -227,15 +222,45 @@ section .result-container p {
 }
 
 section .result-container table {
-  width: 70%;
-  margin: auto;
+  width: 100%;
 }
 
 section .selected-client {
-  width: max-content;
   padding: 10px;
   margin: 10px auto;
   text-align: left;
+}
+
+section .selected-client input:nth-child(1), section .selected-client input:nth-child(4) {
+  display: block;
+  margin: 0 auto;
+  font-size: 1.3rem;
+  color: #7b7774;
+}
+
+section .selected-client__menu {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+section .selected-client__menu-p {
+  border-radius: 5px;
+  padding: 1rem;
+  background-color: #262a34;
+  color: #f1e9e9;
+  font-weight: 900;
+}
+
+section .selected-client__menu--selected {
+  background-color: #20c997;
+}
+
+section .selected-client__submit {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
 }
 
 section .selected-client p {
@@ -243,11 +268,9 @@ section .selected-client p {
 }
 
 section .selected-client button {
-  background-color: indianred;
-  color: #fff;
   border: 0px;
   margin: 0px 3px;
-  padding: 3px;
+  padding: .5rem;
   font-weight: bold;
   border-radius: 2px;
 }
@@ -279,6 +302,11 @@ section .form-new-ticket {
   padding: 2px;
 }
 
+.form-group--highlighted {
+  background-color: chocolate;
+  padding: .1rem;
+}
+
 section .form-group {
   display: flex;
   flex-direction: column;
@@ -288,6 +316,10 @@ section .form-group {
   margin: 2px;
   width: 45%;
   color: #000;
+}
+
+section .form-group--100 {
+  width: 100%;
 }
 
 .form-group label {
@@ -357,9 +389,6 @@ section .form-group .wallet-current-money {
   text-align: center;
 }
 
-section .form-group .new-cli {
-  max-width: 400px;
-}
 section .form-group .wallet-new-money {
   text-align: center;
   background-color: #5cb85c;
@@ -372,6 +401,9 @@ section .form-group .wallet-new-money {
   height: 200px;
 }
 
+section .form-group .new-cli {
+  max-width: 400px;
+}
 
 section .form-group .radio-button {
   display: flex;
@@ -522,10 +554,6 @@ section .new-ticket {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-section .hide-new-ticket {
-  display: none;
-}
-
 section .new-ticket .new-ticket-modal-content {
   background-color: #f2f2f2;
   margin: 40px auto;
@@ -621,6 +649,11 @@ section .hide-closed-tickets-modal {
   background-color: #262a34;
 }
 
+table .rowSelected {
+  background-color: #1b3f2e;
+  color: white;
+}
+
 th {
   color: #fff;
   background-color: indianred;
@@ -631,8 +664,8 @@ th, td {
   padding: 16px;
 }
 
-tr:nth-child(even) {
-  background-color: #f2f2f2;
+.hide {
+  display: none;
 }
 
 input:invalid {
@@ -649,6 +682,75 @@ textarea:invalid {
 
 textarea:focus:invalid {
   box-shadow: none;
+}
+
+#p {
+  margin-left: 1rem;
+}
+
+.button-success {
+  background-color: #20c997;
+  color: white;
+}
+
+.button-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.button-disabled {
+  background-color: #c9bebc;
+  color: white;
+}
+
+.button-disabled:hover {
+  background-color: #c9bebc;
+}
+
+.aditional-info {
+  background-color: #0d6efd;
+  color: white;
+  font-weight: 500;
+  width: 100%;
+}
+
+.aditional-info p {
+  width: min-content;
+  white-space: nowrap;
+  margin: 0 auto;
+}
+
+.strong--green {
+  background-color: #5cb85c;
+  color: white;
+  padding: .2rem;
+  font-weight: 500;
+}
+
+.facts {
+  width: 100%;
+  padding: 2rem;
+}
+
+.facts--table table {
+  margin: 0 auto;
+}
+
+.facts--table table td {
+  padding-right: 1rem;
+}
+
+.facts > div {
+  padding: 0 0 2rem 0;
+}
+
+.facts--newFact {
+  max-width: 20rem;
+  margin: 0 auto;
+}
+
+.facts--newFact h5 {
+  color: #5f6166;
 }
 
 footer {
@@ -762,6 +864,7 @@ footer .specialDiv {
   }
   section .box {
     min-width: 70%;
+    padding: 0;
   }
   .box-statitics {
     flex-basis: 100%;
@@ -835,6 +938,7 @@ footer .specialDiv {
   }
   section .box {
     width: 100%;
+    padding: 10px;
   }
   section .section-title {
     margin: 0px;

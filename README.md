@@ -14,7 +14,7 @@ ojo, verificar el archivo ipAlive.json enla raiz del projecto....ahí se guardan
 
 db_redesagi.tar.gz  must be converted to zip on the PC.
 
-	https://www.ispexperts.com/utils/createRepeater.php
+	https://www.ispexperts.com/utils/cRepeater.php
 
 	
     Pendiente crear repetidor hector triviño.. repetidor

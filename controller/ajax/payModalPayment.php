@@ -25,7 +25,7 @@ if($_POST['rowid']) {
 		$sql = "SELECT * FROM `afiliados` WHERE `id`=$id ";
 		if ($result = $mysqli->query($sql)) {
 			$row = $result->fetch_assoc();	 
-			
+			 
 			$registration=$row["registration-date"];
             $corte=$row["corte"];
             			

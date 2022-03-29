@@ -3,7 +3,7 @@ class Html{
     public function __construct(){
 
     } 
-    public function head($path=""){
+    public function head($path=""){ 
         $content='
         <head>
             <meta charset="UTF-8" />
@@ -15,8 +15,8 @@ class Html{
             <link rel="stylesheet" href="'.$path.'css/dataTables.checkboxes.css">
             <link rel="stylesheet" href="'.$path.'css/fontello.css">
             <link rel="stylesheet" href="'.$path.'css/animation.css">
-            <link rel="stylesheet" href="'.$path.'css/style.css">
             <link rel="stylesheet" href="'.$path.'css/alertify.min.css">   
+            <link rel="stylesheet" href="'.$path.'css/style.css">
         </head>
         ';
         return $content; 

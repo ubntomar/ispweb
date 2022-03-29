@@ -11,7 +11,7 @@ $today = date("Y-m-d");
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i'); 
 $response=null;
-if( $_SERVER['REQUEST_METHOD']==='GET' ){
+if( $_SERVER['REQUEST_METHOD']==='POST' ){
     switch ($mysqli -> real_escape_string($_GET["option"])) {
         case 'getRepeaterList':{
             $repeaterObj=new Repeater($server, $db_user, $db_pwd, $db_name);
