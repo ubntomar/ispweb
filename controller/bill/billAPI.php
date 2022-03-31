@@ -1,6 +1,7 @@
 <?php
 require("../../login/db.php"); 
 require("../../Client.php");
+require("../../Bill.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -10,28 +11,69 @@ date_default_timezone_set('America/Bogota');
 $today = date("Y-m-d");   
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i'); 
-$response='{"updated":"fail"}';
+
+
 if( $_SERVER['REQUEST_METHOD']==='POST' ){
     switch ($mysqli -> real_escape_string($_POST["option"])) {
         case 'updateClient':{
             $clientObj=new Client($server, $db_user, $db_pwd, $db_name);
             $id=$_POST["id"];
-            $param="pago";
-            $value=$_POST["planPrice"];
-            $speed=$_POST["speed"];
-            $t="success $id $value";
-            //if($clientObj->updateClient($id,$param,$value,$operator="="))
-                $response="success";
+            if($speedValue=$mysqli -> real_escape_string($_POST["speed"])){
+                $param="velocidad-plan";
+                if($clientObj->updateClient($id,$param,$speedValue,$operator="=")){
+                    $response[]=["speed"=>"updated"];
+                }else{
+                    $response[]=["speed"=>"fail"];
+                }
+            }else{
+                $response[]=["speed"=>""];
+            }
+            if($pagoValue=$mysqli -> real_escape_string($_POST["planPrice"])){
+                $param="pago";
+                if($clientObj->updateClient($id,$param,$pagoValue,$operator="=")){
+                    $response[]=["pago"=>"updated"];
+                }else{
+                    $response[]=["pago"=>"fail"];
+                }
+            }else{
+                $response[]=["pago"=>""];
+                
+            }
             break;
+        }
+        case 'createBill':{
+            //item ,valor, saldo, nota
+            $idClient=$mysqli -> real_escape_string($_POST["id"]);
+            $item=$mysqli -> real_escape_string($_POST["item"]);
+            $valor=$mysqli -> real_escape_string($_POST["valor"]);
+            $saldo=$mysqli -> real_escape_string($_POST["saldo"]);
+            $nota=$mysqli -> real_escape_string($_POST["nota"]);
+            $billObj=new Bill($server, $db_user, $db_pwd, $db_name);
+            $response=$billObj->createBill($idClient,$periodo=$item,$notas=$nota,$valorf=$valor,$valorp="0",$saldo,$cerrado="0",$fechaPago='',$iva="19",$descuento="0",$fechaCierre='',$vencidos='0');
         } 
-        
+
+
+        default:{
+            break;
+        }
+    }
+}
+if( $_SERVER['REQUEST_METHOD']==='GET' ){
+    switch ($mysqli -> real_escape_string($_GET["option"])) {
+        case 'getBillList':{
+            $idClient=$mysqli -> real_escape_string($_GET["idClient"]);
+            $billObj=new Bill($server, $db_user, $db_pwd, $db_name);
+            $aditionalCondition=" `factura`.`cerrado`='0' ";
+            $response=$billObj->getBill($idClient,$aditionalCondition);
+        } 
+
         default:{
             break;
         }
     }
 }
 
-echo "hello world$response-".$_POST["option"]."-lol-speed:".$_POST["speed"]."planPrice".$_POST["planPrice"]."id--".$_POST["id"];
+echo json_encode($response);
 
 
 ?>

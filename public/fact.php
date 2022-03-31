@@ -34,6 +34,9 @@ $htmlObject=new Html();
     <main id="app">
         <?=$templateObject->navLeft($_SESSION['role'],$path="")?>
         <section>
+            <div  :class="{'message message__success message--show':message.status,'message message__danger message--show':!message.status,'hide':!message.show,'show':message.show}">
+                <p>{{message.text}}</p>
+            </div>
             <div class="section-title">
                 <img src="img/support.png" alt="">
                 <h1>FACTURAS</h1>
@@ -99,9 +102,6 @@ $htmlObject=new Html();
                                         <p> Id:{{info.id}} Velocidad {{info.speed}} Megas -- Plan de ${{info.planPrice}}</p>
                                     </div>
                                     <div v-if="menuBill" class="selected-client">
-                                        <input type="hidden" :value="newTicketSelectedClient" disabled
-                                            placeholder="Cliente Seleccionado">
-                                        <input type="hidden" id="newTicketForId" :value="newTicketSelectedId">
                                         <div class="selected-client__menu">
                                             <p :class="billTypeClass.plan" @click="type('plan')">Mi Plan de Internet</p>
                                             <p id="p":class="billTypeClass.bill" @click="type('bill')">Mis Facturas</p>
@@ -110,8 +110,8 @@ $htmlObject=new Html();
                                             placeholder="Selected">
                                         <div class="selected-client__submit">
                                             <button @click="closeResultTable" class="button-danger">Cancelar</button>
-                                            <button :class="{'button-success':billType,'button-disabled':!billType}"  @click="continueToResultModal(true)"
-                                                :disabled="!billType">Continuar</button>
+                                            <button :class="{'button-success':billType,'button-disabled':!billType,'button-disabled':!selectedId}"  @click="continueToResultModal(true)"
+                                                :disabled="!billType||!selectedId">Continuar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -190,116 +190,93 @@ $htmlObject=new Html();
                 </div>
                 <div class="box new-ticket " v-bind:class="{'hide':hideResultModalBill}">
                     <div class="new-ticket-modal-content">
-                        <form v-on:submit.prevent="checkFormNewPlan()">
+                        <form  method="POST" v-on:submit.prevent="formBills()">
                             <div class="title-modal">
-                                <h3>BILL DEL CLIENTE</h3>
+                                <h3>FACTURAS</h3>
+                                <div class="title-modal--close">
+                                    <h4 @click="hideResultModalBill=true">X</h4>
+                                </div>
                             </div>
-                            <div class="form-new-ticket">
+                            <div v-if="!editEnabled" class="form-new-ticket">
                                 <div class="form-group new-cli">
                                     <label for="cli">Cliente</label>
-                                    <input disabled type="text" id="cli" :value="clientNewTicketSelected.cliente">
+                                    <input disabled type="text" id="cli" :value="`[${clientDataSaveSelected.id}] ${clientDataSaveSelected.cliente}`">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="apellido">Apellido</label>
-                                    <input disabled type="text" id="apellido" :value="clientNewTicketSelected.apellido">
-                                </div>
-                                <div class="form-group new-cli">
-                                    <label for="clientTelefono">Telèfono de Cliente</label>
-                                    <input required type="number" v-model="clientNewTicketSelected.telefono"
-                                        placeholder="10 digitos">
-                                </div>
-                                <div class="form-group new-cli">
-                                    <label for="telefonoContacto">Telèfono Adicional ::<input type="checkbox"
-                                            v-model="newClientCheck"></label>
-                                    <input type="number" v-model="clientNewTicketSelected.telefonoContacto"
-                                        placeholder="10 digitos" :disabled="!newClientCheck" :required="newClientCheck">
+                                    <input disabled type="text" id="apellido" :value="clientDataSaveSelected.apellido">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="direccion">Direcciòn</label>
-                                    <input disabled type="text" v-model="clientNewTicketSelected.direccion">
+                                    <input disabled type="text" v-model="clientDataSaveSelected.direccion">
                                 </div>
                                 <div class="form-group new-cli">
                                     <label for="ciudad">Ciudad</label>
-                                    <input required type="text" v-model="clientNewTicketSelected.ciudad" disabled
+                                    <input required type="text" v-model="clientDataSaveSelected.ciudad" disabled
                                         placeholder="Guamal?Castila?Acacias?">
-                                </div>
-                                <div class="form-group new-cli">
-                                    <label for="email">Email de cliente</label>
-                                    <input type="email" v-model="clientNewTicketSelected.email">
-                                </div>
-                                <div class="form-group new-cli">
-                                    <label for="ipAddre">Ip Address</label>
-                                    <input type="text"  :placeholder="clientNewTicketSelected.ipBackup" disabled
-                                        v-model="clientNewTicketSelected.ip">
-                                </div>
-                                <div class="form-group new-cli">
-                                    <label for="fechaSugerida">Fecha Actual</label>
-                                    <input type="text" disabled placeholder="<?=$today?>">
-                                </div>
-                                <div class="form-group new-cli">
-                                    <label>Hora Actual</label>
-                                    <input type="text" disabled placeholder="<?=$hourMin?> am"> 
                                 </div>
                             </div>
                             <div class="facts">
-                                <div class="facts--table">
+                                <div v-if="!editEnabled" class="facts--table">
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th>FACTURA</th>
+                                                <th>COD</th>
                                                 <th>ITEM</th>
                                                 <th>VALOR</th>
-                                                <th>NOTA</th>
+                                                <th>SALDO</th>
                                                 <th>ACTION</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>12</td>
-                                                <td>Tenda</td>
-                                                <td>$60.000</td>
-                                                <td>Cambio de Router</td>
-                                                <td>Edit-Delete</td>
+                                            <tr v-for=" bill in bills"  >
+                                                <td>{{ bill['id-factura'] }}</td>
+                                                <td>{{bill.periodo}}</td>
+                                                <td>${{bill.valorf}}</td>
+                                                <td>${{bill.saldo}}</td>
+                                                <td><button type="button"  @click="billAction('edit',bill)" class="button-edit">Editar</button><button type="button" @click="billAction('delete')" class="button-delete">Borrar</button></td>
                                             </tr>
-                                            <tr>
-                                                <td>12</td>
-                                                <td>Tp-Link</td>
-                                                <td>$55.000</td>
-                                                <td>Cambio de Router</td>
-                                                <td>Edit-Delete</td>
-                                            </tr>
+                                            
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td colspan="4"></td>
-                                                <td colspan="1"><button>Nuevo</button></td>
+                                                <td colspan="1"></td>
+                                                <td colspan="4"><button @click="billAction('edit',{},'new')" class="button-success">Agregar</button></td>
                                             </tr>
                                         </tfoot>
                                     </table>
                                 </div>
-                                <div class="facts--newFact">
-                                    <h5>CREAR NUEVA FACTURA</h5>
-                                    <form action="#" id="newFact">
+                                <div v-if="billsBox" class="facts--newFact">
+                                        <h5>{{billActionOptionSelected}} FACTURA </h5>
+                                        <p class="facts--newFact-descr">{{clientDataSaveSelected.id}}:{{clientDataSaveSelected.cliente}} {{clientDataSaveSelected.apellido}} : {{clientDataSaveSelected.direccion}}</p>
                                         <div class="form-group form-group--100"> 
-                                            <label for="item">Item</label>
-                                            <input type="text" name="item" id="item">
+                                            <label for="item">Item a Facturar</label>
+                                            <input  type="text" name="item" v-model="billDataToBox.item" required>
                                         </div>  
                                         <div class="form-group form-group--100">
                                             <label for="itemValue">Valor</label>
-                                            <input type="number" name="itemValue" id="itemValue" step="5000">
+                                            <input  type="number" name="itemValue" v-model="billDataToBox.valor" step="5000" required>
                                         </div>  
-                                                     
-                                    </form>
+                                        <div class="form-group form-group--100">
+                                            <label for="itemValue">Saldo</label>
+                                            <input  type="number" name="itemValue" v-model="billDataToBox.saldo" step="5000" required>
+                                        </div>  
+                                        <div class="form-group form-group--100">
+                                            <label for="notaValue">Nota</label>
+                                            <input  type="text" name="notaValue" v-model="billDataToBox.nota" >
+                                        </div>  
+                                    <div class="footer-modal">
+                                        <input v-if="applyEnabled" type="submit" value="Aplicar" ><span class="icon-cancel"
+                                        @click="billsBox=false,editEnabled=false"></span>
+                                    </div>                
                                 </div>
+                                
                             </div>
-
+                            
                             <div>
                             
                             </div>
-                            <div class="footer-modal">
-                                <input type="submit" value="Enviar"><span class="icon-cancel"
-                                    @click="continueToResultModal(false)"></span>
-                            </div>
+                            
                         </form>
                     </div>
                 </div>
@@ -317,17 +294,15 @@ $htmlObject=new Html();
 var app = new Vue({
     el: "#app",
     data: {
-        
+        billEndPoint:'../controller/bill/billAPI.php',
         searchClientContent: "",
         clientes: [],
         clientDataSaveSelected: [],
-        clientNewTicketSelected: [],
+        clientDataSaveSelected: [],
         WalletsList: [],
         clientAbiertoTicketSelected: [],
         totalRows: "",
         totalRowsAbiertos: "",
-        newTicketSelectedClient: "",
-        newTicketSelectedId: "",
         abiertoTicketSelectedClient: "",
         abiertoTicketSelectedId: "",
         hideTicketResult: true,
@@ -346,7 +321,18 @@ var app = new Vue({
             speed:null,
             planPrice:null
         },
-
+        message:{
+            text:"Falló al hacer la operación",
+            status:false,
+            show:false
+        },
+        billsBox:false,
+        bills:{},
+        applyEnabled:false,
+        editEnabled:false,
+        billDataToBox:{},
+        billActionOptionSelected:null,
+        createNewBill:false,
     },
     methods: {
         continueToAbiertoWalletModal: function(data) {
@@ -365,25 +351,23 @@ var app = new Vue({
             console.log("Actualizar la info en la base de datos")
             const data = new FormData();
             data.append('option', 'updateClient');
-            data.append('id', this.clientDataSaveSelected.id);
-            data.append('planPrice', this.clientDataSaveSelected.planPrice);
-            data.append('speed', this.clientDataSaveSelected.speed);
-            fetch('../controller/bill/billAPI.php', {
+            data.append('id', this.clientDataSaveSelected.id)
+            if(this.info.speed!=this.clientDataSaveSelected.speed) data.append('speed', this.clientDataSaveSelected.speed)
+            if(this.info.planPrice!=this.clientDataSaveSelected.planPrice)data.append('planPrice', this.clientDataSaveSelected.planPrice) 
+            
+            fetch(this.billEndPoint, {
             method: 'POST',
             body: data
             }).then(response=> {
-                if(response.ok) {
-                    return response.text()
-                } else {
-                    throw "Error en la llamada";
-                }
-                }).then(texto=> {
-                    console.log(texto);
+                    return  response.json()
+                }).then(result=> {
+                    this.continueToResultModal(false)
+                    this.message.status=true
+                    this.message.show=true
+                    this.message.text=`Datos actualizados [speed:${result[0].speed}] [pago:${result[1].pago}] a ${this.clientDataSaveSelected.cliente} ${this.clientDataSaveSelected.apellido} `
                 }).catch(err=> {
                     console.log(err); });
-
         },
-
         continueToResultModal: function(data) {
             
             if(this.billType==='plan'){
@@ -394,6 +378,7 @@ var app = new Vue({
             if(this.billType==='bill'){
                 this.hideResultModalPlan = true
                 this.hideResultModalBill = false
+                this.getBillList()
                 this.hideTicketResult = false
             }
             if(!data){
@@ -410,6 +395,10 @@ var app = new Vue({
         },
         searchClient: function() {
             this.info={}
+            this.billType=null
+            this.message.show=false
+            this.selectedId=null
+            this.clientDataSaveSelected={}
             this.getUser()
         },
         getUser: function() {
@@ -434,8 +423,6 @@ var app = new Vue({
             })
         },
         selectedRowNewWallet: function(id, client, clientObject) {
-            this.newTicketSelectedId = id
-            this.newTicketSelectedClient = client
             this.clientDataSaveSelected = clientObject
             this.clientDataSaveSelected.ipBackup = this.clientDataSaveSelected.ip,
             this.selectedId=id
@@ -465,8 +452,54 @@ var app = new Vue({
                 return false
             }
         },
+        getBillList:function(){
+            fetch(this.billEndPoint+'?'+new URLSearchParams({
+                option:'getBillList',
+                idClient:this.selectedId
+            }),{
+                method:'GET'
+            }).then(res=>{
+                return res.json()
+            }).then(json=>{
+                if(json){
+                    this.bills=json
+                    console.log(JSON.stringify(this.bills))
+                }else{
+                    console.log("NO tiene deuda!")
+                }
+            }).catch(error=>console.log("Error :"+error))            
+        },
+        billAction:function(opt,bill,newBill){
+            this.editEnabled=true
+            this.billsBox=true
+            this.applyEnabled=true
+            this.billActionOptionSelected="Nueva"
+            if(newBill){
+                this.createNewBill=true
+                this.billDataToBox={}
+            }else{
+                this.createNewBill=false
+                this.billActionOptionSelected=opt.toUpperCase()
+                this.billDataToBox={
+                    id:bill["id-factura"],
+                    valor:bill.valorf,
+                    saldo:bill.saldo,
+                    item:bill.periodo,
+                    nota:bill.notas
+                }
+            
+            }
 
-       
+        },
+        formBills:function(){
+            if(this.createNewBill){
+                this.billsBox=true
+                this.editEnabled=true
+                const id=this.clientDataSaveSelected.id
+                //billDataToBox.item ,valor, saldo, nota
+
+            }
+        }
     },
     mounted() {
         this.getWallet()

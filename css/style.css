@@ -604,6 +604,10 @@ section .hide-closed-tickets-modal {
   width: 60%;
 }
 
+.title-modal {
+  position: relative;
+}
+
 .title-modal h3 {
   text-transform: uppercase;
   background-color: indianred;
@@ -611,6 +615,18 @@ section .hide-closed-tickets-modal {
   color: #fff;
   margin: 0px;
   padding: 5px;
+}
+
+.title-modal--close {
+  position: absolute;
+  top: 7px;
+  right: 5px;
+}
+
+.title-modal--close h4 {
+  color: white;
+  width: min-content;
+  cursor: pointer;
 }
 
 .close-ticket-content .form-close-ticket {
@@ -664,12 +680,32 @@ th, td {
   padding: 16px;
 }
 
+.message {
+  font-size: smaller;
+  font-weight: 200;
+  padding: 0.4rem 0 1px .4rem;
+  width: 16vw;
+  position: sticky;
+  top: 0;
+  margin: .5rem 0 0 .5rem;
+}
+
+.message__success {
+  background-color: #476211;
+  color: white;
+}
+
+.message__danger {
+  background-color: #7c3b3b;
+  color: white;
+}
+
 .hide {
   display: none;
 }
 
 input:invalid {
-  box-shadow: 0 0 5px 1px red;
+  box-shadow: 0 0 5px 1px #8d2222;
 }
 
 input:focus:invalid {
@@ -689,8 +725,39 @@ textarea:focus:invalid {
 }
 
 .button-success {
-  background-color: #20c997;
+  background-color: #5cb85c;
   color: white;
+  border: none;
+  min-width: 3rem;
+  padding: 5px;
+}
+
+.button-edit {
+  background-color: #0275d8;
+  color: white;
+  font-weight: 300;
+  padding: 5px;
+  margin: 3px;
+  border: none;
+  min-width: 3rem;
+}
+
+.button-edit:hover, .button-edit:active {
+  background-color: #2f8cdd;
+}
+
+.button-delete {
+  background-color: #d9534f;
+  color: white;
+  padding: 5px;
+  font-weight: 300;
+  margin: 3px;
+  border: none;
+  min-width: 3rem;
+}
+
+.button-delete:hover, .button-delete:active {
+  background-color: #e07f7b;
 }
 
 .button-danger {
@@ -751,6 +818,13 @@ textarea:focus:invalid {
 
 .facts--newFact h5 {
   color: #5f6166;
+}
+
+.facts--newFact-descr {
+  font-weight: 400;
+  color: #2f2f2f;
+  font-size: .7rem;
+  margin-bottom: 3px;
 }
 
 footer {
