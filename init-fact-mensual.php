@@ -1,5 +1,5 @@
 <?php
-$debug=true;	//ACTUALIZAR UNICAMENTE DESDE LA LINEA DE COMANDOS 
+$debug=true;   //OJO OJO OJO OJO OJO OJO OJO OJO OJO OJO OJO OJO	//ACTUALIZAR UNICAMENTE DESDE LA LINEA DE COMANDOS 
 echo"arranca okg";  //IMPORTANTE MARZO 2022 -->OJO POR QUE LOS STANDBY SE VAN DESCONTRANDO CADA VES QUE EJECUTA EL SCRIPT!!!
 include("login/db.php");
 include("Client.php");
@@ -15,7 +15,7 @@ $today = date("Y-m-d");
 $convertdate= date("d-m-Y" , strtotime($today));
 $mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 $monthn = date("n");//****************** IMPORTANTE****Y REVISAR LOS STAND BY*****************************************----------
-$periodo=$mes[3];// hoy 01   de Marzo -no olvidar los update standby de 2022 aquí pongo el mes al que le voy a crear la tanda de facturas a todos los afiliados.  AND `suspender`!=1
+$periodo=$mes[4];// hoy 01   de Abril -no olvidar los update standby de 2022 aquí pongo el mes al que le voy a crear la tanda de facturas a todos los afiliados.  AND `suspender`!=1
 $cont=0;																
 $sql = "SELECT * FROM `afiliados` WHERE `mesenmora` != '-1' AND `activo`='1'  AND `eliminar`!='1'  ORDER BY `id` ASC "; 
 if ($result = $mysqli->query($sql)) {
@@ -30,7 +30,7 @@ if ($result = $mysqli->query($sql)) {
 			$valorp=0;
 			$cerrado=0;
 			$newWalletMoney=0;						//IMPORTANTE MARZO 2022 -->OJO POR QUE LOS STANDBY SE VAN DESCONTRANDO CADA VES QUE EJECUTA EL SCRIPT!!!
-			$fechaPago=$today; 
+			$fechaPago='null'; 
 			$fechaCierre='null'; 
 			$notas="";
 			//El saldo ahora depende de lo que valga "wallet-money"
@@ -58,7 +58,8 @@ if ($result = $mysqli->query($sql)) {
 				$saldo=$valorf;
 			}
             $fc=$fechaCierre=='null'?$fechaCierre:"'$fechaCierre'"; 
-			$sql1 = "INSERT INTO `redesagi_facturacion`.`factura` (`id-factura`, `id-afiliado`, `fecha-pago`, `iva`, `notas`, `descuento`, `valorf`, `valorp`, `saldo`, `cerrado`, `fecha-cierre`, `vencidos`, `periodo`) VALUES (NULL,'$idafiliado', '$fechaPago', '19', '$notas', '0', '$valorf', '$valorp', '$saldo', '$cerrado', $fc, '-10', '$periodo');";
+            $fp=$fechaPago=='null'?$fechaPago:"'$fechaPago'"; 
+			$sql1 = "INSERT INTO `redesagi_facturacion`.`factura` (`id-factura`, `id-afiliado`, `fecha-pago`, `iva`, `notas`, `descuento`, `valorf`, `valorp`, `saldo`, `cerrado`, `fecha-cierre`, `vencidos`, `periodo`) VALUES (NULL,'$idafiliado',$fp, '19', '$notas', '0', '$valorf', '$valorp', '$saldo', '$cerrado', $fc, '-10', '$periodo');";
 			echo "<br>".$sql1."<br>";     //IMPORTANTE MARZO 2022 -->OJO POR QUE LOS STANDBY SE VAN DESCONTRANDO CADA VES QUE EJECUTA EL SCRIPT!!!GVF	º
 			if(!$debug)$mysqli->query($sql1);         
 		}else{

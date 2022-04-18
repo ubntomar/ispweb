@@ -34,8 +34,8 @@ class Bill
         }
         return $array;
     }
-    public function updateBill($idClient,$item,$value){
-        $sql="UPDATE `redesagi_facturacion`.`factura` SET `factura`.`$item` = '$value' WHERE `factura`.`id-afiliado` = '$idClient' ";
+    public function updateBill($idBill,$item,$value){
+        $sql="UPDATE `redesagi_facturacion`.`factura` SET `factura`.`$item` = '$value' WHERE `factura`.`id-factura` = '$idBill' ";
         if($this->mysqli->query($sql)==true)
             return true;
         else return false;

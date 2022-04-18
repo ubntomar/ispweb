@@ -234,14 +234,17 @@ $htmlObject=new Html();
                                                 <td>{{bill.periodo}}</td>
                                                 <td>${{bill.valorf}}</td>
                                                 <td>${{bill.saldo}}</td>
-                                                <td><button type="button"  @click="billAction('edit',bill)" class="button-edit">Editar</button><button type="button" @click="billAction('delete')" class="button-delete">Borrar</button></td>
+                                                <td><button type="button"  @click="billAction('editar',bill)" class="button-edit">Editar</button><button type="button" @click="billAction('borrar',bill)" class="button-delete">Borrar</button></td>
                                             </tr>
                                             
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <td colspan="1"></td>
-                                                <td colspan="4"><button @click="billAction('edit',{},'new')" class="button-success">Agregar</button></td>
+                                                <td colspan="4">
+                                                    <button @click="billAction('',{},'new')" class="button-success">Agregar</button>
+                                                    <input @click="delConfirm=''" type="text" placeholder="Borrar?" v-model="delConfirm" >
+                                                </td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -255,11 +258,11 @@ $htmlObject=new Html();
                                         </div>  
                                         <div class="form-group form-group--100">
                                             <label for="itemValue">Valor</label>
-                                            <input  type="number" name="itemValue" v-model="billDataToBox.valor" step="5000" required>
+                                            <input  type="number" name="itemValue" v-model="billDataToBox.valor" step="1000" required>
                                         </div>  
                                         <div class="form-group form-group--100">
                                             <label for="itemValue">Saldo</label>
-                                            <input  type="number" name="itemValue" v-model="billDataToBox.saldo" step="5000" required>
+                                            <input  type="number" name="itemValue" v-model="billDataToBox.saldo"  min="1" required>
                                         </div>  
                                         <div class="form-group form-group--100">
                                             <label for="notaValue">Nota</label>
@@ -332,7 +335,8 @@ var app = new Vue({
         editEnabled:false,
         billDataToBox:{},
         billActionOptionSelected:null,
-        createNewBill:false,
+        formTask:null,
+        delConfirm:null
     },
     methods: {
         continueToAbiertoWalletModal: function(data) {
@@ -463,22 +467,21 @@ var app = new Vue({
             }).then(json=>{
                 if(json){
                     this.bills=json
-                    console.log(JSON.stringify(this.bills))
+                    //console.log(JSON.stringify(this.bills))
                 }else{
                     console.log("NO tiene deuda!")
                 }
             }).catch(error=>console.log("Error :"+error))            
         },
         billAction:function(opt,bill,newBill){
-            this.editEnabled=true
             this.billsBox=true
             this.applyEnabled=true
             this.billActionOptionSelected="Nueva"
+            this.editEnabled=true
             if(newBill){
-                this.createNewBill=true
+                this.formTask="new"
                 this.billDataToBox={}
             }else{
-                this.createNewBill=false
                 this.billActionOptionSelected=opt.toUpperCase()
                 this.billDataToBox={
                     id:bill["id-factura"],
@@ -487,18 +490,88 @@ var app = new Vue({
                     item:bill.periodo,
                     nota:bill.notas
                 }
+                if(opt=="editar")this.formTask="editar"
+                if(opt=="borrar"){
+                    this.formTask="borrar"
+                    this.editEnabled=false
+                    this.billsBox=false
+                    if(this.delConfirm==this.billDataToBox.id){
+                        this.formBills()
+                    }else{
+                        this.delConfirm="Code Error!!"
+                    }
+                    }
+                
             
             }
 
         },
         formBills:function(){
-            if(this.createNewBill){
+            if(this.formTask==="new"){
                 this.billsBox=true
                 this.editEnabled=true
-                const id=this.clientDataSaveSelected.id
-                //billDataToBox.item ,valor, saldo, nota
-
+                const data = new FormData();
+                data.append('option',"createBill")
+                data.append('id',this.clientDataSaveSelected.id)
+                data.append('item',this.billDataToBox.item)
+                data.append('valor',this.billDataToBox.valor)
+                data.append('saldo',this.billDataToBox.saldo)
+                data.append('nota',this.billDataToBox.nota)
+                console.log("sending...")
+                fetch(this.billEndPoint, {
+                method: 'POST',
+                body: data
+                }).then(response=> {
+                        return  response.json()
+                    }).then(result=> {
+                        console.log("sent!:"+result)
+                        this.getBillList()
+                        this.editEnabled=false
+                        this.billsBox=false
+                    }).catch(err=> {
+                        console.log(err); });
             }
+            if(this.formTask==="editar"){
+                const data = new FormData();
+                data.append('option',"updateBill")
+                data.append('id',this.billDataToBox.id)
+                data.append('item',this.billDataToBox.item)
+                data.append('valor',this.billDataToBox.valor)
+                data.append('saldo',this.billDataToBox.saldo)
+                data.append('nota',this.billDataToBox.nota)
+                console.log("submiting Edit form data ")
+                fetch(this.billEndPoint, {
+                method: 'POST',
+                body: data
+                }).then(response=> {
+                        return  response.json()
+                    }).then(result=> {
+                        console.log("sent!:"+result)
+                        this.getBillList()
+                        this.editEnabled=false
+                        this.billsBox=false
+                    }).catch(err=> {
+                        console.log(err); });
+            }
+            if(this.formTask==="borrar"){
+                console.log("submiting Delete form data ")
+                const data = new FormData();
+                data.append('option',"deleteBill")
+                data.append('id',this.billDataToBox.id)
+                fetch(this.billEndPoint, {
+                method: 'POST',
+                body: data
+                }).then(response=> {
+                        return  response.json()
+                    }).then(result=> {
+                        console.log("sent!:"+result)
+                        this.getBillList()
+                        this.editEnabled=false
+                        this.billsBox=false
+                        this.delConfirm=null
+                    }).catch(err=> {
+                        console.log(err); });
+            }   
         }
     },
     mounted() {

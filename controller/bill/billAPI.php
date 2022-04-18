@@ -1,4 +1,13 @@
 <?php
+session_start();
+if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
+		{
+		header('Location: login/index.php');
+		exit;
+		}
+else    {
+		$user=$_SESSION['username'];
+		}
 require("../../login/db.php"); 
 require("../../Client.php");
 require("../../Bill.php");
@@ -42,7 +51,6 @@ if( $_SERVER['REQUEST_METHOD']==='POST' ){
             break;
         }
         case 'createBill':{
-            //item ,valor, saldo, nota
             $idClient=$mysqli -> real_escape_string($_POST["id"]);
             $item=$mysqli -> real_escape_string($_POST["item"]);
             $valor=$mysqli -> real_escape_string($_POST["valor"]);
@@ -50,9 +58,27 @@ if( $_SERVER['REQUEST_METHOD']==='POST' ){
             $nota=$mysqli -> real_escape_string($_POST["nota"]);
             $billObj=new Bill($server, $db_user, $db_pwd, $db_name);
             $response=$billObj->createBill($idClient,$periodo=$item,$notas=$nota,$valorf=$valor,$valorp="0",$saldo,$cerrado="0",$fechaPago='',$iva="19",$descuento="0",$fechaCierre='',$vencidos='0');
+            break;
         } 
-
-
+        case 'updateBill':{
+            $idBill=$mysqli -> real_escape_string($_POST["id"]);
+            $item=$mysqli -> real_escape_string($_POST["item"]);
+            $valor=$mysqli -> real_escape_string($_POST["valor"]);
+            $saldo=$mysqli -> real_escape_string($_POST["saldo"]);
+            $nota=$mysqli -> real_escape_string($_POST["nota"]);
+            $billObj=new Bill($server, $db_user, $db_pwd, $db_name);
+            $response=$billObj->updateBill($idBill,$itemFact="periodo",$value=$item);
+            $response=$billObj->updateBill($idBill,$item="valorf",$value=$valor);
+            $response=$billObj->updateBill($idBill,$item="saldo",$value=$saldo);
+            $response=$billObj->updateBill($idBill,$item="notas",$value=$nota);
+            break;
+        } 
+        case 'deleteBill':{
+            $idBill=$mysqli -> real_escape_string($_POST["id"]);
+            $billObj=new Bill($server, $db_user, $db_pwd, $db_name);
+            $response=$billObj->deleteBill($idBill);
+            break;
+        } 
         default:{
             break;
         }
@@ -65,8 +91,8 @@ if( $_SERVER['REQUEST_METHOD']==='GET' ){
             $billObj=new Bill($server, $db_user, $db_pwd, $db_name);
             $aditionalCondition=" `factura`.`cerrado`='0' ";
             $response=$billObj->getBill($idClient,$aditionalCondition);
+            break;
         } 
-
         default:{
             break;
         }

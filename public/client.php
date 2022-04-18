@@ -368,8 +368,8 @@
 																							<div class="form-group col-md-3 ">
 																								<small>En este momento que está afiliando , el cliente ya le fue instalado el servicio?</small>
 																								<select  class="custom-select " id="serviceIsAlreadyInstalled">
-																									<option value="1" >Si.</option>
-																									<option value="0" SELECTED >No.</option>
+																									<option value="1" SELECTED >Si.</option>
+																									<option value="0"  >No.</option>
 																								</select>
 																							</div>   
 																							<div class="form-group col-md-3 border border-info rounded ml-1" id="valorProrrateoDiv2" >
@@ -2460,7 +2460,7 @@
 			}
 
 			function allLetter(inputtxt) {
-				var letters = /^[A-Za-z ]+$/;
+				var letters = /^[A-Za-zñ ]+$/;
 				if (inputtxt.match(letters)) {
 					return true;
 				} else {

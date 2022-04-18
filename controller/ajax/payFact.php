@@ -26,7 +26,7 @@ $convertdate = date("d-m-Y", strtotime($today));
 $hourMin = date('H:i');
 $usuario = $_SESSION['username'];
 $response="";
-$descuento=0;//Mysql strict mode dont accept ''
+$descuento=0;//Mysql strict mode dont accept ''     // vap $vap  vaa $vaa vad $vad vpl $vpl
 $idtransaccion=0;
 $debug = 0;
 									// idc: idcRow, 
@@ -171,7 +171,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 
 	//echo "estoy en la 110: \n";
 	$sqlins = "INSERT INTO `redesagi_facturacion`.`transacciones` (`idtransaccion`, `valor-recibido`, `valor-a-pagar`, `cambio`, `id-cliente`, `fecha`, `aprobado`, `hora`, `cajero`, `descontar`) VALUES (NULL, '$vre', '$vaa', '$cam', '$idc', '$today', '', '$hourMin', '$usuario', '$vad')";
-	//echo $sqlins."\n";
+	//echo "\n Transaccion: $sqlins \n";
 	if ($mysqli->query($sqlins) === TRUE) {
 		$last_id_tra = $mysqli->insert_id;
 	} else {
@@ -241,7 +241,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 					$sqlin = "INSERT INTO `redesagi_facturacion`.`recaudo` (`idrecaudo`, `idfactura`, `fecha-hoy`,`hora`, `notas`, `valorp`, `abonar`, `vendedor`) VALUES (NULL, '$idFactura', '$today','$hourMin', 'nota', '0', '$valorAbonar', '$usuario');";
 					$fc=$fechaCierreFact==null?'null':$fechaCierreFact; 
 					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '$newSaldoTotal1fact', `cerrado` = '$cierreFact', `fecha-pago` = '$today', `fecha-cierre` = $fc, `descuento` = '$descuento', `idtransaccion` = $last_id_tra  WHERE `factura`.`id-factura` = $idFactura ";
-					// echo "\n : $sqlup";
+					 //echo "\n : $sqlup";
 					if ($mysqli->query($sqlin) === TRUE) {
 						if ($mysqli->query($sqlup) === TRUE) {
 							if ($cnt == $row_cnt)
@@ -268,6 +268,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 						$descontar=0;		
 					$vaa -= $saldo;
 					$sqlin = "INSERT INTO `redesagi_facturacion`.`recaudo` (`idrecaudo`, `idfactura`, `fecha-hoy`,`hora`, `notas`, `valorp`, `abonar`, `vendedor`) VALUES (NULL, '$idFactura', '$today','$hourMin', 'nota', '$saldo', '0', '$usuario');";
+					//echo "\n sqlin:$sqlin";
 					if ($mysqli->query($sqlin) === TRUE) {
 						$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '0', `cerrado` = '1', `fecha-pago` = '$today', `fecha-cierre` = '$today', `vencidos` = '0', `descuento` = '$saldo', `idtransaccion` = '$last_id_tra' WHERE `factura`.`id-factura` = $idFactura ";
 						//echo "\n 199:$sqlup";

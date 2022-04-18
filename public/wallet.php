@@ -107,7 +107,7 @@ $htmlObject=new Html();
                         </div>
                     </div>
                 </div>
-                <div class="box new-ticket " v-bind:class="{'hide-new-ticket':hideResultModal}">
+                <div class="box new-ticket " v-bind:class="{'hide':hideResultModal}">
                     <div class="new-ticket-modal-content">
                         <form v-on:submit.prevent="checkFormNewWallet()">
                             <div class="title-modal">

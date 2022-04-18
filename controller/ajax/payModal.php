@@ -66,7 +66,7 @@ if($_POST['rowid']){
 			          		<td>Direccion:</td><td>".$row["direccion"]."</td>
 			          	</tr>
 			          	<tr>";
-			$sql = "SELECT * FROM `redesagi_facturacion`.`factura` WHERE `factura`.`id-afiliado`='$id' AND CAST(`factura`.`fecha-pago` AS CHAR(10)) != '0000-00-00' AND `factura`.`fecha-pago` IS NOT NULL ORDER BY `factura`.`id-factura` DESC";
+			$sql = "SELECT * FROM `redesagi_facturacion`.`factura` WHERE `factura`.`id-afiliado`='$id' AND CAST(`factura`.`fecha-pago` AS CHAR(10)) != '0000-00-00' AND `factura`.`fecha-pago` IS NOT NULL AND (`valorf`!= `saldo`)  ORDER BY `factura`.`id-factura` DESC";
 			//echo $sql;
 			if($result = $mysqli->query($sql)){
 				$rowf = $result->fetch_assoc();   
@@ -84,7 +84,7 @@ if($_POST['rowid']){
 				$idFactura=0;
 				
 			}				
-			$sql = "SELECT * FROM `recaudo` WHERE `idfactura` = $idFactura ORDER BY `idrecaudo` DESC ";
+			$sql = "SELECT * FROM `redesagi_facturacion`.`recaudo` WHERE `recaudo`.`idfactura` = '$idFactura' ORDER BY `idrecaudo` DESC ";
 			//echo "<br>".$sql;
 			if($fl==1){
 					
@@ -98,10 +98,10 @@ if($_POST['rowid']){
 							$varHtml.="<td class=\"\">Pago Anterior:</td><td class=\"\"><span  class=\" border border-primary rounded  text-dark p-1  m-1 \">$formatted_date  </span> <span  class=\"btn btn-secondary btn-sm \" id=\"btn-paym\" ><i class=\"icon-down-open  \" id=\"icon-down-open\"></i><small>Más...</small></span>";
 							
 							$varHtml.="</td>";  	
-							}
+						}
 						else{
 							$varHtml.="<td>Pago Anterior:</td><td>00/00/0000</td>"; 	
-							}	 
+						}	 
 						
 					$result->free();         	
 					}
