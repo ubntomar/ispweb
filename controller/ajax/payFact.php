@@ -196,7 +196,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 				$vtotal += $saldo;
 				$cerrarAbono = 0;
 				$paga1fact = -1;
-				$fechaCierreFact = null;
+				$fechaCierreFact = NULL;
 				$cierreFact = 0;
 				$text = "";
 				if (($vaa == $saldo) && ($vaa != 0))
@@ -239,9 +239,9 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 					//echo "\n vad vale:$vad y la variable descuento vale:$descuento \n";
 
 					$sqlin = "INSERT INTO `redesagi_facturacion`.`recaudo` (`idrecaudo`, `idfactura`, `fecha-hoy`,`hora`, `notas`, `valorp`, `abonar`, `vendedor`) VALUES (NULL, '$idFactura', '$today','$hourMin', 'nota', '0', '$valorAbonar', '$usuario');";
-					$fc=$fechaCierreFact==null?'null':$fechaCierreFact; 
-					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '$newSaldoTotal1fact', `cerrado` = '$cierreFact', `fecha-pago` = '$today', `fecha-cierre` = $fc, `descuento` = '$descuento', `idtransaccion` = $last_id_tra  WHERE `factura`.`id-factura` = $idFactura ";
-					 //echo "\n : $sqlup";
+					$fc=$fechaCierreFact==NULL?'NULL':"'".$fechaCierreFact."'"; 
+					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '$newSaldoTotal1fact', `cerrado` = '$cierreFact', `fecha-pago` = '$today', `fecha-cierre`=$fc, `descuento` = '$descuento', `idtransaccion` = $last_id_tra  WHERE `factura`.`id-factura` = $idFactura ";
+					//echo "\n : $sqlup";
 					if ($mysqli->query($sqlin) === TRUE) {
 						if ($mysqli->query($sqlup) === TRUE) {
 							if ($cnt == $row_cnt)

@@ -22,7 +22,7 @@ if(!$pingObject->time(15)){
     print "\n$ipAddress responde con normalidad!";
 }
 
-
+  
 $jsonDecoded=json_decode($json,true);
 foreach ($jsonDecoded as $map){
    foreach ($map as $item){
@@ -33,7 +33,7 @@ foreach ($jsonDecoded as $map){
                         print $li["ip"]."\n";
                         $ipAddress=$li["ip"]; 
                         $name=$li["name"]; 
-                        if(sendTelegram($ipAddress,$name,15,$telegramApi,$telegramChatid)=="break")break;
+                        //if(sendTelegram($ipAddress,$name,15,$telegramApi,$telegramChatid)=="break")break;
                     }
                 }
             }

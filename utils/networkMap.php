@@ -1,52 +1,5 @@
-<?php
- 
-  
-$json='{
-	"map": [{
-		"Red-Retiro": [{
-			"ruta": [
-				{
-					"name": "Vpn Entre Cloud Server y Leo Acacias  ",
-					"ip": "192.168.42.11",
-					"type": "Comunicacion Princiapl"
-				},
-				{
-					"name": "Public Ip Red Leo ",
-					"ip": "181.60.60.57",
-					"type": "Modem de Claro"
-				},
-				{
-					"name": "Server-Retiro",
-					"ip": "192.168.30.1",
-					"type": "Rb Admin"
-				},
-				{
-					"name": "Cpe->Retiro ",
-					"ip": "192.168.30.205",
-					"type": "ptp"
-				},
-				{
-					"name": "Retiro->Leo ",
-					"ip": "192.168.30.209",
-					"type": "ptp"
-				},
-				{
-					"name": "Ap Caño Cachirre ¿?- Ojo por q puede ser daño la rb donde estoy conectado lo que genera que toda la 30 esté caida.",
-					"ip": "192.168.30.13",
-					"type": "ptp"
-				},
-				{
-					"name": "Cpe Caño Cachirre",
-					"ip": "192.168.30.248",
-					"type": "ptp"
-				},
-				{
-					"name": "Rb Admin Caño Cachirre",
-					"ip": "192.168.30.2",
-					"type": "ptp"
-				}
-			]
-		}],
+<?php 
+ /**,
         "Red-Montecristo": [{
 			"ruta": [
 				{
@@ -140,6 +93,53 @@ $json='{
 					"type": "ptp"
 				}
 			]
+		}], */
+  
+$json='{
+	"map": [{
+		"Red-Retiro": [{
+			"ruta": [
+				{
+					"name": "Vpn Entre Cloud Server y Leo Acacias  ",
+					"ip": "192.168.42.11",
+					"type": "Comunicacion Princiapl"
+				},
+				{
+					"name": "Public Ip Red Leo ",
+					"ip": "181.60.60.57",
+					"type": "Modem de Claro"
+				},
+				{
+					"name": "Server-Retiro",
+					"ip": "192.168.30.1",
+					"type": "Rb Admin"
+				},
+				{
+					"name": "Cpe->Retiro ",
+					"ip": "192.168.30.205",
+					"type": "ptp"
+				},
+				{
+					"name": "Retiro->Leo ",
+					"ip": "192.168.30.209",
+					"type": "ptp"
+				},
+				{
+					"name": "Ap Caño Cachirre ¿?- Ojo por q puede ser daño la rb donde estoy conectado lo que genera que toda la 30 esté caida.",
+					"ip": "192.168.30.13",
+					"type": "ptp"
+				},
+				{
+					"name": "Cpe Caño Cachirre",
+					"ip": "192.168.30.248",
+					"type": "ptp"
+				},
+				{
+					"name": "Rb Admin Caño Cachirre",
+					"ip": "192.168.30.2",
+					"type": "ptp"
+				}
+			]
 		}],
         "Red-Orlando": [{
 			"ruta": [{
@@ -174,7 +174,7 @@ $json='{
 				},
 				{
 					"name": "Servidor principal Guamal",
-					"ip": "192.168.21.1",
+					"ip": "192.168.65.6",
 					"type": "ptp"
 				},
 				{
