@@ -323,8 +323,10 @@ $companyName=$companyObj->getCompanyItem($idCompany=1,$item="nombre");
 $companyAddress=$companyObj->getCompanyItem($idCompany=1,$item="direccion");
 $message="Gracias por tu pago!. Sigue disfrutando del servicio. $companyName $companyAddress";
 $telefono=$walletObject->getClientItem($idClient,$item="telefono");
-$data[] =["idClient"=>$idClient,"phone"=>$telefono]; 
-$sms= $smsObj->sendSms($data,$message,$key)["status"]; 
+$data[] =["idClient"=>$idClient,"phone"=>$telefono];
+if ( ($_POST['vap'] > 0) || ( $_POST['vaa'] > 0 ) ){
+	$sms= $smsObj->sendSms($data,$message,$key)["status"]; 
+} 
 $email=$walletObject->getClientItem($idClient,$item="mail");
 $emailRespone="el email NO es valido";
 $responseEmail="";
