@@ -15,7 +15,7 @@ $current = file_get_contents($file);
 $current.="\nFilename:".basename(__FILE__, '.php')."  Date: $today $hourMin\n";
 file_put_contents($file, $current);
 print "\n".basename(__FILE__, '.php')." --archivo creado $today $hourMin!\n";
-$idEmpresa=1;//AG INGENIERIA GUAMAL-CASTILLA
+$idEmpresa=1;//AG INGENIERIA GUAMAL-CASTILLA                    `reconected-date`='1999-01-01' => Mean Server dont respond and then it cant reconnect the service
 $groupArray=[];
 $mkobj=[];
 $sql="SELECT * FROM `vpn_targets` WHERE  `active`= 1 AND `id-empresa`= $idEmpresa ";
@@ -29,10 +29,10 @@ if($rs=$mysqli->query($sql)){
         print "\n Starting width $serverIp ...\n";
         $mkobj[$groupId]=new Mkt($serverIp,$username,$password);
         if($mkobj[$groupId]->success){
-            $groupArray+=array("$groupId"=>"true");
+            $groupArray+=array("$groupId"=>true);
             print "$serverIp $serverName $groupId grupo connwxion valido \n";
         }else {
-            $groupArray+=array("$groupId"=>"false");
+            $groupArray+=array("$groupId"=>false);
             print "$serverIp $serverName $groupId $groupId grupo connwxion invalido! \n";
             //print "\n error:{$mkobj[$groupId]->error} \n";   
         }
@@ -51,6 +51,15 @@ if($rt=$mysqli->query($sql)){
             if( $groupArray[$idGroup] ){
                 print "\n\n\n Remover ip $ip {$row['cliente']}";
                 removeIpFromMorososList($mkobj[$idGroup]->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
+            }else{
+                $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`reconected-date`='1999-01-01'   WHERE `afiliados`.`id`='$id'";
+                //print "\n $sqlUpd \n";
+                if(!$result2 = $mysqli->query($sqlUpd)){					
+                    print"-Error al actualizar cliente Mysql"; 	
+                }else{
+                    print "\t `reconected-date`='1999-01-01'";
+                }
+            
             }
         }
     }
@@ -63,7 +72,7 @@ $rt->free();
 function removeIpFromMorososList($remove,$ip,$today,$hourMin,$mysqli,$id){
     if($remove==1){
        print "\n\n\n$today-$hourMin: Ip: $ip removida con éxito\n\n\n\n";
-       $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0', `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='0', `afiliados`.`suspenderFecha`= NULL  WHERE `afiliados`.`id`='$id'";
+       $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0', `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='0', `afiliados`.`reconected-date`='$today', `afiliados`.`suspenderFecha`= NULL  WHERE `afiliados`.`id`='$id'";
     }
     if($remove==2){
         print "$today-$hourMin: Dirección Ip $ip o Lista  de morosos no existe! . !\n";

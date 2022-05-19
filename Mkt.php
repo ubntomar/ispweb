@@ -35,7 +35,12 @@ class Mkt
         $printRequest = new RouterOS\Request('/ip/firewall/address-list/print');
         $printRequest->setArgument('.proplist', '.id');
         $printRequest->setQuery(RouterOS\Query::where('address', $ip)->andWhere('list', $addresList));
-        $id = $this->client->sendSync($printRequest)->getProperty('.id');
+        //var_dump($printRequest);
+        try{
+            $id = $this->client->sendSync($printRequest)->getProperty('.id');
+        } catch(Exception $e){
+            print "\n \t\t\t $e \n";
+        }
         if ($id==NULL)
             return 2;
         else{
@@ -209,8 +214,8 @@ class Mkt
     }
     
 } 
-//
-// if($mkobj=new Mkt("192.168.16.245","admin","agwist2017")){
+
+// if($mkobj=new Mkt("192.168.32.1","********","********")){
 //     if($mkobj->success){
 //         var_dump($mkobj->checkSignal());      
 //     }       

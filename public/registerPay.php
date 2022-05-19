@@ -103,6 +103,7 @@ $htmlObject=new Html();
                                 $corte = $row["corte"];
                                 $idGRoup = ($row["id-repeater-subnets-group"]==0)?"G-0":"";
                                 $standby = $row["standby"];
+                                $reconectedDate=$row["reconected-date"];
                                 $ip=$row["ip"];
                                 $signal=(($row["signal-strenght"]*-1)>0&&($row["signal-strenght"]*-1)<70)?$row["signal-strenght"]." buena":$row["signal-strenght"]." mala";
                                 if($row["signal-strenght"]*1==0)$signal="?"; 
@@ -157,6 +158,11 @@ $htmlObject=new Html();
                                     $style = "border-primary text-success ";
                                     $statusText = "<p><small class=\"px-1 border $style rounded \">Activo</small></p>";
                                 }
+                                if($reconectedDate){
+                                    $reconectedBox= $reconectedDate=="1999-01-01"? "<div><small class=\"px-1 border border-primary text-danger rounded \">Reconexión Fallida</small></div>":"<div>Reconectado<small class=\"px-1 border border-primary text-success rounded \">$reconectedDate </small></div>";
+                                }else{
+                                    $reconectedBox="";
+                                }
                                 if ($row["suspender"] == 1) {
                                     $today = date("Y-m-d");
                                     $date1 = new DateTime($today);
@@ -191,7 +197,7 @@ $htmlObject=new Html();
 
                                 $telefono = $row["telefono"]; 
                                 echo "<tr class=\"text-center  \">";
-                                echo "<td class=\" font-weight-bold\"> {$row["cliente"]}  {$row["apellido"]} $statusText </td>";
+                                echo "<td class=\" font-weight-bold\"> {$row["cliente"]}  {$row["apellido"]} $statusText $reconectedBox</td>";
                                 echo "<td><small>{$row["direccion"]} {$row["ciudad"]} -{$row['id']}</small></td>";  
                                 echo "<td>$diff</td>";
                                 if($convenio){ 
