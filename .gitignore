@@ -6,3 +6,4 @@ vendor/*
 crearRepetidor.sh
 mailer/sendgrid.env
 test.php
+.env
