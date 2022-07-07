@@ -1,5 +1,5 @@
-<?php   
-$debug=true;   //OJO OJO OJO OJO OJO OJO OJO OJO OJO OJO OJO OJO	//ACTUALIZAR UNICAMENTE DESDE LA LINEA DE COMANDOS 
+<?php   //PRIMERO Q TODO REVISAR Q AL MODIFICAR debug  el archivo se suba por SFTP. Atento 
+$debug=true;   //OJO  OJO OJO OJO OJO OJO OJO OJO OJO OJO OJO OJO	//ACTUALIZAR UNICAMENTE DESDE LA LINEA DE COMANDOS 
 echo"arranca okg";  //IMPORTANTE MARZO 2022 -->OJO POR QUE LOS STANDBY SE VAN DESCONTRANDO CADA VES QUE EJECUTA EL SCRIPT!!!
 include("login/db.php");
 include("Client.php");
@@ -15,7 +15,7 @@ $today = date("Y-m-d");
 $convertdate= date("d-m-Y" , strtotime($today));
 $mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 $monthn = date("n");//****************** IMPORTANTE****Y REVISAR LOS STAND BY*****************************************----------
-$periodo=$mes[6];// hoy 01   de Junio -no olvidar los update standby de 2022 aquí pongo el mes al que le voy a crear la tanda de facturas a todos los afiliados.  AND `suspender`!=1
+$periodo=$mes[7];// hoy 01   de Junio -no olvidar los update standby de 2022 aquí pongo el mes al que le voy a crear la tanda de facturas a todos los afiliados.  AND `suspender`!=1
 $cont=0;																
 $sql = "SELECT * FROM `afiliados` WHERE `mesenmora` != '-1' AND `activo`='1'  AND `eliminar`!='1'  ORDER BY `id` ASC "; 
 if ($result = $mysqli->query($sql)) {

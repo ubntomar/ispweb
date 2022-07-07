@@ -1,8 +1,9 @@
 <?php
-session_start();
+session_start(); 
 include "db.php";
+//echo "mysqli_connect($server, $db_user, $db_pwd, $db_name)";
 $con = mysqli_connect($server, $db_user, $db_pwd, $db_name) //connect to the database server
- or die("Could not connect to mysql because " . mysqli_error());
+ or die("Could not connect to mysql because $server, $db_user, $db_pwd, $db_name " . mysqli_error());
 
 mysqli_select_db($con, $db_name) //select the database
  or die("Could not select to mysql because " . mysqli_error());
