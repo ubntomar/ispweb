@@ -3,8 +3,8 @@ $pth=explode("/",__DIR__);
 require_once('/var/www/'.$pth[count($pth)-2].'/vendor/autoload.php'); 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
-//important: ipAlive.json is generated and updated from devicePingResponseList.php
-$server = 'localhost';
+//important: ipAlive.json is generated and updated from devicePingResponseList.php 
+$server = $_ENV['MYSQL_SERVER']; 
 $db_user = $_ENV['MYSQL_USER'];  
 $db_pwd = $_ENV['MYSQL_PASSWORD']; 
 $db_name = $_ENV['MYSQL_DATABASE'];
