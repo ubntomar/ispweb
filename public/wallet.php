@@ -17,7 +17,6 @@ if($_SESSION['role']=='tecnico'){
 require("../login/db.php");
 require("../components/views/TemplateDark.php");
 require("../components/views/Html.php");
-mysqli_set_charset($mysqli,"utf8");
 date_default_timezone_set('America/Bogota');
 $today = date("d-m-Y"); 
 $hourMin = date('H:i');
