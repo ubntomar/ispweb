@@ -10,18 +10,10 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) {
             }
         }
 }
-
 ?>
-
-
-
 <?php
 $urlprev=$_GET['urlprev'];
 $role=$_SESSION["role"];
-//     header('../tick.php'); /* Redirect browser */
-// }else{
-//     header('../register-pay.php'); /* Redirect browser */
-// }
 if($urlprev) 
     $urltext="Location: ../$urlprev";
 else {
@@ -29,22 +21,15 @@ else {
     if($role!="tecnico") $urltext="Location: ../public/registerPay.php?role=$role";       
 }
 header($urltext); /* Redirect browser */
-
-/* Make sure that code below does not get executed when we redirect. */
 exit;
 ?>
-
-
 <!DOCTYPE html>
-
 <head>
     <title>PHP Login System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/style.css" rel="stylesheet" media="screen">
 </head>
-
 <body>
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -71,7 +56,5 @@ if ( isset($_SESSION['login']) || $_SESSION['login'] == true) {
             <div id="alert-message"></div>
         </div>
     </form>
-
 </body>
-
 </html>
