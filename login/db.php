@@ -20,25 +20,25 @@ $admin_user=$_ENV['admin_user'];
 $admin_password=$_ENV['admin_password'];
 //Mikrotik defauls 
 $defaultIdGruposEmpresa=1;
-$awsVpnDefaultUser=$_SERVER['awsVpnDefaultUser'];
-$awsVpnDefaultPassword=$_SERVER['awsVpnDefaultPassword'];
-$rb_server_default_user=$_SERVER['rb_server_default_user'];
-$ubiquiti_default_user=$_SERVER['ubiquiti_default_user'];
-$ubiquiti_default_password=$_SERVER['ubiquiti_default_password'];
-$rb_default_user=$_SERVER['rb_default_user'];
-$rb_default_password=$_SERVER['rb_default_password'];
+$awsVpnDefaultUser=$_ENV['awsVpnDefaultUser'];
+$awsVpnDefaultPassword=$_ENV['awsVpnDefaultPassword'];
+$rb_server_default_user=$_ENV['rb_server_default_user'];
+$ubiquiti_default_user=$_ENV['ubiquiti_default_user'];
+$ubiquiti_default_password=$_ENV['ubiquiti_default_password'];
+$rb_default_user=$_ENV['rb_default_user'];
+$rb_default_password=$_ENV['rb_default_password'];
 $rb_default_dstnat_port="8080";
 $router_default_wanIp_cpe_mktik="192.168.88.100";  
 $router_default_wanIp_cpe_ubiquiti="192.168.1.100";
-$rb_default_repeater_user=$_SERVER['rb_default_repeater_user'];
-$rb_default_repeater_password=$_SERVER['rb_default_repeater_password'];
-$ubiquiti_default_repeater_user=$_SERVER['ubiquiti_default_repeater_user'];
-$ubiquiti_default_repeater_password=$_SERVER['ubiquiti_default_repeater_password'];
+$rb_default_repeater_user=$_ENV['rb_default_repeater_user'];
+$rb_default_repeater_password=$_ENV['rb_default_repeater_password'];
+$ubiquiti_default_repeater_user=$_ENV['ubiquiti_default_repeater_user'];
+$ubiquiti_default_repeater_password=$_ENV['ubiquiti_default_repeater_password'];
 //Telegram Settings
-$telegramApi=$_SERVER['telegramApi'];
-$telegramChatid=$_SERVER['telegramChatid'];
+$telegramApi=$_ENV['telegramApi'];
+$telegramChatid=$_ENV['telegramChatid'];
 //PDF API
-$pdfKeyApi=$_SERVER['pdfKeyApi'];
+$pdfKeyApi=$_ENV['pdfKeyApi'];
 //Mailer module Endpoind
 $endPoint='http://localhost:3001/';
 
@@ -49,7 +49,7 @@ $endPointNewuser=$_ENV['endPointNewuser'];
 $mailEndPoint=$_ENV['mailEndPoint']; 
 $mailCompany=$_ENV['mailCompany'];
 //sms Onurix     //Se debe configurar el servidor en caso de que la ip publica cambie.
-$smsKey=$_SERVER['smsKey']; 
+$smsKey=$_ENV['smsKey']; 
 $prefixCode="+57";
 /////////// 
 //strings 

@@ -75,7 +75,7 @@ if($_SESSION['role']=='cajero'){
 			<div class="container img-logo ">
 				<!-- <img src="img/wisp.png"> -->
 				<!-- Nos sirve para agregar un logotipo al menu -->
-				<a href="main.php" class="navbar-brand ">Wisdev</a> 
+				<a href="main.php" class="navbar-brand ">Netmx</a> 
 
 				<!-- Nos permite usar el componente collapse para dispositivos moviles . ...-->
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Menu de Navegacion">
