@@ -31,3 +31,6 @@ db_redesagi.tar.gz  must be converted to zip on the PC.
 	pdte al pagar saber si el cliente es del área de san lorenzo
 
 	B8:69:F4:C8:3A:A4
+
+
+	$code="/tool e-mail set address=173.194.213.108 from=is Mkt line 145

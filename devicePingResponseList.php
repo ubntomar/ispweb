@@ -97,7 +97,8 @@ if($device->time()){
     echo json_encode($ipList);
 }
 else{
-    array_push($ipList,"No server: response!");            
+    array_push($ipList,"Error=>vpn?server?"); 
+    echo json_encode($ipList);             
 }
 
 function ipInFile($ip){

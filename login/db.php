@@ -1,6 +1,8 @@
 <?php
 $pth=explode("/",__DIR__);
-require_once('/var/www/'.$pth[count($pth)-2].'/vendor/autoload.php'); 
+array_pop($pth); 
+$web_path=implode("/",$pth);
+require_once($web_path.'/vendor/autoload.php'); 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 //important: ipAlive.json is generated and updated from devicePingResponseList.php 
@@ -14,6 +16,7 @@ $table_name_settings= 'admin_settings';
 //email configuration
 $from_address = "admin@devlup.com";
 //domain configuration
+
 $url = "http://projects.devlup.com/LoginSystemv42";
 //Admin username
 $admin_user=$_ENV['admin_user'];

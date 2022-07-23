@@ -748,24 +748,24 @@ else{
                         }
                     }).then(response => {
                         this.ipListBox2 = response.data
-                        this.spinIconBox2 = false
+                        this.spinIconBox2 = false 
                         resolve("ok")
                     })
                 })
             },
             getVoltage: function(data) {
-                return new Promise((resolve, reject) => {
-                    this.spinIconVoltage = true
-                    axios.get('../utils/voltageMonitor.php', {
-                        params: {
-                            location: "retiro"
-                        }
-                    }).then(response => {
-                        this.ipVoltageBox2 = JSON.parse(response.data)
-                        this.spinIconVoltage = false
-                        resolve("ok")
-                    })
-                })
+                // return new Promise((resolve, reject) => {
+                //     this.spinIconVoltage = true
+                //     axios.get('../utils/voltageMonitor.php', {
+                //         params: {
+                //             location: "retiro"
+                //         }
+                //     }).then(response => {
+                //         this.ipVoltageBox2 = JSON.parse(response.data)
+                //         this.spinIconVoltage = false
+                //         resolve("ok")
+                //     })
+                // })
             },
             ipListBox2reload: function(data) {
                 this.ipListBox2 = [];

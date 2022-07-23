@@ -9,7 +9,6 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true){
 include("PingTime.php");
 include("login/db.php");
 include("Client.php");
-mysqli_set_charset($mysqli,"utf8");
 date_default_timezone_set('America/Bogota');
 $today = date("Y-m-d");   
 $convertdate= date("d-m-Y" , strtotime($today));

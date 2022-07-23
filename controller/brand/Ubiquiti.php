@@ -19,6 +19,7 @@ class Ubiquiti{
         $cmd="mca-status | grep signal";
         if($output = ssh2_exec($this->connection, $cmd)) {
             stream_set_blocking($output, true);
+            //print "signal::";
             $signal=explode("=",stream_get_contents($output))[1];
         }
         return $signal;
@@ -28,7 +29,7 @@ class Ubiquiti{
 // require("../../PingTime.php");
 // require("../../Client.php");
 
-// $ip=["192.168.70.74","192.168.17.74","192.168.70.75","192.168.16.231"];
+// $ip=["192.168.26.135"]; 
 
 // $UbiquitiCredentials[]=["user"=>"admin","password"=>"ubnt123x"];
 // $UbiquitiCredentials[]=["user"=>"ubnt","password"=>"ubnt"];
@@ -49,6 +50,8 @@ class Ubiquiti{
 //                 print "$time {$row["user"]} {$row["password"]} $ipValue: falsoo \n";
 //             }
 //         }
+//     }else{
+//         print "No ping a $ipValue";
 //     }
 // }
 

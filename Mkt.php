@@ -1,6 +1,9 @@
 <?php
 use PEAR2\Net\RouterOS;
-require_once '/home/ubuntu/vendor/autoload.php'; //ponia problemas si lo ponia desde html!
+require_once(__DIR__.'/vendor/autoload.php'); 
+
+//require_once '/home/ubuntu/vendor/autoload.php'; //ponia problemas si lo ponia desde html! ...
+
 // ok=>   /usr/local/bin/composer require pear2/net_transmitter:1.0.0b1 pear2/cache_shm pear2/net_routeros:dev-develop@dev
 class Mkt
 {
@@ -215,11 +218,14 @@ class Mkt
     
 } 
 
-// if($mkobj=new Mkt("192.168.32.1","********","********")){
+// if($mkobj=new Mkt("192.168.26.1","****","******")){
+//     echo "=new Mkt(\"192.168.26.1\",\"agingenieria\",\"agwist2017\")";
 //     if($mkobj->success){
-//         var_dump($mkobj->checkSignal());      
-//     }       
-// }
+//         var_dump($mkobj->arp());      
+//     } else{
+//         echo "problemas"; 
+//     }      
+// } 
 
  
 
