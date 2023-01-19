@@ -303,7 +303,7 @@ if($_POST["valorWallet"]){
 		$wallet->updateClient($idClient, $param="wallet-money",$value=$WalletMoneyTosave);//primero debo saber cuanto hay disponible y luego sumar.
 	}
 }
-/////SMS && EMAIL
+/////SMS && EMAIL/
 $endPoint=$mailEndPoint;
 $key=$smsKey;
 $prefix=$prefixCode;//"+57"; 
@@ -342,7 +342,7 @@ if(($emailObj->emailValidate($email)) && $fullName){
 		}
 }
 ///////END/////// 
-echo "res:".$response;//."response email:$responseEmail";//."response email:$responseEmail"  
+echo "res:".$response;//."--enpoint $endPoint response email:$responseEmail $email $fullName $tokenToPaymentDone $idClient";//."response email:$responseEmail"  
 
 //
 function removeIp($remove,$idc,$mysqli,$ip,$today,$hourMin){      
