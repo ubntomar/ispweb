@@ -20,7 +20,7 @@ $data[]=null;
 $message=null;
 $smsObj=new Sms($server, $db_user, $db_pwd, $db_name);
 $smsApiKey=$smsKey;
-$jsonArray=json_decode($SmsCronjsonCte1);
+$jsonArray=json_decode($SmsCronjsonCte1);/**$SmsCronjsonCte1 this msj varialble  is in /login/db.php file!!! */
 foreach ($jsonArray as $key => $value) {
 	foreach($value as $list){
 		$dayFromJson= explode("/",$list->fecha)[0];
