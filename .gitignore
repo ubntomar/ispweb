@@ -7,3 +7,4 @@ mailer/sendgrid.env
 test.php
 .env
 /login/.env
+conn.sh

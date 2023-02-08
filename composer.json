@@ -1,6 +1,11 @@
 {
     "require": {
         "nexmo/client": "^1.8",
-        "twilio/sdk": "^5.32"
+        "twilio/sdk": "^5.32",
+        "vlucas/phpdotenv": "^5.4",
+	    "pear2/net_transmitter": "1.0.0b1",
+        "pear2/cache_shm": "^0.2.0",
+        "pear2/net_routeros": "dev-develop@dev"
     }
+
 }

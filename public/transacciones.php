@@ -65,7 +65,7 @@ if($_SESSION['role']=='tecnico'){
             <div class="container img-logo ">
                 
                 <!-- Nos sirve para agregar un logotipo al menu -->
-                <a href="main.php" class="navbar-brand ">Wisdev</a>
+                <a href="main.php" class="navbar-brand ">Netmx</a>
 
                 <!-- Nos permite usar el componente collapse para dispositivos moviles -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
@@ -572,7 +572,7 @@ if($_SESSION['role']=='tecnico'){
     <div class="container-fluid 	">
         <div class="row">
             <div class="col text-light bg-dark py-2 d-flex justify-content-center footer-text">
-                <p>Copyright ©2014-2017 Wisdev-Administrador ISP - <small>All Rights Reserved.</small></p>
+                <p>Copyright ©2014-2017 Netmx-Administrador ISP - <small>All Rights Reserved.</small></p>
 
             </div>
         </div>

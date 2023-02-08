@@ -53,12 +53,12 @@ class Email
         $postdata = http_build_query(
             $emailArray
         );
-        // $context = stream_context_create($this->opts($postdata));
-        // if($result = json_decode(file_get_contents($endPoint, false, $context))){
-        //     if($result->mailStatus=="success"){
-        //         $message= true;
-        //     }
-        // }
+        $context = stream_context_create($this->opts($postdata));
+        if($result = json_decode(file_get_contents($endPoint, false, $context))){
+            if($result->mailStatus=="success"){
+                $message= true;
+            }
+        }
         return $message;            
     }
     public function emailValidate($email){

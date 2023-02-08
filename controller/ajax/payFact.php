@@ -303,7 +303,7 @@ if($_POST["valorWallet"]){
 		$wallet->updateClient($idClient, $param="wallet-money",$value=$WalletMoneyTosave);//primero debo saber cuanto hay disponible y luego sumar.
 	}
 }
-/////SMS && EMAIL
+/////SMS && EMAIL/
 $endPoint=$mailEndPoint;
 $key=$smsKey;
 $prefix=$prefixCode;//"+57"; 
@@ -317,7 +317,7 @@ $emailInput=mysqli_real_escape_string($mysqli, $_REQUEST['emailInput']);
 if(($emailObj->emailValidate($emailInput))){
 	$walletObject->updateClient($idClient,$param="mail",$value=$emailInput,$operator="=");
 }
-// $email="ag.ingenieria.wist@gmail.com";
+// $email="ag.ingenieria.wist@gmail.com";//
 $fullName=$walletObject->getClientItem($idClient,$item="cliente")."  ".$walletObject->getClientItem($idClient,$item="apellido");
 $companyName=$companyObj->getCompanyItem($idCompany=1,$item="nombre");
 $companyAddress=$companyObj->getCompanyItem($idCompany=1,$item="direccion");
@@ -342,7 +342,7 @@ if(($emailObj->emailValidate($email)) && $fullName){
 		}
 }
 ///////END/////// 
-echo "res:".$response;//."response email:$responseEmail";//."response email:$responseEmail"  
+echo "res:".$response;//."--enpoint $endPoint response email:$responseEmail $email $fullName $tokenToPaymentDone $idClient";//."response email:$responseEmail"  
 
 //
 function removeIp($remove,$idc,$mysqli,$ip,$today,$hourMin){      

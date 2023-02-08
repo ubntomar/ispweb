@@ -1,6 +1,8 @@
 <?php
 $pth=explode("/",__DIR__);
-require_once('/var/www/'.$pth[count($pth)-2].'/vendor/autoload.php'); 
+array_pop($pth); 
+$web_path=implode("/",$pth);
+require_once($web_path.'/vendor/autoload.php'); 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 //important: ipAlive.json is generated and updated from devicePingResponseList.php 
@@ -14,31 +16,32 @@ $table_name_settings= 'admin_settings';
 //email configuration
 $from_address = "admin@devlup.com";
 //domain configuration
+
 $url = "http://projects.devlup.com/LoginSystemv42";
 //Admin username
 $admin_user=$_ENV['admin_user'];
 $admin_password=$_ENV['admin_password'];
 //Mikrotik defauls 
 $defaultIdGruposEmpresa=1;
-$awsVpnDefaultUser=$_SERVER['awsVpnDefaultUser'];
-$awsVpnDefaultPassword=$_SERVER['awsVpnDefaultPassword'];
-$rb_server_default_user=$_SERVER['rb_server_default_user'];
-$ubiquiti_default_user=$_SERVER['ubiquiti_default_user'];
-$ubiquiti_default_password=$_SERVER['ubiquiti_default_password'];
-$rb_default_user=$_SERVER['rb_default_user'];
-$rb_default_password=$_SERVER['rb_default_password'];
+$awsVpnDefaultUser=$_ENV['awsVpnDefaultUser'];
+$awsVpnDefaultPassword=$_ENV['awsVpnDefaultPassword'];
+$rb_server_default_user=$_ENV['rb_server_default_user'];
+$ubiquiti_default_user=$_ENV['ubiquiti_default_user'];
+$ubiquiti_default_password=$_ENV['ubiquiti_default_password'];
+$rb_default_user=$_ENV['rb_default_user'];
+$rb_default_password=$_ENV['rb_default_password'];
 $rb_default_dstnat_port="8080";
 $router_default_wanIp_cpe_mktik="192.168.88.100";  
 $router_default_wanIp_cpe_ubiquiti="192.168.1.100";
-$rb_default_repeater_user=$_SERVER['rb_default_repeater_user'];
-$rb_default_repeater_password=$_SERVER['rb_default_repeater_password'];
-$ubiquiti_default_repeater_user=$_SERVER['ubiquiti_default_repeater_user'];
-$ubiquiti_default_repeater_password=$_SERVER['ubiquiti_default_repeater_password'];
+$rb_default_repeater_user=$_ENV['rb_default_repeater_user'];
+$rb_default_repeater_password=$_ENV['rb_default_repeater_password'];
+$ubiquiti_default_repeater_user=$_ENV['ubiquiti_default_repeater_user'];
+$ubiquiti_default_repeater_password=$_ENV['ubiquiti_default_repeater_password'];
 //Telegram Settings
-$telegramApi=$_SERVER['telegramApi'];
-$telegramChatid=$_SERVER['telegramChatid'];
+$telegramApi=$_ENV['telegramApi'];
+$telegramChatid=$_ENV['telegramChatid'];
 //PDF API
-$pdfKeyApi=$_SERVER['pdfKeyApi'];
+$pdfKeyApi=$_ENV['pdfKeyApi'];
 //Mailer module Endpoind
 $endPoint='http://localhost:3001/';
 
@@ -49,7 +52,7 @@ $endPointNewuser=$_ENV['endPointNewuser'];
 $mailEndPoint=$_ENV['mailEndPoint']; 
 $mailCompany=$_ENV['mailCompany'];
 //sms Onurix     //Se debe configurar el servidor en caso de que la ip publica cambie.
-$smsKey=$_SERVER['smsKey']; 
+$smsKey=$_ENV['smsKey']; 
 $prefixCode="+57";
 /////////// 
 //strings 
@@ -85,147 +88,147 @@ $SmsCronjsonCte1='
 	{
 		"data": [
 					{
-						"fecha": "7/01/2022",
+						"fecha": "7/01/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "11/01/2022",
+						"fecha": "11/01/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "14/01/2022",
+						"fecha": "14/01/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "7/02/2022",
+						"fecha": "7/02/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "11/02/2022",
+						"fecha": "11/02/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "14/02/2022",
+						"fecha": "14/02/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "7/03/2022",
+						"fecha": "7/03/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "11/03/2022",
+						"fecha": "11/03/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "14/03/2022",
+						"fecha": "14/03/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "7/04/2022",
+						"fecha": "7/04/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "11/04/2022",
+						"fecha": "11/04/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "14/04/2022",
+						"fecha": "14/04/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "9/05/2022",
+						"fecha": "9/05/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "12/05/2022",
+						"fecha": "12/05/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "16/05/2022",
+						"fecha": "16/05/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "7/06/2022",
+						"fecha": "7/06/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "11/06/2022",
+						"fecha": "11/06/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "14/06/2022",
+						"fecha": "14/06/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "7/07/2022",
+						"fecha": "7/07/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "11/07/2022",
+						"fecha": "11/07/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "14/07/2022",
+						"fecha": "14/07/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "8/08/2022",
+						"fecha": "8/08/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "12/08/2022",
+						"fecha": "12/08/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "15/08/2022",
+						"fecha": "15/08/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "7/09/2022",
+						"fecha": "7/09/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "12/09/2022",
+						"fecha": "12/09/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "15/09/2022",
+						"fecha": "15/09/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "7/10/2022",
+						"fecha": "7/10/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "11/10/2022",
+						"fecha": "11/10/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "14/10/2022",
+						"fecha": "14/10/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "7/11/2022",
+						"fecha": "7/11/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "11/11/2022",
+						"fecha": "11/11/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "14/11/2022",
+						"fecha": "14/11/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "7/12/2022",
+						"fecha": "7/12/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "12/12/2022",   
+						"fecha": "12/12/2023",   
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "14/12/2022",
+						"fecha": "14/12/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					}
 				]
@@ -235,147 +238,147 @@ $SmsCronjsonCte15='
 	{
 		"data": [
 					{
-						"fecha": "24/01/2022",
+						"fecha": "24/01/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "26/01/2022",
+						"fecha": "26/01/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "28/01/2022",
+						"fecha": "28/01/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "24/02/2022",
+						"fecha": "24/02/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "26/02/2022",
+						"fecha": "26/02/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "28/02/2022",
+						"fecha": "28/02/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "24/03/2022",
+						"fecha": "24/03/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "28/03/2022",
+						"fecha": "28/03/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "31/03/2022",
+						"fecha": "31/03/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "25/04/2022",
+						"fecha": "25/04/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "28/04/2022",
+						"fecha": "28/04/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "30/04/2022",
+						"fecha": "30/04/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "24/05/2022",
+						"fecha": "24/05/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "27/05/2022",
+						"fecha": "27/05/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "31/05/2022",
+						"fecha": "31/05/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "24/06/2022",
+						"fecha": "24/06/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "27/06/2022",
+						"fecha": "27/06/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "30/06/2022",
+						"fecha": "30/06/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "25/07/2022",
+						"fecha": "25/07/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "28/07/2022",
+						"fecha": "28/07/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "30/07/2022",
+						"fecha": "30/07/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "24/08/2022",
+						"fecha": "24/08/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "29/08/2022",
+						"fecha": "29/08/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "31/08/2022",
+						"fecha": "31/08/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "24/09/2022",
+						"fecha": "24/09/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "27/09/2022",
+						"fecha": "27/09/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "30/09/2022",
+						"fecha": "30/09/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "24/10/2022",
+						"fecha": "24/10/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "27/10/2022",
+						"fecha": "27/10/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "31/10/2022",
+						"fecha": "31/10/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "24/11/2022",
+						"fecha": "24/11/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "27/11/2022",
+						"fecha": "27/11/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "30/11/2022",
+						"fecha": "30/11/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "23/12/2022",
+						"fecha": "23/12/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "29/12/2022",
+						"fecha": "29/12/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					},
 					{
-						"fecha": "30/12/2022",
+						"fecha": "30/12/2023",
 						"message":"Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio"
 					}
 				]

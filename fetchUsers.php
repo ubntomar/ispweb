@@ -10,13 +10,13 @@
 // 		}
 header('Content-Type: application/json');
 // require 'vendor/autoload.php';
-require 'dateHuman.php';
-require("login/db.php");
-require 'Mkt.php';
-require 'vpnConfig.php';
-require("VpnUtils.php");
-require("PingTime.php");
-require("controller/brand/Ubiquiti.php");
+require("./dateHuman.php");
+require("./login/db.php");
+require("./Mkt.php");
+require("./vpnConfig.php");
+require("./VpnUtils.php");
+require("./PingTime.php");
+require("./controller/brand/Ubiquiti.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
