@@ -317,7 +317,7 @@ $emailInput=mysqli_real_escape_string($mysqli, $_REQUEST['emailInput']);
 if(($emailObj->emailValidate($emailInput))){
 	$walletObject->updateClient($idClient,$param="mail",$value=$emailInput,$operator="=");
 }
-// $email="ag.ingenieria.wist@gmail.com";
+// $email="ag.ingenieria.wist@gmail.com";//
 $fullName=$walletObject->getClientItem($idClient,$item="cliente")."  ".$walletObject->getClientItem($idClient,$item="apellido");
 $companyName=$companyObj->getCompanyItem($idCompany=1,$item="nombre");
 $companyAddress=$companyObj->getCompanyItem($idCompany=1,$item="direccion");
