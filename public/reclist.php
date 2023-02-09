@@ -24,7 +24,7 @@ if($_SESSION['role']=='cajero'){
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Netmx-Administrador ISP</title>
+    <title>DevXm-Administrador ISP</title>
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
     <link rel="stylesheet" href="../bower_components/DataTables/media/css/jquery.dataTables.min.css">
@@ -54,7 +54,7 @@ if($_SESSION['role']=='cajero'){
             <div class="container img-logo ">
                 <img src="img/wisp.png">
                 <!-- Nos sirve para agregar un logotipo al menu -->
-                <a href="main.php" class="navbar-brand link-border">Netmx</a>
+                <a href="main.php" class="navbar-brand link-border">DevXm</a>
 
                 <!-- Nos permite usar el componente collapse para dispositivos moviles -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
@@ -176,7 +176,7 @@ if($_SESSION['role']=='cajero'){
     <div class="container-fluid 	">
         <div class="row">
             <div class="col text-light bg-dark py-2 d-flex justify-content-center footer-text">
-                <p>Copyright ©2014-2017 Netmx-Administrador ISP - <small>All Rights Reserved.</small></p>
+                <p>Copyright ©2014-2017 DevXm-Administrador ISP - <small>All Rights Reserved.</small></p>
 
             </div>
         </div>
