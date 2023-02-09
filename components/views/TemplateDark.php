@@ -8,7 +8,7 @@ Class TemplateDark{
         <header>
             <div class="logo">
                 <a href="main.php">
-                    <h1>Isp Experts</h1>
+                    <h1>DevXm</h1>
                 </a>
                 <h4>Monitoreo y administraciòn</h4>
 
@@ -65,7 +65,7 @@ Class TemplateDark{
         $content='
         <footer>
             <div>
-                <span>Isp Experts- Adminstraciòn Redes </span>
+                <span>DevXm- Adminstraciòn Redes </span>
             </div>
         </footer>
         

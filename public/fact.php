@@ -288,7 +288,7 @@ $htmlObject=new Html();
     </main>
     <footer>
         <div>
-            <span>Isp Experts- Adminstraciòn Redes </span>
+            <span>DevXm- Adminstraciòn Redes </span>
         </div>
     </footer>
 <?=$htmlObject->jsScript($path="../")?>

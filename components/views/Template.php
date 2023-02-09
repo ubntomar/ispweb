@@ -9,7 +9,7 @@ class Template{
 			<div class="container img-logo ">
 				<!-- <img src="img/wisp.png"> -->
 				<!-- Nos sirve para agregar un logotipo al menu -->
-				<a href="main.php" class="navbar-brand">Netmx</a>
+				<a href="main.php" class="navbar-brand">DevXm</a>
 
 				<!-- Nos permite usar el componente collapse para dispositivos moviles -->
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Menu de Navegacion">
@@ -198,7 +198,7 @@ class Template{
         <div class="container-fluid 	">
             <div class="row">
                 <div class="col text-light bg-dark py-2 d-flex justify-content-center footer-text">
-                    <p>Copyright ©2014-2017 Netmx-Administrador ISP - <small>All Rights Reserved.</small></p>
+                    <p>Copyright ©2014-2017 DevXm-Administrador ISP - <small>All Rights Reserved.</small></p>
 
                 </div>
             </div>
