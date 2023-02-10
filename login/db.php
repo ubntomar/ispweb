@@ -69,7 +69,7 @@ $msg_reg_activ = 'Activation code has been successfully sent to your Email Addre
 $msg_admin_pwd = 'Incorect password';
 $msg_admin_user = 'Username Doesn\'t exist';
 //LOGO text
-$logotxt = "IspExperts";
+$logotxt = "DevXm";
 //Twitter Configuration
 define('CONSUMER_KEY', 'CONSUMER_KEY_HERE');
 define('CONSUMER_SECRET', 'CONSUMER_SECRET_HERE');
