@@ -8,3 +8,6 @@ test.php
 .env
 /login/.env
 conn.sh
+ipup
+ipAlive.json
+
