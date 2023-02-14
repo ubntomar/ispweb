@@ -136,6 +136,7 @@ rm /var/run/ppp-quick
 wait
 kill \$PPPD_PID
 fi
+#this script was created at $convertdate
 ";
 }
 $partContent=[];
