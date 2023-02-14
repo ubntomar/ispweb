@@ -9,7 +9,7 @@ else    {
         $user=$_SESSION['username'];
         $role=$_SESSION["role"];
 		}
-include("login/db.php");
+include("login/db.php");  
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -29,8 +29,11 @@ echo "
         </tr>
     </thead>
     <tbody>";
-$sql_sent_sms=  "SELECT *, redesagi_facturacion.afiliados.cliente,redesagi_facturacion.afiliados.apellido FROM redesagi_facturacion.service_shut_off INNER JOIN redesagi_facturacion.afiliados
-                ON redesagi_facturacion.service_shut_off.`id_client`=redesagi_facturacion.afiliados.id  order by redesagi_facturacion.service_shut_off.`id_client`  ASC LIMIT 2";
+$sql_sent_sms="SELECT *, afiliados.cliente,afiliados.apellido 
+    FROM service_shut_off 
+    INNER JOIN afiliados ON (service_shut_off.`id_client`=afiliados.id AND service_shut_off.`fecha`='$today')
+    
+     ";
 $result = mysqli_query($mysqli, $sql_sent_sms) or die('error');
 while($db_field = mysqli_fetch_assoc($result)){
     echo"    

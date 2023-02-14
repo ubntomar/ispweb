@@ -85,7 +85,7 @@ if ($searchOption=="Todos"){
             $result->free();
         }
     }
-    if ($result = $mysqli->query($sql)) {
+    if ($sql && $result = $mysqli->query($sql)) {
         $num=$result->num_rows;
         $counter=0;
         while($row = $result->fetch_assoc()) {

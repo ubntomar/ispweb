@@ -520,6 +520,7 @@ else{
                         //console.log("voya hacer ping al servidor"+response.data[0].serverIp)
                         if(response.data[0].serverIp){
                             this.pingtoIp(response.data[0].serverIp)
+                            this.setPing(response.data[0])
                         }
                         resolve("ok")
                     }).catch(e => {

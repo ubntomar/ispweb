@@ -229,6 +229,6 @@ $stmt->close();
 <div id="cutServiceButton" >
     <button type="text" class="btn btn-primary mb-2" id="btn_cut_service">
         <span class=" spinner-border-sm" role="status" aria-hidden="true" id="spinner-enviar"></span>
-        Remove Client Service
+        Remove Client Service ---tableMassiveSms--- 
     </button>
 </div>

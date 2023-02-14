@@ -932,7 +932,9 @@ if($_SESSION['role']=='cajero'){
 															<div class="card-body" id="divIpShutOff">
 																
 															</div>
-															
+															<div class="card-footer ">
+																<a class="text-secondary" href="../utils/shutofftoday.php" target="_blank" rel="noopener noreferrer">Ver lista completa!</a>
+															</div>
 														</div>
 														<div class="card mt-3">
 															
@@ -1717,7 +1719,7 @@ if($_SESSION['role']=='cajero'){
 
 					} );	
 					// $('#table_client_to_sms').on( 'page.dt', function () {
-					// 	var info = table.page.info();
+					// 	var info = table.page.info(); 
 					// 	console.log( 'Showing page: '+info.page+' of '+info.pages );
 						
 					// });	

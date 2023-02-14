@@ -25,13 +25,13 @@ $hourMin = date('H:i');
 $pass=false;
 if ($_POST['datos']||$debug) {
     if($debug)
-        $idarray[]=363;//Hernando Monguívvvv
+        $idarray[]=363;//Hernando Monguívvvv 
     else
         $idarray  = explode(",", $_POST['datos']);  
     
     foreach ($idarray as $id) {
         //suspender=1
-        //shutoffpending=1
+        //shutoffpending=1 
         $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='1'  WHERE `afiliados`.`id`='$id'";
         if($result2 = $mysqli->query($sqlUpd)){					
         }

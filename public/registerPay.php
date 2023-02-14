@@ -44,7 +44,7 @@ $htmlObject=new Html();
 
         <section>
             <div class="section-title">
-                <h1>AREA DE PAGOS  <?=strtoupper($name)?></h1>
+                <h1>--DevXm-- AREA DE PAGOS  <?=strtoupper($name)?></h1>
             </div>
             <div class=box-container>
 
