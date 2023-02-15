@@ -35,3 +35,9 @@ db_redesagi.tar.gz  must be converted to zip on the PC.
 
 
 	$code="/tool e-mail set address=173.194.213.108 from=is Mkt line 145
+
+
+	file_put_contents('cut.log', $txt.PHP_EOL , FILE_APPEND );
+
+	he borrado la carpeta mailer
+	

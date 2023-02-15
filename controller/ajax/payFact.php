@@ -341,7 +341,7 @@ if(($emailObj->emailValidate($email)) && $fullName){
 			$emailRespone=$responseEmail;   
 		}
 }
-///////END/////// 
+///////END///////  
 echo "res:".$response;//."--enpoint $endPoint response email:$responseEmail $email $fullName $tokenToPaymentDone $idClient";//."response email:$responseEmail"  
 
 //

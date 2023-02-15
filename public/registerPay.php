@@ -663,11 +663,10 @@ $(document).ajaxComplete(function() {
                             var msj = arr[0];
                             var cod = arr[1];
                             console.log(data);
-                            console.log("data:" + data + "-msj:" + msj + "-code:" +
-                                cod);
+                            console.log("data:"+data+"-msj:"+msj+"-code:"+cod);
                             alertify.success(msj);
-                            $("#idt").val(cod);
-                            $("#form").submit();       
+                            $("#idt").val(cod); 
+                            //$("#form").submit();       
                         }
                     });
                 } else
