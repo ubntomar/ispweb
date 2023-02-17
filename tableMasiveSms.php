@@ -118,7 +118,7 @@ echo "
             $valor_factura=$rowsaldo["valorf"];
             $resultsaldo->free();
             }
-        $dias_plazo=5;   
+        $dias_plazo=5;    
         if(($sincedexDays=get_date_diff( $pingDate, $hoy, 2 ))=="") $sinceString="Ultimo ping: Hoy"; else $sinceString="Hace $sincedexDays Dias";
         if($pingDate) $iconPing="<div class=\"d-flex align-items-center justify-content-between\"><div id=\"textCheckPing-$id\" class=\"border border-1 border-success rounded m-1 p-1 \"><h6 class=\"mb-0\"><small><i class=\"icon-smile text-success\">Ping O.K</i></small></h6><small class=\"font-italic\"><b class=\"text-uppercase\">$sinceString</b></small></div><button class=\"checkPing\" id=\"checkPing-$id\" class=\"m-1 border border-rounded\"><i class=\"icon-arrows-ccw\"></i></button></div>"; 
         else $iconPing="<div class=\"d-flex align-items-center justify-content-between\"><div id=\"textCheckPing-$id\"><h6 class=\"mb-0\"><small><i class=\"icon-emo-unhappy text-danger\">No ping</i></small></h6></div><button class=\"checkPing\" id=\"checkPing-$id\" class=\"m-1 border border-rounded\"><i class=\"icon-arrows-ccw\"></i></button></div>";  

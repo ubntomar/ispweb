@@ -717,10 +717,10 @@ else{
                     this.spinIconBox1 = true
                     axios.get('../devicePingResponseList.php', {//
                         params: {
-                            mainServerIp: "192.168.17.1",
+                            mainServerIp: "192.168.20.1",
                             ipsToDiscovery: "1",
-                            from: "192.168.17.150",
-                            to: "192.168.11.254",
+                            from: "192.168.20.60",
+                            to: "192.168.20.254",
                             byteToChange: "3" 
                         }
                     }).then(response => {
