@@ -4,7 +4,7 @@
 //     header('Location: login/index.php');
 //     exit;
 // } else {
-//     $user = $_SESSION['username'];
+//     $user = $_SESSION['username']; 
 // }
 ?>
 <!DOCTYPE html>
@@ -15,15 +15,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Generador de Recibos</title>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
-
     <link rel="stylesheet" href="bower_components/alertify/css/alertify.min.css" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css">
-
-
-
     <style type="text/css" id="formato">
         #invoice {
             padding: 30px;
