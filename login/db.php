@@ -5,7 +5,7 @@ $web_path=implode("/",$pth);
 require_once($web_path.'/vendor/autoload.php'); 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
-//important: ipAlive.json is generated and updated from devicePingResponseList.php 
+//important: ipAlive.json is generated and updated from devicePingResponseList.php  
 $server = $_ENV['MYSQL_SERVER']; 
 $db_user = $_ENV['MYSQL_USER'];  
 $db_pwd = $_ENV['MYSQL_PASSWORD']; 
@@ -51,7 +51,7 @@ $tokenToPaymentDone=$_ENV['tokenToPaymentDone'];
 $endPointNewuser=$_ENV['endPointNewuser'];
 $mailEndPoint=$_ENV['mailEndPoint']; 
 $mailCompany=$_ENV['mailCompany'];
-//sms Onurix     //Se debe configurar el servidor en caso de que la ip publica cambie.
+//sms Onurix     //Se debe configurar el servidor en caso de que la ip publica cambie. 
 $smsKey=$_ENV['smsKey']; 
 $prefixCode="+57";
 /////////// 
@@ -69,7 +69,7 @@ $msg_reg_activ = 'Activation code has been successfully sent to your Email Addre
 $msg_admin_pwd = 'Incorect password';
 $msg_admin_user = 'Username Doesn\'t exist';
 //LOGO text
-$logotxt = "IspExperts";
+$logotxt = "DevXm";
 //Twitter Configuration
 define('CONSUMER_KEY', 'CONSUMER_KEY_HERE');
 define('CONSUMER_SECRET', 'CONSUMER_SECRET_HERE');

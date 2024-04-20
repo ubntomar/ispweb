@@ -520,6 +520,7 @@ else{
                         //console.log("voya hacer ping al servidor"+response.data[0].serverIp)
                         if(response.data[0].serverIp){
                             this.pingtoIp(response.data[0].serverIp)
+                            this.setPing(response.data[0])
                         }
                         resolve("ok")
                     }).catch(e => {
@@ -716,10 +717,10 @@ else{
                     this.spinIconBox1 = true
                     axios.get('../devicePingResponseList.php', {//
                         params: {
-                            mainServerIp: "192.168.17.1",
+                            mainServerIp: "192.168.20.1",
                             ipsToDiscovery: "1",
-                            from: "192.168.17.150",
-                            to: "192.168.11.254",
+                            from: "192.168.20.60",
+                            to: "192.168.20.254",
                             byteToChange: "3" 
                         }
                     }).then(response => {

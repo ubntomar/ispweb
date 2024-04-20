@@ -17,6 +17,7 @@ if($_SESSION['role']=='tecnico'){
 	header('Location: tick.php');
 }
 require("../login/db.php");
+include("../dateHuman.php");
 require("../components/views/TemplateDark.php");
 require("../components/views/Html.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
@@ -44,7 +45,7 @@ $htmlObject=new Html();
 
         <section>
             <div class="section-title">
-                <h1>AREA DE PAGOS  <?=strtoupper($name)?></h1>
+                <h1>--DevXm-- AREA DE PAGOS  <?=strtoupper($name)?></h1>
             </div>
             <div class=box-container>
 
@@ -110,9 +111,11 @@ $htmlObject=new Html();
                                 $sshLoginType=$signal=="?"?$row["ssh-login-type"]."-":$row["ssh-login-type"];
                                 if($row["ssh-login-type"]=="router")$signal=" NO APLICA";
                                 $pingDate=$row["pingDate"];
+                                $pingResponseTime=$row["ping"];
                                 $suspenderStatus= (  ($row["suspender-list-status"]==false) )?"FALSO!":"";
                                 $clientWidthConvenio=$row["convenio"];
-                                $pingCurrentStatus=($pingDate==$today||$pingDate==$yesterday) ? "<small class=\"bg-success text-white p-1\">Ping OK->$pingDate</small>" : "<small class=\"bg-danger text-white p-1\">Ping Error->$pingDate</small>";   
+                                if(($sincedexDays=get_date_diff( $pingDate, $today, 2 ))=="") $timeElapsed="Ultimo ping: Hoy"; else $timeElapsed="hace $sincedexDays";
+                                $pingCurrentStatus=(($pingDate==$today||$pingDate==$yesterday)&&$pingResponseTime) ? "<small class=\"bg-success text-white p-1\">Ping OK->$pingDate:$pingResponseTime ms</small>" : "<small class=\"bg-danger text-white p-1\">Ping Error desde  $timeElapsed</small>";   
                                 $style_cell = "class=\"font-weight-bold h6\" "; 
                                 $style2_cell = "";
                                 $ts1 = strtotime($registration_date);
@@ -663,11 +666,10 @@ $(document).ajaxComplete(function() {
                             var msj = arr[0];
                             var cod = arr[1];
                             console.log(data);
-                            console.log("data:" + data + "-msj:" + msj + "-code:" +
-                                cod);
+                            console.log("data:"+data+"-msj:"+msj+"-code:"+cod);
                             alertify.success(msj);
-                            $("#idt").val(cod);
-                            $("#form").submit();       
+                            $("#idt").val(cod); 
+                            //$("#form").submit();       
                         }
                     });
                 } else

@@ -15,7 +15,7 @@ $val = getopt("p:");
 $validInitParams=false;
 $fileContent="";
 if ($val) {
-       // print var_dump($val)."\n";
+       // print var_dump($val)."\n";   //php vpnAwsIpRoute.php  -p:id-empresa -p:1
         if( $idx=$val['p'][1] ){
                 $idParam=explode(":",$idx)[1];
                 $sql="SELECT `id`,`nombre` FROM `redesagi_facturacion`.`empresa` WHERE `id`=$idParam ";
@@ -136,6 +136,7 @@ rm /var/run/ppp-quick
 wait
 kill \$PPPD_PID
 fi
+#this script was created at $convertdate
 ";
 }
 $partContent=[];

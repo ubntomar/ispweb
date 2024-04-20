@@ -72,7 +72,10 @@ function get_date_diff( $time1, $time2, $precision = 2 ) {
 	}
 
 	// Return string with times
-	return implode( ", ", $times );
+	$imploded=implode( ", ", $times );
+	$imploded=str_replace("days","dias",$imploded);
+	$imploded=str_replace("months","meses",$imploded);
+	return $imploded;
 }
 
 
