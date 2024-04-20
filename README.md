@@ -44,3 +44,14 @@ db_redesagi.tar.gz  must be converted to zip on the PC.
 
 	he borrado la carpeta mailer
 	
+
+
+
+	the 60.121  IP has gone 
+
+
+	root@ali-cloud:/var/www/ispexperts# grep -r 181.60.60.121  ./*
+./networkMap.php:					"ip": "181.60.60.121",
+./networkMap.php:					"ip": "181.60.60.121",
+./utils/networkMap.php:					"ip": "181.60.60.121",
+./utils/networkMap.php:					"ip": "181.60.60.121",
