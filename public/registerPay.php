@@ -89,12 +89,12 @@ $htmlObject=new Html();
                                 while($row=$result->fetch_assoc()){
                                     $cn+=1;
                                     $idArea=$row["id-area"];
-                                    $arrayidArea.=($cn==$num_rows)? "`id_client_area` = $idArea ) AND `afiliados`.`id-empresa` = $empresa ":"`id_client_area` = $idArea OR";
+                                    $arrayidArea.=($cn==$num_rows)? "`id_client_area` = $idArea )  ":"`id_client_area` = $idArea OR";
                                 }
                                 $result->free();   
                             }
                         }
-                        $sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`activo`=1 AND `afiliados`.`eliminar`!=1   $arrayidArea  ORDER BY `afiliados`.`id`  ASC  ";
+                        $sql = "SELECT * FROM `afiliados` WHERE  `afiliados`.`id-empresa` = $empresa AND  `afiliados`.`activo`=1 AND `afiliados`.`eliminar`!=1   $arrayidArea  ORDER BY `afiliados`.`id`  ASC  ";
                         if ($result = $mysqli->query($sql)) {
                             while ($row = $result->fetch_assoc()) {
                                 $idCliente = $row["id"];
