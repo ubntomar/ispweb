@@ -55,3 +55,7 @@ db_redesagi.tar.gz  must be converted to zip on the PC.
 ./networkMap.php:					"ip": "181.60.60.121",
 ./utils/networkMap.php:					"ip": "181.60.60.121",
 ./utils/networkMap.php:					"ip": "181.60.60.121",
+
+
+
+IP-up debe ser reconstruido en el servidor en producción
