@@ -29,7 +29,7 @@ if ($val) {
                 }
         }else{
                 system('clear');
-                print "\nError!, example for correct use: php createVpnAwsIpRoute.php.php  -p:\"id-empresa\" -p:\"1\" \n\n";// php createVpnAwsIpRoute.php.php  -p:id-empresa -p:1
+                print "\nError!, example for correct use: php createVpnAwsIpRoute.php.php  -p:\"id-empresa\" -p:\"1\" \n\n";// php createVpnAwsIpRoute.php  -p:id-empresa -p:1
         }
 }else{
         system('clear');
