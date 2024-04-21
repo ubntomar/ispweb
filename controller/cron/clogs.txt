@@ -1,0 +1,4 @@
+  
+ip address 192.168.25.52
+ server:192.168.21.1
+{"mailStatus":"success Sat Apr 20 2024 23:50:11 GMT-0500 (Colombia Standard Time)"}

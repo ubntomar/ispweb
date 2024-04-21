@@ -1,0 +1,19 @@
+{
+  "name": "mailer",
+  "version": "1.0.0",
+  "description": "mailer api for php",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Omar Hernandez",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^7.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "helmet": "^5.0.0",
+    "morgan": "^1.10.0",
+    "node-fetch": "^3.2.0"
+  }
+}

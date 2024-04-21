@@ -669,7 +669,7 @@ $(document).ajaxComplete(function() {
                             console.log("data:"+data+"-msj:"+msj+"-code:"+cod);
                             alertify.success(msj);
                             $("#idt").val(cod); 
-                            //$("#form").submit();       
+                            $("#form").submit();       
                         }
                     });
                 } else

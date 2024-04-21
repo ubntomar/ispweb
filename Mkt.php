@@ -216,7 +216,7 @@ class Mkt
     }
     
 } 
-// if($mkobj=new Mkt("192.168.26.1","****","******")){
+// if($mkobj=new Mkt("192.168.26.1","...","...")){
 //     echo "=new Mkt(\"192.168.26.1\",\"agingenieria\",\"agwist2017\")";
 //     if($mkobj->success){
 //         var_dump($mkobj->arp());      
