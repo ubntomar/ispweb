@@ -1,0 +1,12 @@
+                                        add comment="By Isp-Experts 2024-04-20 local-192.168.84.1 "  distance=1 dst-address=192.168.30.0/24 gateway=192.168.84.12
+                                        add comment="By Isp-Experts 2024-04-20 local-192.168.84.1 "  distance=1 dst-address=192.168.60.0/24 gateway=192.168.84.12
+                                        add comment="By Isp-Experts 2024-04-20 local-192.168.84.1 "  distance=1 dst-address=192.168.71.0/24 gateway=192.168.84.12
+                                        add comment="By Isp-Experts 2024-04-20 local-192.168.84.1 "  distance=1 dst-address=192.168.66.0/24 gateway=192.168.84.12
+                                        add comment="By Isp-Experts 2024-04-20 local-192.168.84.1 "  distance=1 dst-address=192.168.78.0/24 gateway=192.168.84.12
+                                        add comment="By Isp-Experts 2024-04-20 local-192.168.84.1 "  distance=1 dst-address=192.168.200.0/24 gateway=192.168.84.12
+                                        add comment="By Isp-Experts 2024-04-20 local-192.168.84.1 "  distance=1 dst-address=192.168.111.0/24 gateway=192.168.84.12
+                                        add comment="By Isp-Experts 2024-04-20 local-192.168.84.1 "  distance=1 dst-address=192.168.109.0/24 gateway=192.168.84.12
+                                        add comment="By Isp-Experts 2024-04-20 local-192.168.84.1 "  distance=1 dst-address=192.168.129.0/24 gateway=192.168.84.12
+                                        add comment="By Isp-Experts 2024-04-20 local-192.168.84.1 "  distance=1 dst-address=192.168.138.0/24 gateway=192.168.84.12
+                                        add comment="By Isp-Experts 2024-04-20 local-192.168.84.1 "  distance=1 dst-address=192.168.149.0/24 gateway=192.168.84.12
+                                        add comment="By Isp-Experts 2024-04-20 local-192.168.84.1 "  distance=1 dst-address=192.168.151.0/24 gateway=192.168.84.12

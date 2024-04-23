@@ -216,8 +216,10 @@ class Mkt
     }
     
 } 
+
 // if($mkobj=new Mkt("192.168.26.1","","agwi")){
 //     echo "=new Mkt(\"192.168.26.1\",\"aging\",\"agwi\")";
+
 //     if($mkobj->success){
 //         var_dump($mkobj->arp());      
 //     } else{

@@ -28,7 +28,12 @@ $usuario = $_SESSION['username'];
 $response="";
 $descuento=0;//Mysql strict mode dont accept ''     // vap $vap  vaa $vaa vad $vad vpl $vpl
 $idtransaccion=0;
-$debug = 0;
+$debug=0;
+if($debug == 1){
+	$idc = 11;
+	$vap = 90000;
+	$vaa = 0;
+}  
 									// idc: idcRow, 
 									// vap: vapRow,
 									// vaa: vaaRow,
@@ -39,9 +44,11 @@ $debug = 0;
 									// rec: rec?reconect? 
 									// valorWallet:valorWallet
 
-if($_POST["rec"]){
+if(($_POST["rec"])){
+	
 	$rec = mysqli_real_escape_string($mysqli, $_REQUEST['rec']);
 	if($rec){
+		
 		$idc = mysqli_real_escape_string($mysqli, $_REQUEST['idc']);
 		$sql_client_id = "select * from redesagi_facturacion.afiliados where `id`=$idc ";
 		$result = mysqli_query($mysqli, $sql_client_id) or die('error encontrando el cliente');
@@ -49,13 +56,19 @@ if($_POST["rec"]){
 		$ip=$db_field['ip'];
 		//$data=areaCode($ip);
 		$nombre=$db_field['cliente'];
+		
 		$vpnObject2=new VpnUtils($server, $db_user, $db_pwd, $db_name);  
+		
         $idGroup=$vpnObject2->updateGroupId($idc,$ip); 
-        $serverIp=$vpnObject2->getServerIp($idGroup); 
+		
+        $serverIp=$vpnObject2->getServerIp($idGroup);
+		
 		$mkobj=new Mkt($serverIp,$vpnUser,$vpnPassword);
+		
 		if($mkobj->success){
 			//echo "Conectado a la Rboard cod Server-target-> {{$data['server']}}";
-			removeIp($mkobj->remove_ip($ip,'morosos'),$idc,$mysqli,$ip,$today,$hourMin);       
+			removeIp($mkobj->remove_ip($ip,'morosos'),$idc,$mysqli,$ip,$today,$hourMin);   
+			    
 		}else {
 			$txt= "-$today-$hourMin  No fue posible conectar a la Rboard 1, reconectar pendiente";
 			$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0' , `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='1'  WHERE `afiliados`.`id`= '$idc' ";
@@ -63,7 +76,9 @@ if($_POST["rec"]){
 			}else{
 				$txt.= "-Error al actualizar cliente Mysql `shutoffpending`=1\n";	
 			}
+			
 			file_put_contents('cut.log', $txt.PHP_EOL , FILE_APPEND );
+			
 		}
 		
 		
@@ -77,11 +92,7 @@ if (($_POST['vap'] >= 0) || ($debug == 1)) { //paga todo	//paga todo   //paga to
 		$vre = mysqli_real_escape_string($mysqli, $_REQUEST['vre']);
 		$cam = mysqli_real_escape_string($mysqli, $_REQUEST['cam']);
 		$vpl = mysqli_real_escape_string($mysqli, $_REQUEST['vpl']);
-	} else {
-		$idc = 11;
-		$vap = 90000;
-		$vaa = 0;
-	}
+	} 
 	$sqlins = "INSERT INTO `redesagi_facturacion`.`transacciones` (`idtransaccion`, `valor-recibido`, `valor-a-pagar`, `cambio`, `id-cliente`, `fecha`, `aprobado`, `hora`, `cajero`) VALUES (NULL, '$vre', '$vap', '$cam', '$idc', '$today', '', '$hourMin', '$usuario')";
 	if ($mysqli->query($sqlins) === TRUE) {
 		$last_id_tra = $mysqli->insert_id;
