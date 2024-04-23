@@ -124,7 +124,7 @@ section {
 section .section-title {
   display: flex;
   justify-content: center;
-  background-color: indianred;
+  background-color: #0275d8;
   /* border:solid 2px  #262a34; */
   border-radius: 5px;
   margin: 20px auto 50px;
@@ -206,7 +206,7 @@ section .box .box-content .search {
 
 section .box .box-content .search button {
   border: 0px;
-  background-color: indianred;
+  background-color: #0275d8;
   color: #fff;
   padding: 5px;
   border-radius: 3px;
@@ -437,13 +437,13 @@ section .form-group .radio-button label {
 }
 
 .evidencia-fotografica .img-container p {
-  background-color: indianred;
+  background-color: #0275d8;
   color: #fff;
 }
 
 section .form-group .radio-button input {
   margin: auto 5px auto 10px;
-  background-color: indianred;
+  background-color: #0275d8;
 }
 
 section .form-child-w100 {
@@ -505,7 +505,7 @@ section .close-result-table button {
   border-radius: 2px;
   margin: 0px 0px 0px 6px;
   color: #fff;
-  background-color: indianred;
+  background-color: #0275d8;
   font-weight: bold;
   padding-right: 0px;
 }
@@ -513,7 +513,7 @@ section .close-result-table button {
 section .box .resume .title h3 {
   margin-top: 10px;
   background-color: #f2f2f2;
-  color: indianred;
+  color: #0275d8;
   border-radius: 5px;
 }
 
@@ -525,7 +525,7 @@ section .box .resume .content {
 
 section .box .resume .content .box-child {
   border: 1px solid #262a34;
-  background-color: indianred;
+  background-color: #0275d8;
   padding: 15px;
   margin: 10px;
   border-radius: 4px;
@@ -610,7 +610,7 @@ section .hide-closed-tickets-modal {
 
 .title-modal h3 {
   text-transform: uppercase;
-  background-color: indianred;
+  background-color: #0275d8;
   text-align: center;
   color: #fff;
   margin: 0px;
@@ -652,7 +652,7 @@ section .hide-closed-tickets-modal {
 }
 
 .footer-modal span {
-  background-color: indianred;
+  background-color: #0275d8;
   color: #fff;
   padding: 5px;
   margin: 3px 10px;
@@ -672,7 +672,7 @@ table .rowSelected {
 
 th {
   color: #fff;
-  background-color: indianred;
+  background-color: #0275d8;
 }
 
 th, td {

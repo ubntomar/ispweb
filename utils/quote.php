@@ -452,7 +452,7 @@
                     </div>
                 </main>
                 <footer>
-                    Ag Ingeneiria Wist 2019 - ventas@agingenieria.tech
+                    Ag Ingeneiria Wist 2024 - ventas@agingenieria.tech
                 </footer>
             </div>
             <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->

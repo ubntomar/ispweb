@@ -7,6 +7,7 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true)
 		}
 else    {
 		$user=$_SESSION['username'];
+		$empresa = $_SESSION['empresa'];
 		}
 header('Content-Type: application/json');
 require 'dateHuman.php';
@@ -22,8 +23,30 @@ $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i');
 $queryPart="";
 $searchClientContent = mysqli_real_escape_string($mysqli, $_REQUEST['searchClientContent']);
-$queryPart="AND ( (`cliente` LIKE '%$searchClientContent%') OR (`apellido` LIKE '%$searchClientContent%') OR (`ip` LIKE '%$searchClientContent%') ) ";
-$sqlSearch="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `eliminar`=0 AND `activo`=1 $queryPart  limit 20"; 
+
+$words = explode(" ", $searchClientContent);
+$lastName  = $words[1];
+
+
+
+$searchWords = explode(" ", $searchClientContent);
+$searchQuery = "";
+
+foreach ($searchWords as $word) {
+    if (!empty($searchQuery)) {
+        $searchQuery .= " OR ";
+    }
+    $word = "%$word%";
+    $searchQuery .= "(`cliente` LIKE '$word') OR (`apellido` LIKE '$word')";
+}
+
+$searchQuery = "AND ( $searchQuery OR (`ip` LIKE '%$searchClientContent%') )";
+
+
+
+
+$queryPart=$searchQuery;
+$sqlSearch="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE `id-empresa`=$empresa  AND  `eliminar`=0 AND `activo`=1 $queryPart  limit 20"; 
 if ($result = $mysqli->query($sqlSearch)) {
 	$num=$result->num_rows;
 	$counter=0;

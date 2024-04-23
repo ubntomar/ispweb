@@ -8,6 +8,7 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true)
 else    {
         $user=$_SESSION['username'];
         $role=$_SESSION["role"];
+        $empresa = $_SESSION['empresa'];
 		}
 include("login/db.php");
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
@@ -30,7 +31,7 @@ echo "
     </thead>
     <tbody>";
 $sql_sent_sms=  "SELECT *, redesagi_facturacion.afiliados.cliente,redesagi_facturacion.afiliados.apellido FROM redesagi_facturacion.sent_messages INNER JOIN redesagi_facturacion.afiliados
-                ON redesagi_facturacion.sent_messages.`id_client`=redesagi_facturacion.afiliados.id  LIMIT 100"; 
+                ON redesagi_facturacion.sent_messages.`id_client`=redesagi_facturacion.afiliados.id WHERE  `afiliados`.`id-empresa` = $empresa ORDER BY redesagi_facturacion.sent_messages.`fecha` DESC  LIMIT 10"; 
 $result = mysqli_query($mysqli, $sql_sent_sms) or die('error');
 while($db_field = mysqli_fetch_assoc($result)){
     echo"    
