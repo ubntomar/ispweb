@@ -6,6 +6,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 } else {
 	$user = $_SESSION['username'];
 	$idAreaDefault=$_SESSION["idAreaDefault"];
+	$empresa = $_SESSION['empresa'];
 		
 }
 if($_SESSION['role']=='tecnico'){
@@ -69,6 +70,11 @@ if($_SESSION['role']=='cajero'){
 	$today = date("Y-m-d");
 	$hoy = date("d-m-Y");
 	$hourMin = date('H:i');
+	
+	setlocale(LC_TIME, 'es_ES.UTF-8');
+	$nombreDelMes = strftime('%B');
+	
+
 	?>
 	<div class="container-fluid px-0">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top   ">
@@ -496,7 +502,7 @@ if($_SESSION['role']=='cajero'){
 												<tbody>
 													<?php
 													$contPago = 0;
-													$sql = "SELECT * FROM `afiliados` WHERE activo=1 AND eliminar=0 ORDER BY `id` DESC ";
+													$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`id-empresa` = $empresa AND activo=1 AND eliminar=0 ORDER BY `id` DESC ";//
 													if ($result = $mysqli->query($sql)) {
 														while ($row = $result->fetch_assoc()) {
 															$cod = $row["id"];
@@ -516,7 +522,7 @@ if($_SESSION['role']=='cajero'){
 															echo "<td>" . $pago . "</td>";
 															echo "<td>" . $velocidad . "</td>";
 															echo "<td>" . $ip . "</td>";
-															echo "<td><button type=\"button\" disabled class=\"btn btn-warning suspender\" id=\"suspender" . $cod . "\" ><i class=\"icon-scissors text-dark\"></i></button></td>";
+															echo "<td><button DISABLED type=\"button\" disabled class=\"btn btn-warning suspender\" id=\"suspender" . $cod . "\" ><i class=\"icon-scissors text-dark\"></i></button></td>";
 															echo "<td><button type=\"button\" class=\"btn btn-primary eliminar\" id=\"activo" . $cod . "\" ><i class=\"icon-scissors text-dark\"></i></button></td>";
 															echo "</tr>";
 														}
@@ -526,7 +532,7 @@ if($_SESSION['role']=='cajero'){
 												</tbody>
 											</table>
 										</div>
-										<h1>Recaudo estimado Agosto : <?php echo " $ $contPago"; ?> </h1>
+										 <?php echo "<h1>Recaudo previsto para $nombreDelMes : $ $contPago   </h1><small>(El recaudo previsto es suponiendo que todos paguen)</small> "; ?> 
 
 										<div class="  border border-success">
 											<h4 class="card-title mt-4">Lista de Clientes en <strong> SUSPENSIÓN</strong> </h4>
@@ -555,7 +561,7 @@ if($_SESSION['role']=='cajero'){
 												</tfoot>
 												<tbody>
 													<?php
-													$sql = "SELECT * FROM `afiliados` WHERE eliminar=1 ORDER BY `id` DESC ";
+													$sql = "SELECT * FROM `afiliados` WHERE `afiliados`.`id-empresa` = $empresa AND  eliminar=1 ORDER BY `id` DESC ";
 													if ($result = $mysqli->query($sql)) {
 														while ($row = $result->fetch_assoc()) {
 															$cod = $row["id"];
@@ -615,7 +621,7 @@ if($_SESSION['role']=='cajero'){
 											</tfoot>
 											<tbody>
 												<?php
-												$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,any_value(valorf),ip,SUM( saldo )as mysum,`velocidad-plan` FROM `afiliados` INNER JOIN factura ON `afiliados`.`id`=`factura`.`id-afiliado` WHERE factura.periodo !='' AND factura.cerrado=0 AND `afiliados`.`activo`=1 AND eliminar !=1  GROUP BY`afiliados`.`id` ORDER BY mysum DESC ";
+												$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,any_value(valorf),ip,SUM( saldo )as mysum,`velocidad-plan` FROM `afiliados` INNER JOIN factura ON `afiliados`.`id`=`factura`.`id-afiliado` WHERE factura.periodo !='' AND factura.cerrado=0 AND `afiliados`.`id-empresa` = $empresa AND `afiliados`.`activo`=1 AND eliminar !=1  GROUP BY`afiliados`.`id` ORDER BY mysum DESC ";
 												if ($result = $mysqli->query($sql)) {
 													while ($row = $result->fetch_assoc()) {
 														$idCliente = $row["id"];
@@ -678,7 +684,7 @@ if($_SESSION['role']=='cajero'){
 											</tfoot>
 											<tbody>
 												<?php
-												$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,activo,`velocidad-plan`,ip,pago FROM `redesagi_facturacion`.`afiliados` WHERE `afiliados`.`eliminar` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =1 ORDER BY `id` DESC ";
+												$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,activo,`velocidad-plan`,ip,pago FROM `redesagi_facturacion`.`afiliados` WHERE `afiliados`.`eliminar` =0  AND `afiliados`.`id-empresa` = $empresa   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =1 ORDER BY `id` DESC ";
 												if ($result = $mysqli->query($sql)){
 													while ($row = $result->fetch_assoc()) {
 														$cod = $row["id"];
@@ -751,7 +757,7 @@ if($_SESSION['role']=='cajero'){
 											</tfoot>
 											<tbody>
 												<?php
-												$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,activo,`velocidad-plan`,ip,pago FROM `redesagi_facturacion`.`afiliados` WHERE `afiliados`.`eliminar` =0   AND `afiliados`.`activo` =1 AND `afiliados`.`corte` =15 ORDER BY `id` DESC ";
+												$sql = "SELECT id,cliente,apellido,telefono,direccion,corte,activo,`velocidad-plan`,ip,pago FROM `redesagi_facturacion`.`afiliados` WHERE `afiliados`.`eliminar` =0   AND `afiliados`.`id-empresa` = $empresa AND  `afiliados`.`activo` =1 AND `afiliados`.`corte` =15 ORDER BY `id` DESC ";
 												if ($result = $mysqli->query($sql)){
 													while ($row = $result->fetch_assoc()) {
 														$cod = $row["id"];
@@ -939,7 +945,7 @@ if($_SESSION['role']=='cajero'){
 														<div class="card mt-3">
 															
 															<div class="card-header bg-info ">
-																last sms sent
+																ULTIMOS SMS ENVIADOS
 															</div>
 															<div class="card-body" id="div_sms_statistics">
 																
@@ -956,7 +962,7 @@ if($_SESSION['role']=='cajero'){
 																			<div class=\"p-1\">
 																				<div class=\"card\">
 																					<div class=\"card-header\">
-																						Mensaje Tipo {$row['idtipo']}
+																					Tabla: smscontent:  {$row['idtipo']}
 																					</div>
 																					<div class=\"card-body\">
 																						<h5 class=\"card-title\">Descripción</h5>

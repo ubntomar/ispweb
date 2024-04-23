@@ -457,7 +457,7 @@
                     </div>
                 </main>
                 <footer>
-                    Ag Ingeneiria Wist 2019 - ag.ingenieria.wist@gmail.com.
+                    Ag Ingeneiria Wist 2024 - ag.ingenieria.wist@gmail.com.
                 </footer>
             </div>
             <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->

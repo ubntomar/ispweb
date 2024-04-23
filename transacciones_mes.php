@@ -29,6 +29,7 @@ $hourMin = date('H:i');
 $cajero=$_POST["cajero"];
 $from=$_POST["from"];
 $to=$_POST["to"];
+$path=$_POST["path"];
 if($cajero=="todos")
     $txt_cajero="";
 else
@@ -63,7 +64,18 @@ echo "
     </tfoot>
     <tbody > 
 ";
-    $sql = "SELECT * FROM redesagi_facturacion.transacciones where redesagi_facturacion.transacciones.fecha >='$from'  AND redesagi_facturacion.transacciones.fecha <='$to' $txt_cajero   ;";
+    ///$sql = "SELECT * FROM redesagi_facturacion.transacciones where redesagi_facturacion.transacciones.fecha >='$from'  AND redesagi_facturacion.transacciones.fecha <='$to' $txt_cajero   ;";
+    $sql="
+    SELECT redesagi_facturacion.transacciones.* 
+    FROM redesagi_facturacion.transacciones
+    JOIN redesagi_facturacion.afiliados ON redesagi_facturacion.`transacciones`.`id-cliente` = redesagi_facturacion.afiliados.id
+    WHERE redesagi_facturacion.transacciones.fecha >= '$from' 
+    AND redesagi_facturacion.transacciones.fecha <= '$to'
+    $txt_cajero
+    AND redesagi_facturacion.`afiliados`.`id-empresa` = $empresa;
+
+    ";
+    //echo $sql;
     if ($result = $mysqli->query($sql)) {
         $recaudo=0;
         $cnt=0;
@@ -114,7 +126,7 @@ echo "
                 echo "<td>$pagado $p</td>";
                 echo "<td class=\" align-middle \"><small>".$row["fecha"]." ".$row["hora"]."</small> </td>";
                 echo "<td class=\" align-middle \"> {$row["cajero"]} </td>";
-                echo "<td class=\" align-middle \"><a href=\"printable.php?idt=$idtransaccion&rpp=0\" class=\"text-primary icon-client \" ><i class=\" icon-print  \"></i></a></td>";
+                echo "<td class=\" align-middle \"><a href=\"".$path."printable.php?idt=$idtransaccion&rpp=0\" class=\"text-primary icon-client \" ><i class=\" icon-print  \"></i></a></td>";
                 echo "<td class=\" align-middle \"><a href=\"public/recibos.php?idc=$idafi&rpp=0\" class=\"text-info icon-client \" target=\"_blank\" ><i class=\" icon-print  \"></i></a></td>";
                 echo "</tr>";		
             }

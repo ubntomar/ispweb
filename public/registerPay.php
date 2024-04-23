@@ -114,8 +114,14 @@ $htmlObject=new Html();
                                 $pingResponseTime=$row["ping"];
                                 $suspenderStatus= (  ($row["suspender-list-status"]==false) )?"FALSO!":"";
                                 $clientWidthConvenio=$row["convenio"];
-                                if(($sincedexDays=get_date_diff( $pingDate, $today, 2 ))=="") $timeElapsed="Ultimo ping: Hoy"; else $timeElapsed="hace $sincedexDays";
-                                $pingCurrentStatus=(($pingDate==$today||$pingDate==$yesterday)&&$pingResponseTime) ? "<small class=\"bg-success text-white p-1\">Ping OK->$pingDate:$pingResponseTime ms</small>" : "<small class=\"bg-danger text-white p-1\">Ping Error desde  $timeElapsed</small>";   
+                                if($pingDate){
+                                    if(($sincedexDays=get_date_diff( $pingDate, $today, 2 ))=="") $timeElapsed="Ultimo ping: Hoy"; else $timeElapsed="Ping Error desde hace $sincedexDays";
+
+                                }else{
+                                    $timeElapsed="Sin registro ping";
+                                }
+                                
+                                $pingCurrentStatus=(($pingDate==$today||$pingDate==$yesterday)&&$pingResponseTime) ? "<small class=\"bg-success text-white p-1\">Ping OK->$pingDate:$pingResponseTime ms</small>" : "<small class=\"bg-danger text-white p-1\">  $timeElapsed</small>";   
                                 $style_cell = "class=\"font-weight-bold h6\" "; 
                                 $style2_cell = "";
                                 $ts1 = strtotime($registration_date);
@@ -289,6 +295,12 @@ $('#clientList').DataTable({
 
 });
 $('#payModal').on('show.bs.modal', function(e) {
+    $("#paybutton").prop("disabled", false);
+    
+    $('#payModal').on('shown.bs.modal', function() {
+        $(this).find('.close').show();
+    });
+
     console.log("modal opened")
     var rowid = $(e.relatedTarget).data('id');
 
@@ -562,13 +574,17 @@ $(document).ajaxComplete(function() {
         $("#tr-chkb-abonar").hide();
     }
     $('#paybutton').click(function() {
+        $("#paybutton").prop("disabled", true);
+        $('#payModal').on('shown.bs.modal', function() {
+        $(this).find('.close').hide();
+    });
         let strPrompt1 = "Ingreso de Efectivo";
         let strPrompt2 = "Efectivo:";
         if (!$('#checkbox-abonar').is(":checked") && $('#checkbox-descontar').is(":checked")) {
             strPrompt1 = "Presione enter para continuar";
             strPrompt2 = "";
         }
-        alertify.prompt(strPrompt1, strPrompt2, "",
+        /*alertify.prompt(strPrompt1, strPrompt2, "",
             function(evt, value) {
                 var vplanRow = parseInt($("#valor-plan").html().replace(/[^0-9]/gi, ''));
                 console.log("valor del plan:" + vplanRow);
@@ -677,8 +693,8 @@ $(document).ajaxComplete(function() {
             },
             function() {
                 alertify.error('Error,problema con valor de efectivo!');
-            });;
-        $('#payModal').modal('hide');
+            });;**/
+       // $('#payModal').modal('hide');
     });
 })
 </script>

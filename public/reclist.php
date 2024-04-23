@@ -9,6 +9,7 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true)
 		}
 else    {
 		$user=$_SESSION['username'];
+        $empresa = $_SESSION['empresa'];
 		}
 if($_SESSION['role']=='tecnico'){
 	header('Location: tick.php');
@@ -141,7 +142,7 @@ if($_SESSION['role']=='cajero'){
 
                                     <?php 					
 											
-												$sql = "SELECT * FROM afiliados  WHERE `mesenmora`!= -1 AND `activo`=1 AND `suspender`=0 ORDER BY orden_reparto DESC";
+												$sql = "SELECT * FROM afiliados  WHERE `afiliados`.`id-empresa` = $empresa AND `mesenmora`!= -1 AND `activo`=1 AND `suspender`=0 ORDER BY orden_reparto DESC";
 												if ($result = $mysqli->query($sql)) {
 													while ($row = $result->fetch_assoc()) {	
 													$idc=$row["id"];				
@@ -176,7 +177,7 @@ if($_SESSION['role']=='cajero'){
     <div class="container-fluid 	">
         <div class="row">
             <div class="col text-light bg-dark py-2 d-flex justify-content-center footer-text">
-                <p>Copyright ©2014-2017 DevXm-Administrador ISP - <small>All Rights Reserved.</small></p>
+                <p>Copyright ©2014-2024 DevXm-Administrador ISP - <small>All Rights Reserved.</small></p>
 
             </div>
         </div>

@@ -1,3 +1,7 @@
+<?php
+header("Location: /public/registerPay.php");
+exit; 
+?>
 <?php 
 session_start();
 if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true){
@@ -356,7 +360,7 @@ if($_SESSION['role']=='cajero'){
 	<div class="container-fluid 	">
 		<div class="row">
 			<div class="col text-light bg-dark py-2 d-flex justify-content-center footer-text">								
-						<p>Copyright ©2014-2017 DevXm-Administrador ISP - <small>All Rights Reserved.</small></p>	
+						<p>Copyright ©2014-2024 DevXm-Administrador ISP - <small>All Rights Reserved.</small></p>	
 									
 			</div>
 		</div>

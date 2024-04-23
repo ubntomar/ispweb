@@ -6,7 +6,7 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true){
 }else{
 	$user=$_SESSION['username'];
 }
-include("PingTime.php");
+include("PingTime.php"); 
 include("login/db.php");
 include("Client.php");
 date_default_timezone_set('America/Bogota');
@@ -41,7 +41,7 @@ else{
 		$value=$today;
 		$clientObj->updateClient($clienteId,$param,$value,$operator="=");
 	} 
-	echo json_encode($time); 
+	echo json_encode($time);
 }
 
 ?>

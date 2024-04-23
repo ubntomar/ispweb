@@ -11,6 +11,7 @@ else{
     $lastName = $_SESSION['lastName'];
     $role = $_SESSION['role'];
     $jurisdiccion = $_SESSION['jurisdiccion'];
+    
     $empresa = $_SESSION['empresa'];
     $sharedCode = $_SESSION['sharedCode'];
     $convenio = $_SESSION['convenio'];
@@ -196,7 +197,16 @@ if($_SESSION['role']=='tecnico'){
                                             if($convenio==1){
                                                 $sqlcaj="AND `transacciones`.`cajero` = '$user' ";
                                             }				
-											$sql = "SELECT * FROM `transacciones` WHERE MONTH(fecha) = $month AND YEAR(fecha) = $year AND DAY(fecha) = $today $sqlcaj ORDER BY `transacciones`.`idtransaccion` DESC ";
+											    // $sql = "SELECT * FROM `transacciones` WHERE MONTH(fecha) = $month AND YEAR(fecha) = $year AND DAY(fecha) = $today $sqlcaj ORDER BY `transacciones`.`idtransaccion` DESC ";
+                                            $sql="SELECT `transacciones`.*, `afiliados`.*, `transacciones`.`cajero` AS `cajeroTransaccion`
+                                            FROM `transacciones`
+                                            JOIN `afiliados` ON `transacciones`.`id-cliente` = `afiliados`.`id`
+                                            WHERE `afiliados`.`id-empresa` = $empresa
+                                            AND MONTH(fecha) = $month AND YEAR(fecha) = $year AND DAY(fecha) = $today
+                                            $sqlcaj
+                                            ORDER BY `transacciones`.`idtransaccion` DESC
+                                            ";
+                                            
 											if ($result = $mysqli->query($sql)) {
 												$recaudo=0;
 												$registros=$result->num_rows;
@@ -206,7 +216,7 @@ if($_SESSION['role']=='tecnico'){
 													$cnt+=1;
 													$idtransaccion=$row["idtransaccion"];
 													$idafi=$row["id-cliente"];
-													$userNameCajero=$row["cajero"];
+													$cajero=$row["cajeroTransaccion"];
 													$sqlafi="SELECT * FROM `afiliados` WHERE `id` = $idafi  ";
 													$resultafi = $mysqli->query($sqlafi);
                                                     $rowafi = $resultafi->fetch_assoc();
@@ -234,7 +244,7 @@ if($_SESSION['role']=='tecnico'){
                                                     $idjurisdiccion=$rw2["id"];
                                                     $resultIdArea->free();
 
-                                                    $sql="SELECT * FROM `users` WHERE `users`.`username` LIKE '".$userNameCajero."' ";
+                                                    $sql="SELECT * FROM `users` WHERE `users`.`username` LIKE '".$cajero."' ";
                                                     if($resultC=$mysqli->query($sql)){
                                                         $rowr=$resultC->fetch_assoc();
                                                         $shared=$rowr["shared-code"];
@@ -298,13 +308,13 @@ if($_SESSION['role']=='tecnico'){
                                     </select>
                                 </div>
                                 <div class="form-group px-1 border border-success rounded mx-1 my-3">
-                                    <label for="">Desde </label>
+                                    <label >Desde </label>
                                     <input type="text" class="form-control  " id="from-month-day" aria-describedby=""
                                         value=" <?php echo"$year/$month/01";  ?> ">
                                     <small id="" class="form-text text-muted">Desde el día ...</small>
                                 </div>
                                 <div class="form-group px-1 border border-success rounded mx-1 my-3">
-                                    <label for="">Hasta </label>
+                                    <label >Hasta </label>
                                     <input type="text" class="form-control " id="to-month-day" aria-describedby=""
                                         value="  <?php echo"$year/$month/$today";  ?>  ">
                                     <small id="" class="form-text text-muted">Hasta el día...</small>
@@ -329,8 +339,15 @@ if($_SESSION['role']=='tecnico'){
                         </div>
 
                         <?php 					
-                            $sql = "SELECT * FROM `transacciones` WHERE MONTH(fecha) = $month AND YEAR(fecha) = $year  ORDER BY `transacciones`.`idtransaccion` DESC ";
-                            if ($result = $mysqli->query($sql)) {
+                            //$sql = "SELECT * FROM `transacciones` WHERE MONTH(fecha) = $month AND YEAR(fecha) = $year  ORDER BY `transacciones`.`idtransaccion` DESC ";
+                            $sql="
+                            SELECT redesagi_facturacion.transacciones.* 
+                            FROM redesagi_facturacion.transacciones
+                            JOIN redesagi_facturacion.afiliados ON redesagi_facturacion.`transacciones`.`id-cliente` = redesagi_facturacion.afiliados.id
+                            WHERE  MONTH(fecha) = $month AND YEAR(fecha) = $year
+                            AND redesagi_facturacion.`afiliados`.`id-empresa` = $empresa;
+                            ";
+                            if ($result = $mysqli->query($sql)) {   
                                 $recaudo=0;
                                 $descuento=0;
                                 $sumDescuento=0;
@@ -455,7 +472,6 @@ if($_SESSION['role']=='tecnico'){
 											  <tbody>";
 											for( $x=1; $x<=count($caje); $x++ ){
 												$sqltotCaj="SELECT  SUM(`valor-a-pagar`-`descontar`) AS subtotal FROM `redesagi_facturacion`.`transacciones` WHERE `redesagi_facturacion`.`transacciones`.`cajero` LIKE  '".$caje[$x]."' AND MONTH(fecha) = $month AND YEAR(fecha) = $year AND DAY(fecha) = $today ";
-												//echo $sqltotCaj;
 												if ($result = $mysqli->query($sqltotCaj)){
 													$rowcj = $result->fetch_assoc();
                                                     $subt=$rowcj["subtotal"];
@@ -485,84 +501,70 @@ if($_SESSION['role']=='tecnico'){
 
                             </div>
                             <div class="widget comentarios">
-                                <h3 class="titulo">Comentarios</h3>
-                                <div class="contenedor">
-                                    <div class="comentario d-flex flex-wrap">
-                                        <div class="foto">
-                                            <a href="#">
-                                                <!-- <img src="img/persona1.jpg" width="100" alt=""> -->
-                                            </a>
-                                        </div>
-                                        <div class="texto">
-                                            <a href="#">Jhon Doe</a>
-                                            <p>en <a href="#">Mi primer entrada</a></p>
-                                            <p class="texto-comentario">
-                                                Lorem ipsum dolor sit amet, cossdnsectetur adipisicing elit. Blanditiis
-                                                natus ex
-                                                inventore provident modi id distinctio non minus, magni quia officiis,
-                                                vel debitis
-                                                doloremque ratione, consequuntur omnis hic voluptatem asperiores?
-                                            </p>
-                                        </div>
-                                        <div class="botones d-flex justify-content-start flex-wrap w-100">
-                                            <button class="aprobar"><i class="icono icon-ok"></i>Aprobar</button>
-                                            <button class="eliminar"><i class="icono icon-cancel"></i>Eliminar</button>
-                                            <button class="bloquear"><i class="icono icon-flag"></i>Bloquear
-                                                Usuario</button>
-                                        </div>
-                                    </div>
+    <h3 class="titulo">Comentarios</h3>
+    <div class="contenedor">
+        <div class="comentario d-flex flex-wrap">
+            <div class="foto">
+                <a href="#">
+                    <!-- <img src="img/persona1.jpg" width="100" alt=""> -->
+                </a>
+            </div>
+            <div class="texto">
+                <a href="#">Laura Smith</a>
+                <p>en <a href="#">La revolución de la energía verde</a></p>
+                <p class="texto-comentario">
+                    Realmente aprecio este análisis sobre las energías renovables. Me pregunto cómo podemos acelerar la adopción de estas tecnologías en áreas menos desarrolladas.
+                </p>
+            </div>
+            <div class="botones d-flex justify-content-start flex-wrap w-100">
+                <button class="aprobar"><i class="icono icon-ok"></i>Aprobar</button>
+                <button class="eliminar"><i class="icono icon-cancel"></i>Eliminar</button>
+                <button class="bloquear"><i class="icono icon-flag"></i>Bloquear Usuario</button>
+            </div>
+        </div>
 
-                                    <div class="comentario d-flex flex-wrap">
-                                        <div class="foto">
-                                            <a href="#">
-                                                <!-- <img src="img/persona2.jpg" width="100" alt=""> -->
-                                            </a>
-                                        </div>
-                                        <div class="texto">
-                                            <a href="#">Jhon Doe</a>
-                                            <p>en <a href="#">Mi primer entrada</a></p>
-                                            <p class="texto-comentario">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis
-                                                natus ex
-                                                inventore provident modi id distinctio non minus, magni quia officiis,
-                                                vel debitis
-                                                doloremque ratione, consequuntur omnis hic voluptatem asperiores?
-                                            </p>
-                                        </div>
-                                        <div class="botones d-flex justify-content-start flex-wrap w-100">
-                                            <button class="aprobar"><i class="icono icon-ok"></i>Aprobar</button>
-                                            <button class="eliminar"><i class="icono icon-cancel"></i>Eliminar</button>
-                                            <button class="bloquear"><i class="icono icon-flag"></i>Bloquear
-                                                Usuario</button>
-                                        </div>
-                                    </div>
+        <div class="comentario d-flex flex-wrap">
+            <div class="foto">
+                <a href="#">
+                    <!-- <img src="img/persona2.jpg" width="100" alt=""> -->
+                </a>
+            </div>
+            <div class="texto">
+                <a href="#">Mark Johnson</a>
+                <p>en <a href="#">Innovaciones en IA</a></p>
+                <p class="texto-comentario">
+                    Este artículo destaca puntos importantes sobre el desarrollo de IA ética. Creo que es crucial considerar los aspectos éticos a medida que avanzamos.
+                </p>
+            </div>
+            <div class="botones d-flex justify-content-start flex-wrap w-100">
+                <button class="aprobar"><i class="icono icon-ok"></i>Aprobar</button>
+                <button class="eliminar"><i class="icono icon-cancel"></i>Eliminar</button>
+                <button class="bloquear"><i class="icono icon-flag"></i>Bloquear Usuario</button>
+            </div>
+        </div>
 
-                                    <div class="comentario d-flex flex-wrap">
-                                        <div class="foto">
-                                            <a href="#">
-                                                <!-- <img src="img/persona3.jpg" width="100" alt="">  -->
-                                            </a>
-                                        </div>
-                                        <div class="texto">
-                                            <a href="#">Jhon Doe</a>
-                                            <p>en <a href="#">Mi primer entrada</a></p> 
-                                            <p class="texto-comentario">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis
-                                                natus ex
-                                                inventore provident modi id distinctio non minus, magni quia officiis,
-                                                vel debitis
-                                                doloremque ratione, consequuntur omnis hic voluptatem asperiores?
-                                            </p>
-                                        </div>
-                                        <div class="botones d-flex justify-content-start flex-wrap w-100">
-                                            <button class="aprobar"><i class="icono icon-ok"></i>Aprobar</button>   
-                                            <button class="eliminar"><i class="icono icon-cancel"></i>Eliminar</button>
-                                            <button class="bloquear"><i class="icono icon-flag"></i>Bloquear
-                                                Usuario</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="comentario d-flex flex-wrap">
+            <div class="foto">
+                <a href="#">
+                    <!-- <img src="img/persona3.jpg" width="100" alt="">  -->
+                </a>
+            </div>
+            <div class="texto">
+                <a href="#">Sophia Lee</a>
+                <p>en <a href="#">Viajar de manera sostenible</a></p> 
+                <p class="texto-comentario">
+                    Gracias por compartir estos consejos sobre viajes sostenibles. He estado buscando maneras de reducir mi impacto ambiental mientras viajo.
+                </p>
+            </div>
+            <div class="botones d-flex justify-content-start flex-wrap w-100">
+                <button class="aprobar"><i class="icono icon-ok"></i>Aprobar</button>   
+                <button class="eliminar"><i class="icono icon-cancel"></i>Eliminar</button>
+                <button class="bloquear"><i class="icono icon-flag"></i>Bloquear Usuario</button>
+            </div>
+        </div>
+    </div>
+</div>
+
                         </div>
                     </div>
             </main>
@@ -572,7 +574,7 @@ if($_SESSION['role']=='tecnico'){
     <div class="container-fluid 	">
         <div class="row">
             <div class="col text-light bg-dark py-2 d-flex justify-content-center footer-text">
-                <p>Copyright ©2014-2017 DevXm-Administrador ISP - <small>All Rights Reserved.</small></p>
+                <p>Copyright ©2014-2024 DevXm-Administrador ISP - <small>All Rights Reserved.</small></p>
 
             </div>
         </div>
@@ -616,7 +618,8 @@ if($_SESSION['role']=='tecnico'){
                 data: {
                     cajero: cajero,
                     from: from,
-                    to: to
+                    to: to,
+                    path:"../" 
                 },
                 success: function(data) {
                     $("#table-month-content").html(data);

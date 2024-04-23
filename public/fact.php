@@ -28,7 +28,7 @@ $htmlObject=new Html();
 <?=$htmlObject->head($path="../")?> 
 
 <body>
-    <?=$templateObject->header($user="omar")?>
+    <?=$templateObject->header($user)?>
     <?=$templateObject->navTop($_SESSION['role'],$path="")?>
     <main id="app">
         <?=$templateObject->navLeft($_SESSION['role'],$path="")?>
@@ -52,6 +52,7 @@ $htmlObject=new Html();
                                 :class=" {'button-disabled':searchClientContent==''} "><i
                                     class="icon-search"></i></button>
                         </div>
+                        <p v-if="resultsAlertToShow">NO se encuentra usuario, se recomienda buscar  por apellido también</p>
                         <div v-bind:class="{'hide-box-result':hideTicketResult}">
                             <div class="title">
                                 <h3 class="icon-docs">SELECCIONA  DE LA LISTA</h3>
@@ -335,7 +336,8 @@ var app = new Vue({
         billDataToBox:{},
         billActionOptionSelected:null,
         formTask:null,
-        delConfirm:null
+        delConfirm:null,
+        resultsAlertToShow: false
     },
     methods: {
         continueToAbiertoWalletModal: function(data) {
@@ -405,14 +407,21 @@ var app = new Vue({
             this.getUser()
         },
         getUser: function() {
+            this.resultsAlertToShow=false
+            this.hideTicketResult = true
             axios.get('../fetchClientList.php', {
                 params: {
                     searchClientContent: this.searchClientContent
                 }
             }).then(response => {
-                this.totalRows = response.data.length
-                this.clientes = response.data
-                this.hideTicketResult = false
+                if (response.data){
+                    this.totalRows = response.data.length
+                    this.resultsAlertToShow=false
+                    this.clientes = response.data
+                    this.hideTicketResult = false
+                }else{
+                    this.resultsAlertToShow=true
+                }
             }).catch(e => {
                 console.log('error' + e)
             })

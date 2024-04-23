@@ -8,6 +8,7 @@ if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true)
 else    {
         $user=$_SESSION['username'];
         $role=$_SESSION["role"];
+        $empresa = $_SESSION['empresa'];
 		}
 include("login/db.php");  
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
@@ -32,7 +33,7 @@ echo "
 $sql_sent_sms="SELECT *, afiliados.cliente,afiliados.apellido 
     FROM service_shut_off 
     INNER JOIN afiliados ON (service_shut_off.`id_client`=afiliados.id AND service_shut_off.`fecha`='$today')
-    
+    WHERE  `afiliados`.`id-empresa` = $empresa
      ";
 $result = mysqli_query($mysqli, $sql_sent_sms) or die('error');
 while($db_field = mysqli_fetch_assoc($result)){
