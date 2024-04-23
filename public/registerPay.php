@@ -584,7 +584,7 @@ $(document).ajaxComplete(function() {
             strPrompt1 = "Presione enter para continuar";
             strPrompt2 = "";
         }
-        /*alertify.prompt(strPrompt1, strPrompt2, "",
+        alertify.prompt(strPrompt1, strPrompt2, "",
             function(evt, value) {
                 var vplanRow = parseInt($("#valor-plan").html().replace(/[^0-9]/gi, ''));
                 console.log("valor del plan:" + vplanRow);
@@ -693,7 +693,7 @@ $(document).ajaxComplete(function() {
             },
             function() {
                 alertify.error('Error,problema con valor de efectivo!');
-            });;**/
+            });
        // $('#payModal').modal('hide');
     });
 })
