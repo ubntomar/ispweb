@@ -9,7 +9,7 @@ $current = file_get_contents($file);
 $current.="\nFilename:".basename(__FILE__, '.php')."  Date: $today $hourMin\n";
 file_put_contents($file, $current);
 print "\n".basename(__FILE__, '.php')." --archivo creado $today $hourMin!\n";
-$ipAddress="181.60.60.55";
+$ipAddress=" 209.182.219.86";
 $pingObject=new PingTime($ipAddress);
 if(!$pingObject->time(15)){
     $messageToTelegram="Alerta!  Ip publica $ipAddress de la red 32 no responde, mensaje enviado desde Aws Server. Revisar por favor!!";
