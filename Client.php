@@ -13,10 +13,10 @@ class Client
 		date_default_timezone_set('America/Bogota'); 
         return $response;
     }
-    public function createClient($name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source="ispdev", $activo="1", $ipAddress,$quote, $standby, $AfiliacionItemValue,  $usuario, $idClientArea, $empresa){
-        //print "\n =afiliar_cliente($name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source, $activo, $ipAddress, $standby, $AfiliacionItemValue,  $usuario, $idClientArea, $empresa)  \n";
+    public function createClient($name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source="ispdev", $activo="1", $ipAddress,$quote, $standby, $AfiliacionItemValue,  $cajero, $idClientArea, $id_empresa){
+        // print "\n =afiliar_cliente($name, $lastName, $cedula, $address, $ciudad, $departamento, $email, $phone, $valorPlan,$corte, $nextPay,$billDeliveryNumber, $velocidadPlan, $plan, $today, $source, $activo, $ipAddress, $standby, $AfiliacionItemValue,  $cajero, $idClientArea, $id_empresa)  \n";
         $sql="INSERT INTO `redesagi_facturacion`.`afiliados` (`id`, `cliente`, `apellido`, `cedula`, `direccion`, `ciudad`, `departamento`, `mail`, `telefono`, `pago`, `corte`, `mesenmora`,  `orden_reparto`, `velocidad-plan`, `tipo-cliente`, `registration-date`, `source`, `activo`, `ip`,`quote`, `standby`, `valorAfiliacion`,`stdbymcount`,`cajero`,`id_client_area`,`id-empresa`) VALUES
-														 (NULL, '$name', '$lastName', '$cedula', '$address', '$ciudad', '$departamento', '$email', '$phone', '$valorPlan','$corte', '$nextPay',  '999', '$velocidadPlan', '$plan', '$today', 'ispdev', '1', '$ipAddress','$quote', '$standby', '$AfiliacionItemValue', '$standby', '$usuario', '$idClientArea', '$empresa');";
+														 (NULL, '$name', '$lastName', '$cedula', '$address', '$ciudad', '$departamento', '$email', '$phone', '$valorPlan','$corte', '$nextPay',  '999', '$velocidadPlan', '$plan', '$today', 'ispdev', '1', '$ipAddress','$quote', '$standby', '$AfiliacionItemValue', '$standby', '$cajero', '$idClientArea', '$id_empresa');";
         if ($this->mysqli->query($sql) === TRUE) {
                 $last_id = $this->mysqli->insert_id;
                 $idafiliado=$last_id;
