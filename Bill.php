@@ -20,7 +20,7 @@ class Bill
 																		  (NULL,'$id_client', NULLIF('$fechaPago', ''), '$iva', '$notas', '$descuento', '$valorf', '$valorp', '$saldo', '$cerrado', NULLIF('$fechaCierre', '') , '$vencidos', '$periodo');";
         //print "\n $sql1 \n";
         if($this->mysqli->query($sql1)==true)
-            return true;
+            return $this->mysqli->insert_id;
         else return false;	
 
     }

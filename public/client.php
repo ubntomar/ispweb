@@ -265,25 +265,13 @@ if($_SESSION['role']=='cajero'){
 																							<small id="cada-txt">Fecha estimada instalación del servicio: </small>
 																							<input class="form-control" type="text" id="date-picker">
 																							<div class="form-group form-check">
-																								<input type="checkbox" class="form-check-input" id="left-day">
+																								<input DISABLED type="checkbox" class="form-check-input" id="left-day">
 																								<small class="text-info" id="left-day-text"></small>
 																							</div>
 																						</div>
 																						<div class="form-group col-md-2   ">
-																							<small>Factura </small>
-																							<select DISABLED class="custom-select " id="corte">
-																								<?php
-																								$day = date("j");
-																								if (($day > 0 && $day <= 10) || ($day >= 20 && $day <= 31)) {
-																									echo "<option selected value=\"1\" >Corte 1</option>";
-																									echo "<option value=\"15\">Corte 15</option>";
-																								} else {
-																									echo "<option  value=\"1\" >Corte 1</option>";
-																									echo "<option selected value=\"15\">Corte 15</option>";
-																								}
-
-																								?>
-																							</select>
+																							<small>CORTE FACTURACION </small>
+																							<input DISABLED class="form-control" type="text" id="corte">
 
 																						</div>
 																						<div class="form-group col-md-2   ">
@@ -374,7 +362,7 @@ if($_SESSION['role']=='cajero'){
 																						<div class="form-group col-md-3 ">
 																							<small>En este momento que está afiliando , el cliente ya le fue instalado el servicio?</small>
 																							<select  class="custom-select " id="serviceIsAlreadyInstalled">
-																								<option value="1" SELECTED >Si.</option>
+																								<option DISABLED value="1" SELECTED >Si.</option>
 																								<option value="0"  >No.</option>
 																							</select>
 																						</div>   
@@ -430,7 +418,7 @@ if($_SESSION['role']=='cajero'){
 																									<tr id="tr-servicio">
 																										<td></td>
 																										<td>Servicio</td>
-																										<td id="td-servicio">Plan mensual 3Mbps-Down 1Mbps-Up megas de Internet -Primer mes.</td>
+																										<td id="td-servicio">Plan mensual  megas de Internet -Primer mes.</td>
 																										<td id="td-valorServicio">$0</td>
 																										<td id="td-importeServicio">0%</td>
 																										<td id="td-subtotalServicio">$0</td>
@@ -438,7 +426,7 @@ if($_SESSION['role']=='cajero'){
 																									<tr id="tr-prorrateo" class="table-danger">
 																										<td class="px-1"></td>
 																										<td>Días de Servicio</td>
-																										<td id="td-servicio-prorrateo">12 Dias desde 18 Septiembre a 30 de Septiembre</td>
+																										<td id="td-servicio-prorrateo"></td>
 																										<td id="td-valorServicio-prorrateo">$12150</td>
 																										<td id="td-importeServicio-prorrateo">19% $2850</td>
 																										<td id="td-subtotalServicio-prorrateo">$15000</td>
@@ -1631,7 +1619,7 @@ if($_SESSION['role']=='cajero'){
 											var idCl = result[0];
 											var messag = result[1];
 											alertify.success(messag);
-											//console.log(data)
+											console.log(data)
 											if (recibo == 1) {
 												if (idCl != 'Error') {
 													window.location.href = 'transacciones.php'; 
@@ -2087,15 +2075,16 @@ if($_SESSION['role']=='cajero'){
 			//
 			console.log("linea 20154, cambiando al false el valor del checkbox del porrateo")
 			if(daySelected==1 || daySelected==15){
-				if(daySelected==1)$("#corte").val(1);
-				if(daySelected==15)$("#corte").val(15);
+				//if(daySelected==1)$("#corte").val(1);
+				//if(daySelected==15)$("#corte").val(15);
+				$("#corte").val(daySelected)
 				$("#left-day").prop("checked", false);
 				$("#tr-prorrateo").hide();
 				$("#tr-servicio").show();
 			}
 			if(daySelected>19&&param!="afiliacion"){
-				$("#mes").val(parseInt(monthSelected)+1)
-				alertify.success("Fechas del 20 en adelante pasan a ser facturas corte 1, empezando a pagar del 1 al 7 del siguiente mes.")
+				//$("#mes").val(parseInt(monthSelected)+1)
+				//alertify.success("Fechas del 20 en adelante pasan a ser facturas corte 1, empezando a pagar del 1 al 7 del siguiente mes.")
 			}else{
 				$("#mes").val(parseInt(monthSelected))
 				// if(parseInt(dayOfMonth)>19){
@@ -2111,15 +2100,12 @@ if($_SESSION['role']=='cajero'){
 			var nextMonth=periodo+1;
 			if (nextMonth==13) nextMonth=1;
 			var month = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-			if (parseInt($("#corte").val()) == 15) {
-				$("#td-afiliacion").html('Instalación servicio de Internet B Ancha ,equipos en alquiler.<br><strong>Paga los 15 de cada mes</strong>.<br>Suspensión 20 de cada mes.');
-				$("#td-servicio").html('Plan mensual ' + month[periodo].toUpperCase() +'15 a '+ month[nextMonth].toUpperCase()+' 15  <br>' + vPlan + ' Mbps Download <br>1.5 Upload <br><strong>Primer mes de servicio.</strong>');
+			if (true) {
+				$("#td-afiliacion").html('Instalación servicio de Internet B Ancha ,equipos en alquiler.<br><strong>Paga los '+daySelected+' de cada mes</strong>.<br>Suspensión '+daySelected+'+ 5 días de cada mes.');
+				$("#td-servicio").html('Plan mensual ' + month[periodo].toUpperCase() +' '+daySelected+' a '+ month[nextMonth].toUpperCase()+' '+daySelected+'  <br>' + vPlan + ' Mbps Download <br>' + vPlan/2 + ' Upload <br><strong>Primer mes de servicio.</strong>');
 
 			}
-			if (parseInt($("#corte").val()) == 1) {
-				$("#td-afiliacion").html('Instalación servicio de Internet B Ancha ,equipos en alquiler.<br><strong>Paga los 1 de cada mes</strong>.<br>Suspensión 6 de cada mes.');
-				$("#td-servicio").html('Plan mensual  ' + month[periodo].toUpperCase() +'1 a '+ month[periodo].toUpperCase()+' '+days+ '<br>' + vPlan + ' Mbps Download <br>1.5 Mbps Upload <br><strong>Primer mes de servicio.</strong>');
-			}
+			
 			var vAfiliacion = $("#valorAfiliacion").val();
 			var percentValue = iva();
 			var valorPlan = $("#valor-plan").val();
@@ -2231,7 +2217,7 @@ if($_SESSION['role']=='cajero'){
 				$("#standarServiceFlag").val(1);
 			}
 			if (daySelected > 1 && daySelected <= 10) {
-				corte = 1;
+				corte = daySelected;
 				$("#standby").val(1);
 				if (daySelected > 1 && daySelected <= 10) {
 					$("#left-day").show();
@@ -2254,10 +2240,10 @@ if($_SESSION['role']=='cajero'){
 
 			if(daySelected==15){
 				$("#standarServiceFlag").val(1);
-				corte = 15;
+				corte = daySelected;
 			}	
 			if (daySelected > 10 && daySelected < 20 && daySelected!=15) {
-				corte = 15;
+				corte = daySelected;
 				$("#standby").val(1);
 				if (daySelected > 10 && daySelected < 15) {						
 					var lfdayc15 = 15 - daySelected;
@@ -2297,7 +2283,7 @@ if($_SESSION['role']=='cajero'){
 			}
 			if(leftDays==0) $("#standarServiceFlag").val(1);
 			if (daySelected >= 20 ) {
-				corte = 1;
+				corte = daySelected;
 				$("#standby").val(2);
 				var serviceValueFlag = false;
 				if ($("#left-day").is(":checked")) {
