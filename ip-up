@@ -906,6 +906,7 @@ else
 echo "None of the condition met"
 fi
 
+<<<<<<< HEAD
 if /sbin/ip route add 192.168.32.0/24 via 192.168.42.10 dev ppp2
 then
 echo "ok 192.168.32.0/24 ppp2"
@@ -913,12 +914,22 @@ elif /sbin/ip route add 192.168.32.0/24 via 192.168.42.10 dev ppp1
 then
 echo "ok 192.168.32.0/24 ppp1"
 elif /sbin/ip route add 192.168.32.0/24 via 192.168.42.10 dev ppp0
+=======
+if /sbin/ip route add 192.168.32.0/24 via 10.1.0.10 dev ppp2
+then
+echo "ok 192.168.32.0/24 ppp2"
+elif /sbin/ip route add 192.168.32.0/24 via 10.1.0.10 dev ppp1
+then
+echo "ok 192.168.32.0/24 ppp1"
+elif /sbin/ip route add 192.168.32.0/24 via 10.1.0.10 dev ppp0
+>>>>>>> cbe2e547e77f7a1aa89a0344960a701783097e7f
 then
 echo "ok 192.168.32.0/24 ppp0"
 else
 echo "None of the condition met"
 fi
 
+<<<<<<< HEAD
 if /sbin/ip route add 192.168.86.0/24 via 192.168.42.10 dev ppp2
 then
 echo "ok 192.168.86.0/24 ppp2"
@@ -926,12 +937,22 @@ elif /sbin/ip route add 192.168.86.0/24 via 192.168.42.10 dev ppp1
 then
 echo "ok 192.168.86.0/24 ppp1"
 elif /sbin/ip route add 192.168.86.0/24 via 192.168.42.10 dev ppp0
+=======
+if /sbin/ip route add 192.168.86.0/24 via 10.1.0.10 dev ppp2
+then
+echo "ok 192.168.86.0/24 ppp2"
+elif /sbin/ip route add 192.168.86.0/24 via 10.1.0.10 dev ppp1
+then
+echo "ok 192.168.86.0/24 ppp1"
+elif /sbin/ip route add 192.168.86.0/24 via 10.1.0.10 dev ppp0
+>>>>>>> cbe2e547e77f7a1aa89a0344960a701783097e7f
 then
 echo "ok 192.168.86.0/24 ppp0"
 else
 echo "None of the condition met"
 fi
 
+<<<<<<< HEAD
 if /sbin/ip route add 192.168.137.0/24 via 192.168.42.10 dev ppp0
 then
 echo "ok 192.168.137.0/24 ppp0"
@@ -939,6 +960,15 @@ elif /sbin/ip route add 192.168.137.0/24 via 192.168.42.10 dev ppp1
 then
 echo "ok 192.168.137.0/24 ppp1"
 elif /sbin/ip route add 192.168.137.0/24 via 192.168.42.10 dev ppp2
+=======
+if /sbin/ip route add 192.168.137.0/24 via 10.1.0.10 dev ppp0
+then
+echo "ok 192.168.137.0/24 ppp0"
+elif /sbin/ip route add 192.168.137.0/24 via 10.1.0.10 dev ppp1
+then
+echo "ok 192.168.137.0/24 ppp1"
+elif /sbin/ip route add 192.168.137.0/24 via 10.1.0.10 dev ppp2
+>>>>>>> cbe2e547e77f7a1aa89a0344960a701783097e7f
 then
 echo "ok 192.168.137.0/24 ppp2"
 else

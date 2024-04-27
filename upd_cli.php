@@ -53,7 +53,7 @@ if($_POST['idClient']) {
 					}	
 					
 					elseif($source=="suspender"){
-						$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`=1 WHERE `afiliados`.`id`=$idClient";
+						$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`=1,`afiliados`.`shutoffpending`= 1   WHERE `afiliados`.`id`=$idClient";
 						//echo $sqlUpd;
 						if($result2 = $mysqli->query($sqlUpd)){						
 							echo "Suspensión de servicio con éxito!!";	

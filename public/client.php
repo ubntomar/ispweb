@@ -1298,7 +1298,7 @@ if($_SESSION['role']=='cajero'){
 			alertify.confirm("Desea enviar mensaje de texto a cliente moroso?",
 				function() {
 					var telefono = $(".telefono" + id).val();
-					var smsText = "Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio. www.ispexperts.com";
+					var smsText = "Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cra 9#13-11 Guamal Meta y evite suspensión del servicio. www.ispexperts.com";
 
 					$.post("../smst.php", {
 							telefono: telefono,
@@ -1331,7 +1331,7 @@ if($_SESSION['role']=='cajero'){
 				function() {
 
 					var telefono = $(".telefonoAtrasado" + id).val();
-					var smsText = "Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio. www.ispexperts.com";
+					var smsText = "Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cra 9#13-11 Guamal Meta y evite suspensión del servicio. www.ispexperts.com";
 					$.post("../smst.php", {
 							telefono: telefono,
 							msj: smsText
@@ -1361,7 +1361,7 @@ if($_SESSION['role']=='cajero'){
 			alertify.confirm("Desea enviar mensaje de texto a cliente Corte 15 atrasado?",
 				function() {
 					var telefono = $(".telefonoAtrasadoc15" + id).val();
-					var smsText = "Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite suspensión del servicio. www.ispexperts.com";
+					var smsText = "Estimado Usario su factura de Internet está vencida favor acercarce a la oficina Cra 9#13-11 Guamal Meta y evite suspensión del servicio. www.ispexperts.com";
 					$.post("../smst.php", {
 							telefono: telefono,
 							msj: smsText
