@@ -65,11 +65,11 @@ $htmlObject=new Html();
                                     <tr>
                                         <th>Nombre Titular</th>
                                         <th>Dirección</th>
-                                        <th>Antiguedad en meses</th>
+                                        <th>Cédula</th>
                                         <th>Saldo</th>
                                         <th>Fecha de Ingreso</th>
                                         <th>Corte</th>
-                                        <th>Cedula Titular</th>
+                                        <th>Modificar Cedula</th>
                                         <th>Telefono</th>
                                     </tr>
                                 </thead>
@@ -188,7 +188,7 @@ $htmlObject=new Html();
                                     else $textVerified="";
                                     $style = "border-info text-danger ";
                                     $statusText = 
-                                    "<div><small class=\"px-1 border $style rounded \">Cortado:$d $suspenderStatus </small>$textVerified</div>"; 
+                                    "<div><small class=\"px-1 border $style rounded \">Orden es CORTAR Se insiste  $d Resultado: $suspenderStatus </small>$textVerified</div>"; 
                                 }
                                 $textCedula = $cedula;
                                 if ($cedula == 0) {
@@ -208,7 +208,7 @@ $htmlObject=new Html();
                                 echo "<tr class=\"text-center  \">";
                                 echo "<td class=\" font-weight-bold\"> {$row["cliente"]}  {$row["apellido"]} $statusText $reconectedBox</td>";
                                 echo "<td><small>{$row["direccion"]} {$row["ciudad"]} -{$row['id']}</small></td>";  
-                                echo "<td>$diff</td>";
+                                echo "<td><small>C.C: {$row["cedula"]} Tel: {$row["telefono"]}</small></td>";
                                 if($convenio){ 
                                     if($clientWidthConvenio){
                                         echo "<td><small 	$style_cell  >$$vtotal</small><div><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money h3\"></i></a></div><div class=\"p-1 border border-secondary rounded \"><p class=\"mb-0 text-secondary\"><small>Billetera</small></p><p class=\"mb-0 text-secondary\"><small>($".number_format($row["wallet-money"]).")</small></p></div></td>";//
@@ -584,7 +584,7 @@ $(document).ajaxComplete(function() {
             strPrompt1 = "Presione enter para continuar";
             strPrompt2 = "";
         }
-        /*alertify.prompt(strPrompt1, strPrompt2, "",
+        alertify.prompt(strPrompt1, strPrompt2, "",
             function(evt, value) {
                 var vplanRow = parseInt($("#valor-plan").html().replace(/[^0-9]/gi, ''));
                 console.log("valor del plan:" + vplanRow);
@@ -693,8 +693,8 @@ $(document).ajaxComplete(function() {
             },
             function() {
                 alertify.error('Error,problema con valor de efectivo!');
-            });;**/
-       // $('#payModal').modal('hide');
+            });
+       $('#payModal').modal('hide');
     });
 })
 </script>

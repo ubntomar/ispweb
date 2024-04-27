@@ -41,7 +41,7 @@ if($rs=$mysqli->query($sql)){
     $rs->free();
 }
 print "\n\n\n***********************************************************************************\n\n\n";
-$sql="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `shutoffpending`= 1 AND `suspender`= 1   AND `eliminar`=0 AND `id-repeater-subnets-group` != 0"; 
+$sql="SELECT * FROM `redesagi_facturacion`.`afiliados` WHERE  `shutoffpending`= 1 AND `suspender`=1   AND `eliminar`=0 AND `id-repeater-subnets-group` != 0"; 
 if($rt=$mysqli->query($sql)){
     if($rt->num_rows){
         while($row=$rt->fetch_assoc()){

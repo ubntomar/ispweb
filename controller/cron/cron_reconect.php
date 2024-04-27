@@ -72,7 +72,7 @@ $rt->free();
 function removeIpFromMorososList($remove,$ip,$today,$hourMin,$mysqli,$id){
     if($remove==1){
        print "\n\n\n$today-$hourMin: Ip: $ip removida con éxito\n\n\n\n";
-       $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0', `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='0', `afiliados`.`reconected-date`='$today', `afiliados`.`suspenderFecha`= NULL  WHERE `afiliados`.`id`='$id'";
+       $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0',`afiliados`.`shutoff_order`='pending', `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='0', `afiliados`.`reconected-date`='$today', `afiliados`.`suspenderFecha`= NULL  WHERE `afiliados`.`id`='$id'";
     }
     if($remove==2){
         print "$today-$hourMin: Dirección Ip $ip o Lista  de morosos no existe! . !\n";

@@ -26,7 +26,7 @@ $convertdate = date("d-m-Y", strtotime($today));
 $hourMin = date('H:i');
 $usuario = $_SESSION['username'];
 $response="";
-$descuento=0;//Mysql strict mode dont accept ''     // vap $vap  vaa $vaa vad $vad vpl $vpl
+$descuento=0;//Mysql strict mode dont accept ''     // vap $vap  vaa $vaa vad $vad vpl $vpl//
 $idtransaccion=0;
 $debug=0;
 if($debug == 1){

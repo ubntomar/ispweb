@@ -59,3 +59,6 @@ db_redesagi.tar.gz  must be converted to zip on the PC.
 
 
 IP-up debe ser reconstruido en el servidor en producción
+
+
+Después de modificar el archivo composer.json, debes ejecutar composer dump-autoload en la terminal	
