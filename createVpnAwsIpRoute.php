@@ -23,7 +23,7 @@ if ($val) {
                 if( $result=$mysqli->query($sql) ){
                         $nombreEmpresa=$result->fetch_assoc()['nombre'];
                         system('clear');
-                        print "\n\n   \t\t\t\t\t  Bienvenido $nombreEmpresa, No olvides  reiniciar el L2tp server  y esperar q levanten los pppx! :sudo /etc/init.d/xl2tpd stop\n\n";
+                        print "\n\n   \t\t\t\t\t  Bienvenido $nombreEmpresa, No olvides  reiniciar el L2tp server  y esperar q levanten los pppx! :\n\n";
                         $validInitParams=true;
                         $result->free();
                 }

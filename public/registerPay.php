@@ -58,6 +58,8 @@ $htmlObject=new Html();
                             <form style="display: hidden" action="../printable.php" method="POST" id="form">
                                 <input type="hidden" id="idt" name="idt" value="0" />
                                 <input type="hidden" id="rpp" name="rpp" value="register-pay" />
+                                <input type="hidden" id="raw" name="raw" value="" />
+                                <input type="hidden" id="debug" name="debug" value="0" />
                             </form>
                             <table id="clientList" class="display compact stripe cell-border" cellspacing="0"
                                 width="100%">
@@ -65,11 +67,11 @@ $htmlObject=new Html();
                                     <tr>
                                         <th>Nombre Titular</th>
                                         <th>Dirección</th>
-                                        <th>Antiguedad en meses</th>
+                                        <th>Cédula</th>
                                         <th>Saldo</th>
                                         <th>Fecha de Ingreso</th>
                                         <th>Corte</th>
-                                        <th>Cedula Titular</th>
+                                        <th>Modificar Cedula</th>
                                         <th>Telefono</th>
                                     </tr>
                                 </thead>
@@ -188,7 +190,7 @@ $htmlObject=new Html();
                                     else $textVerified="";
                                     $style = "border-info text-danger ";
                                     $statusText = 
-                                    "<div><small class=\"px-1 border $style rounded \">Cortado:$d $suspenderStatus </small>$textVerified</div>"; 
+                                    "<div><small class=\"px-1 border $style rounded \">Orden es CORTAR Se insiste  $d Resultado: $suspenderStatus </small>$textVerified</div>"; 
                                 }
                                 $textCedula = $cedula;
                                 if ($cedula == 0) {
@@ -208,7 +210,7 @@ $htmlObject=new Html();
                                 echo "<tr class=\"text-center  \">";
                                 echo "<td class=\" font-weight-bold\"> {$row["cliente"]}  {$row["apellido"]} $statusText $reconectedBox</td>";
                                 echo "<td><small>{$row["direccion"]} {$row["ciudad"]} -{$row['id']}</small></td>";  
-                                echo "<td>$diff</td>";
+                                echo "<td><small>C.C: {$row["cedula"]} Tel: {$row["telefono"]}</small></td>";
                                 if($convenio){ 
                                     if($clientWidthConvenio){
                                         echo "<td><small 	$style_cell  >$$vtotal</small><div><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money h3\"></i></a></div><div class=\"p-1 border border-secondary rounded \"><p class=\"mb-0 text-secondary\"><small>Billetera</small></p><p class=\"mb-0 text-secondary\"><small>($".number_format($row["wallet-money"]).")</small></p></div></td>";//
@@ -227,7 +229,7 @@ $htmlObject=new Html();
                                 // echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small><input type=\"text\" value=\"\" placeholder=\"$ip\" id=\"{$row['id']}\"
                                 // class=\"form-control form-control-sm ml-1\"></small></p><button v-on:click=\"ipUpdate({$row['id']})\" class=\"border border-rounded icon-arrows-ccw\"></button> 
                                 // <p class=\"mb-0\"><small>$pingCurrentStatus</small></p></div></td>";   
-                                echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small>ip:'$ip'</small></p><p class=\"mb-0\"><small>$pingCurrentStatus -</small></p><p class=\"mb-0\"><small>Antena: $sshLoginType</small></p><p class=\"mb-0\"><small>Señal:$signal</small></p></div></td>"; ///$sshLoginType   
+                                echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small>ip:'$ip'</small></p><p class=\"mb-0\"><small>$pingCurrentStatus -</small></p><p class=\"mb-0\"><small>Receptor: $sshLoginType</small></p><p class=\"mb-0\"><small>Señal:$signal</small></p></div></td>"; ///$sshLoginType   
                                 echo "<td class=\" align-middle \"><small>C-" . $row["corte"] . "*$standby</small><p><small>$idGRoup</small></p></td>";
                                 echo "<td class=\" align-middle \">$textCedula</td>"; 
                                 echo "<td class=\" align-middle \">$textTelefono</td>";          
@@ -685,6 +687,8 @@ $(document).ajaxComplete(function() {
                             console.log("data:"+data+"-msj:"+msj+"-code:"+cod);
                             alertify.success(msj);
                             $("#idt").val(cod); 
+                            $("#raw").val(data); 
+                            $("#debug").val(0); 
                             $("#form").submit();       
                         }
                     });
@@ -694,7 +698,10 @@ $(document).ajaxComplete(function() {
             function() {
                 alertify.error('Error,problema con valor de efectivo!');
             });
+
+
         $('#payModal').modal('hide');
+
     });
 })
 </script>
