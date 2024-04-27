@@ -41,7 +41,7 @@ $convertdate = date("d-m-Y", strtotime($today));
 $user="aws";
 $file = '/tmp/cron/logs.txt';
 $user="aws";
-$messageToOnurix="Estimado Usario su factura de Internet esta vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite SUSPENSION del servicio.";
+$messageToOnurix="Estimado Usario su factura de Internet esta vencida favor acercarce a la oficina Cra 9#13-11 Guamal Meta y evite SUSPENSION del servicio.";
 $smsApiKey=$smsKey;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 $diaDeCorte = $currentDay;

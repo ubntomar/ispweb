@@ -21,11 +21,15 @@
 	if(($_POST['idt'])&&($_POST['rpp'])) {
 		$idt = mysqli_real_escape_string($mysqli, $_REQUEST['idt']);
 		$rpp = mysqli_real_escape_string($mysqli, $_REQUEST['rpp']);
-
+		$raw = mysqli_real_escape_string($mysqli, $_REQUEST['raw']);
+		$debug = mysqli_real_escape_string($mysqli, $_REQUEST['debug']);
+		if ($debug==1)
+			$debug="debug:".$raw;
 	}
 	if($_GET['idt']) {
 		$idt =$_GET['idt'];
 		$rpp =0;
+		
 	}
  
  ?>
@@ -108,7 +112,7 @@
 </head>
 <body>
 <?php 
-//echo "transaccion: $idt  origen: $rpp".".php";
+echo "transaccion: $idt  origen: $rpp".".php";
 $sql="SELECT * FROM `transacciones` WHERE `idtransaccion` = $idt ORDER BY `idtransaccion` DESC ";
 if ($result = $mysqli->query($sql)) {
 	$rowf = $result->fetch_assoc();
@@ -144,7 +148,7 @@ else
       <div class="modal-body mod-body">
        <div class="width-fact px-0 mx-0">
 			<div class="text-center title">
-				<p>AG INGENIERIA WIST</p>
+				<p>AG INGENIERIA WIST <?php echo $debug;  ?></p>
 				<p>Nit 40.434.575-1</p>
 			</div>	
 

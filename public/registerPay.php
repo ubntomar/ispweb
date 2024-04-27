@@ -58,6 +58,8 @@ $htmlObject=new Html();
                             <form style="display: hidden" action="../printable.php" method="POST" id="form">
                                 <input type="hidden" id="idt" name="idt" value="0" />
                                 <input type="hidden" id="rpp" name="rpp" value="register-pay" />
+                                <input type="hidden" id="raw" name="raw" value="" />
+                                <input type="hidden" id="debug" name="debug" value="0" />
                             </form>
                             <table id="clientList" class="display compact stripe cell-border" cellspacing="0"
                                 width="100%">
@@ -227,7 +229,7 @@ $htmlObject=new Html();
                                 // echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small><input type=\"text\" value=\"\" placeholder=\"$ip\" id=\"{$row['id']}\"
                                 // class=\"form-control form-control-sm ml-1\"></small></p><button v-on:click=\"ipUpdate({$row['id']})\" class=\"border border-rounded icon-arrows-ccw\"></button> 
                                 // <p class=\"mb-0\"><small>$pingCurrentStatus</small></p></div></td>";   
-                                echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small>ip:'$ip'</small></p><p class=\"mb-0\"><small>$pingCurrentStatus -</small></p><p class=\"mb-0\"><small>Antena: $sshLoginType</small></p><p class=\"mb-0\"><small>Señal:$signal</small></p></div></td>"; ///$sshLoginType   
+                                echo "<td><small>$registration_date</small><div class=\"border border-info rounded p-1 bg-white\"><p class=\"mb-0\"><small>ip:'$ip'</small></p><p class=\"mb-0\"><small>$pingCurrentStatus -</small></p><p class=\"mb-0\"><small>Receptor: $sshLoginType</small></p><p class=\"mb-0\"><small>Señal:$signal</small></p></div></td>"; ///$sshLoginType   
                                 echo "<td class=\" align-middle \"><small>C-" . $row["corte"] . "*$standby</small><p><small>$idGRoup</small></p></td>";
                                 echo "<td class=\" align-middle \">$textCedula</td>"; 
                                 echo "<td class=\" align-middle \">$textTelefono</td>";          
@@ -685,6 +687,8 @@ $(document).ajaxComplete(function() {
                             console.log("data:"+data+"-msj:"+msj+"-code:"+cod);
                             alertify.success(msj);
                             $("#idt").val(cod); 
+                            $("#raw").val(data); 
+                            $("#debug").val(0); 
                             $("#form").submit();       
                         }
                     });

@@ -30,7 +30,7 @@ $convertdate = date("d-m-Y", strtotime($today));
 $user="aws";
 $file = '/tmp/cron/logs.txt';
 $user="aws";
-$messageToOnurix="Estimado Usario su factura de Internet esta vencida favor acercarce a la oficina Cll 13 8-47 Guamal Meta y evite SUSPENSION del servicio.";
+$messageToOnurix="Estimado Usario su factura de Internet esta vencida favor acercarce a la oficina Cra 9#13-11 Guamal Meta y evite SUSPENSION del servicio.";
 $smsApiKey=$smsKey;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 $diaDeCorte = $currentDay;
@@ -41,28 +41,33 @@ $anio = date('Y', strtotime($fechaCompleta));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////
-    $sqlSelect = "SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1 AND `corte`='$currentDay' ";
+    $sqlSelect = "SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1  ";
     $result = $mysqli->query($sqlSelect);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $id = $row["id"];
             $telefono = $row["telefono"];
             $diaCorte = $row["corte"];
-            $sqlSaldo="SELECT SUM(saldo) AS saldo_total FROM `factura` WHERE `id-afiliado` = $id  AND `cerrado`=0    ";
-            $resultSaldo = $mysqli->query($sqlSaldo);
-            $rowSaldo = $resultSaldo->fetch_assoc();
-            $saldoTotal = $rowSaldo["saldo_total"];
-            if($saldoTotal>0){
-                $fechaCorte = date("Y-m-d", strtotime("$currentYear-$currentMonth-$diaCorte"));
-                $fechaEjecucion = date("Y-m-d", strtotime("$fechaCorte -3 days"));// Calcular la fecha de ejecución restando tres días
-                if (date("Y-m-d") == $fechaEjecucion) {
-                    echo "Ejecutando tarea...";
-                    $sms= sendSms(["idClient"=>"$id","phone"=>"$telefono"],$messageToOnurix,$smsApiKey)["status"];
-                    print "\n sms:$sms";
-                }else{
-                    echo "No es la fecha de ejecución";
+            echo "id:$id telefono:$telefono diaCorte:$diaCorte\n";
+            if($diaCorte!=15 && $diaCorte!=1){
+                $sqlSaldo="SELECT SUM(saldo) AS saldo_total FROM `factura` WHERE `id-afiliado` = $id  AND `cerrado`=0    ";
+                $resultSaldo = $mysqli->query($sqlSaldo);
+                $rowSaldo = $resultSaldo->fetch_assoc();
+                $saldoTotal = $rowSaldo["saldo_total"];
+                if($saldoTotal>0){
+                    $fechaCorte = date("Y-m-d", strtotime("$currentYear-$currentMonth-$diaCorte"));
+                    $fechaEjecucion = date("Y-m-d", strtotime("$fechaCorte -3 days"));// Calcular la fecha de ejecución restando tres días
+                    if (date("Y-m-d") == $fechaEjecucion) {
+                        echo "Ejecutando tarea...";
+                        $sms= sendSms(["idClient"=>"$id","phone"=>"$telefono"],$messageToOnurix,$smsApiKey)["status"];
+                        print "\n sms:$sms";
+                    }else{
+                        echo "No es la fecha de ejecución";
+                    }
+                    
                 }
-                
+            }else{
+                echo "\nEl día de corte de momento  no es válido por compatibilidad con versiones anteriores\n";
             }
     
         }
