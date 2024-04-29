@@ -195,7 +195,7 @@ if($_POST['rowid']){
 					  </div> 
 					<div>
 						<p>-</p>
-						<p class=\"text-info font-weight-bold font-italic\">email:
+						<p class=\"text-info font-weight-bold font-italic\">Actualizar email:
 						<input class=\"form-control\" id=\"emailInput\" value=\"$email\" placeholder=\"Ingrese email por favor\" >
 						</p>
 					</div>

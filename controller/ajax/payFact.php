@@ -48,30 +48,31 @@ if(($_POST["rec"])){
 	
 	$rec = mysqli_real_escape_string($mysqli, $_REQUEST['rec']);
 	if($rec){
-		
 		$idc = mysqli_real_escape_string($mysqli, $_REQUEST['idc']);
-		$sql_client_id = "select * from redesagi_facturacion.afiliados where `id`=$idc ";
-		$result = mysqli_query($mysqli, $sql_client_id) or die('error encontrando el cliente');
-		$db_field = mysqli_fetch_assoc($result);
-		$ip=$db_field['ip'];
-		//$data=areaCode($ip);
-		$nombre=$db_field['cliente'];
+
+		// $sql_client_id = "select * from redesagi_facturacion.afiliados where `id`=$idc ";
+		// $result = mysqli_query($mysqli, $sql_client_id) or die('error encontrando el cliente');
+		// $db_field = mysqli_fetch_assoc($result);
+		// $ip=$db_field['ip'];
+		// //$data=areaCode($ip);
+		// $nombre=$db_field['cliente'];
 		
-		$vpnObject2=new VpnUtils($server, $db_user, $db_pwd, $db_name);  
+		// $vpnObject2=new VpnUtils($server, $db_user, $db_pwd, $db_name);  
 		
-        $idGroup=$vpnObject2->updateGroupId($idc,$ip); 
+        // $idGroup=$vpnObject2->updateGroupId($idc,$ip); 
 		
-        $serverIp=$vpnObject2->getServerIp($idGroup);
+        // $serverIp=$vpnObject2->getServerIp($idGroup);
 		
-		$mkobj=new Mkt($serverIp,$vpnUser,$vpnPassword);
+		// $mkobj=new Mkt($serverIp,$vpnUser,$vpnPassword);
 		
-		if($mkobj->success){
+		if(false){//$mkobj->success
 			//echo "Conectado a la Rboard cod Server-target-> {{$data['server']}}";
-			removeIp($mkobj->remove_ip($ip,'morosos'),$idc,$mysqli,$ip,$today,$hourMin);   
+			//removeIp($mkobj->remove_ip($ip,'morosos'),$idc,$mysqli,$ip,$today,$hourMin);   
 			    
 		}else {
 			$txt= "-$today-$hourMin  No fue posible conectar a la Rboard 1, reconectar pendiente";
 			$sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0' , `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='1'  WHERE `afiliados`.`id`= '$idc' ";
+			//$txt.= "\n-$sqlUpd\n";
 			if($result2 = $mysqli->query($sqlUpd)){					
 			}else{
 				$txt.= "-Error al actualizar cliente Mysql `shutoffpending`=1\n";	
@@ -114,9 +115,15 @@ if (($_POST['vap'] >= 0) || ($debug == 1)) { //paga todo	//paga todo   //paga to
 			if ($vap != 0) { //Insert Recaudo x todas factura
 					$sqlin = "INSERT INTO `redesagi_facturacion`.`recaudo` (`idrecaudo`, `idfactura`, `fecha-hoy`, `hora`, `notas`, `valorp`, `abonar`, `vendedor`) VALUES (NULL, '$idFactura', '$today', '$hourMin', 'nota', '$saldo', '0', '$usuario');";
 					//Update todas factura
-					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '0', `cerrado` = '1', `fecha-pago` = '$today', `fecha-cierre` = '$today', `vencidos` = '0', `valorp` = '$vpl', `descuento` = '0' WHERE `factura`.`id-factura` = $idFactura ";
+					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '0', `cerrado` = '1', `fecha-pago` = '$today', `fecha-cierre` = '$today', `vencidos` = '0', `valorp` = '$vpl', `descuento` = '0' , `idtransaccion` = $last_id_tra WHERE `factura`.`id-factura` = $idFactura ";
 					if ($mysqli->query($sqlin) === TRUE) {
 						if ($mysqli->query($sqlup) === TRUE) {
+
+							$sqltrsnupda = "UPDATE `redesagi_facturacion`.`transacciones` SET `transacciones`.`id-factura` = $idFactura WHERE  `idtransaccion` = $last_id_tra ";
+							if (!$mysqli->query($sqltrsnupda) === TRUE) {
+							$response= "error en: $sqltrsnupda";
+							}
+
 							if ($cnt == $row_cnt)
 							$response= "Pago realizado con exito!/" . $last_id_tra;
 							else
@@ -127,6 +134,10 @@ if (($_POST['vap'] >= 0) || ($debug == 1)) { //paga todo	//paga todo   //paga to
 					} else {
 						$response= "Error Factura: " . $sqlin . "<br>" . $mysqli->error;
 					}
+					
+					
+
+
 					$vap -= $saldo;
 				}
 		}
@@ -255,6 +266,10 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 					//echo "\n : $sqlup";
 					if ($mysqli->query($sqlin) === TRUE) {
 						if ($mysqli->query($sqlup) === TRUE) {
+							$sqltrsnupda = "UPDATE `redesagi_facturacion`.`transacciones` SET `transacciones`.`id-factura` = $idFactura WHERE  `idtransaccion` = $last_id_tra ";
+							if (!$mysqli->query($sqltrsnupda) === TRUE) {
+							$response= "error en: $sqltrsnupda";
+							}
 							if ($cnt == $row_cnt)
 							$response= "Pago realizado con exito!/" . $last_id_tra;
 							else
@@ -284,6 +299,12 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 						$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '0', `cerrado` = '1', `fecha-pago` = '$today', `fecha-cierre` = '$today', `vencidos` = '0', `descuento` = '$saldo', `idtransaccion` = '$last_id_tra' WHERE `factura`.`id-factura` = $idFactura ";
 						//echo "\n 199:$sqlup";
 						if ($mysqli->query($sqlup) === TRUE) {
+
+							$sqltrsnupda = "UPDATE `redesagi_facturacion`.`transacciones` SET `transacciones`.`id-factura` = $idFactura WHERE  `idtransaccion` = $last_id_tra ";
+							if (!$mysqli->query($sqltrsnupda) === TRUE) {
+							$response= "error en: $sqltrsnupda";
+							}
+							
 							if ($cnt == $row_cnt)
 							$response="Pago realizado con exito!/" . $last_id_tra;
 							else
