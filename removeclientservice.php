@@ -32,7 +32,7 @@ if ($_POST['datos']||$debug) {
     foreach ($idarray as $id) {
         //suspender=1
         //shutoffpending=1 
-        $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='1'  WHERE `afiliados`.`id`='$id'";
+        $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='1', `afiliados`.`reconectPending`='0', `afiliados`.`suspenderFecha`='$today'  WHERE `afiliados`.`id`='$id'";
         if($result2 = $mysqli->query($sqlUpd)){					
         }
         else{

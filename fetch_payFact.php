@@ -97,7 +97,7 @@ if (($_POST['vap'] >= 0) || ($debug == 1)) { //paga todo	//paga todo   //paga to
 			if ($vap != 0) { //Insert Recaudo x todas factura
 					$sqlin = "INSERT INTO `redesagi_facturacion`.`recaudo` (`idrecaudo`, `idfactura`, `fecha-hoy`, `hora`, `notas`, `valorp`, `abonar`, `vendedor`) VALUES (NULL, '$idFactura', '$today', '$hourMin', 'nota', '$saldo', '0', '$usuario');";
 					//Update todas factura
-					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '0', `cerrado` = '1', `fecha-pago` = '$today', `fecha-cierre` = '$today', `vencidos` = '0', `valorp` = '$vpl', `descuento` = '0' WHERE `factura`.`id-factura` = $idFactura ";
+					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '0', `cerrado` = '1', `fecha-pago` = '$today', `fecha-cierre` = '$today', `vencidos` = '0', `valorp` = '$vpl', `descuento` = '0' , `idtransaccion` = '$last_id_tra' WHERE `factura`.`id-factura` = $idFactura ";
 					if ($mysqli->query($sqlin) === TRUE) {
 						if ($mysqli->query($sqlup) === TRUE) {
 							if ($cnt == $row_cnt)
@@ -283,6 +283,10 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 	} else {
 		echo "Error <br>" . $mysqli->error;
 	}
+
+
+
+
 }
 
 function removeIp($remove,$idc,$mysqli,$ip,$today,$hourMin){      
