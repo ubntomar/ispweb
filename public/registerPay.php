@@ -698,7 +698,10 @@ $(document).ajaxComplete(function() {
             function() {
                 alertify.error('Error,problema con valor de efectivo!');
             });
-       $('#payModal').modal('hide');
+
+
+        $('#payModal').modal('hide');
+
     });
 })
 </script>
