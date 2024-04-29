@@ -1,0 +1,8 @@
+-2024-04-29-09:30  No fue posible conectar a la Rboard 1, reconectar pendiente
+-2024-04-29-09:33  No fue posible conectar a la Rboard 1, reconectar pendiente
+-UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0' , `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='1'  WHERE `afiliados`.`id`= '' 
+
+-2024-04-29-09:34  No fue posible conectar a la Rboard 1, reconectar pendiente
+-UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0' , `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='1'  WHERE `afiliados`.`id`= '1' 
+
+-2024-04-29-10:16  No fue posible conectar a la Rboard 1, reconectar pendiente

@@ -62,3 +62,12 @@ IP-up debe ser reconstruido en el servidor en producción
 
 
 Después de modificar el archivo composer.json, debes ejecutar composer dump-autoload en la terminal	
+
+
+Pdte incluir node-mail en el go_default docker configured networwk 
+nome mail key pdte add to container environment
+
+sudo docker run -d --name node-mail --network go_default -e "SENDGRID_API_KEY=your_api_key" node-image  (ajustr en dockerf...)
+
+
+ajaax/cutlog o+w

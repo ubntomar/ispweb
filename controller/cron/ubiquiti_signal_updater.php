@@ -1,9 +1,38 @@
 <?php
 
-require("/var/www/ispexperts/PingTime.php");
-require("/var/www/ispexperts/Client.php");
-require("/var/www/ispexperts/controller/brand/Ubiquiti.php");
-require("/var/www/ispexperts/login/db.php");
+
+
+
+if (file_exists("/var/www/ispexperts/PingTime.php")) {
+    require("/var/www/ispexperts/PingTime.php");
+} else {
+    require("/home/omar/docker-work-area/go/ispweb/PingTime.php");
+}
+
+if (file_exists("/var/www/ispexperts/Client.php")) {
+    require("/var/www/ispexperts/Client.php");
+} else {
+    require("/home/omar/docker-work-area/go/ispweb/Client.php");
+}
+
+if (file_exists("/var/www/ispexperts/login/db.php")) {
+    require("/var/www/ispexperts/login/db.php");
+} else {
+    require("/home/omar/docker-work-area/go/ispweb/login/db.php");
+    $server="localhost:3306";
+}
+
+if (file_exists("/var/www/ispexperts/controller/brand/Ubiquiti.php")) {
+    require("/var/www/ispexperts/controller/brand/Ubiquiti.php");
+} else {
+    require("/home/omar/docker-work-area/go/ispweb/controller/brand/Ubiquiti.php");
+}
+
+
+
+
+
+
 date_default_timezone_set('America/Bogota');
 $date = new DateTime('NOW');
 $date->format('Y-m-d');
@@ -27,8 +56,9 @@ $UbiquitiCredentials[]=["user"=>"ubnt","password"=>"agwist2017"];
 $clientObject=new Client($server, $db_user, $db_pwd, $db_name);
 
 //$iid="AND (`id`='255' or `id`='258' or `id`='312' or `id`='802' or `id`='819' or `id`='883' or `id`='889' or `id`='905' or `id`='898' or `id`='908')";
-                                print $clientObject->updateClient($id,"signal-strenght",intval($signal),$operator="=");
-$sql="SELECT `id`,`ip` FROM `redesagi_facturacion`.`afiliados` WHERE `activo`='1' AND `eliminar`='0' AND `ssh-login-type`='ubiquiti' AND `signal-strenght`='0'  ORDER BY `id` ASC"; 
+//print $clientObject->updateClient($id,"signal-strenght",intval($signal),$operator="=");
+$cont=0;
+$sql="SELECT `id`,`ip` FROM `redesagi_facturacion`.`afiliados` WHERE `activo`='1' AND `eliminar`='0'   ORDER BY `id` ASC"; 
 if($result=$mysqli->query($sql)){
     while($row=$result->fetch_assoc()){
         print "\n {$row["id"]} {$row["ip"]} \t";
