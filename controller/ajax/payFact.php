@@ -102,12 +102,12 @@ if (($_POST['vap'] >= 0) || ($debug == 1)) { //paga todo	//paga todo   //paga to
 	}
 	$sql = "SELECT * FROM `factura`  WHERE `factura`.`id-afiliado`='$idc' AND `factura`.`cerrado`='0'  ORDER BY `factura`.`id-factura` ASC";
 	$vtotal = 0;
-	$row_cnt = 0;
+	$total_facturas = 0;
 	if ($result = $mysqli->query($sql)) {
-		$row_cnt = $result->num_rows;
-		$cnt = 0;
+		$total_facturas = $result->num_rows;
+		$contador_de_facturas = 0;
 		while ($rowf = $result->fetch_assoc()) {
-			$cnt += 1;
+			$contador_de_facturas += 1;
 			$idFactura = $rowf["id-factura"];
 			$periodo = $rowf["periodo"];
 			$saldo = $rowf["saldo"];
@@ -118,16 +118,13 @@ if (($_POST['vap'] >= 0) || ($debug == 1)) { //paga todo	//paga todo   //paga to
 					$sqlup = "UPDATE `redesagi_facturacion`.`factura` SET `saldo` = '0', `cerrado` = '1', `fecha-pago` = '$today', `fecha-cierre` = '$today', `vencidos` = '0', `valorp` = '$vpl', `descuento` = '0' , `idtransaccion` = $last_id_tra WHERE `factura`.`id-factura` = $idFactura ";
 					if ($mysqli->query($sqlin) === TRUE) {
 						if ($mysqli->query($sqlup) === TRUE) {
-
 							$sqltrsnupda = "UPDATE `redesagi_facturacion`.`transacciones` SET `transacciones`.`id-factura` = $idFactura WHERE  `idtransaccion` = $last_id_tra ";
 							if (!$mysqli->query($sqltrsnupda) === TRUE) {
 							$response= "error en: $sqltrsnupda";
+							}else{
+								$response= "Pago realizado con exito!/" . $last_id_tra;
 							}
 
-							if ($cnt == $row_cnt)
-							$response= "Pago realizado con exito!/" . $last_id_tra;
-							else
-							$response= "error en: $sqlup";
 						} else {
 							$response= "Error Recaudo:" . $sqlup . "<br>" . $mysqli->error;
 						}
@@ -202,16 +199,13 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 
 	$sql = "SELECT * FROM `factura`  WHERE `factura`.`id-afiliado`='$idc' AND `factura`.`cerrado`='0'  ORDER BY `factura`.`id-factura` ASC ";
 	$vtotal = 0;
-	$cont = 0;
-	$row_cnt = 0;
+	$total_facturas = 0;
 	if ($result = $mysqli->query($sql)) {
-		$row_cnt = $result->num_rows;
+		$total_facturas = $result->num_rows;
 		$x = 0;
-		$cnt = 0;
+		$contador_de_facturas = 0;
 		while ($rowf = $result->fetch_assoc()) {
-				$cnt += 1;
-				//echo "\n $cnt:**********************INICIO******************************************\n";
-				$cont += 1;
+				$contador_de_facturas += 1;
 				$idFactura = $rowf["id-factura"];
 				$periodo = $rowf["periodo"];
 				$saldo = $rowf["saldo"]; //abono/deuda.
@@ -243,7 +237,7 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 					//echo "\n**************PAGO PARCIAL*****************\n";	
 					
 					if($descParcial!=-1){
-						if($descParcial==1 && $cnt==1 ){
+						if($descParcial==1 && $contador_de_facturas==1 ){
 							$descuento=$vad;
 						}
 						if($descParcial==1){
@@ -269,11 +263,10 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 							$sqltrsnupda = "UPDATE `redesagi_facturacion`.`transacciones` SET `transacciones`.`id-factura` = $idFactura WHERE  `idtransaccion` = $last_id_tra ";
 							if (!$mysqli->query($sqltrsnupda) === TRUE) {
 							$response= "error en: $sqltrsnupda";
+							}else{
+								$response= "Pago realizado con exito!/" . $last_id_tra;
 							}
-							if ($cnt == $row_cnt)
-							$response= "Pago realizado con exito!/" . $last_id_tra;
-							else
-								$response= "linea 248";
+							
 						} else {
 							$response= "Error Recaudo:" . $sqlup . "<br>" . $mysqli->error;
 						}
@@ -303,12 +296,10 @@ if (($_POST['vap'] < 0) || ($debug == 2)) { //abonar //abonar //abonar //abonar 
 							$sqltrsnupda = "UPDATE `redesagi_facturacion`.`transacciones` SET `transacciones`.`id-factura` = $idFactura WHERE  `idtransaccion` = $last_id_tra ";
 							if (!$mysqli->query($sqltrsnupda) === TRUE) {
 							$response= "error en: $sqltrsnupda";
+							}else{
+								$response="Pago realizado con exito!/" . $last_id_tra;
 							}
 							
-							if ($cnt == $row_cnt)
-							$response="Pago realizado con exito!/" . $last_id_tra;
-							else
-								echo "";
 						} else {
 							$response="Error Recaudo:" . $sqlup . "<br>" . $mysqli->error;
 						}
@@ -375,7 +366,7 @@ $responseEmail="";
 // }
 
 ///////END///////  
-$txt.= "res:$response";	
+$txt.= "$responres:se";	
 file_put_contents('cut.log', $txt.PHP_EOL , FILE_APPEND );
 echo "res:".$response;//."--enpoint $endPoint response email:$responseEmail $email $fullName $tokenToPaymentDone $idClient";//."response email:$responseEmail"  
 
