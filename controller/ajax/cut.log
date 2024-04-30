@@ -6,3 +6,5 @@
 -UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0' , `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='1'  WHERE `afiliados`.`id`= '1' 
 
 -2024-04-29-10:16  No fue posible conectar a la Rboard 1, reconectar pendiente
+-2024-04-30-14:52  No fue posible conectar a la Rboard 1, reconectar pendiente
+-2024-04-30-14:52  No fue posible conectar a la Rboard 1, reconectar pendiente:se
