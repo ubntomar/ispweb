@@ -6,8 +6,13 @@
 -UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='0' , `afiliados`.`shutoffpending`='0', `afiliados`.`reconectPending`='1'  WHERE `afiliados`.`id`= '1' 
 
 -2024-04-29-10:16  No fue posible conectar a la Rboard 1, reconectar pendiente
+<<<<<<< HEAD
 res:Pago realizado con exito!/21131
 res:Pago realizado con exito!/21132
 res:Pago realizado con exito!/21133
 res:Pago realizado con exito!/21134
 res:
+=======
+-2024-04-30-14:52  No fue posible conectar a la Rboard 1, reconectar pendiente
+-2024-04-30-14:52  No fue posible conectar a la Rboard 1, reconectar pendiente:se
+>>>>>>> 9ed5ac7bfc8e9a4f1976c8fa15c84efc19a2c603
