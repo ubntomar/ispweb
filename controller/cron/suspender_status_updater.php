@@ -20,7 +20,7 @@ $current = file_get_contents($file);
 $clientObject=new Client($server, $db_user, $db_pwd, $db_name);
 if ($result = $mysqli->query($sqlSearch)) {
     while($row = $result->fetch_assoc()) {
-        $listStatus=1;
+        $listStatus=0;
         $id=$row["id"];
         $name=$row["cliente"];
         $lastName=$row["apellido"];
@@ -36,23 +36,29 @@ if ($result = $mysqli->query($sqlSearch)) {
                 try{
                     if($mkobj=new Mkt($serverIp,$rb_server_default_user,$rb_default_password)){
                         if($mkobj->success){
-                            $listStatus= $mkobj->verifyList("morosos",$ipAddress)==true?1:0;
-                            if($listStatus)print "\nclient $id is already in list 'morosos'!\n";
-                            if(!$listStatus){
+                            $listStatus= $mkobj->verifyList("morosos",$ipAddress)?1:0;
+                            if($listStatus){    
+                                print "\nclient $id is already in list 'morosos'!\n";
+                                $date=$today;
+                            }else{
+                                print "\nclient $id is not in list 'morosos'!\n";
                                 //client must be inserted in 'morosos'!
                                 $res=$mkobj->add_address($ip=$ipAddress,$listName="morosos",$idUser=$id,$name,$lastName,$direccion=$address,$fecha=$convertdate); 
                                 if($res==1){
                                     print "\n \t\t\t\t\t$name $lastName Agregado a morosos con éxito \n";
                                     $current.="$id $name $lastName Agregado a morosos con éxito";
-                                    $listStatus=true;
+                                    $listStatus=1;
+                                    $date=$today;
                                 }else{
                                     print "\n \t\t\t\t\t$name $lastName NO FUE Agregado a morosos con éxito \n";
                                     $current.="$id $name $lastName NO FUE Agregado a morosos con éxito";
+                                    $listStatus=0;
+                                    $date=NULL;
                                 }
                             }
-                            $clientObject->updateClient($id,$param="suspender-list-status",$value=$listStatus,$operator="=");
+                            $clientObject->updateClient($id,$param="suspender-list-status",$listStatus,$operator="=");
                             if($listStatus){
-                                $clientObject->updateClient($id,$param="suspender-list-status-date",$value=$today,$operator="=");
+                                $clientObject->updateClient($id,$param="suspender-list-status-date",$date,$operator="=");
                             }
                         }else {
                             print "\t Fail connecting for $id";
