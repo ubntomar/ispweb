@@ -91,6 +91,7 @@ if(!$aplazar){
         while($row = $result->fetch_assoc()) {
             $id = $row["id"];
             $telefono = $row["telefono"];
+            $corteInDb = $row["corte"];
             $sqlSaldo="SELECT SUM(saldo) AS saldo_total FROM `factura` WHERE `id-afiliado` = $id  AND `cerrado`=0    ";
             $resultSaldo = $mysqli->query($sqlSaldo);
             $rowSaldo = $resultSaldo->fetch_assoc();
@@ -104,10 +105,17 @@ if(!$aplazar){
                 $sqlSelectSuspender = "SELECT * FROM `afiliados` WHERE  `id`=$id AND `suspender`=0 AND (`corte`!='1' OR `corte`!='15') ";
                 $resultSuspender = $mysqli->query($sqlSelectSuspender);
                 if ($resultSuspender->num_rows > 0) {
-                    $sqlSelectShutOffOrder = "SELECT * FROM `afiliados` WHERE  `id`=$id AND (`corte`='$currentDay' OR `shutoff_order`='pending') ";
+                    if($currentDay<=$corteInDb){
+                        $sqlText="`corte`='$currentDay'";
+                        print"\nPor corte=$currentDay\n";
+                    }else{
+                        $sqlText="`shutoff_order`='pending'";
+                        print"\nPor shutoff_order= pending\n";
+                    }
+                    $sqlSelectShutOffOrder = "SELECT * FROM `afiliados` WHERE  `id`=$id AND  $sqlText ";
                     $resultShutOffOrder = $mysqli->query($sqlSelectShutOffOrder);
                     if ($resultShutOffOrder->num_rows > 0) {
-                        $sqlUpdate = "UPDATE `afiliados` SET `shutoff_order` = 'completed', `suspender` = 1,`shutoffpending`= 1 WHERE id = $id";
+                        $sqlUpdate = "UPDATE `afiliados` SET `shutoff_order` = 'completed', `suspender` = 1,`shutoffpending`= 1,`reconectPending`= 0,`reconected-date`= NULL,`suspenderFecha`= '$today'  WHERE id = $id";
                         if ($mysqli->query($sqlUpdate) !== TRUE) {
                             echo "Error al actualizar el registro con ID: $id - " . $mysqli->error . "<br>";
                         }else{
