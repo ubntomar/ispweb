@@ -113,6 +113,8 @@
 <body>
 <?php 
 echo "transaccion: $idt  origen: $rpp".".php";
+$file_content= "transaccion: $idt  origen: $rpp".".php";
+file_put_contents('transaccion.log', $txt.PHP_EOL , FILE_APPEND );
 $sql="SELECT * FROM `transacciones` WHERE `idtransaccion` = $idt ORDER BY `idtransaccion` DESC ";
 if ($result = $mysqli->query($sql)) {
 	$rowf = $result->fetch_assoc();

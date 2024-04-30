@@ -77,7 +77,6 @@ if(($_POST["rec"])){
 			}else{
 				$txt.= "-Error al actualizar cliente Mysql `shutoffpending`=1\n";	
 			}
-			
 			file_put_contents('cut.log', $txt.PHP_EOL , FILE_APPEND );
 			
 		}
@@ -95,6 +94,7 @@ if (($_POST['vap'] >= 0) || ($debug == 1)) { //paga todo	//paga todo   //paga to
 		$vpl = mysqli_real_escape_string($mysqli, $_REQUEST['vpl']);
 	} 
 	$sqlins = "INSERT INTO `redesagi_facturacion`.`transacciones` (`idtransaccion`, `valor-recibido`, `valor-a-pagar`, `cambio`, `id-cliente`, `fecha`, `aprobado`, `hora`, `cajero`) VALUES (NULL, '$vre', '$vap', '$cam', '$idc', '$today', '', '$hourMin', '$usuario')";
+			
 	if ($mysqli->query($sqlins) === TRUE) {
 		$last_id_tra = $mysqli->insert_id;
 	} else {
@@ -362,18 +362,21 @@ if ( ($_POST['vap'] > 0) || ( $_POST['vaa'] > 0 ) ){
 $email=$walletObject->getClientItem($idClient,$item="mail");
 $emailRespone="el email NO es valido";
 $responseEmail="";
-if(($emailObj->emailValidate($email)) && $fullName){
-	$emailRespone="el email si es valido!";
-    if($responseEmail=$emailObj->emailAfterPayment($emailArray=[
-        "fullName"=> $fullName,
-        "template"=>$tokenToPaymentDone,
-        "idClient"=>$idClient,
-        "email"=>$email
-        ])){ 
-			$emailRespone=$responseEmail;   
-		}
-}
+// if(($emailObj->emailValidate($email)) && $fullName){
+// 	$emailRespone="el email si es valido!";
+//     if($responseEmail=$emailObj->emailAfterPayment($emailArray=[
+//         "fullName"=> $fullName,
+//         "template"=>$tokenToPaymentDone,
+//         "idClient"=>$idClient,
+//         "email"=>$email
+//         ])){ 
+// 			$emailRespone=$responseEmail;   
+// 		}
+// }
+
 ///////END///////  
+$txt.= "res:$response";	
+file_put_contents('cut.log', $txt.PHP_EOL , FILE_APPEND );
 echo "res:".$response;//."--enpoint $endPoint response email:$responseEmail $email $fullName $tokenToPaymentDone $idClient";//."response email:$responseEmail"  
 
 //
