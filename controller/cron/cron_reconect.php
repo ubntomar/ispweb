@@ -15,10 +15,9 @@ $current = file_get_contents($file);
 $current.="\nFilename:".basename(__FILE__, '.php')."  Date: $today $hourMin\n";
 file_put_contents($file, $current);
 print "\n".basename(__FILE__, '.php')." --archivo creado $today $hourMin!\n";
-$idEmpresa=1;//AG INGENIERIA GUAMAL-CASTILLA                    `reconected-date`='1999-01-01' => Mean Server dont respond and then it cant reconnect the service
 $groupArray=[];
 $mkobj=[];
-$sql="SELECT * FROM `vpn_targets` WHERE  `active`= 1 AND `id-empresa`= $idEmpresa ";
+$sql="SELECT * FROM `vpn_targets` WHERE  `active`= 1 AND `eliminar`= 0 ";
 if($rs=$mysqli->query($sql)){
     while($row=$rs->fetch_assoc()){
         $serverIp=$row["server-ip"];
@@ -52,12 +51,12 @@ if($rt=$mysqli->query($sql)){
                 print "\n\n\n Remover ip $ip {$row['cliente']}";
                 removeIpFromMorososList($mkobj[$idGroup]->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
             }else{
-                $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`reconected-date`='1999-01-01'   WHERE `afiliados`.`id`='$id'";
+                $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`reconected-date`=NULL  WHERE `afiliados`.`id`='$id'";
                 //print "\n $sqlUpd \n";
                 if(!$result2 = $mysqli->query($sqlUpd)){					
                     print"-Error al actualizar cliente Mysql"; 	
                 }else{
-                    print "\t `reconected-date`='1999-01-01'";
+                    print "\t `reconected-date`=NULL";
                 }
             
             }
