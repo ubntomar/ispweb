@@ -114,7 +114,7 @@ $htmlObject=new Html();
                                 if($row["ssh-login-type"]=="router")$signal=" NO APLICA";
                                 $pingDate=$row["pingDate"];
                                 $pingResponseTime=$row["ping"];
-                                $suspenderStatus= (  ($row["suspender-list-status"]==false) )?"FALSO!":"";
+                                $suspenderStatus= (  ($row["suspender-list-status"]==false) )?"FALSO!,algo pasa":"";
                                 $clientWidthConvenio=$row["convenio"];
                                 if($pingDate){
                                     if(($sincedexDays=get_date_diff( $pingDate, $today, 2 ))=="") $timeElapsed="Ultimo ping: Hoy"; else $timeElapsed="Ping Error desde hace $sincedexDays";
@@ -170,7 +170,7 @@ $htmlObject=new Html();
                                     $statusText = "<p><small class=\"px-1 border $style rounded \">Activo</small></p>";
                                 }
                                 if($reconectedDate&&$reconectedDate!="1999-01-01"&&$reconectedDate!=NULL){
-                                    $reconectedBox= "<div>ULTIMO REGISTRO RECONEXION:<small class=\"px-1 border border-primary text-success rounded \">$reconectedDate </small></div>";
+                                    $reconectedBox= "<div><small class=\"px-1 border border-primary text-success rounded \"> ULTIMO REGISTRO RECONEXION:$reconectedDate </small></div>";
                                 }else{
                                     $reconectedBox="";
                                 }
@@ -179,7 +179,7 @@ $htmlObject=new Html();
                                     $date1 = new DateTime($today);
                                     $date2 = new DateTime($row["suspenderFecha"]);
                                     $days  = $date2->diff($date1)->format('%a'); 
-                                    ($days==0)? $d="Hoy":$d="$days dias";
+                                    ($days==0)? $d="Hoy":$d=" hace $days dias";
                                     if($row["suspender-list-status-date"]){ 
                                         $date3 = new DateTime($row["suspender-list-status-date"]);
                                         $verifiedDays  = $date3->diff($date1)->format('%a'); 
@@ -190,7 +190,7 @@ $htmlObject=new Html();
                                     else $textVerified="";
                                     $style = "border-info text-danger ";
                                     $statusText = 
-                                    "<div><small class=\"px-1 border $style rounded \">Orden es CORTAR Se insiste  $d Resultado: $suspenderStatus </small>$textVerified</div>"; 
+                                    "<div><small class=\"px-1 border $style rounded \">Orden es CORTAR Se cumple orden  $d. Resultado: $suspenderStatus </small>$textVerified</div>"; 
                                 }
                                 $textCedula = $cedula;
                                 if ($cedula == 0) {
