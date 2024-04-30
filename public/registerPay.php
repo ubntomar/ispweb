@@ -169,8 +169,8 @@ $htmlObject=new Html();
                                     $style = "border-primary text-success ";
                                     $statusText = "<p><small class=\"px-1 border $style rounded \">Activo</small></p>";
                                 }
-                                if($reconectedDate){
-                                    $reconectedBox= $reconectedDate=="1999-01-01"? "<div><small class=\"px-1 border border-primary text-danger rounded \">Reconexión Fallida</small></div>":"<div>Reconectado<small class=\"px-1 border border-primary text-success rounded \">$reconectedDate </small></div>";
+                                if($reconectedDate&&$reconectedDate!="1999-01-01"&&$reconectedDate!=NULL){
+                                    $reconectedBox= "<div>ULTIMO REGISTRO RECONEXION:<small class=\"px-1 border border-primary text-success rounded \">$reconectedDate </small></div>";
                                 }else{
                                     $reconectedBox="";
                                 }
