@@ -17,7 +17,7 @@ file_put_contents($file, $current);
 print "\n".basename(__FILE__, '.php')." --archivo creado $today $hourMin!\n";
 $groupArray=[];
 $mkobj=[];
-$sql="SELECT * FROM `vpn_targets` WHERE  `active`= 1 AND `eliminar`= 0 ";
+$sql="SELECT * FROM `vpn_targets` WHERE  `active`= 1  ";
 if($rs=$mysqli->query($sql)){
     while($row=$rs->fetch_assoc()){
         $serverIp=$row["server-ip"];
@@ -47,7 +47,7 @@ if($rt=$mysqli->query($sql)){
             $ip=$row["ip"];
             $idGroup=$row["id-repeater-subnets-group"];
             print "\n{$row['cliente']} $id  idgrupo: $idGroup valor de groupArray {$groupArray[$idGroup]}\n";
-            if( $groupArray[$idGroup] ){
+            if( isset($groupArray[$idGroup]) ){
                 print "\n\n\n Remover ip $ip {$row['cliente']}";
                 removeIpFromMorososList($mkobj[$idGroup]->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
             }else{
