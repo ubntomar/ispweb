@@ -1,26 +1,40 @@
 
-Filename:cron_reconect  Date: 2024-04-27 08:00
+Filename:cron_reconect  Date: 2024-04-30 10:00
 
-Filename:cron_shut_off  Date: 2024-04-27 08:30
+Filename:cron_reconect  Date: 2024-04-30 10:30
 
-Filename:cron_reconect  Date: 2024-04-27 08:30
+Filename:curlTelegram  Date: 2024-04-30 11:45
 
-Filename:curlTelegram  Date: 2024-04-27 09:45
+Filename:curlTelegram  Date: 2024-04-30 12:00
 
-Filename:cron_reconect  Date: 2024-04-27 09:00
+Filename:cron_shut_off  Date: 2024-04-30 11:30
 
-Filename:curlTelegram  Date: 2024-04-27 10:00
+Filename:curlTelegram  Date: 2024-04-30 12:45
 
-Filename:cron_shut_off  Date: 2024-04-27 09:00
+Filename:curlTelegram  Date: 2024-04-30 13:00
 
-Filename:cron_shut_off  Date: 2024-04-27 09:30
+Filename:cron_shut_off  Date: 2024-04-30 12:00
 
-Filename:cron_reconect  Date: 2024-04-27 09:30
+Filename:cron_reconect  Date: 2024-04-30 12:00
 
-Filename:curlTelegram  Date: 2024-04-27 10:45
+Filename:cron_shut_off  Date: 2024-04-30 12:30
 
-Filename:cron_shut_off  Date: 2024-04-27 10:00
+Filename:curlTelegram  Date: 2024-04-30 13:45
 
-Filename:curlTelegram  Date: 2024-04-27 11:00
+Filename:curlTelegram  Date: 2024-04-30 14:00
 
-Filename:cron_reconect  Date: 2024-04-27 10:00
+Filename:cron_shut_off  Date: 2024-04-30 13:00
+
+Filename:cron_reconect  Date: 2024-04-30 13:00
+
+Filename:cron_reconect  Date: 2024-04-30 13:30
+
+Filename:curlTelegram  Date: 2024-04-30 14:45
+
+Filename:curlTelegram  Date: 2024-04-30 15:00
+
+Filename:cron_shut_off  Date: 2024-04-30 14:00
+
+Filename:cron_shut_off  Date: 2024-04-30 14:30
+
+Filename:curlTelegram  Date: 2024-04-30 15:45
