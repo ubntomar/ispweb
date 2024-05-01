@@ -114,7 +114,7 @@ $htmlObject=new Html();
                                 if($row["ssh-login-type"]=="router")$signal=" NO APLICA";
                                 $pingDate=$row["pingDate"];
                                 $pingResponseTime=$row["ping"];
-                                $suspenderStatus= (  ($row["suspender-list-status"]==false) )?"FALSO!,algo pasa":"";
+                                $suspenderStatus= (  ($row["suspender-list-status"]==false) )?"FALSO!,algo pasa.":"OK en lista morosos.";
                                 $clientWidthConvenio=$row["convenio"];
                                 if($pingDate){
                                     if(($sincedexDays=get_date_diff( $pingDate, $today, 2 ))=="") $timeElapsed="Ultimo ping: Hoy"; else $timeElapsed="Ping Error desde hace $sincedexDays";
