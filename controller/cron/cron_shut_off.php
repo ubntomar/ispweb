@@ -101,6 +101,10 @@ function addIp($response,$idClient,$mysqli,$today,$ip,$hourMin,$user,$id,$idGrou
     elseif($response==4){
         print "\n $today-$hourMin: $idClient: Ip $ip problemas al crear el objeto Mkt!  id-repeater-subnets-group:$idGroup  \n";
         var_dump($groupArray);
+        $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender-list-status`='0' , `afiliados`.`suspender-list-status-date`=NULL   WHERE `afiliados`.`id`='$idClient'";
+        if($result2 = $mysqli->query($sqlUpd)){						
+            print "\nError al actualizar cliente Mysql `shutoffpending`=0\n";	
+        }
     }
 }
  
