@@ -34,24 +34,30 @@ class Mkt
     public function remove_ip($ip,$addresList)
     {   
         
-        $printRequest = new RouterOS\Request('/ip/firewall/address-list/print');
-        $printRequest->setArgument('.proplist', '.id');
-        $printRequest->setQuery(RouterOS\Query::where('address', $ip)->andWhere('list', $addresList));
-        //var_dump($printRequest);
-        try{
-            $id = $this->client->sendSync($printRequest)->getProperty('.id');
-        } catch(Exception $e){
-            print "\n \t\t\t $e \n";
+        if ($this->client !== null) {
+            $printRequest = new RouterOS\Request('/ip/firewall/address-list/print');
+            $printRequest->setArgument('.proplist', '.id');
+            $printRequest->setQuery(RouterOS\Query::where('address', $ip)->andWhere('list', $addresList));
+    
+            try {
+                $id = $this->client->sendSync($printRequest)->getProperty('.id');
+            } catch (Exception $e) {
+                print "\n \t\t\t $e \n";
+            }
+    
+            if ($id == null) {
+                return 2;
+            } else {
+                $setRequest = new RouterOS\Request('/ip/firewall/address-list/remove');
+                $setRequest->setArgument('numbers', $id);
+                $this->client->sendSync($setRequest);
+            }
+    
+            return 1;
+        } else {
+            // Manejo de error si $this->client es null
+            throw new Exception("La conexión con el dispositivo no está establecida.");
         }
-        if ($id==NULL)
-            return 2;
-        else{
-            
-            $setRequest = new RouterOS\Request('/ip/firewall/address-list/remove');
-            $setRequest->setArgument('numbers', $id);
-            $this->client->sendSync($setRequest);
-        }
-    return 1;
                 
     }
     public function list_all() 
