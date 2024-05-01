@@ -123,6 +123,8 @@ class Mkt
             return 1;
         }            
         else{
+            echo "supuestamente ip ya existe en la lista morosos: res=";
+            var_dump($id);
             return 3;           
         }   
         } else {
