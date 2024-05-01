@@ -35,7 +35,7 @@ if($rs=$mysqli->query($sql)){
         }else {
             $groupArray+=array("$groupId"=>false);
             print "$serverIp $serverName $groupId $groupId grupo connwxion invalido! \n";
-            //print "\n error:{$mkobj[$groupId]->error} \n";   
+            print "\n error:{$mkobj[$groupId]->error} \n";   
         }
     }
     $rs->free();
@@ -56,7 +56,7 @@ if($rt=$mysqli->query($sql)){
             if( isset($groupArray[$idGroup]) ){
                 print "\n\n\n Agregar ip a lista 'morosos' $ip {$row['cliente']}";
                 try {
-                    addIP($mkobj[$idGroup]->add_address($ip,'morosos','idUserNumber:'.$id,$nombre,$apellido,$direccion,$fecha),$id,$mysqli,$today,$ip,$hourMin,$user,$id);//add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
+                    addIP($mkobj[$idGroup]->add_address($ip,'morosos','idUserNumber:'.$id,$nombre,$apellido,$direccion,$fecha),$id,$mysqli,$today,$ip,$hourMin,$user,$id,$idGroup,$groupArray[$idGroup]);//add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
                 }
                 catch (Exception $e){
                     echo 'Excepción capturada: '.$e->getMessage()."\n";
@@ -70,7 +70,7 @@ if($rt=$mysqli->query($sql)){
 $rt->free();    
 }   
     
-function addIp($response,$idClient,$mysqli,$today,$ip,$hourMin,$user,$id){
+function addIp($response,$idClient,$mysqli,$today,$ip,$hourMin,$user,$id,$idGroup,$groupArray){
     if($response==1){
        print "$today-$hourMin: Ip $ip agregada a morosos con éxito\n";
         $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender`='1' , `afiliados`.`shutoffpending`='0' , `afiliados`.`suspenderFecha`='$today'  WHERE `afiliados`.`id`='$idClient'";
@@ -97,6 +97,14 @@ function addIp($response,$idClient,$mysqli,$today,$ip,$hourMin,$user,$id){
             print "\nError al actualizar cliente Mysql `shutoffpending`=0\n";	
         }
        	
+    }
+    elseif($response==4){
+        print "\n $today-$hourMin: $idClient: Ip $ip problemas al crear el objeto Mkt!  id-repeater-subnets-group:$idGroup  \n";
+        var_dump($groupArray);
+        $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`suspender-list-status`='0' , `afiliados`.`suspender-list-status-date`=NULL   WHERE `afiliados`.`id`='$idClient'";
+        if($result2 = $mysqli->query($sqlUpd)){						
+            print "\nError al actualizar cliente Mysql `shutoffpending`=0\n";	
+        }
     }
 }
  
