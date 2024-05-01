@@ -78,7 +78,8 @@ class Mkt
     return $myArray;
     }
     public function verifyList($list,$ip) 
-    {         
+    {   
+        if ($this->client !== null) {      
         $responses = $this->client->sendSync(new RouterOS\Request('/ip/firewall/address-list/print'));         
         $res=false;
         foreach ($responses as $response) {
@@ -95,11 +96,17 @@ class Mkt
             catch(Exception $e){
                 $res=false;
             }
+        }
+        } else {
+            // Manejo de error si $this->client es null
+            //throw new Exception("La conexión con el dispositivo no está establecida.");
+            $res=false;//NO se debe hacer nada con el que llame el metodo
         } 
     return $res;
     }
     public function add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
     {   
+        if ($this->client !== null) {
         $comment="$idUser:".$nombre.":".$apellido.":".$direccion.":".$ip.":".$fecha;  
         $printRequest = new RouterOS\Request('/ip/firewall/address-list/print');
         $printRequest->setArgument('.proplist', '.id');
@@ -118,7 +125,11 @@ class Mkt
         else{
             return 3;           
         }   
-        
+        } else {
+            // Manejo de error si $this->client es null
+            //throw new Exception("La conexión con el dispositivo no está establecida.");
+            return 4;//NO se debe hacer nada con el que llame el metodo
+        }
     }
     public function neighbor()
     {        
