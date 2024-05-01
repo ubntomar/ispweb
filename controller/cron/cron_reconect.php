@@ -48,8 +48,13 @@ if($rt=$mysqli->query($sql)){
             $idGroup=$row["id-repeater-subnets-group"];
             print "\n{$row['cliente']} $id  idgrupo: $idGroup valor de groupArray {$groupArray[$idGroup]}\n";
             if( isset($groupArray[$idGroup]) ){
-                print "\n\n\n Remover ip $ip {$row['cliente']}";
-                removeIpFromMorososList($mkobj[$idGroup]->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
+                print "\n\n\n obj-> valido, Remover ip $ip {$row['cliente']}";
+                if(isset($mkobj[$idGroup])){
+                    removeIpFromMorososList($mkobj[$idGroup]->remove_ip($ip,'morosos'),$ip,$today,$hourMin,$mysqli,$id);
+
+                }else {
+                    print "\n\n\n obj  NO valido, NO SE PUEDE Remover ip $ip {$row['cliente']}";
+                }
             }else{
                 $sqlUpd="UPDATE `redesagi_facturacion`.`afiliados` SET `afiliados`.`reconected-date`=NULL  WHERE `afiliados`.`id`='$id'";
                 //print "\n $sqlUpd \n";

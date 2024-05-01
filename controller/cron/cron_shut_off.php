@@ -53,7 +53,7 @@ if($rt=$mysqli->query($sql)){
             $fecha=$today;
             $idGroup=$row["id-repeater-subnets-group"];
             print "\n{$row['cliente']} $id  idgrupo: $idGroup valor de groupArray {$groupArray[$idGroup]}\n";
-            if( $groupArray[$idGroup] ){
+            if( isset($groupArray[$idGroup]) ){
                 print "\n\n\n Agregar ip a lista 'morosos' $ip {$row['cliente']}";
                 try {
                     addIP($mkobj[$idGroup]->add_address($ip,'morosos','idUserNumber:'.$id,$nombre,$apellido,$direccion,$fecha),$id,$mysqli,$today,$ip,$hourMin,$user,$id);//add_address($ip,$listName,$idUser,$nombre="",$apellido="",$direccion="",$fecha="")
