@@ -57,7 +57,7 @@ class Mkt
         } else {
             // Manejo de error si $this->client es null
             //throw new Exception("La conexión con el dispositivo no está establecida.");
-            return 2;
+            return 3;//NO se debe hacer nada con el que llame el metodo
         }
                 
     }
