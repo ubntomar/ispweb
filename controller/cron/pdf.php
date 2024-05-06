@@ -258,7 +258,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
         $directory = "/home/omar/docker-work-area/go/ispweb/controller/cron/facturas/$year/$month/";
     }
 
-    // Verificar si el directorio existe, si no, crearlo
+    // Verificar si el directorio existe, si no, crearlo ///
     if (!is_dir($directory)) {
         mkdir($directory, 0777, true);
     }
