@@ -254,7 +254,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
     
     
     
-    if (file_exists("/var/www/ispexperts/controllers/cron/")) {
+    if (file_exists("/var/www/ispexperts/controller/cron/")) {
         $directory = "/var/www/ispexperts/controller/cron/facturas/$year/$month/";
     } else {
         $directory = "/home/omar/docker-work-area/go/ispweb/controller/cron/facturas/$year/$month/";
@@ -270,7 +270,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
 
     // Guardar el PDF en un archivo
     file_put_contents($directory.$filename, $output); 
-    echo "Factura guardada en el servidor: $directory.$filename, $output\n";
+    echo "Factura guardada en el servidor: $directory.$filename, \n";
     $html = null;      
 }
 
