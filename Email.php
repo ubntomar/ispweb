@@ -47,7 +47,7 @@ class Email
         $context = stream_context_create($this->opts($postdata));
         try {
             $result = json_decode(@file_get_contents($endPoint, false, $context));
-            echo "\nphp emailToCompany() return value=".var_dump($result);
+            //echo "\nphp emailToCompany() return value=".var_dump($result);
             if($result->mailStatus=="success"){
                 $message= true;
             }
