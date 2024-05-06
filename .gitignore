@@ -11,5 +11,7 @@ conn.sh
 ipup
 ipAlive.json
 ipup
-vendor/*
+/controller/ajax/cut.log
+/controller/cron/clogs.txt
+transaccion.log
 controller/cron/facturas/*
