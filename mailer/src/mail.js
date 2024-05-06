@@ -124,7 +124,7 @@
   }
       
     async function sendPdfFactura(data = "") {
-        console.log("sending email...")
+        console.log("sending email......")
         const sgMail = require('@sendgrid/mail');
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         console.log("la api ke" + process.env.SENDGRID_API_KEY)
