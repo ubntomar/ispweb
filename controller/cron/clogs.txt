@@ -1649,3 +1649,829 @@ ip address 192.168.146.132
  server:192.168.146.1
 ip address 192.168.27.142
  server:192.168.21.1
+  
+ip address 192.168.25.52
+ server:192.168.21.1
+ip address 192.168.26.120
+ server:192.168.26.1
+ip address 192.168.20.144
+ server:192.168.21.1
+ip address 192.168.17.4
+ server:192.168.17.1
+ip address 192.168.146.35
+ server:192.168.146.1
+ip address 192.168.26.143
+ server:192.168.26.1
+ip address 192.168.30.10
+ server:192.168.30.1
+ip address 192.168.50.68
+ server:192.168.50.1
+ip address 192.168.146.152
+ server:192.168.146.1
+ip address 192.168.146.79
+ server:192.168.146.1
+ip address 192.168.16.73
+ server:192.168.21.1
+ip address 192.168.26.189
+ server:192.168.26.1
+ip address 192.168.30.69
+ server:192.168.30.1
+ip address 192.168.111.53
+ server:192.168.30.95
+ip address 192.168.146.28
+ server:192.168.146.1
+ip address 192.168.152.27
+ server:192.168.152.1
+ip address 192.168.146.123
+ server:192.168.146.1
+ip address 192.168.152.57
+ server:192.168.152.1
+ip address 192.168.17.146
+ server:192.168.17.1
+ip address 192.168.146.51
+ server:192.168.146.1
+ip address 192.168.16.179
+ server:192.168.21.1
+ip address 192.168.16.220
+ server:192.168.21.1
+ip address 192.168.112.100
+ server:192.168.26.114
+ip address 192.168.109.50
+ server:192.168.30.166
+ip address 192.168.16.231
+ server:192.168.21.1
+ip address 192.168.146.66
+ server:192.168.146.1
+ip address 192.168.146.54
+ server:192.168.146.1
+ip address 192.168.26.219
+ server:192.168.26.1
+ip address 192.168.129.23
+ server:192.168.30.60
+ip address 192.168.146.42
+ server:192.168.146.1
+ip address 192.168.132.16
+ server:192.168.17.5
+ip address 192.168.151.10
+ server:192.168.30.241
+ip address 192.168.50.189
+ server:192.168.50.1
+ip address 192.168.30.164
+ server:192.168.30.1
+ip address 192.168.17.225
+ server:192.168.17.1
+ip address 192.168.114.48
+ server:192.168.16.233
+ip address 192.168.152.53
+ server:192.168.152.1
+ip address 192.168.136.110
+ server:192.168.17.173
+ip address 192.168.146.137
+ server:192.168.146.1
+ip address 192.168.17.182
+ server:192.168.17.1
+ip address 192.168.50.29
+ server:192.168.50.1
+ip address 192.168.146.52
+ server:192.168.146.1
+ip address 192.168.62.35
+ server:192.168.21.190
+ip address 192.168.132.58
+ server:192.168.17.5
+ip address 192.168.146.60
+ server:192.168.146.1
+ip address 192.168.114.49
+ server:192.168.16.233
+ip address 192.168.132.75
+ server:192.168.17.5
+ip address 192.168.50.47
+ server:192.168.50.1
+ip address 192.168.20.17
+ server:192.168.21.1
+ip address 192.168.30.180
+ server:192.168.30.1
+ip address 192.168.30.197
+ server:192.168.30.1
+ip address 192.168.20.23
+ server:192.168.21.1
+ip address 192.168.30.216
+ server:192.168.30.1
+ip address 192.168.30.215
+ server:192.168.30.1
+ip address 192.168.50.149
+ server:192.168.50.1
+ip address 192.168.20.96
+ server:192.168.21.1
+ip address 192.168.20.101
+ server:192.168.21.1
+ip address 192.168.131.14
+ server:192.168.16.247
+ip address 192.168.152.12
+ server:192.168.152.1
+ip address 192.168.152.51
+ server:192.168.152.1
+ip address 192.168.114.113
+ server:192.168.16.233
+ip address 192.168.122.55
+ server:192.168.26.205
+ip address 192.168.27.16
+ server:192.168.26.1
+ip address 192.168.27.12
+ server:192.168.26.1
+ip address 192.168.152.6
+ server:192.168.152.1
+ip address 192.168.146.97
+ server:192.168.146.1
+ip address 192.168.146.99
+ server:192.168.146.1
+ip address 192.168.20.11
+ server:192.168.21.1
+ip address 192.168.146.116
+ server:192.168.146.1
+ip address 192.168.146.139
+ server:192.168.146.1
+ip address 192.168.146.132
+ server:192.168.146.1
+ip address 192.168.27.142
+ server:192.168.26.1
+ip address 192.168.152.29
+ server:192.168.152.1
+{"mailStatus":"success Wed May 01 2024 23:50:11 GMT-0500 (Colombia Standard Time)"}  
+ip address 192.168.25.52
+ server:192.168.21.1
+
+client 56 is already in list 'morosos'!
+ip address 192.168.26.120
+ server:192.168.26.1
+
+client 62 is already in list 'morosos'!
+ip address 192.168.20.144
+ server:192.168.21.1
+
+client 167 is already in list 'morosos'!
+ip address 192.168.146.35
+ server:192.168.146.1
+
+client 336 is already in list 'morosos'!
+ip address 192.168.26.143
+ server:192.168.26.1
+
+client 473 is already in list 'morosos'!
+ip address 192.168.146.152
+ server:192.168.146.1
+
+client 579 is already in list 'morosos'!
+ip address 192.168.146.79
+ server:192.168.146.1
+
+client 600 is already in list 'morosos'!
+ip address 192.168.16.73
+ server:192.168.21.1
+
+client 606 is already in list 'morosos'!
+ip address 192.168.26.189
+ server:192.168.26.1
+
+client 643 is already in list 'morosos'!
+ip address 192.168.30.69
+ server:192.168.30.1
+
+client 667 is already in list 'morosos'!
+ip address 192.168.111.53
+ server:192.168.30.95
+ip address 192.168.17.146
+ server:192.168.17.1
+
+client 706 is already in list 'morosos'!
+ip address 192.168.16.179
+ server:192.168.21.1
+
+client 723 is already in list 'morosos'!
+ip address 192.168.16.220
+ server:192.168.21.1
+
+client 733 is already in list 'morosos'!
+ip address 192.168.112.100
+ server:192.168.26.114
+
+client 773 is already in list 'morosos'!
+ip address 192.168.16.231
+ server:192.168.21.1
+
+client 802 is already in list 'morosos'!
+ip address 192.168.146.66
+ server:192.168.146.1
+
+client 905 is already in list 'morosos'!
+ip address 192.168.146.54
+ server:192.168.146.1
+
+client 917 is already in list 'morosos'!
+ip address 192.168.26.219
+ server:192.168.26.1
+
+client 920 is already in list 'morosos'!
+ip address 192.168.129.23
+ server:192.168.30.60
+ip address 192.168.132.16
+ server:192.168.17.5
+
+client 952 is already in list 'morosos'!
+ip address 192.168.151.10
+ server:192.168.30.241
+
+client 958 is already in list 'morosos'!
+ip address 192.168.30.164
+ server:192.168.30.1
+
+client 965 is already in list 'morosos'!
+ip address 192.168.17.225
+ server:192.168.17.1
+
+client 982 is already in list 'morosos'!
+ip address 192.168.136.110
+ server:192.168.17.173
+
+client 1027 is already in list 'morosos'!
+ip address 192.168.146.137
+ server:192.168.146.1
+
+client 1042 is already in list 'morosos'!
+ip address 192.168.50.29
+ server:192.168.50.1
+
+client 1046 is already in list 'morosos'!
+ip address 192.168.62.35
+ server:192.168.21.190
+
+client 1061 is already in list 'morosos'!
+ip address 192.168.132.58
+ server:192.168.17.5
+
+client 1062 is already in list 'morosos'!
+ip address 192.168.146.60
+ server:192.168.146.1
+
+client 1063 is already in list 'morosos'!
+ip address 192.168.132.75
+ server:192.168.17.5
+
+client 1077 is already in list 'morosos'!
+ip address 192.168.50.47
+ server:192.168.50.1
+
+client 1082 is already in list 'morosos'!
+ip address 192.168.20.17
+ server:192.168.21.1
+
+client 1085 is already in list 'morosos'!
+ip address 192.168.30.180
+ server:192.168.30.1
+
+client 1093 is already in list 'morosos'!
+ip address 192.168.30.197
+ server:192.168.30.1
+
+client 1094 is already in list 'morosos'!
+ip address 192.168.50.149
+ server:192.168.50.1
+
+client 1108 is already in list 'morosos'!
+ip address 192.168.20.101
+ server:192.168.21.1
+
+client 1151 is already in list 'morosos'!
+ip address 192.168.131.14
+ server:192.168.16.247
+ip address 192.168.152.12
+ server:192.168.152.1
+
+client 1162 is already in list 'morosos'!
+ip address 192.168.27.12
+ server:192.168.26.1
+
+client 1197 is already in list 'morosos'!
+ip address 192.168.20.11
+ server:192.168.21.1
+
+client 1226 is already in list 'morosos'!
+ip address 192.168.146.116
+ server:192.168.146.1
+
+client 1236 is already in list 'morosos'!
+ip address 192.168.146.139
+ server:192.168.146.1
+
+client 1251 is already in list 'morosos'!
+ip address 192.168.146.132
+ server:192.168.146.1
+
+client 1267 is already in list 'morosos'!
+ip address 192.168.27.142
+ server:192.168.26.1
+
+client 1275 is already in list 'morosos'!
+{"mailStatus":"success Thu May 02 2024 23:50:11 GMT-0500 (Colombia Standard Time)"}  
+ip address 192.168.25.52
+ server:192.168.21.1
+
+client 56 is already in list 'morosos'!
+ip address 192.168.26.120
+ server:192.168.26.1
+
+client 62 is already in list 'morosos'!
+ip address 192.168.20.144
+ server:192.168.21.1
+
+client 167 is already in list 'morosos'!
+ip address 192.168.146.35
+ server:192.168.146.1
+
+client 336 is already in list 'morosos'!
+ip address 192.168.146.79
+ server:192.168.146.1
+
+client 600 is already in list 'morosos'!
+ip address 192.168.16.73
+ server:192.168.21.1
+
+client 606 is already in list 'morosos'!
+ip address 192.168.26.189
+ server:192.168.26.1
+
+client 643 is already in list 'morosos'!
+ip address 192.168.30.69
+ server:192.168.30.1
+
+client 667 is already in list 'morosos'!
+ip address 192.168.17.146
+ server:192.168.17.1
+
+client 706 is already in list 'morosos'!
+ip address 192.168.16.179
+ server:192.168.21.1
+
+client 723 is already in list 'morosos'!
+ip address 192.168.16.220
+ server:192.168.21.1
+
+client 733 is already in list 'morosos'!
+ip address 192.168.112.100
+ server:192.168.26.114
+
+client 773 is already in list 'morosos'!
+ip address 192.168.16.231
+ server:192.168.21.1
+
+client 802 is already in list 'morosos'!
+ip address 192.168.129.23
+ server:192.168.30.60
+ip address 192.168.132.16
+ server:192.168.17.5
+
+client 952 is already in list 'morosos'!
+ip address 192.168.151.10
+ server:192.168.30.241
+ip address 192.168.30.164
+ server:192.168.30.1
+
+client 965 is already in list 'morosos'!
+ip address 192.168.17.225
+ server:192.168.17.1
+
+client 982 is already in list 'morosos'!
+ip address 192.168.136.110
+ server:192.168.17.173
+
+client 1027 is already in list 'morosos'!
+ip address 192.168.50.29
+ server:192.168.50.1
+
+client 1046 is already in list 'morosos'!
+ip address 192.168.62.35
+ server:192.168.21.190
+
+client 1061 is already in list 'morosos'!
+ip address 192.168.132.58
+ server:192.168.17.5
+
+client 1062 is already in list 'morosos'!
+ip address 192.168.146.60
+ server:192.168.146.1
+
+client 1063 is already in list 'morosos'!
+ip address 192.168.132.75
+ server:192.168.17.5
+
+client 1077 is already in list 'morosos'!
+ip address 192.168.50.47
+ server:192.168.50.1
+
+client 1082 is already in list 'morosos'!
+ip address 192.168.20.17
+ server:192.168.21.1
+
+client 1085 is already in list 'morosos'!
+ip address 192.168.30.180
+ server:192.168.30.1
+
+client 1093 is already in list 'morosos'!
+ip address 192.168.30.197
+ server:192.168.30.1
+
+client 1094 is already in list 'morosos'!
+ip address 192.168.20.101
+ server:192.168.21.1
+
+client 1151 is already in list 'morosos'!
+ip address 192.168.131.14
+ server:192.168.16.247
+ip address 192.168.27.12
+ server:192.168.26.1
+
+client 1197 is already in list 'morosos'!
+ip address 192.168.20.11
+ server:192.168.21.1
+
+client 1226 is already in list 'morosos'!
+ip address 192.168.146.116
+ server:192.168.146.1
+
+client 1236 is already in list 'morosos'!
+ip address 192.168.146.139
+ server:192.168.146.1
+
+client 1251 is already in list 'morosos'!
+ip address 192.168.146.132
+ server:192.168.146.1
+
+client 1267 is already in list 'morosos'!
+ip address 192.168.27.142
+ server:192.168.26.1
+
+client 1275 is already in list 'morosos'!
+{"mailStatus":"success Fri May 03 2024 23:50:11 GMT-0500 (Colombia Standard Time)"}  
+ip address 192.168.25.52
+ server:192.168.21.1
+
+client 56 is already in list 'morosos'!
+ip address 192.168.146.35
+ server:192.168.146.1
+
+client 336 is already in list 'morosos'!
+ip address 192.168.146.79
+ server:192.168.146.1
+
+client 600 is already in list 'morosos'!
+ip address 192.168.16.73
+ server:192.168.21.1
+
+client 606 is already in list 'morosos'!
+ip address 192.168.26.189
+ server:192.168.26.1
+
+client 643 is already in list 'morosos'!
+ip address 192.168.30.69
+ server:192.168.30.1
+
+client 667 is already in list 'morosos'!
+ip address 192.168.17.146
+ server:192.168.17.1
+
+client 706 is already in list 'morosos'!
+ip address 192.168.16.179
+ server:192.168.21.1
+
+client 723 is already in list 'morosos'!
+ip address 192.168.16.220
+ server:192.168.21.1
+
+client 733 is already in list 'morosos'!
+ip address 192.168.112.100
+ server:192.168.26.114
+
+client 773 is already in list 'morosos'!
+ip address 192.168.16.231
+ server:192.168.21.1
+
+client 802 is already in list 'morosos'!
+ip address 192.168.129.23
+ server:192.168.30.60
+
+client 931 is already in list 'morosos'!
+ip address 192.168.132.16
+ server:192.168.17.5
+
+client 952 is already in list 'morosos'!
+ip address 192.168.151.10
+ server:192.168.30.241
+ip address 192.168.30.164
+ server:192.168.30.1
+
+client 965 is already in list 'morosos'!
+ip address 192.168.17.225
+ server:192.168.17.1
+
+client 982 is already in list 'morosos'!
+ip address 192.168.136.110
+ server:192.168.17.173
+
+client 1027 is already in list 'morosos'!
+ip address 192.168.50.29
+ server:192.168.50.1
+
+client 1046 is already in list 'morosos'!
+ip address 192.168.62.35
+ server:192.168.21.190
+
+client 1061 is already in list 'morosos'!
+ip address 192.168.132.58
+ server:192.168.17.5
+
+client 1062 is already in list 'morosos'!
+ip address 192.168.146.60
+ server:192.168.146.1
+
+client 1063 is already in list 'morosos'!
+ip address 192.168.132.75
+ server:192.168.17.5
+
+client 1077 is already in list 'morosos'!
+ip address 192.168.50.47
+ server:192.168.50.1
+
+client 1082 is already in list 'morosos'!
+ip address 192.168.20.17
+ server:192.168.21.1
+
+client 1085 is already in list 'morosos'!
+ip address 192.168.30.180
+ server:192.168.30.1
+
+client 1093 is already in list 'morosos'!
+ip address 192.168.30.197
+ server:192.168.30.1
+
+client 1094 is already in list 'morosos'!
+ip address 192.168.20.101
+ server:192.168.21.1
+
+client 1151 is already in list 'morosos'!
+ip address 192.168.131.14
+ server:192.168.16.247
+ip address 192.168.20.11
+ server:192.168.21.1
+
+client 1226 is already in list 'morosos'!
+ip address 192.168.146.139
+ server:192.168.146.1
+
+client 1251 is already in list 'morosos'!
+ip address 192.168.146.132
+ server:192.168.146.1
+
+client 1267 is already in list 'morosos'!
+ip address 192.168.27.142
+ server:192.168.26.1
+
+client 1275 is already in list 'morosos'!
+{"mailStatus":"success Sat May 04 2024 23:50:11 GMT-0500 (Colombia Standard Time)"}  
+ip address 192.168.25.52
+ server:192.168.21.1
+
+client 56 is already in list 'morosos'!
+ip address 192.168.146.35
+ server:192.168.146.1
+
+client 336 is already in list 'morosos'!
+ip address 192.168.146.79
+ server:192.168.146.1
+
+client 600 is already in list 'morosos'!
+ip address 192.168.16.73
+ server:192.168.21.1
+
+client 606 is already in list 'morosos'!
+ip address 192.168.26.189
+ server:192.168.26.1
+
+client 643 is already in list 'morosos'!
+ip address 192.168.17.146
+ server:192.168.17.1
+
+client 706 is already in list 'morosos'!
+ip address 192.168.16.179
+ server:192.168.21.1
+
+client 723 is already in list 'morosos'!
+ip address 192.168.16.220
+ server:192.168.21.1
+
+client 733 is already in list 'morosos'!
+ip address 192.168.112.100
+ server:192.168.26.114
+
+client 773 is already in list 'morosos'!
+ip address 192.168.16.231
+ server:192.168.21.1
+
+client 802 is already in list 'morosos'!
+ip address 192.168.129.23
+ server:192.168.30.60
+ip address 192.168.132.16
+ server:192.168.17.5
+
+client 952 is already in list 'morosos'!
+ip address 192.168.151.10
+ server:192.168.30.241
+ip address 192.168.30.164
+ server:192.168.30.1
+
+client 965 is already in list 'morosos'!
+ip address 192.168.17.225
+ server:192.168.17.1
+
+client 982 is already in list 'morosos'!
+ip address 192.168.136.110
+ server:192.168.17.173
+
+client 1027 is already in list 'morosos'!
+ip address 192.168.50.29
+ server:192.168.50.1
+
+client 1046 is already in list 'morosos'!
+ip address 192.168.62.35
+ server:192.168.21.190
+
+client 1061 is already in list 'morosos'!
+ip address 192.168.132.58
+ server:192.168.17.5
+
+client 1062 is already in list 'morosos'!
+ip address 192.168.146.60
+ server:192.168.146.1
+
+client 1063 is already in list 'morosos'!
+ip address 192.168.132.75
+ server:192.168.17.5
+
+client 1077 is already in list 'morosos'!
+ip address 192.168.50.47
+ server:192.168.50.1
+
+client 1082 is already in list 'morosos'!
+ip address 192.168.20.17
+ server:192.168.21.1
+
+client 1085 is already in list 'morosos'!
+ip address 192.168.30.180
+ server:192.168.30.1
+
+client 1093 is already in list 'morosos'!
+ip address 192.168.30.197
+ server:192.168.30.1
+
+client 1094 is already in list 'morosos'!
+ip address 192.168.20.101
+ server:192.168.21.1
+
+client 1151 is already in list 'morosos'!
+ip address 192.168.131.14
+ server:192.168.16.247
+ip address 192.168.20.11
+ server:192.168.21.1
+
+client 1226 is already in list 'morosos'!
+ip address 192.168.146.139
+ server:192.168.146.1
+
+client 1251 is already in list 'morosos'!
+ip address 192.168.146.132
+ server:192.168.146.1
+
+client 1267 is already in list 'morosos'!
+ip address 192.168.27.142
+ server:192.168.26.1
+
+client 1275 is already in list 'morosos'!
+{"mailStatus":"success Sun May 05 2024 23:50:12 GMT-0500 (Colombia Standard Time)"}  
+ip address 192.168.25.52
+ server:192.168.21.1
+
+client 56 is already in list 'morosos'!
+ip address 192.168.146.35
+ server:192.168.146.1
+
+client 336 is already in list 'morosos'!
+ip address 192.168.146.79
+ server:192.168.146.1
+
+client 600 is already in list 'morosos'!
+ip address 192.168.16.73
+ server:192.168.21.1
+
+client 606 is already in list 'morosos'!
+ip address 192.168.26.189
+ server:192.168.26.1
+
+client 643 is already in list 'morosos'!
+ip address 192.168.17.146
+ server:192.168.17.1
+
+client 706 is already in list 'morosos'!
+ip address 192.168.16.220
+ server:192.168.21.1
+
+client 733 is already in list 'morosos'!
+ip address 192.168.112.100
+ server:192.168.26.114
+ip address 192.168.16.231
+ server:192.168.21.1
+
+client 802 is already in list 'morosos'!
+ip address 192.168.129.23
+ server:192.168.30.60
+ip address 192.168.129.22
+ server:192.168.30.60
+ip address 192.168.132.16
+ server:192.168.17.5
+
+client 952 is already in list 'morosos'!
+ip address 192.168.151.10
+ server:192.168.30.241
+ip address 192.168.30.164
+ server:192.168.30.1
+
+client 965 is already in list 'morosos'!
+ip address 192.168.17.225
+ server:192.168.17.1
+
+client 982 is already in list 'morosos'!
+ip address 192.168.136.110
+ server:192.168.17.173
+
+client 1027 is already in list 'morosos'!
+ip address 192.168.50.29
+ server:192.168.50.1
+
+client 1046 is already in list 'morosos'!
+ip address 192.168.62.35
+ server:192.168.21.190
+
+client 1061 is already in list 'morosos'!
+ip address 192.168.132.58
+ server:192.168.17.5
+
+client 1062 is already in list 'morosos'!
+ip address 192.168.146.60
+ server:192.168.146.1
+
+client 1063 is already in list 'morosos'!
+ip address 192.168.132.75
+ server:192.168.17.5
+
+client 1077 is already in list 'morosos'!
+ip address 192.168.50.47
+ server:192.168.50.1
+
+client 1082 is already in list 'morosos'!
+ip address 192.168.20.17
+ server:192.168.21.1
+
+client 1085 is already in list 'morosos'!
+ip address 192.168.30.180
+ server:192.168.30.1
+
+client 1093 is already in list 'morosos'!
+ip address 192.168.30.197
+ server:192.168.30.1
+ip address 192.168.20.101
+ server:192.168.21.1
+
+client 1151 is already in list 'morosos'!
+ip address 192.168.131.14
+ server:192.168.16.247
+ip address 192.168.20.11
+ server:192.168.21.1
+
+client 1226 is already in list 'morosos'!
+ip address 192.168.146.139
+ server:192.168.146.1
+
+client 1251 is already in list 'morosos'!
+ip address 192.168.146.132
+ server:192.168.146.1
+
+client 1267 is already in list 'morosos'!
+ip address 192.168.27.142
+ server:192.168.26.1
+
+client 1275 is already in list 'morosos'!
+ip address 192.168.111.16
+ server:192.168.30.95
+
+client 1309 is already in list 'morosos'!
+ip address 192.168.21.14
+ server:192.168.21.1
+
+client 1310 is already in list 'morosos'!
