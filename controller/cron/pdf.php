@@ -254,7 +254,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
     
     
     
-    if (file_exists("/var/www/ispexperts/controllers/cron/")) {
+    if (file_exists("/var/www/ispexperts/controller/cron/")) {
         $directory = "/var/www/ispexperts/controller/cron/facturas/$year/$month/";
     } else {
         $directory = "/home/omar/docker-work-area/go/ispweb/controller/cron/facturas/$year/$month/";
