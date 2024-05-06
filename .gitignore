@@ -11,3 +11,5 @@ conn.sh
 ipup
 ipAlive.json
 ipup
+vendor/*
+controller/cron/facturas/*

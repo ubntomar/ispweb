@@ -3,9 +3,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const {sendEmail,sendEmailPayment,sendEmailToCompany,backup} = require('./src/mail')
+const {sendEmail,sendEmailPayment,sendEmailToCompany,backup,sendPdfFactura} = require('./src/mail')
 const app = express();
-// defining an array to work as the database (temporary solution)
+// defining an array to work as the database (temporary solution) 2024
 const ads = [{
   title: 'Hello, world (again)!'
 }];
@@ -53,6 +53,19 @@ app.post('/mail', async (req, res) => {
 app.post('/mailCompany', async (req, res) => {
   const data = req.body;
   let resultado=await sendEmailToCompany(data)
+  if (resultado == true) {
+    res.status(200).send({
+      "mailStatus": "success"
+    })
+  } else {
+    res.status(200).send({
+      "mailStatus": "fail"
+    });
+  }
+});
+app.post('/pdfFactura', async (req, res) => {
+  const data = req.body;
+  let resultado=await sendPdfFactura(data)
   if (resultado == true) {
     res.status(200).send({
       "mailStatus": "success"
