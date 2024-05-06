@@ -36,11 +36,12 @@ $currentHour = date('h:i A'); // h para hora en formato 12 horas, i para minutos
 $convertdate = date("d-m-Y", strtotime($today));
 
 
-
+echo "Iniciando proceso de creación de facturas\n";
 $sqlSelect = "SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1 AND `id-formato-factura`=1 ";
     $result = $mysqli->query($sqlSelect);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
+            echo "Creando factura para el cliente: ".$row["cliente"]." ".$row["apellido"]."\n";
             $id = $row["id"];
             $cliente = $row["cliente"]."  ".$row["apellido"];
             $direccion = $row["direccion"];
@@ -57,6 +58,7 @@ $sqlSelect = "SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1 AND `
 
 
 function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail,$dompdf,$valorPlan){
+    echo "Creando factura para el cliente: $cliente\n";
     $valoAPagar = "$".number_format($valorPlan, 0, '.', ',');
     $year = date('Y');
     $mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
@@ -248,7 +250,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
     $dompdf->setPaper('A4', 'portrait');
     $dompdf->render();
     $output = $dompdf->output();
-    
+    echo "Guardando factura en el servidor\n";
     
     
     
@@ -268,6 +270,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
 
     // Guardar el PDF en un archivo
     file_put_contents($directory.$filename, $output); 
+    echo "Factura guardada en el servidor: $directory.$filename, $output\n";
     $html = null;      
 }
 
@@ -275,19 +278,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
 
 
 
-
-    /**if($row["mail"] != "" && $row["mail"] != null){
-        $mailes = explode(",", $row["mail"]);
-        if(count($mailes) != 0){
-            foreach($mailes as $mail){
-                print "\t\t\t mail:$mail\n";
-            }
-        }
-    }else{
-        print "\t\t\t mail: No tiene mail\n";
-        createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail=null);
-    }
-**/
+?>
 
 
 
