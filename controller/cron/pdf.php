@@ -270,7 +270,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
 
     // Guardar el PDF en un archivo
     file_put_contents($directory.$filename, $output); 
-    echo "Factura guardada en el servidor: $directory.$filename, $output\n";
+    echo "Factura guardada en el servidor: $directory.$filename, \n";
     $html = null;      
 }
 
