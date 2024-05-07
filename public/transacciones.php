@@ -94,7 +94,7 @@ if($_SESSION['role']=='tecnico'){
                             <a href="#" class="nav-link"><i class="icon-mail"></i>Contacto</a>
                         </li>
                         <li class="nav-item">
-                            <a href="reclist.php" class="nav-link "><i class="icon-money"></i>Formato Recibo</a>
+                            <a href="reclist.php" class="nav-link border border-primary rounded p-2"><i class="icon-money"></i>Formato Recibo</a>
                         </li>
                     </ul>
                     <div class="ml-auto">

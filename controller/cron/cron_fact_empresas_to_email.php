@@ -39,7 +39,7 @@ $convertdate = date("d-m-Y", strtotime($today));
 
 
 
-$sqlSelect = "SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1 AND `id-formato-factura`=1 ";
+$sqlSelect = "SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1 AND `id-formato-factura` IS NOT NULL ";
     $result = $mysqli->query($sqlSelect);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
