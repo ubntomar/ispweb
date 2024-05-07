@@ -105,6 +105,16 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
             }
             .header {
                 border-bottom: 1px solid #000;
+                border-top: 5px solid #333;
+                padding: 5px;
+                text-align: center;
+            }
+            footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
             }
             .header table tr td {
                 width: 400px;
@@ -177,7 +187,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                 <table>
                     <tr>
                         <td>
-                            <h2>$representante</h2>
+                            <h3>$representante</h3>
                             <p>NIT $nitEmpresa Reg. Simplificado</p>
                             <p>Redes y soluciones de Software.</p>
                         </td>
@@ -260,6 +270,9 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                 <div class="signature-line"></div>
             </div>
         </div>
+        <footer>
+        <!-- Contenido del pie de página -->
+    </footer>
     </body>
     </html>
     HTML;
