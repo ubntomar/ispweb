@@ -1,22 +1,22 @@
 <?php 
-// session_start();
+session_start();
 
 
-// if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
-// 		{
-// 		header('Location: ../login/index.php');
-// 		exit;
-// 		}
-// else    {
-// 		$user=$_SESSION['username'];
-//         $empresa = $_SESSION['empresa'];
-// 		}
-// if($_SESSION['role']=='tecnico'){
-// 	header('Location: tick.php');
-// }
-// if($_SESSION['role']=='cajero'){
-// 	header('Location: registerPay.php');
-// }
+if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
+		{
+		header('Location: ../login/index.php');
+		exit;
+		}
+else    {
+		$user=$_SESSION['username'];
+        $empresa = $_SESSION['empresa'];
+		}
+if($_SESSION['role']=='tecnico'){
+	header('Location: tick.php');
+}
+if($_SESSION['role']=='cajero'){
+	header('Location: registerPay.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -86,7 +86,7 @@
                             <a href="#" class="nav-link"><i class="icon-mail"></i>Contacto</a>
                         </li>
                         <li class="nav-item">
-                            <a href="reclist.php" class="nav-link "><i class="icon-money"></i>Formato Recibo</a>
+                            <a href="reclist.php" class="nav-link "><i class="icon-money"></i>Factura a Empresas</a>
                         </li>
                     </ul>
                     <div class="ml-auto">
@@ -111,7 +111,7 @@
                     <a href="client.php"><i class="icon-users"></i><span>Clientes</span></a>
                     <a href="mktik.php"><i class="icon-network"></i><span>Mktik</span></a>
                     <a href="egr.php"><i class="icon-money"></i><span>Egresos</span></a>
-                    <a href="login/logout.php"><i class="icon-logout"></i><span>Salir</span></a>
+                    <a href="../login/logout.php"><i class="icon-logout"></i><span>Salir</span></a>
                 </nav>
             </div>
 
@@ -185,25 +185,42 @@
                                 <div class="list-group">
                                 <?php
                                 // Función recursiva para listar archivos PDF
-                                function listarPDFs($directorio, $nivel = 0) {
+                                function archivoPermitido($archivo, $mysqli,$empresa) {
+                                    $cadena = $archivo;
+                                    $patron = '/_(\d{4})_(\d+)_(.*)/'; // Busca el año, el número variable y el resto de la cadena
+                                    if (preg_match($patron, $cadena, $coincidencias)) {
+                                        $numero = $coincidencias[2];
+                                        $sqlAfiliados="SELECT `cliente` FROM `afiliados` WHERE `id`=$numero AND `id-empresa` = $empresa";
+                                        $result = $mysqli->query($sqlAfiliados);
+                                        if ($result->num_rows > 0) {
+                                            return true;
+                                        } else {
+                                            return false;
+                                        }
+                                    } else {
+                                        echo "No se encontró ningún número en la cadena:$cadena";
+                                    }
+                                }
+                                function listarPDFs($directorio, $nivel = 0, $mysqli,$empresa) {
                                     $archivos = array_diff(scandir($directorio), array('.', '..'));
 
                                     foreach ($archivos as $archivo) {
                                         $ruta = $directorio . '/' . $archivo;
 
-                                        if (is_dir($ruta)) {
-                                            echo '<div class="list-group-item folder pl-' . ($nivel * 3) . '">
-                                                    <i class="fas fa-folder mr-2"></i>' . $archivo . '
-                                                </div>';
-                                            listarPDFs($ruta, $nivel + 1); // Llamada recursiva para subdirectorios
-                                        } else {
-                                            $extension = pathinfo($archivo, PATHINFO_EXTENSION);
-                                            if (strtolower($extension) === 'pdf') {
-                                                echo '<a href="' . $ruta . '" target="_blank" class="list-group-item pdf pl-' . (($nivel + 1) * 3) . '">
-                                                        <i class="fas fa-file-pdf mr-2"></i>' . $archivo . '
-                                                    </a>';
+                                            if (is_dir($ruta)) {
+                                                echo '<div class="list-group-item folder pl-' . ($nivel * 3) . '">
+                                                        <i class="fas fa-folder mr-2"></i>' . $archivo . '
+                                                    </div>';
+                                                listarPDFs($ruta, $nivel + 1,$mysqli,$empresa); // Llamada recursiva para subdirectorios
+                                            } else {
+                                                $extension = pathinfo($archivo, PATHINFO_EXTENSION);
+                                                
+                                                if (strtolower($extension) === 'pdf' && archivoPermitido($archivo, $mysqli,$empresa)) {
+                                                    echo '<a href="' . $ruta . '" target="_blank" class="list-group-item pdf pl-' . (($nivel + 1) * 3) . '">
+                                                            <i class="fas fa-file-pdf mr-2"></i>' . $archivo . '
+                                                        </a>';
+                                                }
                                             }
-                                        }
                                     }
                                 }
 
@@ -211,7 +228,7 @@
                                 $directorioBase = '../controller/cron/facturas';
 
                                 // Llamada inicial a la función
-                                listarPDFs($directorioBase);
+                                listarPDFs($directorioBase, 0, $mysqli,$empresa);
                                 ?>
                                 </div>
                             </div>
