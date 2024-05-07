@@ -37,7 +37,7 @@ $convertdate = date("d-m-Y", strtotime($today));
 
 
 echo "Iniciando proceso de creación de facturas\n";
-$sqlSelect = "SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1 AND `id-formato-factura`=1 ";
+$sqlSelect = "SELECT * FROM `afiliados` WHERE `eliminar` = 0 AND `activo` = 1 AND `id-formato-factura` IS NOT NULL";
     $result = $mysqli->query($sqlSelect);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
@@ -51,13 +51,30 @@ $sqlSelect = "SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1 AND `
             $departamento = $row["departamento"];
             $mail = $row["mail"];
             $valorPlan = $row["pago"];
-            createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail,new Dompdf(),$valorPlan);
+            $ifFormatoFactura = $row["id-formato-factura"];
+            $sqlSelectFormato = "SELECT * FROM `formato_factura` WHERE `id`=$ifFormatoFactura";
+            $resultFormato = $mysqli->query($sqlSelectFormato);
+            if ($resultFormato->num_rows > 0) {
+                while($rowFormato = $resultFormato->fetch_assoc()) {
+                    $representante=$rowFormato["representante"];
+                    $nitEmpresa=$rowFormato["nit"];
+                    $direccionEmpresa=$rowFormato["direccion"];
+                    $telefonoEmpresa=$rowFormato["telefono"];
+                    $mailEmpresa=$rowFormato["mail"];
+                    $ciudadEmpresa=$rowFormato["ciudad"];
+                    $departamentoEmpresa=$rowFormato["departamento"]; 
+                }
+
+
+
+            createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail,new Dompdf(),$valorPlan,$representante,$nitEmpresa,$direccionEmpresa,$telefonoEmpresa,$mailEmpresa,$ciudadEmpresa,$departamentoEmpresa);
+            }
 
         }
     }
 
 
-function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail,$dompdf,$valorPlan){
+function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail,$dompdf,$valorPlan,$representante,$nitEmpresa,$direccionEmpresa,$telefonoEmpresa,$mailEmpresa,$ciudadEmpresa,$departamentoEmpresa){
     echo "Creando factura para el cliente: $cliente\n";
     $valoAPagar = "$".number_format($valorPlan, 0, '.', ',');
     $year = date('Y');
@@ -160,13 +177,13 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                 <table>
                     <tr>
                         <td>
-                            <h2>Ag Ingenenieria Wist</h2>
-                            <p>NIT 40434575-1 Reg. Simplificado</p>
+                            <h2>$representante</h2>
+                            <p>NIT $nitEmpresa Reg. Simplificado</p>
                             <p>Redes y soluciones de Software.</p>
                         </td>
                         <td>
-                            <p>Cll 13#8-47 Brr. Guamal</p>
-                            <p>Meta, CO - (57+) 314-765-46-55</p>
+                            <p>$direccionEmpresa. $ciudadEmpresa</p>
+                            <p>$departamentoEmpresa, CO - (57+) $telefonoEmpresa</p>
                             <p>www.ispexperts.com</p>
                             <p>ag.ingenieria.wist@gmail.com</p>
                         </td>

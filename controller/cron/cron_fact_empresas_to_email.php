@@ -91,14 +91,15 @@ function sendPdfToEmail($id,$cliente, $mail){
     if(file_exists($pathToAttachment)){
 
         $obj=new Email($url);
+        echo "\t\t....Enviando correo a $mail\t\t\t";
         $response=$obj->emailToCompany($emailArray=[
             "cliente"=> $cliente,
             "filename"=> $filename,
             "email"=> $mail,
             "pathToAttachment"=> $pathToAttachment,
             ]);
-        print "response:".$response;
-        var_dump($response);//
+        print "\n Email API response:".$response;
+        // var_dump($response);//
     }else{
         print "No existe el archivo: ,por lo tanto no se envia el correo\n";
     }
@@ -118,7 +119,7 @@ function verificarTituloEnRespuesta($url)
     ));
     $response = curl_exec($ch);
     if ($response === false) {
-        echo "Error curl  $url en la solicitud cURL: " . curl_error($ch);
+        //echo "Error curl  $url en la solicitud cURL: " . curl_error($ch)."\n";
         curl_close($ch);
         return false; // Devuelve false si hay un error en la solicitud
     }
