@@ -37,7 +37,7 @@ $convertdate = date("d-m-Y", strtotime($today));
 
 
 echo "Iniciando proceso de creación de facturas\n";
-$sqlSelect = "SELECT * FROM `afiliados` WHERE `eliminar` = 0 AND `activo` = 1 AND `id-formato-factura` IS NOT NULL";
+$sqlSelect = "SELECT * FROM `afiliados` WHERE `eliminar` = 0 AND `activo` = 1 AND `id-formato-factura` IS NOT NULL  AND `id-formato-factura`!=0 ";
     $result = $mysqli->query($sqlSelect);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
@@ -45,6 +45,7 @@ $sqlSelect = "SELECT * FROM `afiliados` WHERE `eliminar` = 0 AND `activo` = 1 AN
             $id = $row["id"];
             $cliente = $row["cliente"]."  ".$row["apellido"];
             $direccion = $row["direccion"];
+            echo "Direccion: $direccion    ::$server, $db_user, $db_pwd, $db_name     \n";
             $telefono = $row["telefono"];
             $nit = $row["cedula"];
             $ciudad = $row["ciudad"];
@@ -213,7 +214,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                         </tr>
                         <tr>
                             <th>Dirección:</th>
-                            <td>$direccion</td>
+                            <td>$direccion .</td>
                         </tr>
                         <tr>
                             <th>Teléfono:</th>
