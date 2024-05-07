@@ -45,7 +45,6 @@ $sqlSelect = "SELECT * FROM `afiliados` WHERE `eliminar` = 0 AND `activo` = 1 AN
             $id = $row["id"];
             $cliente = $row["cliente"]."  ".$row["apellido"];
             $direccion = $row["direccion"];
-            echo "Direccion: $direccion    ::$server, $db_user, $db_pwd, $db_name     \n";
             $telefono = $row["telefono"];
             $nit = $row["cedula"];
             $ciudad = $row["ciudad"];
@@ -288,7 +287,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
 
     // Guardar el PDF en un archivo
     file_put_contents($directory.$filename, $output); 
-    echo "Factura guardada en el servidor: $directory.$filename, \n";
+    echo "Factura guardada en el servidor: $directory"."$filename, \n";
     $html = null;      
 }
 
