@@ -1,22 +1,22 @@
 <?php 
-session_start();
+// session_start();
 
 
-if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
-		{
-		header('Location: ../login/index.php');
-		exit;
-		}
-else    {
-		$user=$_SESSION['username'];
-        $empresa = $_SESSION['empresa'];
-		}
-if($_SESSION['role']=='tecnico'){
-	header('Location: tick.php');
-}
-if($_SESSION['role']=='cajero'){
-	header('Location: registerPay.php');
-}
+// if ( !isset($_SESSION['login']) || $_SESSION['login'] !== true) 
+// 		{
+// 		header('Location: ../login/index.php');
+// 		exit;
+// 		}
+// else    {
+// 		$user=$_SESSION['username'];
+//         $empresa = $_SESSION['empresa'];
+// 		}
+// if($_SESSION['role']=='tecnico'){
+// 	header('Location: tick.php');
+// }
+// if($_SESSION['role']=='cajero'){
+// 	header('Location: registerPay.php');
+// }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -37,6 +37,13 @@ if($_SESSION['role']=='cajero'){
     <style>
     .caja {
         border-bottom: 1px solid #000;
+    }
+    .folder {
+            color: #007bff;
+        }
+
+    .pdf {
+        color: #3280c5;
     }
     </style>
 </head>
@@ -170,6 +177,48 @@ if($_SESSION['role']=='cajero'){
                     </div>
 
                 </div>
+                <div class="row">
+                    <div class="columna col-12 col-sm-6   col-md-6	 col-lg-11  ">
+                        <div class="container my-5">
+                                <h1 class="text-center mb-4">Lista de Archivos PDF</h1>
+
+                                <div class="list-group">
+                                <?php
+                                // Función recursiva para listar archivos PDF
+                                function listarPDFs($directorio, $nivel = 0) {
+                                    $archivos = array_diff(scandir($directorio), array('.', '..'));
+
+                                    foreach ($archivos as $archivo) {
+                                        $ruta = $directorio . '/' . $archivo;
+
+                                        if (is_dir($ruta)) {
+                                            echo '<div class="list-group-item folder pl-' . ($nivel * 3) . '">
+                                                    <i class="fas fa-folder mr-2"></i>' . $archivo . '
+                                                </div>';
+                                            listarPDFs($ruta, $nivel + 1); // Llamada recursiva para subdirectorios
+                                        } else {
+                                            $extension = pathinfo($archivo, PATHINFO_EXTENSION);
+                                            if (strtolower($extension) === 'pdf') {
+                                                echo '<a href="' . $ruta . '" target="_blank" class="list-group-item pdf pl-' . (($nivel + 1) * 3) . '">
+                                                        <i class="fas fa-file-pdf mr-2"></i>' . $archivo . '
+                                                    </a>';
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // Directorio base para listar
+                                $directorioBase = '../controller/cron/facturas';
+
+                                // Llamada inicial a la función
+                                listarPDFs($directorioBase);
+                                ?>
+                                </div>
+                            </div>
+                                                    
+                        </div> 
+                    </div>                        
+                </div>
             </main>
         </div>
     </div>
@@ -190,7 +239,7 @@ if($_SESSION['role']=='cajero'){
 
     </div>
 
-
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>                            
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
     <script src="../bower_components/Popper/popper.min.js"></script>
