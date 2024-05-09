@@ -58,7 +58,7 @@ if (isset($_GET['idCliente']) && is_numeric($_GET['idCliente']) && $_GET['idClie
     $sqlPart = "";
     $saldoTotal = 0;
     $items = "";
-    print "No hay id de cliente en GET\n\n";
+    print "No hay ... id de cliente en GET\n\n";
 }
 
 echo "Iniciando proceso de creación de facturas\n";
