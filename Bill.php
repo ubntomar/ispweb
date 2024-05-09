@@ -24,6 +24,17 @@ class Bill
         else return false;	
 
     }
+    public function getBillSaldoTotal($idClient){
+        $sum=0;
+        $items=null;
+        $sql="SELECT `saldo`,`periodo` FROM `redesagi_facturacion`.`factura` WHERE `id-afiliado`='$idClient' AND `cerrado`=0";
+        if($result=$this->mysqli->query($sql)){
+            while ($row=$result->fetch_assoc()) {
+                $sum+=$row["saldo"];
+                $items.=$row["periodo"]." ";
+            }
+        }
+        return array($sum,$items);    }
     public function getBill($idClient,$aditionalCondition="1"){
         $array=null;
         $sql="SELECT * FROM `redesagi_facturacion`.`factura` WHERE `id-afiliado`='$idClient' AND $aditionalCondition ";

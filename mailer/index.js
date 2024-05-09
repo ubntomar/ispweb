@@ -3,8 +3,21 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+
+
+
 const {sendEmail,sendEmailPayment,sendEmailToCompany,backup,sendPdfFactura} = require('./src/mail')
+
+
 const app = express();
+
+
+
+
+
+
+
+
 // defining an array to work as the database (temporary solution) 2024
 const ads = [{
   title: 'Hello, world (again)!'
@@ -89,6 +102,8 @@ app.get('/bk', async (req, res) => {
     });
   }
 });
+
+
 
 app.listen(3001, () => {
   console.log('listening on port 3001');

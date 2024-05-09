@@ -1,4 +1,6 @@
+
 <?php
+use Dompdf\Dompdf;
 if (file_exists("/var/www/ispexperts/login/db.php")) {
     require("/var/www/ispexperts/login/db.php");
 } else {
@@ -11,6 +13,11 @@ if (file_exists("/var/www/ispexperts/Mkt.php")) {
 } else {
     require("/home/omar/docker-work-area/go/ispweb/Mkt.php");
 }
+if (file_exists("/var/www/ispexperts/Bill.php")) {
+    require("/var/www/ispexperts/Bill.php");
+} else {
+    require("/home/omar/docker-work-area/go/ispweb/Bill.php");
+}
 
 
 if (file_exists('/home/omar/docker-work-area/go/ispweb/vendor/autoload.php')) {
@@ -19,8 +26,11 @@ if (file_exists('/home/omar/docker-work-area/go/ispweb/vendor/autoload.php')) {
     require_once '/var/www/ispexperts/vendor/autoload.php'; // Incluir el autocargador alternativo
 }
 // Referenciamos la clase requerida
-use Dompdf\Dompdf;
-$dompdf = new Dompdf();
+try {
+    $dompdf = new Dompdf();
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
 
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
@@ -35,9 +45,24 @@ $currentDay = date('j');
 $currentHour = date('h:i A'); // h para hora en formato 12 horas, i para minutos, A para AM/PM
 $convertdate = date("d-m-Y", strtotime($today));
 
+if (isset($_GET['idCliente']) && is_numeric($_GET['idCliente']) && $_GET['idCliente'] > 0) {
+    $get=true;
+    print "Generando factura para el cliente con id: ".$_GET['idCliente']."\n";
+    $idCliente = mysqli_real_escape_string($mysqli, $_GET['idCliente']);
+    $items=mysqli_real_escape_string($mysqli, $_GET['items']);
+    $saldoTotal = intval(mysqli_real_escape_string($mysqli, $_GET['saldoTotal']));
+    print "Saldo total GET: $saldoTotal\n";
+    $sqlPart = "AND `id`=$idCliente";
+}else{
+    $get=false;
+    $sqlPart = "";
+    $saldoTotal = 0;
+    $items = "";
+    print "No hay id de cliente en GET\n\n";
+}
 
 echo "Iniciando proceso de creación de facturas\n";
-$sqlSelect = "SELECT * FROM `afiliados` WHERE `eliminar` = 0 AND `activo` = 1 AND `id-formato-factura` IS NOT NULL  AND `id-formato-factura`!=0 ";
+$sqlSelect = "SELECT * FROM `afiliados` WHERE `eliminar` = 0 AND `activo` = 1 AND `id-formato-factura` IS NOT NULL  AND `id-formato-factura`!=0 $sqlPart";
     $result = $mysqli->query($sqlSelect);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
@@ -50,7 +75,11 @@ $sqlSelect = "SELECT * FROM `afiliados` WHERE `eliminar` = 0 AND `activo` = 1 AN
             $ciudad = $row["ciudad"];
             $departamento = $row["departamento"];
             $mail = $row["mail"];
-            $valorPlan = $row["pago"];
+            if(!$get){
+                $billObj=new Bill($server, $db_user, $db_pwd, $db_name);
+                list($saldoTotal,$items) = $billObj->getBillSaldoTotal($id);
+                echo "Saldo total: $saldoTotal  Items:  $items  \n";
+            }
             $ifFormatoFactura = $row["id-formato-factura"];
             $sqlSelectFormato = "SELECT * FROM `formato_factura` WHERE `id`=$ifFormatoFactura";
             $resultFormato = $mysqli->query($sqlSelectFormato);
@@ -67,16 +96,16 @@ $sqlSelect = "SELECT * FROM `afiliados` WHERE `eliminar` = 0 AND `activo` = 1 AN
 
 
 
-            createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail,new Dompdf(),$valorPlan,$representante,$nitEmpresa,$direccionEmpresa,$telefonoEmpresa,$mailEmpresa,$ciudadEmpresa,$departamentoEmpresa);
+            createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail,new Dompdf(),$saldoTotal,$representante,$nitEmpresa,$direccionEmpresa,$telefonoEmpresa,$mailEmpresa,$ciudadEmpresa,$departamentoEmpresa,$items);
             }
 
         }
     }
 
 
-function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail,$dompdf,$valorPlan,$representante,$nitEmpresa,$direccionEmpresa,$telefonoEmpresa,$mailEmpresa,$ciudadEmpresa,$departamentoEmpresa){
-    echo "Creando factura para el cliente: $cliente\n";
-    $valoAPagar = "$".number_format($valorPlan, 0, '.', ',');
+
+function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail,$dompdf,$saldoTotal,$representante,$nitEmpresa,$direccionEmpresa,$telefonoEmpresa,$mailEmpresa,$ciudadEmpresa,$departamentoEmpresa,$items){
+    $valoAPagar = "$".number_format($saldoTotal, 0, '.', ',');
     $year = date('Y');
     $mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
     $month = $mes[date('n')];
@@ -251,7 +280,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Servicio de Internet Banda Ancha</td>
+                        <td>Servicio de Internet Banda Ancha <p>$items</p></td>
                         <td>$valoAPagar</td>
                         <td>$valoAPagar</td>
                     </tr>
@@ -280,7 +309,6 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
     $dompdf->setPaper('A4', 'portrait');
     $dompdf->render();
     $output = $dompdf->output();
-    echo "Guardando factura en el servidor\n";
     
     
     
@@ -300,7 +328,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
 
     // Guardar el PDF en un archivo
     file_put_contents($directory.$filename, $output); 
-    echo "Factura guardada en el servidor: $directory"."$filename, \n";
+    echo "Factura guardada en el servidor: $directory"."$filename, \n\n";
     $html = null;      
 }
 
