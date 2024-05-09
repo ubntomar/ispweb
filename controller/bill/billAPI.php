@@ -48,6 +48,18 @@ if( $_SERVER['REQUEST_METHOD']==='POST' ){
                 $response[]=["pago"=>""];
                 
             }
+            if($corte=$mysqli -> real_escape_string($_POST["corte"])){
+                $param="corte";
+                if($clientObj->updateClient($id,$param,$corte,$operator="=")){
+                    $response[]=["corte"=>"updated"];
+                }else{
+                    $response[]=["corte"=>"fail"];
+                }
+            }else{
+                $response[]=["corte"=>""];
+                
+            }
+            
             break;
         }
         case 'createBill':{
@@ -57,7 +69,15 @@ if( $_SERVER['REQUEST_METHOD']==='POST' ){
             $saldo=$mysqli -> real_escape_string($_POST["saldo"]);
             $nota=$mysqli -> real_escape_string($_POST["nota"]);
             $billObj=new Bill($server, $db_user, $db_pwd, $db_name);
-            $response=$billObj->createBill($idClient,$periodo=$item,$notas=$nota,$valorf=$valor,$valorp="0",$saldo,$cerrado="0",$fechaPago='',$iva="19",$descuento="0",$fechaCierre='',$vencidos='0');
+            $billObj->createBill($idClient,$periodo=$item,$notas=$nota,$valorf=$valor,$valorp="0",$saldo,$cerrado="0",$fechaPago='',$iva="19",$descuento="0",$fechaCierre='',$vencidos='0');
+            
+            try {
+                list($saldoTotal,$items) = $billObj->getBillSaldoTotal($idClient);
+                $url = "http://localhost/controller/cron/pdf.php?idCliente=" . intval($idClient) . "&saldoTotal=" . intval($saldoTotal). "&items=" . urlencode($items);
+                file_get_contents($url);
+            } catch (Exception $e) {
+                echo "An error occurred: " . $e->getMessage();
+            }
             break;
         } 
         case 'updateBill':{

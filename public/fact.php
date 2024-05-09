@@ -121,7 +121,7 @@ $htmlObject=new Html();
                 </div>
                 <div class="box new-ticket " v-bind:class="{'hide':hideResultModalPlan}">
                     <div class="new-ticket-modal-content">
-                        <form id="formFactData" method="POST" v-on:submit.prevent="checkFormsaveData()">
+                        <form id="formFactData" method="POST" v-on:submit.prevent="checkFormAndSaveData()">
                             <div class="title-modal">
                                 <h3>PLAN DEL CLIENTE</h3>
                             </div>
@@ -159,9 +159,9 @@ $htmlObject=new Html();
                                     <input type="email" v-model="clientDataSaveSelected.email">
                                 </div>
                                 <div class="form-group new-cli">
-                                    <label for="ipAddre">Ip Address</label>
-                                    <input type="text"  :placeholder="clientDataSaveSelected.ipBackup" disabled
-                                        v-model="clientDataSaveSelected.ip">
+                                    <label for="corte">Corte  </label>
+                                    <input type="text"  :placeholder="clientDataSaveSelected.corte" v-model="clientDataSaveSelected.corte" required>
+                                    <p :class="{'text-danger':message2.text}">{{message2.text}}</p>
                                 </div>
                                 <div class="form-group   new-cli">
                                     <strong class="strong--green" for="speed">Velocidad de Bajada(Megas)</strong>
@@ -182,7 +182,7 @@ $htmlObject=new Html();
                             </div>
                            
                             <div class="footer-modal">
-                                <input type="submit" value="Enviar" :class="{'hide':info.speed==clientDataSaveSelected.speed&&info.planPrice==clientDataSaveSelected.planPrice}"   ><span class="icon-cancel"
+                                <input type="submit" value="Enviar" :class="{'hide':info.speed==clientDataSaveSelected.speed&&info.planPrice==clientDataSaveSelected.planPrice&&info.corte==clientDataSaveSelected.corte}"   ><span class="icon-cancel"
                                     @click="continueToResultModal(false)"></span> 
                             </div>
                         </form>
@@ -301,7 +301,6 @@ var app = new Vue({
         searchClientContent: "",
         clientes: [],
         clientDataSaveSelected: [],
-        clientDataSaveSelected: [],
         WalletsList: [],
         clientAbiertoTicketSelected: [],
         totalRows: "",
@@ -322,12 +321,16 @@ var app = new Vue({
         menuBill:null,
         info:{
             speed:null,
-            planPrice:null
+            planPrice:null,
+            corte:null
         },
         message:{
             text:"Falló al hacer la operación",
             status:false,
             show:false
+        },
+        message2:{
+            text:""
         },
         billsBox:false,
         bills:{},
@@ -352,13 +355,23 @@ var app = new Vue({
             this.billTypeClass.plan=opc==='plan'?'selected-client__menu-p selected-client__menu--selected':'selected-client__menu-p'
             this.billTypeClass.bill=opc==='bill'?'selected-client__menu-p selected-client__menu--selected':'selected-client__menu-p'
         },  
-        checkFormsaveData:function(){
+        checkFormAndSaveData:function(){
+
+            if (!this.validateCorte(this.clientDataSaveSelected.corte)) {
+                this.message2.status = false;
+                this.message2.show = true;
+                this.message2.text = "El corte debe estar entre 2 y 28 y no puede ser 15";
+                return;
+            }else{
+                this.message2.text = "";
+            }
             console.log("Actualizar la info en la base de datos")
             const data = new FormData();
             data.append('option', 'updateClient');
             data.append('id', this.clientDataSaveSelected.id)
             if(this.info.speed!=this.clientDataSaveSelected.speed) data.append('speed', this.clientDataSaveSelected.speed)
             if(this.info.planPrice!=this.clientDataSaveSelected.planPrice)data.append('planPrice', this.clientDataSaveSelected.planPrice) 
+            if(this.info.corte!=this.clientDataSaveSelected.corte)data.append('corte', this.clientDataSaveSelected.corte) 
             
             fetch(this.billEndPoint, {
             method: 'POST',
@@ -372,6 +385,10 @@ var app = new Vue({
                     this.message.text=`Datos actualizados [speed:${result[0].speed}] [pago:${result[1].pago}] a ${this.clientDataSaveSelected.cliente} ${this.clientDataSaveSelected.apellido} `
                 }).catch(err=> {
                     console.log(err); });
+        },
+        validateCorte: function (corte) {
+            const corteValue = Number(corte);
+            return corteValue !== "" && !isNaN(corteValue) && corteValue >1 && corteValue < 29  && corteValue!=15;
         },
         continueToResultModal: function(data) {
             
@@ -397,6 +414,7 @@ var app = new Vue({
             this.hideTicketResult = true
             this.info.speed=null
             this.info.planPrice=null
+            this.info.corte=null
         },
         searchClient: function() {
             this.info={}
@@ -442,6 +460,7 @@ var app = new Vue({
             this.info.id=clientObject.id
             this.info.speed=clientObject.speed
             this.info.planPrice=clientObject.planPrice
+            this.info.corte=clientObject.corte
         },
         validateIpAddress: function(data) {
             var ipformat =
@@ -521,6 +540,7 @@ var app = new Vue({
                 const data = new FormData();
                 data.append('option',"createBill")
                 data.append('id',this.clientDataSaveSelected.id)
+                console.log("submiting New form data id:"+this.clientDataSaveSelected.id+" item:"+this.billDataToBox.item+" valor:"+this.billDataToBox.valor+" saldo:"+this.billDataToBox.saldo+" nota:"+this.billDataToBox.nota)
                 data.append('item',this.billDataToBox.item)
                 data.append('valor',this.billDataToBox.valor)
                 data.append('saldo',this.billDataToBox.saldo)
