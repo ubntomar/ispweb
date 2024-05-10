@@ -74,7 +74,9 @@ if( $_SERVER['REQUEST_METHOD']==='POST' ){
             try {
                 list($saldoTotal,$items) = $billObj->getBillSaldoTotal($idClient);
                 $url = "http://localhost/controller/cron/pdf.php?idCliente=" . intval($idClient) . "&saldoTotal=" . intval($saldoTotal). "&items=" . urlencode($items);
-                file_get_contents($url);
+                echo "url:$url\n";
+                $response=file_get_contents($url);
+                echo $response."\n";
             } catch (Exception $e) {
                 echo "An error occurred: " . $e->getMessage();
             }
