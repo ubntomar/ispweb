@@ -15,3 +15,5 @@ ipup
 /controller/cron/clogs.txt
 transaccion.log
 controller/cron/facturas/*
+mailer/node_modules/*
+mailer/*
