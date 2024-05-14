@@ -1,26 +1,58 @@
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const { Client } = require('whatsapp-web.js');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const QRCode = require('qrcode');
 
-const fs = require("fs");
+const app = express();
 
-pathToAttachment = "/tmp/redesagi_facturacion_bk.sql";
-attachment = fs.readFileSync(pathToAttachment).toString("base64");
+// Initialize WhatsApp Client for Multi-Device
+const client = new Client({
+    puppeteer: { args: ['--no-sandbox'] }
+});
 
-const msg = {
-    to: 'ag.ingenieria.wist@gmail.com',
-    from: 'ventas@agingenieria.tech',
-    subject: 'Backup base de datos Ispexperts.com',
-    html: '<strong>Adjunto backup</strong>',
-    attachments: [
-        {
-          content: attachment,
-          filename: "redesagi_facturacion_bk.sql",
-          type: "application/sql",
-          disposition: "attachment"
+client.on('qr', (qr) => {
+    // Generate QR and display it in the console
+    QRCode.toString(qr, { type: 'terminal' }, function (err, url) {
+        if (err) {
+            console.error('Error generating QR', err);
+        } else {
+            console.log(url);
         }
-    ]
-}
- 
-sgMail.send(msg).catch(err => {
-  console.log(err);
+    });
+    console.log("Generating QR...");
+});
+
+client.on('ready', () => {
+    console.log('Client is ready!');
+});
+
+client.on('auth_failure', message => {
+    console.log('Authentication failure:', message);
+});
+
+client.on('disconnected', reason => {
+    console.log('Client disconnected:', reason);
+});
+
+// Initialize the client
+client.initialize();
+
+// Set up Express middleware
+app.use(helmet());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+app.use(morgan('combined'));
+
+// Example route
+app.get('/', (req, res) => {
+    res.send({ status: 'Server is running and WhatsApp client is initialized' });
+});
+
+// Listen on port 3001
+app.listen(3001, () => {
+    console.log('Listening on port 3001');
 });

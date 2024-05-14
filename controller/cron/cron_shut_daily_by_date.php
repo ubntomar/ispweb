@@ -85,7 +85,7 @@ if ($isHoliday) {
 
 ////////////////////////////////////////////////
 if(!$aplazar){
-    $sqlSelect = "SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1 AND `corte`='$currentDay' ";
+    $sqlSelect = "SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1 AND `corte`<='$currentDay' ";
     $result = $mysqli->query($sqlSelect);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
