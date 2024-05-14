@@ -1,9 +1,10 @@
+mailer/node_modules/*
+mailer/sendgrid.env
 vpnConfig.php
 smsender.php 
 scss/*
 vendor/*
 crearRepetidor.sh
-mailer/sendgrid.env
 test.php
 .env
 /login/.env
@@ -15,3 +16,4 @@ ipup
 /controller/cron/clogs.txt
 transaccion.log
 controller/cron/facturas/*
+                             
