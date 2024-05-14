@@ -21,7 +21,7 @@ app.use(cors());
 app.use(morgan('combined'));
 
 app.get('/', (req, res) => {
-  res.send(ads);
+  res.send('Welcome to the mailer service');
 });
 
 app.post('/newuser', async (req, res) => {
