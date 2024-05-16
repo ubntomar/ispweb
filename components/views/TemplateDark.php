@@ -44,7 +44,7 @@ Class TemplateDark{
         <nav class="navLeft">
             <ul>
                 <li class="selected"><a href="tick.php"><i class="icon-pinboard"></i><span>Tickets</span></a></li>
-                <li><a href="'.$path.($role!='tecnico' && $role!='convenio'?"fact.php":"#").'"><i
+                <li><a href="'.$path.($role!='tecnico'?"fact.php":"#").'"><i
                             class="icon-docs"></i><span>Facturas</span></a></li>
                 <li><a href="'.$path.($role!='tecnico' && $role!='convenio'?"client.php":"#").'"><i
                             class="icon-users"></i><span>Clientes</span></a></li>
