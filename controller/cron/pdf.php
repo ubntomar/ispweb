@@ -330,8 +330,17 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
     // Guardar el PDF en un archivo
     file_put_contents($directory.$filename, $output); 
 
-    chmod($file_path, 0666); // Permisos de lectura y escritura para todos
-    
+    if (chmod($file_path, 0666)) {
+        // Verificar si el archivo es escribible después de cambiar los permisos
+        if (is_writable($file_path)) {
+            echo "Permisos cambiados correctamente y el archivo es escribible.\n";
+        } else {
+            echo "Error: No se pudieron cambiar los permisos correctamente.\n";
+        }
+    } else {
+        echo "Error: No se pudieron cambiar los permisos.\n";
+    }
+
     echo "Factura guardada en el servidor: $directory"."$filename, \n\n";
     $html = null;      
 }
