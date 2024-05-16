@@ -1,12 +1,17 @@
 <?php
 session_start(); 
 include "db.php";
-//echo "mysqli_connect($server, $db_user, $db_pwd, $db_name)";
-$con = mysqli_connect($server, $db_user, $db_pwd, $db_name) //connect to the database server
- or die("Could not connect to mysql because $server, $db_user, $db_pwd, $db_name " . mysqli_error());
+$con = mysqli_connect($server, $db_user, $db_pwd, $db_name); //connect to the database server
+//echo "<<<<   $server, $db_user, $db_pwd, $db_name     >>>>";
 
-mysqli_select_db($con, $db_name) //select the database
- or die("Could not select to mysql because " . mysqli_error());
+if (!$con) {
+    die("Could not connect to mysql because " . mysqli_connect_error());
+}
+
+if (!mysqli_select_db($con, $db_name)) { //select the database
+    die("Could not select to mysql because " . mysqli_error($con));
+}
+
 
 //prevent sql injection
 $username = mysqli_real_escape_string($con, $_POST["username"]);
