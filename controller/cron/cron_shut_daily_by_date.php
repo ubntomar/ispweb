@@ -102,9 +102,10 @@ if(!$aplazar){
                     echo "Error al actualizar el registro con ID: $id - " . $mysqli->error . "<br>";
                 }
             }else{
-                $sqlSelectSuspender = "SELECT * FROM `afiliados` WHERE  `id`=$id AND `suspender`=0 AND (`corte`!='1' OR `corte`!='15') ";
+                $sqlSelectSuspender = "SELECT * FROM `afiliados` WHERE  `id`=$id AND `suspender`=0 AND (`corte`!='1' AND `corte`!='15') ";
                 $resultSuspender = $mysqli->query($sqlSelectSuspender);
                 if ($resultSuspender->num_rows > 0) {
+                    
                     if($currentDay<=$corteInDb){
                         $sqlText="`corte`='$currentDay'";
                         print"\nPor corte=$currentDay\n";
