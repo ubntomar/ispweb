@@ -325,9 +325,13 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
 
     // Nombre del archivo
     $filename = "factura_{$month}_{$year}_{$id}_".str_replace(" ", "-", $cliente).".pdf";
+    $file_path = $directory . $filename;
 
     // Guardar el PDF en un archivo
     file_put_contents($directory.$filename, $output); 
+
+    chmod($file_path, 0666); // Permisos de lectura y escritura para todos
+    
     echo "Factura guardada en el servidor: $directory"."$filename, \n\n";
     $html = null;      
 }
