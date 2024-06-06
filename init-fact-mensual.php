@@ -17,8 +17,8 @@ $mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Sept
 $monthn = date("n");//****************** IMPORTANTE****Y REVISAR LOS STAND BY*****************************************----------
 $periodo=$mes[7];// hoy 01   de Junio -no olvidar los update standby de 2022 aquí pongo el mes al que le voy a crear la tanda de facturas a todos los afiliados.  AND `suspender`!=1
 $cont=0;																
-$sql = "SELECT * FROM `afiliados` WHERE `mesenmora` != '-1' AND `activo`='1'  AND `eliminar`!='1'   ORDER BY `id` ASC "; 
-if ($result = $mysqli->query($sql)) {
+$sql = "SELECT * FROM `afiliados` WHERE `mesenmora` IS NULL AND `activo`='1'  AND `eliminar`!='1'   ORDER BY `id` ASC "; 
+if ($result = $mysqli->query($sql)) {//(`mesenmora` != '-1' OR `mesenmora` IS NULL)
 	while ($row = $result->fetch_assoc()) { 
 		$standby=$row["standby"];
 		$cont++;	
