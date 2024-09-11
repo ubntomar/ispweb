@@ -15,9 +15,9 @@ $today = date("Y-m-d");
 $convertdate= date("d-m-Y" , strtotime($today));
 $mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 $monthn = date("n");//****************** IMPORTANTE****Y REVISAR LOS STAND BY*****************************************----------
-$periodo=$mes[5];// hoy 02   de Mayo -no olvidar los update standby de 2022 aquí pongo el mes al que le voy a crear la tanda de facturas a todos los afiliados.  AND `suspender`!=1
+$periodo=$mes[9];// hoy 02   de Septiembre 2024 -no olvidar los update standby de 2022 aquí pongo el mes al que le voy a crear la tanda de facturas a todos los afiliados.  AND `suspender`!=1
 $cont=0;																
-$sql = "SELECT * FROM `afiliados` WHERE `mesenmora` != '-1' AND `activo`='1'  AND `eliminar`!='1'   ORDER BY `id` ASC "; 
+$sql = "SELECT * FROM `afiliados` WHERE `activo`='1'  AND `eliminar`!='1'   ORDER BY `id` ASC "; 
 if ($result = $mysqli->query($sql)) {
 	while ($row = $result->fetch_assoc()) { 
 		$standby=$row["standby"];

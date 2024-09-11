@@ -185,16 +185,6 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                 text-align: left;
                 /* border-bottom: 1px solid #ddd; */
             }
-            .client-info-left .email {
-                font-size: 12px; /* Ajustar el tamaño de la fuente */
-                padding-left: 3px;
-            }
-            .client-info-left .email strong {
-
-            color: initial; /* Reestablece el color inicial del navegador */
-            font-size: initial;
-            }
-        }
             .item-table {
                 width: 100%;
                 border-collapse: collapse;
@@ -225,9 +215,11 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                 border-bottom: 1px solid #000;
                 height: 30px;
                 width: 100%;
+	    }
+	    .email {
+		max-width: 300px;		
+	    }
 
-            }
-            
         </style>
     </head> 
     <body>
@@ -244,7 +236,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                             <p>$direccionEmpresa. $ciudadEmpresa</p>
                             <p>$departamentoEmpresa, CO - (57+) $telefonoEmpresa</p>
                             <p>www.ispexperts.com</p>
-                            <p>ventas@agingeneiria.online</p>
+                            <p>ag.ingenieria.wist@gmail.com</p>
                         </td>
                     </tr>
                 </table>
@@ -282,9 +274,11 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                             <th>NIT:</th>
                             <td>$nit</td>
                         </tr>
-                        
+                        <tr>
+                            <th>Email:</th>
+                            <td class="email" >$mail</td>
+                        </tr>
                     </table>
-                    <p class="email"><strong>Email: </strong> $mail</p>
                 </div>
                 
             </div>
