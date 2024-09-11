@@ -22,7 +22,7 @@ if($_SESSION['role']=='cajero'){
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>DevXm - Administrador ISP</title>
+	<title>FastNet - Administrador ISP</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
@@ -81,7 +81,7 @@ if($_SESSION['role']=='cajero'){
 			<div class="container img-logo ">
 				<!-- <img src="img/wisp.png"> -->
 				<!-- Nos sirve para agregar un logotipo al menu -->
-				<a href="main.php" class="navbar-brand ">DevXm</a> 
+				<a href="main.php" class="navbar-brand ">FastNet</a> 
 
 				<!-- Nos permite usar el componente collapse para dispositivos moviles . ...-->
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Menu de Navegacion">

@@ -1,8 +1,3 @@
-<?php
-session_start();
-$urlprev=$_SESSION['urlsource'];
-session_destroy();
-?>
 <!DOCTYPE html>
 
 <head>
@@ -30,7 +25,8 @@ session_destroy();
                 <!-- Form Login -->
                 <div>
                     <div class="logo text-light">
-                        <h2><?php include('db.php'); echo $logotxt; ?></h2>
+                        <h2>
+FastNet</h2>
                     </div>
                     <form class="form-horizontal" id="login_form">
                         <h2>Bienvenido</h2>
@@ -156,7 +152,7 @@ session_destroy();
 
                             $('#login_form').fadeOut(5000);
                             //$("button").button('reset');
-                            window.location = "members.php?urlprev=<?php echo $urlprev; ?>";
+                            window.location = "members.php?urlprev=";
                         } else {
                             $("button").button('reset');
                             console.log(msg.result);

@@ -27,7 +27,7 @@ if($_SESSION['role']=='tecnico'){
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>DevXm-Administrador ISP</title>
+    <title>FastNet-Administrador ISP</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet">
@@ -66,7 +66,7 @@ if($_SESSION['role']=='tecnico'){
             <div class="container img-logo ">
                 
                 <!-- Nos sirve para agregar un logotipo al menu -->
-                <a href="main.php" class="navbar-brand ">DevXm</a>
+                <a href="main.php" class="navbar-brand ">FastNet</a>
 
                 <!-- Nos permite usar el componente collapse para dispositivos moviles -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
@@ -94,7 +94,7 @@ if($_SESSION['role']=='tecnico'){
                             <a href="#" class="nav-link"><i class="icon-mail"></i>Contacto</a>
                         </li>
                         <li class="nav-item">
-                            <a href="reclist.php" class="nav-link border border-primary rounded p-2"><i class="icon-money"></i>Factura a Empresa</a>
+                            <a href="reclist.php" class="nav-link "><i class="icon-money"></i>Factura a Empresa</a>
                         </li>
                     </ul>
                     <div class="ml-auto">
@@ -574,7 +574,7 @@ if($_SESSION['role']=='tecnico'){
     <div class="container-fluid 	">
         <div class="row">
             <div class="col text-light bg-dark py-2 d-flex justify-content-center footer-text">
-                <p>Copyright ©2014-2024 DevXm-Administrador ISP - <small>All Rights Reserved.</small></p>
+                <p>Copyright ©2014-2024 FastNet-Administrador ISP - <small>All Rights Reserved.</small></p>
 
             </div>
         </div>

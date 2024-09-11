@@ -8,7 +8,7 @@ Class TemplateDark{
         <header>
             <div class="logo">
                 <a href="main.php">
-                    <h1>DevXm</h1>
+                    <h1>FastNet</h1>
                 </a>
                 <h4>Monitoreo y administraciòn</h4>
 
@@ -32,7 +32,7 @@ Class TemplateDark{
             <ul>
                 <li><a href="'.($role!='tecnico'?"registerPay.php":"#").'"><i class="icon-money"></i>Registrar Pago</a></li>
                 <li><a href="'.$path.($role!='tecnico'?"transacciones.php":"#").'"><i class="icon-print"></i>Transacciones</a></li>
-                <li class="border border-primary rounded p-2"><a href="'.$path.($role!='tecnico' && $role!='convenio'?"reclist.php":"#").'"><i class="icon-money"></i>Factura a Empresas</a></li> 
+                <li class=""><a href="'.$path.($role!='tecnico' && $role!='convenio'?"reclist.php":"#").'"><i class="icon-money"></i>Factura a Empresas</a></li> 
                 <li><a href="'.$path.($role!='tecnico'?"wallet.php":"#").'"><i class="icon-money"></i>Billetera</a></li> 
             </ul>
         </nav>
@@ -65,7 +65,7 @@ Class TemplateDark{
         $content='
         <footer>
             <div>
-                <span>DevXm- Adminstraciòn Redes </span>
+                <span>FastNet- Adminstraciòn Redes </span>
             </div>
         </footer>
         

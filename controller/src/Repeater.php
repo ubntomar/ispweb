@@ -59,7 +59,7 @@ class Repeater
     
 }
 
-// $repeaterObject=new Repeater("localhost", "mikrotik", "-Agwist2017Agwist1.", "redesagi_facturacion");
+// $repeaterObject=new Repeater("localhost", "mikrotik", "-Agwist2020Agwist1.", "redesagi_facturacion");
 // $res=$repeaterObject->getServersList();//($table='vpn_targets',"server-ip","192.168.21.1");
 // if($res){
 //     var_dump(json_encode($res,JSON_PRETTY_PRINT));
