@@ -1,4 +1,3 @@
-
 <?php
 use Dompdf\Dompdf;
 if (file_exists("/var/www/ispexperts/login/db.php")) {
@@ -68,6 +67,13 @@ $sqlSelect = "SELECT * FROM `afiliados` WHERE `eliminar` = 0 AND `activo` = 1 AN
         while($row = $result->fetch_assoc()) {
             echo "Creando factura para el cliente: ".$row["cliente"]." ".$row["apellido"]."\n";
             $id = $row["id"];
+            $sqlLastFactura="SELECT `id-factura` FROM `factura` WHERE `id-afiliado` = $id ORDER BY `id-factura` DESC LIMIT 1 ";
+            $resultLastFactura = $mysqli->query($sqlLastFactura);
+            if ($resultLastFactura->num_rows > 0) {
+                while($rowLastFactura = $resultLastFactura->fetch_assoc()) {
+                    $idFactura = $rowLastFactura["id-factura"];
+                }
+            }
             $cliente = $row["cliente"]."  ".$row["apellido"];
             $direccion = $row["direccion"];
             $telefono = $row["telefono"];
@@ -75,6 +81,7 @@ $sqlSelect = "SELECT * FROM `afiliados` WHERE `eliminar` = 0 AND `activo` = 1 AN
             $ciudad = $row["ciudad"];
             $departamento = $row["departamento"];
             $mail = $row["mail"];
+            $valorPlan=$row["pago"];
             if(!$get){
                 $billObj=new Bill($server, $db_user, $db_pwd, $db_name);
                 list($saldoTotal,$items) = $billObj->getBillSaldoTotal($id);
@@ -96,7 +103,7 @@ $sqlSelect = "SELECT * FROM `afiliados` WHERE `eliminar` = 0 AND `activo` = 1 AN
 
 
 
-            createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail,new Dompdf(),$saldoTotal,$representante,$nitEmpresa,$direccionEmpresa,$telefonoEmpresa,$mailEmpresa,$ciudadEmpresa,$departamentoEmpresa,$items);
+            createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail,new Dompdf(),$saldoTotal,$representante,$nitEmpresa,$direccionEmpresa,$telefonoEmpresa,$mailEmpresa,$ciudadEmpresa,$departamentoEmpresa,$items,$idFactura,$valorPlan);
             }
 
         }
@@ -104,8 +111,9 @@ $sqlSelect = "SELECT * FROM `afiliados` WHERE `eliminar` = 0 AND `activo` = 1 AN
 
 
 
-function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail,$dompdf,$saldoTotal,$representante,$nitEmpresa,$direccionEmpresa,$telefonoEmpresa,$mailEmpresa,$ciudadEmpresa,$departamentoEmpresa,$items){
-    $valoAPagar = "$".number_format($saldoTotal, 0, '.', ',');
+function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departamento,$mail,$dompdf,$saldoTotal,$representante,$nitEmpresa,$direccionEmpresa,$telefonoEmpresa,$mailEmpresa,$ciudadEmpresa,$departamentoEmpresa,$items,$idFactura,$valorPlan){
+    $valorAPagar = "$".number_format($saldoTotal, 0, '.', ',');
+    $valorPlan = "$".number_format($valorPlan, 0, '.', ',');
     $year = date('Y');
     $mes=["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
     $month = $mes[date('n')];
@@ -177,6 +185,16 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                 text-align: left;
                 /* border-bottom: 1px solid #ddd; */
             }
+            .client-info-left .email {
+                font-size: 12px; /* Ajustar el tamaño de la fuente */
+                padding-left: 3px;
+            }
+            .client-info-left .email strong {
+
+            color: initial; /* Reestablece el color inicial del navegador */
+            font-size: initial;
+            }
+        }
             .item-table {
                 width: 100%;
                 border-collapse: collapse;
@@ -207,7 +225,9 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                 border-bottom: 1px solid #000;
                 height: 30px;
                 width: 100%;
+
             }
+            
         </style>
     </head> 
     <body>
@@ -244,7 +264,7 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                         </tr>
                         <tr>
                             <th>Serial de Factura:</th>
-                            <td>INV-$id</td>
+                            <td>INV-$idFactura</td>
                         </tr>
                         <tr>
                             <th>Nombre del Cliente:</th>
@@ -262,11 +282,9 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                             <th>NIT:</th>
                             <td>$nit</td>
                         </tr>
-                        <tr>
-                            <th>Email:</th>
-                            <td>$mail</td>
-                        </tr>
+                        
                     </table>
+                    <p class="email"><strong>Email: </strong> $mail</p>
                 </div>
                 
             </div>
@@ -274,23 +292,23 @@ function createPdf($id,$cliente, $direccion, $telefono, $nit, $ciudad, $departam
                 <thead>
                     <tr>
                         <th>Producto</th>
+                        <th>Valor Unitario</th>
                         <th>Subtotal</th>
-                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>Servicio de Internet Banda Ancha <p>$items</p></td>
-                        <td>$valoAPagar</td>
-                        <td>$valoAPagar</td>
+                        <td>$valorPlan</td>
+                        <td>$valorAPagar</td>
                     </tr>
                     
                 </tbody>
             </table>
             <div class="totals">
-                <p>Valor a Pagar: $valoAPagar</p>
-                <p>Subtotal: $valoAPagar</p>
-                <p class="totals-total">Total: $valoAPagar</p>
+                <p>Subtotal: $valorAPagar</p>
+                <p>Dcto: $0</p>
+                <p class="totals-total">Total: $valorAPagar</p>
             </div>
             <div class="small-text">
             </div>

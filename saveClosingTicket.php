@@ -142,7 +142,7 @@ function sendEmail($idTicket,$cliente,$direccio,$telefon,$fecha_creacion_ticket,
             ";
     $style_title="
             style='
-            background-color:#0275d8;
+            background-color:#693a63;
             padding:6px;
             margin:3px;
             color:#fff;

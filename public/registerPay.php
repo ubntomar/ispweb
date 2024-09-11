@@ -45,7 +45,7 @@ $htmlObject=new Html();
 
         <section>
             <div class="section-title">
-                <h1>--DevXm-- AREA DE PAGOS  <?=strtoupper($name)?></h1>
+                <h1>--FastNet-- AREA DE PAGOS  <?=strtoupper($name)?></h1>
             </div>
             <div class=box-container>
 
@@ -215,12 +215,12 @@ $htmlObject=new Html();
                                     if($clientWidthConvenio){
                                         echo "<td><small 	$style_cell  >$$vtotal</small><div><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money h3\"></i></a></div><div class=\"p-1 border border-secondary rounded \"><p class=\"mb-0 text-secondary\"><small>Billetera</small></p><p class=\"mb-0 text-secondary\"><small>($".number_format($row["wallet-money"]).")</small></p></div></td>";//
                                     }else{
-                                        echo "<td><small>Ojo, este cliente paga a Omar hay que darle mis datos.</small></td>";//
+                                        echo "<td><small $style_cell >$$vtotal . Ojo, este cliente paga a Omar hay que darle mis datos.</small></td>";//
                                     }
 
                                 }else{
                                     if($clientWidthConvenio){
-                                        echo "<td><div class=\"p-1 border border-secondary rounded \"><p class=\"mb-0 text-secondary\"><small>Convenio:</small></p><p class=\"mb-0 text-secondary\"><small>Este cliente DEBE pagar por Nequi al número: <strong>322-378-23-24</strong> y reportar el pago al mismo número: 322-378-23-24</small></p></div></td>";//
+                                        echo "<td><small 	$style_cell  >$$vtotal</small><div class=\"p-1 border border-secondary rounded \"><p class=\"mb-0 text-secondary\"><small>Convenio:</small></p><p class=\"mb-0 text-secondary\"><small>Este cliente DEBE pagar por Nequi al número: <strong>322-378-23-24</strong> y reportar el pago al mismo número: 322-378-23-24</small></p></div></td>";//
                                     }else{
                                         echo "<td><small 	$style_cell  >$$vtotal</small><div><a href=\"#\" class=\"text-primary icon-client \" data-toggle=\"modal\" 	data-target=\"#payModal\" data-id=\"" . $row["id"] . "\"><i class=\"icon-money h3\"></i></a></div><div class=\"p-1 border border-secondary rounded \"><p class=\"mb-0 text-secondary\"><small>Billetera</small></p><p class=\"mb-0 text-secondary\"><small>($".number_format($row["wallet-money"]).")</small></p></div></td>";//
                                     }
