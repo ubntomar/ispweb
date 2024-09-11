@@ -44,7 +44,7 @@ header .logo h1 {
   letter-spacing: 2px;
   padding-bottom: 0px;
   margin-bottom: 0px;
-  color: lime;
+  color: #693a63;
   text-align: end;
 }
 
@@ -124,7 +124,7 @@ section {
 section .section-title {
   display: flex;
   justify-content: center;
-  background-color: #0275d8;
+  background-color: #693a63;
   /* border:solid 2px  #262a34; */
   border-radius: 5px;
   margin: 20px auto 50px;
@@ -178,7 +178,7 @@ section .box input, select, textarea {
 section .box .title {
   margin: 10px;
   text-transform: uppercase;
-  color: lime;
+  color: #693a63;
   display: flex;
   justify-content: center;
 }
@@ -206,7 +206,7 @@ section .box .box-content .search {
 
 section .box .box-content .search button {
   border: 0px;
-  background-color: #0275d8;
+  background-color: #693a63;
   color: #fff;
   padding: 5px;
   border-radius: 3px;
@@ -325,45 +325,45 @@ section .form-group--100 {
 .form-group label {
   padding: 3px;
   margin-bottom: 3px;
-  background-color: #0275d8;
+  background-color: #693a63;
   color: #fff;
 }
 
 input[type=text]:disabled {
   background: #dddddd;
   color: #000;
-  border: 1px solid #0275d8;
+  border: 1px solid #693a63;
 }
 
 input[type=number]:disabled {
   background: #dddddd;
   color: #000;
-  border: 1px solid #0275d8;
+  border: 1px solid #693a63;
 }
 
 input[type=email]:disabled {
   background: #dddddd;
   color: #000;
-  border: 1px solid #0275d8;
+  border: 1px solid #693a63;
 }
 
 select:disabled {
   background: #fff;
   color: #000;
   font-weight: bold;
-  border: 1px solid #0275d8;
+  border: 1px solid #693a63;
 }
 
 textarea {
   background: #dddddd;
   color: #000;
-  border: 1px solid #0275d8;
+  border: 1px solid #693a63;
 }
 
 select {
   background: #dddddd;
   color: #000;
-  border: 1px solid #0275d8;
+  border: 1px solid #693a63;
 }
 
 section .ticket-closed-solution label {
@@ -437,13 +437,13 @@ section .form-group .radio-button label {
 }
 
 .evidencia-fotografica .img-container p {
-  background-color: #0275d8;
+  background-color: #693a63;
   color: #fff;
 }
 
 section .form-group .radio-button input {
   margin: auto 5px auto 10px;
-  background-color: #0275d8;
+  background-color: #693a63;
 }
 
 section .form-child-w100 {
@@ -505,7 +505,7 @@ section .close-result-table button {
   border-radius: 2px;
   margin: 0px 0px 0px 6px;
   color: #fff;
-  background-color: #0275d8;
+  background-color: #693a63;
   font-weight: bold;
   padding-right: 0px;
 }
@@ -513,7 +513,7 @@ section .close-result-table button {
 section .box .resume .title h3 {
   margin-top: 10px;
   background-color: #f2f2f2;
-  color: #0275d8;
+  color: #693a63;
   border-radius: 5px;
 }
 
@@ -525,7 +525,7 @@ section .box .resume .content {
 
 section .box .resume .content .box-child {
   border: 1px solid #262a34;
-  background-color: #0275d8;
+  background-color: #693a63;
   padding: 15px;
   margin: 10px;
   border-radius: 4px;
@@ -610,7 +610,7 @@ section .hide-closed-tickets-modal {
 
 .title-modal h3 {
   text-transform: uppercase;
-  background-color: #0275d8;
+  background-color: #693a63;
   text-align: center;
   color: #fff;
   margin: 0px;
@@ -652,7 +652,7 @@ section .hide-closed-tickets-modal {
 }
 
 .footer-modal span {
-  background-color: #0275d8;
+  background-color: #693a63;
   color: #fff;
   padding: 5px;
   margin: 3px 10px;
@@ -672,7 +672,7 @@ table .rowSelected {
 
 th {
   color: #fff;
-  background-color: #0275d8;
+  background-color: #693a63;
 }
 
 th, td {
@@ -733,7 +733,7 @@ textarea:focus:invalid {
 }
 
 .button-edit {
-  background-color: #0275d8;
+  background-color: #693a63;
   color: white;
   font-weight: 300;
   padding: 5px;

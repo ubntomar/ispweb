@@ -68,7 +68,7 @@ mysqli_set_charset($mysqli,"utf8");
     <meta charset="UTF-8" />
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-    <title>DevXm-Administrador ISP</title>
+    <title>FastNet-Administrador ISP</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet" />
     <link rel="stylesheet" href="../css/fontello.css" />
     <link rel="stylesheet" href="../css/animation.css">
@@ -117,7 +117,7 @@ mysqli_set_charset($mysqli,"utf8");
         }
         .button{
             color:#f7f7f7;
-            background-color:#0275d8;
+            background-color:#693a63;
             padding:.5rem;
             margin-left:1rem;
             margin-right:.5rem;
@@ -173,7 +173,7 @@ mysqli_set_charset($mysqli,"utf8");
     <header>
         <div class="logo">
             <a href="main.php">
-                <h1>DevXm</h1>
+                <h1>FastNet</h1>
             </a>
             <h4>Monitoreo y administraciòn</h4>
 
@@ -317,7 +317,7 @@ mysqli_set_charset($mysqli,"utf8");
     </main>
     <footer>
         <div>
-            <span>DevXm- Adminstraciòn Redes </span>
+            <span>FastNet- Adminstraciòn Redes </span>
         </div> 
     </footer>
 <script src="../bower_components/alertify/js/alertify.min.js"></script>

@@ -20,7 +20,7 @@ else    {
     <meta charset="UTF-8" />
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-    <title>DevXm-Administrador ISP</title>
+    <title>FastNet-Administrador ISP</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:300,400,500" rel="stylesheet" />
     <link rel="stylesheet" href="../css/fontello.css" />
     <link rel="stylesheet" href="../css/animation.css">
@@ -35,7 +35,7 @@ else    {
     <header>
         <div class="logo">
             <a href="main.php">
-                <h1>DevXm</h1>
+                <h1>FastNet</h1>
             </a>
             <h4>Monitoreo y administraciòn</h4>
 
@@ -778,7 +778,7 @@ else    {
     </main>
     <footer>
         <div>
-            <span>DevXm- Adminstraciòn Redes </span>
+            <span>FastNet- Adminstraciòn Redes </span>
         </div>
     </footer>
 </body>
