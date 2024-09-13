@@ -38,9 +38,10 @@ if ($result = $mysqli->query($sqlSearch)) {
                                 if($mkobj->success){
                                     $listStatus= $mkobj->verifyList("morosos",$ipAddress)?1:0;
                                     if($listStatus){    
-                                        print "\nclient $id  $name  $lastName ip address $ipAddress server:$serverIp is already in list 'morosos' , vamos a generar reconnect=1\n";
-                                        $content="$today  client $id  $name  $lastName ip address $ipAddress server:$serverIp is already in list 'morosos' , vamos a generar reconnect=1";
+                                        print "\nclient $id  $name  $lastName ip address $ipAddress server:$serverIp is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1\n";
+                                        $content="\n$today  $hourMin  client $id  $name  $lastName ip address $ipAddress server:$serverIp is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1";
                                         $clientObject->updateClient($id,$param="reconectPending",1,$operator="=");
+                                        $clientObject->updateClient($id,$param="shutoffpending",0,$operator="=");
                                         $clientObject->updateClient($id,$param="suspender",0,$operator="="); 
                                     }
                                     
