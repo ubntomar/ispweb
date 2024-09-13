@@ -42,7 +42,7 @@ if ($result = $mysqli->query($sqlSearch)) {
                                 $date=$today;
                             }else{
                                 print "\nclient $id is not in list 'morosos'!\n";
-                                //client must be inserted in 'morosos'!
+                                //client must be inserted in 'morosos'!  /
                                 $res=$mkobj->add_address($ip=$ipAddress,$listName="morosos",$idUser=$id,$name,$lastName,$direccion=$address,$fecha=$convertdate); 
                                 if($res==1){
                                     print "\n \t\t\t\t\t$name $lastName Agregado a morosos con éxito \n";
@@ -71,6 +71,18 @@ if ($result = $mysqli->query($sqlSearch)) {
         }
     }
 }
+
+
+$sqlupdateSuspenderList="SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1 AND `suspender`=0 ";
+if ($result = $mysqli->query($sqlupdateSuspenderList)) {
+    while($row = $result->fetch_assoc()) {
+        $id=$row["id"];
+        $clientObject->updateClient($id,$param="suspender-list-status",0,$operator="=");
+        $clientObject->updateClient($id, $param="suspender-list-status-date", $date=NULL, $operator="=");
+        print "\nclient $id set not in list 'morosos' because suspender=0'!\n";
+    }
+}
+
 
 file_put_contents($file, $current);
 
