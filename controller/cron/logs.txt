@@ -1,4 +1,2 @@
 
-Filename:cron_shut_off  Date: 2024-09-13 12:30
-
-Filename:curlTelegram  Date: 2024-09-13 13:45
+Filename:curlTelegram  Date: 2024-09-14 10:00

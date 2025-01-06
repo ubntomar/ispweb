@@ -234,14 +234,60 @@ class Mkt
         }  
         return $myArray;
     }
+
+    public function checkOrCreateMorososRule($createIfNotExists = false)
+    {
+        if ($this->client === null) {
+            return ['exists' => false, 'created' => false, 'error' => 'Client connection not established'];
+        }
+
+        $printRequest = new RouterOS\Request('/ip/firewall/filter/print');
+        $printRequest->setQuery(
+            RouterOS\Query::where('action', 'drop')
+                ->andWhere('chain', 'forward')
+                ->andWhere('log-prefix', 'morosos:')
+                ->andWhere('protocol', '!icmp')
+                ->andWhere('src-address-list', 'morosos')
+        );
+
+        try {
+            $response = $this->client->sendSync($printRequest);
+            $exists = $response->getProperty('.id') !== null;
+
+            if (!$exists && $createIfNotExists) {
+                $addRequest = new RouterOS\Request('/ip/firewall/filter/add');
+                $addRequest->setArgument('action', 'drop');
+                $addRequest->setArgument('chain', 'forward');
+                $addRequest->setArgument('log-prefix', 'morosos:');
+                $addRequest->setArgument('protocol', '!icmp');
+                $addRequest->setArgument('src-address-list', 'morosos');
+
+                $addResponse = $this->client->sendSync($addRequest);
+                $created = $addResponse->getType() === RouterOS\Response::TYPE_FINAL;
+
+                return ['exists' => false, 'created' => $created];
+            }
+
+            return ['exists' => $exists, 'created' => false];
+        } catch (Exception $e) {
+            return ['exists' => false, 'created' => false, 'error' => $e->getMessage()];
+        }
+    }
     
 } 
 
-// if($mkobj=new Mkt("192.168.26.1","","agwi")){
-//     echo "=new Mkt(\"192.168.26.1\",\"aging\",\"agwi\")";
+// if($mkobj=new Mkt("192.168.26.1","sfds","sfds")){
+//     //echo "=new Mkt(\"192.168.26.1\",\"aging\",\"agwi\")";
 
 //     if($mkobj->success){
-//         var_dump($mkobj->arp());      
+//         //var_dump($mkobj->arp());
+//         // To check if the rule exists
+//         $result = $mkobj->checkOrCreateMorososRule();
+//         if ($result['exists']) {
+//             echo "The rule already exists.";
+//         } else {
+//             echo "The rule does not exist.";
+//         }      
 //     } else{
 //         echo "problemas"; 
 //     }      

@@ -37,7 +37,7 @@ $today = date("Y-m-d");
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i');
 $responseTime=0;
-$sqlSearch="SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1 ORDER BY `id` DESC";
+$sqlSearch="SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1  ORDER BY `id` DESC";
 if ($result = $mysqli->query($sqlSearch)) {
     while($row = $result->fetch_assoc()) {
         $signal=0;

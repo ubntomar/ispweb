@@ -1,2 +1,0 @@
-
-2024-09-13  client 468  LUISA   AVENDAñO  ip address 192.168.6.174 server:192.168.50.126 is already in list 'morosos' , vamos a generar reconnect=1
