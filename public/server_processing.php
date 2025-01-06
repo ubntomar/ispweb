@@ -1,6 +1,23 @@
 <?php
 session_start();
+if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+		header('Location: ../login/index.php');
+		exit;
+	} else {
+	$user = $_SESSION['username'];
+	$name = $_SESSION['name'];
+	$lastName = $_SESSION['lastName'];
+	$role = $_SESSION['role'];
+	$jurisdiccion = $_SESSION['jurisdiccion'];
+	$empresa = $_SESSION['empresa'];
+    $idCajero = $_SESSION['idCajero'];
+    $convenio=$_SESSION['convenio'];
+}
+if($_SESSION['role']=='tecnico'){
+	header('Location: tick.php');
+}
 require("../login/db.php");
+include("../dateHuman.php");
 
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
