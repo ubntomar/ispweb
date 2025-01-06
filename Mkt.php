@@ -252,9 +252,30 @@ class Mkt
 
         try {
             $response = $this->client->sendSync($printRequest);
-            $exists = $response->getProperty('.id') !== null;
+            $matchingRules = [];
 
-            if (!$exists && $createIfNotExists) {
+            foreach ($response as $rule) {
+                if ($rule->getType() === RouterOS\Response::TYPE_DATA) {
+                    $matchingRules[] = $rule->getProperty('.id');
+                }
+            }
+
+            $ruleCount = count($matchingRules);
+
+            $result = ['exists' => false, 'created' => false];
+
+            if ($ruleCount > 1) {
+                // Keep the first rule and remove the rest
+                for ($i = 1; $i < $ruleCount; $i++) {
+                    $removeRequest = new RouterOS\Request('/ip/firewall/filter/remove');
+                    $removeRequest->setArgument('numbers', $matchingRules[$i]);
+                    $this->client->sendSync($removeRequest);
+                }
+                $result['exists'] = true;
+                $result['duplicatesRemoved'] = $ruleCount - 1;
+            } elseif ($ruleCount == 1) {
+                $result['exists'] = true;
+            } elseif ($createIfNotExists) {
                 $addRequest = new RouterOS\Request('/ip/firewall/filter/add');
                 $addRequest->setArgument('action', 'drop');
                 $addRequest->setArgument('chain', 'forward');
@@ -263,12 +284,10 @@ class Mkt
                 $addRequest->setArgument('src-address-list', 'morosos');
 
                 $addResponse = $this->client->sendSync($addRequest);
-                $created = $addResponse->getType() === RouterOS\Response::TYPE_FINAL;
-
-                return ['exists' => false, 'created' => $created];
+                $result['created'] = $addResponse->getType() === RouterOS\Response::TYPE_FINAL;
             }
 
-            return ['exists' => $exists, 'created' => false];
+            return $result;
         } catch (Exception $e) {
             return ['exists' => false, 'created' => false, 'error' => $e->getMessage()];
         }

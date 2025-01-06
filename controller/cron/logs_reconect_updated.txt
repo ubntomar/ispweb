@@ -1,0 +1,3816 @@
+
+2024-09-14  10:00  client 1308  Omar  Hernandez ip address 192.168.26.242 server:192.168.26.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-14  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-14  14:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-14  16:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-14  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-14  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-14  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-15  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-15  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-15  04:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-15  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-15  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-15  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-15  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 15-09-2024 14:00  
+
+
+Reconect Pending Updater 15-09-2024 16:00  
+
+
+Reconect Pending Updater 15-09-2024 18:00  
+
+
+2024-09-15  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-15  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-16  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-16  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-16  04:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-16  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-16  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-16  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 16-09-2024 12:00  
+
+
+2024-09-16  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-16  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-16  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-17  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-17  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-17  04:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-17  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-17  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-17  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-17  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-17  14:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-17  16:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-17  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-17  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-17  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-18  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-18  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 18-09-2024 04:00  
+
+
+2024-09-18  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-18  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-18  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-18  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-18  14:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-18  16:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-18  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-18  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-18  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-19  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-19  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 19-09-2024 04:00  
+
+
+Reconect Pending Updater 19-09-2024 06:00  
+
+
+Reconect Pending Updater 19-09-2024 08:00  
+
+
+2024-09-19  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-19  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-19  14:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-19  16:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-19  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-19  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-19  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-20  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-20  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 20-09-2024 04:00  
+
+
+2024-09-20  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-20  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 20-09-2024 10:00  
+
+
+Reconect Pending Updater 20-09-2024 12:00  
+
+
+Reconect Pending Updater 20-09-2024 14:00  
+
+
+2024-09-20  16:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-20  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-20  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-20  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-21  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-21  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 21-09-2024 04:00  
+
+
+2024-09-21  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-21  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-21  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-21  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-21  14:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-21  16:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-21  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-21  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-21  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-22  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-22  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 22-09-2024 04:00  
+
+
+2024-09-22  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-22  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-22  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-22  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-22  14:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-22  16:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-22  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 22-09-2024 20:00  
+
+
+2024-09-22  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-23  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-23  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 23-09-2024 04:00  
+
+
+2024-09-23  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-23  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-23  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-23  12:00  client 886  Ana Milena  Herrera ip address 192.168.26.174 server:192.168.26.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-23  14:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-23  16:00  client 1050  Diego Fernando  Camacho ip address 192.168.146.73 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-23  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-23  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-23  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-24  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-24  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 24-09-2024 04:00  
+
+
+2024-09-24  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-24  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-24  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-24  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 24-09-2024 14:00  
+
+
+2024-09-24  16:00  client 1099  Gloria  Alarcon ip address 192.168.20.31 server:192.168.21.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-24  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-24  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-24  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-25  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-25  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 25-09-2024 04:00  
+
+
+2024-09-25  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-25  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-25  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-25  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-25  14:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-25  16:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-25  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-25  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-25  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-26  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-26  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 26-09-2024 04:00  
+
+
+2024-09-26  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-26  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-26  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-26  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-26  14:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-26  16:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-26  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-26  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-26  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-27  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-27  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 27-09-2024 04:00  
+
+
+2024-09-27  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-27  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-27  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-27  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-27  14:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-27  16:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-27  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-27  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-27  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-28  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-28  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 28-09-2024 04:00  
+
+
+2024-09-28  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-28  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-28  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-28  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-28  14:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-28  16:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-28  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-28  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-28  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-29  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-29  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 29-09-2024 04:00  
+
+
+2024-09-29  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-29  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-29  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-29  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-29  14:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-29  16:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-29  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-29  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-29  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-30  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-30  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 30-09-2024 04:00  
+
+
+2024-09-30  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-30  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-30  10:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-30  12:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-30  14:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-30  16:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-30  18:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-30  20:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-09-30  22:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-01  00:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-01  02:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 01-10-2024 04:00  
+
+
+2024-10-01  06:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-01  08:00  client 468  Luisa  Avendaño  ip address 192.168.6.174 server:192.168.50.126 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 01-10-2024 10:00  
+
+
+Reconect Pending Updater 01-10-2024 12:00  
+
+
+Reconect Pending Updater 01-10-2024 14:00  
+
+
+Reconect Pending Updater 01-10-2024 16:00  
+
+
+Reconect Pending Updater 01-10-2024 18:00  
+
+
+Reconect Pending Updater 01-10-2024 20:00  
+
+
+Reconect Pending Updater 01-10-2024 22:00  
+
+
+Reconect Pending Updater 02-10-2024 00:00  
+
+
+Reconect Pending Updater 02-10-2024 02:00  
+
+
+Reconect Pending Updater 02-10-2024 04:00  
+
+
+Reconect Pending Updater 02-10-2024 06:00  
+
+
+Reconect Pending Updater 02-10-2024 08:00  
+
+
+Reconect Pending Updater 02-10-2024 10:00  
+
+
+Reconect Pending Updater 02-10-2024 12:00  
+
+
+Reconect Pending Updater 02-10-2024 14:00  
+
+
+Reconect Pending Updater 02-10-2024 16:00  
+
+
+Reconect Pending Updater 02-10-2024 18:00  
+
+
+Reconect Pending Updater 02-10-2024 20:00  
+
+
+Reconect Pending Updater 02-10-2024 22:00  
+
+
+Reconect Pending Updater 03-10-2024 00:00  
+
+
+Reconect Pending Updater 03-10-2024 02:00  
+
+
+Reconect Pending Updater 03-10-2024 04:00  
+
+
+Reconect Pending Updater 03-10-2024 06:00  
+
+
+Reconect Pending Updater 03-10-2024 08:00  
+
+
+Reconect Pending Updater 03-10-2024 10:00  
+
+
+Reconect Pending Updater 03-10-2024 12:00  
+
+
+Reconect Pending Updater 03-10-2024 14:00  
+
+
+Reconect Pending Updater 03-10-2024 16:00  
+
+
+Reconect Pending Updater 03-10-2024 18:00  
+
+
+Reconect Pending Updater 03-10-2024 20:00  
+
+
+Reconect Pending Updater 03-10-2024 22:00  
+
+
+Reconect Pending Updater 04-10-2024 00:00  
+
+
+Reconect Pending Updater 04-10-2024 02:00  
+
+
+Reconect Pending Updater 04-10-2024 04:00  
+
+
+Reconect Pending Updater 04-10-2024 06:00  
+
+
+Reconect Pending Updater 04-10-2024 08:00  
+
+
+Reconect Pending Updater 04-10-2024 10:00  
+
+
+Reconect Pending Updater 04-10-2024 12:00  
+
+
+Reconect Pending Updater 04-10-2024 14:00  
+
+
+Reconect Pending Updater 04-10-2024 16:00  
+
+
+Reconect Pending Updater 04-10-2024 18:00  
+
+
+Reconect Pending Updater 04-10-2024 20:00  
+
+
+Reconect Pending Updater 04-10-2024 22:00  
+
+
+Reconect Pending Updater 05-10-2024 00:00  
+
+
+Reconect Pending Updater 05-10-2024 02:00  
+
+
+Reconect Pending Updater 05-10-2024 04:00  
+
+
+Reconect Pending Updater 05-10-2024 06:00  
+
+
+Reconect Pending Updater 05-10-2024 08:00  
+
+
+Reconect Pending Updater 05-10-2024 10:00  
+
+
+Reconect Pending Updater 05-10-2024 12:00  
+
+
+Reconect Pending Updater 05-10-2024 14:00  
+
+
+Reconect Pending Updater 05-10-2024 16:00  
+
+
+Reconect Pending Updater 05-10-2024 18:00  
+
+
+Reconect Pending Updater 05-10-2024 20:00  
+
+
+Reconect Pending Updater 05-10-2024 22:00  
+
+
+Reconect Pending Updater 06-10-2024 00:00  
+
+
+Reconect Pending Updater 06-10-2024 02:00  
+
+
+Reconect Pending Updater 06-10-2024 04:00  
+
+
+Reconect Pending Updater 06-10-2024 06:00  
+
+
+Reconect Pending Updater 06-10-2024 08:00  
+
+
+Reconect Pending Updater 06-10-2024 10:00  
+
+
+Reconect Pending Updater 06-10-2024 12:00  
+
+
+Reconect Pending Updater 06-10-2024 14:00  
+
+
+Reconect Pending Updater 06-10-2024 16:00  
+
+
+Reconect Pending Updater 06-10-2024 18:00  
+
+
+Reconect Pending Updater 06-10-2024 20:00  
+
+
+Reconect Pending Updater 06-10-2024 22:00  
+
+
+Reconect Pending Updater 07-10-2024 00:00  
+
+
+Reconect Pending Updater 07-10-2024 02:00  
+
+
+Reconect Pending Updater 07-10-2024 04:00  
+
+
+Reconect Pending Updater 07-10-2024 06:00  
+
+
+Reconect Pending Updater 07-10-2024 08:00  
+
+
+Reconect Pending Updater 07-10-2024 10:00  
+
+
+Reconect Pending Updater 07-10-2024 12:00  
+
+
+Reconect Pending Updater 07-10-2024 14:00  
+
+
+Reconect Pending Updater 07-10-2024 16:00  
+
+
+Reconect Pending Updater 07-10-2024 18:00  
+
+
+Reconect Pending Updater 07-10-2024 20:00  
+
+
+Reconect Pending Updater 07-10-2024 22:00  
+
+
+Reconect Pending Updater 08-10-2024 00:00  
+
+
+Reconect Pending Updater 08-10-2024 02:00  
+
+
+Reconect Pending Updater 08-10-2024 04:00  
+
+
+Reconect Pending Updater 08-10-2024 06:00  
+
+
+Reconect Pending Updater 08-10-2024 08:00  
+
+
+Reconect Pending Updater 08-10-2024 10:00  
+
+
+Reconect Pending Updater 08-10-2024 12:00  
+
+
+Reconect Pending Updater 08-10-2024 14:00  
+
+
+2024-10-08  16:00  client 1347  Alonso  Ladino FTTH -AHD  ip address 192.168.27.47 server:192.168.26.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 08-10-2024 18:00  
+
+
+Reconect Pending Updater 08-10-2024 20:00  
+
+
+Reconect Pending Updater 08-10-2024 22:00  
+
+
+Reconect Pending Updater 09-10-2024 00:00  
+
+
+Reconect Pending Updater 09-10-2024 02:00  
+
+
+Reconect Pending Updater 09-10-2024 04:00  
+
+
+Reconect Pending Updater 09-10-2024 06:00  
+
+
+Reconect Pending Updater 09-10-2024 08:00  
+
+
+Reconect Pending Updater 09-10-2024 10:00  
+
+
+Reconect Pending Updater 09-10-2024 12:00  
+
+
+Reconect Pending Updater 09-10-2024 14:00  
+
+
+Reconect Pending Updater 09-10-2024 16:00  
+
+
+Reconect Pending Updater 09-10-2024 18:00  
+
+
+Reconect Pending Updater 09-10-2024 20:00  
+
+
+Reconect Pending Updater 09-10-2024 22:00  
+
+
+Reconect Pending Updater 10-10-2024 00:00  
+
+
+Reconect Pending Updater 10-10-2024 02:00  
+
+
+Reconect Pending Updater 10-10-2024 04:00  
+
+
+Reconect Pending Updater 10-10-2024 06:00  
+
+
+Reconect Pending Updater 10-10-2024 08:00  
+
+
+Reconect Pending Updater 10-10-2024 10:00  
+
+
+Reconect Pending Updater 10-10-2024 12:00  
+
+
+Reconect Pending Updater 10-10-2024 14:00  
+
+
+Reconect Pending Updater 10-10-2024 16:00  
+
+
+Reconect Pending Updater 10-10-2024 18:00  
+
+
+Reconect Pending Updater 10-10-2024 20:00  
+
+
+Reconect Pending Updater 10-10-2024 22:00  
+
+
+Reconect Pending Updater 11-10-2024 00:00  
+
+
+Reconect Pending Updater 11-10-2024 02:00  
+
+
+Reconect Pending Updater 11-10-2024 04:00  
+
+
+Reconect Pending Updater 11-10-2024 06:00  
+
+
+Reconect Pending Updater 11-10-2024 08:00  
+
+
+Reconect Pending Updater 11-10-2024 10:00  
+
+
+Reconect Pending Updater 11-10-2024 12:00  
+
+
+Reconect Pending Updater 11-10-2024 14:00  
+
+
+Reconect Pending Updater 11-10-2024 16:00  
+
+
+Reconect Pending Updater 11-10-2024 18:00  
+
+
+Reconect Pending Updater 11-10-2024 20:00  
+
+
+Reconect Pending Updater 11-10-2024 22:00  
+
+
+Reconect Pending Updater 12-10-2024 00:00  
+
+
+Reconect Pending Updater 12-10-2024 02:00  
+
+
+Reconect Pending Updater 12-10-2024 04:00  
+
+
+Reconect Pending Updater 12-10-2024 06:00  
+
+
+Reconect Pending Updater 12-10-2024 08:00  
+
+
+Reconect Pending Updater 12-10-2024 10:00  
+
+
+Reconect Pending Updater 12-10-2024 12:00  
+
+
+Reconect Pending Updater 12-10-2024 14:00  
+
+
+Reconect Pending Updater 12-10-2024 16:00  
+
+
+Reconect Pending Updater 12-10-2024 18:00  
+
+
+Reconect Pending Updater 12-10-2024 20:00  
+
+
+Reconect Pending Updater 12-10-2024 22:00  
+
+
+Reconect Pending Updater 13-10-2024 00:00  
+
+
+Reconect Pending Updater 13-10-2024 02:00  
+
+
+Reconect Pending Updater 13-10-2024 04:00  
+
+
+2024-10-13  06:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-13  08:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-13  10:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-13  12:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-13  14:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-13  16:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-13  18:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-13  20:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-13  22:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-14  00:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-14  02:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 14-10-2024 04:00  
+
+
+2024-10-14  06:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-14  08:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-14  10:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-14  12:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-14  14:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-14  16:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-14  18:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-14  20:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-14  22:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-15  00:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-15  02:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 15-10-2024 04:00  
+
+
+2024-10-15  06:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-15  08:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-15  10:00  client 1395  Sumo Gruas   Sas ip address 192.168.111.55 server:192.168.30.95 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-15  12:00  client 1367  Maria Berenice  Zorsa Sastre FTTH -AHD ip address 192.168.27.11 server:192.168.26.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-15  14:00  client 1399  Angela  Salazar ip address 192.168.16.34 server:192.168.21.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-15  16:00  client 1367  Maria Berenice  Zorsa Sastre FTTH -AHD ip address 192.168.27.11 server:192.168.26.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 15-10-2024 18:00  
+
+
+Reconect Pending Updater 15-10-2024 20:00  
+
+
+Reconect Pending Updater 15-10-2024 22:00  
+
+
+Reconect Pending Updater 16-10-2024 00:00  
+
+
+Reconect Pending Updater 16-10-2024 02:00  
+
+
+Reconect Pending Updater 16-10-2024 04:00  
+
+
+Reconect Pending Updater 16-10-2024 06:00  
+
+
+Reconect Pending Updater 16-10-2024 08:00  
+
+
+Reconect Pending Updater 16-10-2024 10:00  
+
+
+2024-10-16  12:00  client 1271  Esperanza  Calderon ip address 192.168.20.29 server:192.168.21.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 16-10-2024 14:00  
+
+
+Reconect Pending Updater 16-10-2024 16:00  
+
+
+Reconect Pending Updater 16-10-2024 18:00  
+
+
+Reconect Pending Updater 16-10-2024 20:00  
+
+
+Reconect Pending Updater 16-10-2024 22:00  
+
+
+Reconect Pending Updater 17-10-2024 00:00  
+
+
+Reconect Pending Updater 17-10-2024 02:00  
+
+
+Reconect Pending Updater 17-10-2024 04:00  
+
+
+Reconect Pending Updater 17-10-2024 06:00  
+
+
+Reconect Pending Updater 17-10-2024 08:00  
+
+
+Reconect Pending Updater 17-10-2024 10:00  
+
+
+Reconect Pending Updater 17-10-2024 12:00  
+
+
+Reconect Pending Updater 17-10-2024 14:00  
+
+
+Reconect Pending Updater 17-10-2024 16:00  
+
+
+2024-10-17  18:00  client 1388  Mateo  Nieto ip address 192.168.146.206 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 17-10-2024 20:00  
+
+
+Reconect Pending Updater 17-10-2024 22:00  
+
+
+Reconect Pending Updater 18-10-2024 00:00  
+
+
+Reconect Pending Updater 18-10-2024 02:00  
+
+
+Reconect Pending Updater 18-10-2024 04:00  
+
+
+Reconect Pending Updater 18-10-2024 06:00  
+
+
+Reconect Pending Updater 18-10-2024 08:00  
+
+
+Reconect Pending Updater 18-10-2024 10:00  
+
+
+Reconect Pending Updater 18-10-2024 12:00  
+
+
+Reconect Pending Updater 18-10-2024 14:00  
+
+
+Reconect Pending Updater 18-10-2024 16:00  
+
+
+Reconect Pending Updater 18-10-2024 18:00  
+
+
+Reconect Pending Updater 18-10-2024 20:00  
+
+
+Reconect Pending Updater 18-10-2024 22:00  
+
+
+Reconect Pending Updater 19-10-2024 00:00  
+
+
+Reconect Pending Updater 19-10-2024 02:00  
+
+
+Reconect Pending Updater 19-10-2024 04:00  
+
+
+Reconect Pending Updater 19-10-2024 06:00  
+
+
+Reconect Pending Updater 19-10-2024 08:00  
+
+
+Reconect Pending Updater 19-10-2024 10:00  
+
+
+Reconect Pending Updater 19-10-2024 12:00  
+
+
+Reconect Pending Updater 19-10-2024 14:00  
+
+
+Reconect Pending Updater 19-10-2024 16:00  
+
+
+Reconect Pending Updater 19-10-2024 18:00  
+
+
+Reconect Pending Updater 19-10-2024 20:00  
+
+
+Reconect Pending Updater 19-10-2024 22:00  
+
+
+Reconect Pending Updater 20-10-2024 00:00  
+
+
+Reconect Pending Updater 20-10-2024 02:00  
+
+
+Reconect Pending Updater 20-10-2024 04:00  
+
+
+Reconect Pending Updater 20-10-2024 06:00  
+
+
+Reconect Pending Updater 20-10-2024 08:00  
+
+
+Reconect Pending Updater 20-10-2024 10:00  
+
+
+Reconect Pending Updater 21-10-2024 08:00  
+
+
+Reconect Pending Updater 21-10-2024 10:00  
+
+
+Reconect Pending Updater 21-10-2024 12:00  
+
+
+Reconect Pending Updater 21-10-2024 14:00  
+
+
+Reconect Pending Updater 21-10-2024 16:00  
+
+
+2024-10-21  18:00  client 1352  Fernando  Castro ip address 192.168.146.174 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 21-10-2024 20:00  
+
+
+Reconect Pending Updater 21-10-2024 22:00  
+
+
+Reconect Pending Updater 22-10-2024 00:00  
+
+
+Reconect Pending Updater 22-10-2024 02:00  
+
+
+Reconect Pending Updater 22-10-2024 04:00  
+
+
+Reconect Pending Updater 22-10-2024 06:00  
+
+
+Reconect Pending Updater 22-10-2024 08:00  
+
+
+Reconect Pending Updater 22-10-2024 10:00  
+
+
+Reconect Pending Updater 22-10-2024 12:00  
+
+
+Reconect Pending Updater 22-10-2024 14:00  
+
+
+Reconect Pending Updater 22-10-2024 16:00  
+
+
+Reconect Pending Updater 22-10-2024 18:00  
+
+
+Reconect Pending Updater 22-10-2024 20:00  
+
+
+Reconect Pending Updater 22-10-2024 22:00  
+
+
+Reconect Pending Updater 23-10-2024 00:00  
+
+
+Reconect Pending Updater 23-10-2024 02:00  
+
+
+Reconect Pending Updater 23-10-2024 04:00  
+
+
+Reconect Pending Updater 23-10-2024 06:00  
+
+
+Reconect Pending Updater 23-10-2024 08:00  
+
+
+Reconect Pending Updater 23-10-2024 10:00  
+
+
+Reconect Pending Updater 23-10-2024 12:00  
+
+
+Reconect Pending Updater 23-10-2024 14:00  
+
+
+Reconect Pending Updater 23-10-2024 16:00  
+
+
+Reconect Pending Updater 23-10-2024 18:00  
+
+
+Reconect Pending Updater 23-10-2024 20:00  
+
+
+Reconect Pending Updater 23-10-2024 22:00  
+
+
+Reconect Pending Updater 24-10-2024 00:00  
+
+
+Reconect Pending Updater 24-10-2024 02:00  
+
+
+Reconect Pending Updater 24-10-2024 04:00  
+
+
+Reconect Pending Updater 24-10-2024 06:00  
+
+
+Reconect Pending Updater 24-10-2024 08:00  
+
+
+Reconect Pending Updater 24-10-2024 10:00  
+
+
+Reconect Pending Updater 24-10-2024 12:00  
+
+
+Reconect Pending Updater 24-10-2024 14:00  
+
+
+Reconect Pending Updater 24-10-2024 16:00  
+
+
+Reconect Pending Updater 24-10-2024 18:00  
+
+
+Reconect Pending Updater 24-10-2024 20:00  
+
+
+Reconect Pending Updater 24-10-2024 22:00  
+
+
+Reconect Pending Updater 25-10-2024 00:00  
+
+
+Reconect Pending Updater 25-10-2024 02:00  
+
+
+Reconect Pending Updater 25-10-2024 04:00  
+
+
+Reconect Pending Updater 25-10-2024 06:00  
+
+
+Reconect Pending Updater 25-10-2024 08:00  
+
+
+Reconect Pending Updater 25-10-2024 10:00  
+
+
+Reconect Pending Updater 25-10-2024 12:00  
+
+
+2024-10-25  14:00  client 905  Jorge  Baquero ip address 192.168.146.66 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-10-25  16:00  client 1235  Claudia Esperanza  Ovalle Parra ip address 192.168.146.115 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 25-10-2024 18:00  
+
+
+Reconect Pending Updater 25-10-2024 20:00  
+
+
+Reconect Pending Updater 25-10-2024 22:00  
+
+
+Reconect Pending Updater 26-10-2024 00:00  
+
+
+Reconect Pending Updater 26-10-2024 02:00  
+
+
+Reconect Pending Updater 26-10-2024 04:00  
+
+
+Reconect Pending Updater 26-10-2024 06:00  
+
+
+Reconect Pending Updater 26-10-2024 08:00  
+
+
+Reconect Pending Updater 26-10-2024 10:00  
+
+
+Reconect Pending Updater 26-10-2024 12:00  
+
+
+Reconect Pending Updater 26-10-2024 14:00  
+
+
+Reconect Pending Updater 26-10-2024 16:00  
+
+
+Reconect Pending Updater 26-10-2024 18:00  
+
+
+Reconect Pending Updater 26-10-2024 20:00  
+
+
+Reconect Pending Updater 26-10-2024 22:00  
+
+
+Reconect Pending Updater 27-10-2024 00:00  
+
+
+Reconect Pending Updater 27-10-2024 02:00  
+
+
+Reconect Pending Updater 27-10-2024 04:00  
+
+
+Reconect Pending Updater 27-10-2024 06:00  
+
+
+Reconect Pending Updater 27-10-2024 08:00  
+
+
+Reconect Pending Updater 27-10-2024 10:00  
+
+
+Reconect Pending Updater 27-10-2024 12:00  
+
+
+Reconect Pending Updater 27-10-2024 14:00  
+
+
+Reconect Pending Updater 27-10-2024 16:00  
+
+
+Reconect Pending Updater 27-10-2024 18:00  
+
+
+Reconect Pending Updater 27-10-2024 20:00  
+
+
+Reconect Pending Updater 27-10-2024 22:00  
+
+
+Reconect Pending Updater 28-10-2024 00:00  
+
+
+Reconect Pending Updater 28-10-2024 02:00  
+
+
+Reconect Pending Updater 28-10-2024 04:00  
+
+
+Reconect Pending Updater 28-10-2024 06:00  
+
+
+Reconect Pending Updater 28-10-2024 08:00  
+
+
+Reconect Pending Updater 28-10-2024 10:00  
+
+
+Reconect Pending Updater 28-10-2024 12:00  
+
+
+Reconect Pending Updater 28-10-2024 14:00  
+
+
+2024-10-28  16:00  client 425  Angelica   Blandon  ip address 192.168.21.177 server:192.168.21.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 28-10-2024 18:00  
+
+
+Reconect Pending Updater 28-10-2024 20:00  
+
+
+Reconect Pending Updater 28-10-2024 22:00  
+
+
+Reconect Pending Updater 29-10-2024 00:00  
+
+
+Reconect Pending Updater 29-10-2024 02:00  
+
+
+Reconect Pending Updater 29-10-2024 04:00  
+
+
+Reconect Pending Updater 29-10-2024 06:00  
+
+
+Reconect Pending Updater 29-10-2024 08:00  
+
+
+Reconect Pending Updater 29-10-2024 10:00  
+
+
+2024-10-29  12:00  client 1289  William  Chala ip address 192.168.146.165 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 29-10-2024 14:00  
+
+
+Reconect Pending Updater 29-10-2024 16:00  
+
+
+Reconect Pending Updater 29-10-2024 18:00  
+
+
+Reconect Pending Updater 29-10-2024 20:00  
+
+
+Reconect Pending Updater 29-10-2024 22:00  
+
+
+Reconect Pending Updater 30-10-2024 00:00  
+
+
+Reconect Pending Updater 30-10-2024 02:00  
+
+
+Reconect Pending Updater 30-10-2024 04:00  
+
+
+Reconect Pending Updater 30-10-2024 06:00  
+
+
+Reconect Pending Updater 30-10-2024 08:00  
+
+
+Reconect Pending Updater 30-10-2024 10:00  
+
+
+Reconect Pending Updater 30-10-2024 12:00  
+
+
+Reconect Pending Updater 30-10-2024 14:00  
+
+
+Reconect Pending Updater 30-10-2024 16:00  
+
+
+Reconect Pending Updater 30-10-2024 18:00  
+
+
+Reconect Pending Updater 30-10-2024 20:00  
+
+
+Reconect Pending Updater 30-10-2024 22:00  
+
+
+Reconect Pending Updater 31-10-2024 00:00  
+
+
+Reconect Pending Updater 31-10-2024 02:00  
+
+
+Reconect Pending Updater 31-10-2024 04:00  
+
+
+Reconect Pending Updater 31-10-2024 06:00  
+
+
+Reconect Pending Updater 31-10-2024 08:00  
+
+
+Reconect Pending Updater 31-10-2024 10:00  
+
+
+Reconect Pending Updater 31-10-2024 12:00  
+
+
+Reconect Pending Updater 31-10-2024 14:00  
+
+
+Reconect Pending Updater 31-10-2024 16:00  
+
+
+Reconect Pending Updater 31-10-2024 18:00  
+
+
+Reconect Pending Updater 31-10-2024 20:00  
+
+
+Reconect Pending Updater 31-10-2024 22:00  
+
+
+Reconect Pending Updater 01-11-2024 00:00  
+
+
+Reconect Pending Updater 01-11-2024 02:00  
+
+
+Reconect Pending Updater 01-11-2024 04:00  
+
+
+Reconect Pending Updater 01-11-2024 06:00  
+
+
+Reconect Pending Updater 01-11-2024 08:00  
+
+
+Reconect Pending Updater 01-11-2024 10:00  
+
+
+Reconect Pending Updater 01-11-2024 12:00  
+
+
+Reconect Pending Updater 01-11-2024 14:00  
+
+
+Reconect Pending Updater 01-11-2024 16:00  
+
+
+Reconect Pending Updater 01-11-2024 18:00  
+
+
+Reconect Pending Updater 01-11-2024 20:00  
+
+
+Reconect Pending Updater 01-11-2024 22:00  
+
+
+Reconect Pending Updater 02-11-2024 00:00  
+
+
+Reconect Pending Updater 02-11-2024 02:00  
+
+
+Reconect Pending Updater 02-11-2024 04:00  
+
+
+Reconect Pending Updater 02-11-2024 06:00  
+
+
+Reconect Pending Updater 02-11-2024 08:00  
+
+
+Reconect Pending Updater 02-11-2024 10:00  
+
+
+2024-11-02  12:00  client 1024  Laura Camila  MuñOs ip address 192.168.26.213 server:192.168.26.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 02-11-2024 14:00  
+
+
+Reconect Pending Updater 02-11-2024 16:00  
+
+
+Reconect Pending Updater 02-11-2024 18:00  
+
+
+Reconect Pending Updater 02-11-2024 20:00  
+
+
+Reconect Pending Updater 02-11-2024 22:00  
+
+
+Reconect Pending Updater 03-11-2024 00:00  
+
+
+Reconect Pending Updater 03-11-2024 02:00  
+
+
+Reconect Pending Updater 03-11-2024 04:00  
+
+
+Reconect Pending Updater 03-11-2024 06:00  
+
+
+Reconect Pending Updater 03-11-2024 08:00  
+
+
+Reconect Pending Updater 03-11-2024 10:00  
+
+
+Reconect Pending Updater 03-11-2024 12:00  
+
+
+Reconect Pending Updater 03-11-2024 14:00  
+
+
+Reconect Pending Updater 03-11-2024 16:00  
+
+
+Reconect Pending Updater 03-11-2024 18:00  
+
+
+Reconect Pending Updater 03-11-2024 20:00  
+
+
+Reconect Pending Updater 03-11-2024 22:00  
+
+
+Reconect Pending Updater 04-11-2024 00:00  
+
+
+Reconect Pending Updater 04-11-2024 02:00  
+
+
+Reconect Pending Updater 04-11-2024 04:00  
+
+
+Reconect Pending Updater 04-11-2024 06:00  
+
+
+Reconect Pending Updater 04-11-2024 08:00  
+
+
+Reconect Pending Updater 04-11-2024 10:00  
+
+
+Reconect Pending Updater 04-11-2024 12:00  
+
+
+Reconect Pending Updater 04-11-2024 14:00  
+
+
+Reconect Pending Updater 04-11-2024 16:00  
+
+
+Reconect Pending Updater 04-11-2024 18:00  
+
+
+Reconect Pending Updater 04-11-2024 20:00  
+
+
+Reconect Pending Updater 04-11-2024 22:00  
+
+
+Reconect Pending Updater 05-11-2024 00:00  
+
+
+Reconect Pending Updater 05-11-2024 02:00  
+
+
+Reconect Pending Updater 05-11-2024 04:00  
+
+
+Reconect Pending Updater 05-11-2024 06:00  
+
+
+Reconect Pending Updater 05-11-2024 08:00  
+
+
+Reconect Pending Updater 05-11-2024 10:00  
+
+
+Reconect Pending Updater 05-11-2024 12:00  
+
+
+Reconect Pending Updater 05-11-2024 14:00  
+
+
+Reconect Pending Updater 05-11-2024 16:00  
+
+
+Reconect Pending Updater 05-11-2024 18:00  
+
+
+2024-11-05  20:00  client 62  Francy  Preciado ip address 192.168.26.120 server:192.168.26.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 05-11-2024 22:00  
+
+
+Reconect Pending Updater 06-11-2024 00:00  
+
+
+Reconect Pending Updater 06-11-2024 02:00  
+
+
+Reconect Pending Updater 06-11-2024 04:00  
+
+
+Reconect Pending Updater 06-11-2024 06:00  
+
+
+Reconect Pending Updater 06-11-2024 08:00  
+
+
+Reconect Pending Updater 06-11-2024 10:00  
+
+
+Reconect Pending Updater 06-11-2024 12:00  
+
+
+Reconect Pending Updater 06-11-2024 14:00  
+
+
+Reconect Pending Updater 06-11-2024 16:00  
+
+
+Reconect Pending Updater 06-11-2024 18:00  
+
+
+Reconect Pending Updater 06-11-2024 20:00  
+
+
+Reconect Pending Updater 06-11-2024 22:00  
+
+
+Reconect Pending Updater 07-11-2024 00:00  
+
+
+Reconect Pending Updater 07-11-2024 02:00  
+
+
+Reconect Pending Updater 07-11-2024 04:00  
+
+
+Reconect Pending Updater 07-11-2024 06:00  
+
+
+Reconect Pending Updater 07-11-2024 08:00  
+
+
+Reconect Pending Updater 07-11-2024 10:00  
+
+
+Reconect Pending Updater 07-11-2024 12:00  
+
+
+Reconect Pending Updater 07-11-2024 14:00  
+
+
+Reconect Pending Updater 07-11-2024 16:00  
+
+
+Reconect Pending Updater 07-11-2024 18:00  
+
+
+Reconect Pending Updater 07-11-2024 20:00  
+
+
+Reconect Pending Updater 07-11-2024 22:00  
+
+
+Reconect Pending Updater 08-11-2024 00:00  
+
+
+Reconect Pending Updater 08-11-2024 02:00  
+
+
+Reconect Pending Updater 08-11-2024 04:00  
+
+
+Reconect Pending Updater 08-11-2024 06:00  
+
+
+Reconect Pending Updater 08-11-2024 08:00  
+
+
+Reconect Pending Updater 08-11-2024 10:00  
+
+
+Reconect Pending Updater 08-11-2024 12:00  
+
+
+Reconect Pending Updater 08-11-2024 14:00  
+
+
+Reconect Pending Updater 08-11-2024 16:00  
+
+
+Reconect Pending Updater 08-11-2024 18:00  
+
+
+Reconect Pending Updater 08-11-2024 20:00  
+
+
+Reconect Pending Updater 08-11-2024 22:00  
+
+
+Reconect Pending Updater 09-11-2024 00:00  
+
+
+Reconect Pending Updater 09-11-2024 02:00  
+
+
+Reconect Pending Updater 09-11-2024 04:00  
+
+
+Reconect Pending Updater 09-11-2024 06:00  
+
+
+Reconect Pending Updater 09-11-2024 08:00  
+
+
+Reconect Pending Updater 09-11-2024 10:00  
+
+
+Reconect Pending Updater 09-11-2024 12:00  
+
+
+Reconect Pending Updater 09-11-2024 14:00  
+
+
+Reconect Pending Updater 09-11-2024 16:00  
+
+
+Reconect Pending Updater 09-11-2024 18:00  
+
+
+Reconect Pending Updater 09-11-2024 20:00  
+
+
+Reconect Pending Updater 09-11-2024 22:00  
+
+
+Reconect Pending Updater 10-11-2024 00:00  
+
+
+Reconect Pending Updater 10-11-2024 02:00  
+
+
+Reconect Pending Updater 10-11-2024 04:00  
+
+
+Reconect Pending Updater 10-11-2024 06:00  
+
+
+Reconect Pending Updater 10-11-2024 08:00  
+
+
+Reconect Pending Updater 10-11-2024 10:00  
+
+
+Reconect Pending Updater 10-11-2024 12:00  
+
+
+Reconect Pending Updater 10-11-2024 14:00  
+
+
+Reconect Pending Updater 10-11-2024 16:00  
+
+
+Reconect Pending Updater 10-11-2024 18:00  
+
+
+Reconect Pending Updater 10-11-2024 20:00  
+
+
+Reconect Pending Updater 10-11-2024 22:00  
+
+
+Reconect Pending Updater 11-11-2024 00:00  
+
+
+Reconect Pending Updater 11-11-2024 02:00  
+
+
+Reconect Pending Updater 11-11-2024 04:00  
+
+
+Reconect Pending Updater 11-11-2024 06:00  
+
+
+Reconect Pending Updater 11-11-2024 08:00  
+
+
+Reconect Pending Updater 11-11-2024 10:00  
+
+
+Reconect Pending Updater 11-11-2024 12:00  
+
+
+Reconect Pending Updater 11-11-2024 14:00  
+
+
+Reconect Pending Updater 11-11-2024 16:00  
+
+
+Reconect Pending Updater 11-11-2024 18:00  
+
+
+Reconect Pending Updater 11-11-2024 20:00  
+
+
+Reconect Pending Updater 11-11-2024 22:00  
+
+
+Reconect Pending Updater 12-11-2024 00:00  
+
+
+Reconect Pending Updater 12-11-2024 02:00  
+
+
+Reconect Pending Updater 12-11-2024 04:00  
+
+
+Reconect Pending Updater 12-11-2024 06:00  
+
+
+Reconect Pending Updater 12-11-2024 08:00  
+
+
+Reconect Pending Updater 12-11-2024 10:00  
+
+
+Reconect Pending Updater 12-11-2024 12:00  
+
+
+Reconect Pending Updater 12-11-2024 14:00  
+
+
+Reconect Pending Updater 12-11-2024 16:00  
+
+
+Reconect Pending Updater 12-11-2024 18:00  
+
+
+Reconect Pending Updater 12-11-2024 20:00  
+
+
+Reconect Pending Updater 12-11-2024 22:00  
+
+
+Reconect Pending Updater 13-11-2024 00:00  
+
+
+Reconect Pending Updater 13-11-2024 02:00  
+
+
+Reconect Pending Updater 13-11-2024 04:00  
+
+
+Reconect Pending Updater 13-11-2024 06:00  
+
+
+Reconect Pending Updater 13-11-2024 08:00  
+
+
+Reconect Pending Updater 13-11-2024 10:00  
+
+
+2024-11-13  12:00  client 147  Natali   Colón ip address 192.168.130.2 server:192.168.16.76 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-11-13  14:00  client 1197  Juan Carlos  Gonzalez -AHD ip address 192.168.27.12 server:192.168.26.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-11-13  16:00  client 1239  Isabel  Valencia ip address 192.168.146.119 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-11-13  18:00  client 1413  Gilberto  Monroy Vargas ip address 192.168.132.30 server:192.168.17.5 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 13-11-2024 20:00  
+
+
+Reconect Pending Updater 13-11-2024 22:00  
+
+
+Reconect Pending Updater 14-11-2024 00:00  
+
+
+Reconect Pending Updater 14-11-2024 02:00  
+
+
+Reconect Pending Updater 14-11-2024 04:00  
+
+
+Reconect Pending Updater 14-11-2024 06:00  
+
+
+Reconect Pending Updater 14-11-2024 08:00  
+
+
+Reconect Pending Updater 14-11-2024 10:00  
+
+
+Reconect Pending Updater 14-11-2024 12:00  
+
+
+Reconect Pending Updater 14-11-2024 14:00  
+
+
+Reconect Pending Updater 14-11-2024 16:00  
+
+
+Reconect Pending Updater 14-11-2024 18:00  
+
+
+Reconect Pending Updater 14-11-2024 20:00  
+
+
+Reconect Pending Updater 14-11-2024 22:00  
+
+
+Reconect Pending Updater 15-11-2024 00:00  
+
+
+Reconect Pending Updater 15-11-2024 02:00  
+
+
+Reconect Pending Updater 15-11-2024 04:00  
+
+
+Reconect Pending Updater 15-11-2024 06:00  
+
+
+Reconect Pending Updater 15-11-2024 08:00  
+
+
+Reconect Pending Updater 15-11-2024 10:00  
+
+
+Reconect Pending Updater 15-11-2024 12:00  
+
+
+Reconect Pending Updater 15-11-2024 14:00  
+
+
+Reconect Pending Updater 15-11-2024 16:00  
+
+
+Reconect Pending Updater 15-11-2024 18:00  
+
+
+Reconect Pending Updater 15-11-2024 20:00  
+
+
+Reconect Pending Updater 15-11-2024 22:00  
+
+
+Reconect Pending Updater 16-11-2024 00:00  
+
+
+Reconect Pending Updater 16-11-2024 02:00  
+
+
+Reconect Pending Updater 16-11-2024 04:00  
+
+
+Reconect Pending Updater 16-11-2024 06:00  
+
+
+Reconect Pending Updater 16-11-2024 08:00  
+
+
+2024-11-16  10:00  client 1284  Andrea  Montenegro ip address 192.168.152.46 server:192.168.152.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 16-11-2024 12:00  
+
+
+Reconect Pending Updater 16-11-2024 14:00  
+
+
+Reconect Pending Updater 16-11-2024 16:00  
+
+
+Reconect Pending Updater 16-11-2024 18:00  
+
+
+Reconect Pending Updater 16-11-2024 20:00  
+
+
+Reconect Pending Updater 16-11-2024 22:00  
+
+
+Reconect Pending Updater 17-11-2024 00:00  
+
+
+Reconect Pending Updater 17-11-2024 02:00  
+
+
+Reconect Pending Updater 17-11-2024 04:00  
+
+
+Reconect Pending Updater 17-11-2024 06:00  
+
+
+Reconect Pending Updater 17-11-2024 08:00  
+
+
+Reconect Pending Updater 17-11-2024 10:00  
+
+
+Reconect Pending Updater 17-11-2024 12:00  
+
+
+Reconect Pending Updater 17-11-2024 14:00  
+
+
+Reconect Pending Updater 17-11-2024 16:00  
+
+
+Reconect Pending Updater 17-11-2024 18:00  
+
+
+Reconect Pending Updater 17-11-2024 20:00  
+
+
+Reconect Pending Updater 17-11-2024 22:00  
+
+
+Reconect Pending Updater 18-11-2024 00:00  
+
+
+Reconect Pending Updater 18-11-2024 02:00  
+
+
+Reconect Pending Updater 18-11-2024 04:00  
+
+
+Reconect Pending Updater 18-11-2024 06:00  
+
+
+Reconect Pending Updater 18-11-2024 08:00  
+
+
+Reconect Pending Updater 18-11-2024 10:00  
+
+
+Reconect Pending Updater 18-11-2024 12:00  
+
+
+Reconect Pending Updater 18-11-2024 14:00  
+
+
+Reconect Pending Updater 18-11-2024 16:00  
+
+
+Reconect Pending Updater 18-11-2024 18:00  
+
+
+Reconect Pending Updater 18-11-2024 20:00  
+
+
+Reconect Pending Updater 18-11-2024 22:00  
+
+
+Reconect Pending Updater 19-11-2024 00:00  
+
+
+Reconect Pending Updater 19-11-2024 02:00  
+
+
+Reconect Pending Updater 19-11-2024 04:00  
+
+
+Reconect Pending Updater 19-11-2024 06:00  
+
+
+Reconect Pending Updater 19-11-2024 08:00  
+
+
+Reconect Pending Updater 19-11-2024 10:00  
+
+
+Reconect Pending Updater 19-11-2024 12:00  
+
+
+Reconect Pending Updater 19-11-2024 14:00  
+
+
+Reconect Pending Updater 19-11-2024 16:00  
+
+
+Reconect Pending Updater 19-11-2024 18:00  
+
+
+Reconect Pending Updater 19-11-2024 20:00  
+
+
+Reconect Pending Updater 19-11-2024 22:00  
+
+
+Reconect Pending Updater 20-11-2024 00:00  
+
+
+Reconect Pending Updater 20-11-2024 02:00  
+
+
+Reconect Pending Updater 20-11-2024 04:00  
+
+
+Reconect Pending Updater 20-11-2024 06:00  
+
+
+Reconect Pending Updater 20-11-2024 08:00  
+
+
+Reconect Pending Updater 20-11-2024 10:00  
+
+
+Reconect Pending Updater 20-11-2024 12:00  
+
+
+2024-11-20  14:00  client 1262  Maria Alejandra  Tirado ip address 192.168.146.127 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 20-11-2024 16:00  
+
+
+Reconect Pending Updater 20-11-2024 18:00  
+
+
+Reconect Pending Updater 20-11-2024 20:00  
+
+
+Reconect Pending Updater 20-11-2024 22:00  
+
+
+Reconect Pending Updater 21-11-2024 00:00  
+
+
+Reconect Pending Updater 21-11-2024 02:00  
+
+
+Reconect Pending Updater 21-11-2024 04:00  
+
+
+Reconect Pending Updater 21-11-2024 06:00  
+
+
+Reconect Pending Updater 21-11-2024 08:00  
+
+
+Reconect Pending Updater 21-11-2024 10:00  
+
+
+Reconect Pending Updater 21-11-2024 12:00  
+
+
+Reconect Pending Updater 21-11-2024 14:00  
+
+
+Reconect Pending Updater 21-11-2024 16:00  
+
+
+Reconect Pending Updater 21-11-2024 18:00  
+
+
+Reconect Pending Updater 21-11-2024 20:00  
+
+
+Reconect Pending Updater 21-11-2024 22:00  
+
+
+Reconect Pending Updater 22-11-2024 00:00  
+
+
+Reconect Pending Updater 22-11-2024 02:00  
+
+
+Reconect Pending Updater 22-11-2024 04:00  
+
+
+Reconect Pending Updater 22-11-2024 06:00  
+
+
+Reconect Pending Updater 22-11-2024 08:00  
+
+
+Reconect Pending Updater 22-11-2024 10:00  
+
+
+Reconect Pending Updater 22-11-2024 12:00  
+
+
+2024-11-22  14:00  client 1209  Julian   Alejandro Viana FTTH -AHD ip address 192.168.146.96 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 22-11-2024 16:00  
+
+
+Reconect Pending Updater 22-11-2024 18:00  
+
+
+Reconect Pending Updater 22-11-2024 20:00  
+
+
+Reconect Pending Updater 22-11-2024 22:00  
+
+
+Reconect Pending Updater 23-11-2024 00:00  
+
+
+Reconect Pending Updater 23-11-2024 02:00  
+
+
+Reconect Pending Updater 23-11-2024 04:00  
+
+
+Reconect Pending Updater 23-11-2024 06:00  
+
+
+2024-11-23  08:00  client 720  Martha Isabel   Gonzalez ip address 192.168.30.97 server:192.168.30.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 23-11-2024 10:00  
+
+
+2024-11-23  12:00  client 1283  Lucia  Gonzalez ip address 192.168.152.29 server:192.168.152.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 23-11-2024 14:00  
+
+
+Reconect Pending Updater 23-11-2024 16:00  
+
+
+Reconect Pending Updater 23-11-2024 18:00  
+
+
+Reconect Pending Updater 23-11-2024 20:00  
+
+
+Reconect Pending Updater 23-11-2024 22:00  
+
+
+Reconect Pending Updater 24-11-2024 00:00  
+
+
+Reconect Pending Updater 24-11-2024 02:00  
+
+
+Reconect Pending Updater 24-11-2024 04:00  
+
+
+Reconect Pending Updater 24-11-2024 06:00  
+
+
+Reconect Pending Updater 24-11-2024 08:00  
+
+
+Reconect Pending Updater 24-11-2024 10:00  
+
+
+Reconect Pending Updater 24-11-2024 12:00  
+
+
+Reconect Pending Updater 24-11-2024 14:00  
+
+
+Reconect Pending Updater 24-11-2024 16:00  
+
+
+Reconect Pending Updater 24-11-2024 18:00  
+
+
+Reconect Pending Updater 24-11-2024 20:00  
+
+
+Reconect Pending Updater 24-11-2024 22:00  
+
+
+Reconect Pending Updater 25-11-2024 00:00  
+
+
+Reconect Pending Updater 25-11-2024 02:00  
+
+
+Reconect Pending Updater 25-11-2024 04:00  
+
+
+Reconect Pending Updater 25-11-2024 06:00  
+
+
+Reconect Pending Updater 25-11-2024 08:00  
+
+
+Reconect Pending Updater 25-11-2024 10:00  
+
+
+2024-11-25  12:00  client 1254  Diana  Penagos Cerquera ip address 192.168.146.147 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-11-25  14:00  client 1355  Nelli  Rincon ip address 192.168.20.16 server:192.168.21.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-11-25  16:00  client 1296  Angelica  Gutierrez Torres ip address 192.168.146.169 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 25-11-2024 18:00  
+
+
+Reconect Pending Updater 25-11-2024 20:00  
+
+
+Reconect Pending Updater 25-11-2024 22:00  
+
+
+Reconect Pending Updater 26-11-2024 00:00  
+
+
+Reconect Pending Updater 26-11-2024 02:00  
+
+
+Reconect Pending Updater 26-11-2024 04:00  
+
+
+Reconect Pending Updater 26-11-2024 06:00  
+
+
+Reconect Pending Updater 26-11-2024 08:00  
+
+
+Reconect Pending Updater 26-11-2024 10:00  
+
+
+2024-11-26  12:00  client 1115  Hilda  Losano ip address 192.168.26.220 server:192.168.26.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 26-11-2024 14:00  
+
+
+Reconect Pending Updater 26-11-2024 16:00  
+
+
+Reconect Pending Updater 26-11-2024 18:00  
+
+
+Reconect Pending Updater 26-11-2024 20:00  
+
+
+Reconect Pending Updater 26-11-2024 22:00  
+
+
+Reconect Pending Updater 27-11-2024 00:00  
+
+
+Reconect Pending Updater 27-11-2024 02:00  
+
+
+Reconect Pending Updater 27-11-2024 04:00  
+
+
+Reconect Pending Updater 27-11-2024 06:00  
+
+
+Reconect Pending Updater 27-11-2024 08:00  
+
+
+Reconect Pending Updater 27-11-2024 10:00  
+
+
+Reconect Pending Updater 27-11-2024 12:00  
+
+
+Reconect Pending Updater 27-11-2024 14:00  
+
+
+Reconect Pending Updater 27-11-2024 16:00  
+
+
+Reconect Pending Updater 27-11-2024 18:00  
+
+
+Reconect Pending Updater 27-11-2024 20:00  
+
+
+Reconect Pending Updater 27-11-2024 22:00  
+
+
+Reconect Pending Updater 28-11-2024 00:00  
+
+
+Reconect Pending Updater 28-11-2024 02:00  
+
+
+Reconect Pending Updater 28-11-2024 04:00  
+
+
+Reconect Pending Updater 28-11-2024 06:00  
+
+
+Reconect Pending Updater 28-11-2024 08:00  
+
+
+Reconect Pending Updater 28-11-2024 10:00  
+
+
+Reconect Pending Updater 28-11-2024 12:00  
+
+
+Reconect Pending Updater 28-11-2024 14:00  
+
+
+Reconect Pending Updater 28-11-2024 16:00  
+
+
+Reconect Pending Updater 28-11-2024 18:00  
+
+
+Reconect Pending Updater 28-11-2024 20:00  
+
+
+Reconect Pending Updater 28-11-2024 22:00  
+
+
+Reconect Pending Updater 29-11-2024 00:00  
+
+
+Reconect Pending Updater 29-11-2024 02:00  
+
+
+Reconect Pending Updater 29-11-2024 04:00  
+
+
+Reconect Pending Updater 29-11-2024 06:00  
+
+
+Reconect Pending Updater 29-11-2024 08:00  
+
+
+Reconect Pending Updater 29-11-2024 10:00  
+
+
+Reconect Pending Updater 29-11-2024 12:00  
+
+
+Reconect Pending Updater 29-11-2024 14:00  
+
+
+Reconect Pending Updater 29-11-2024 16:00  
+
+
+Reconect Pending Updater 29-11-2024 18:00  
+
+
+Reconect Pending Updater 29-11-2024 20:00  
+
+
+Reconect Pending Updater 29-11-2024 22:00  
+
+
+Reconect Pending Updater 30-11-2024 00:00  
+
+
+Reconect Pending Updater 30-11-2024 02:00  
+
+
+Reconect Pending Updater 30-11-2024 04:00  
+
+
+Reconect Pending Updater 30-11-2024 06:00  
+
+
+Reconect Pending Updater 30-11-2024 08:00  
+
+
+Reconect Pending Updater 30-11-2024 10:00  
+
+
+2024-11-30  12:00  client 1353  Fabio  PeñA ip address 192.168.146.175 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 30-11-2024 14:00  
+
+
+Reconect Pending Updater 30-11-2024 16:00  
+
+
+Reconect Pending Updater 30-11-2024 18:00  
+
+
+Reconect Pending Updater 30-11-2024 20:00  
+
+
+Reconect Pending Updater 30-11-2024 22:00  
+
+
+Reconect Pending Updater 01-12-2024 00:00  
+
+
+Reconect Pending Updater 01-12-2024 02:00  
+
+
+Reconect Pending Updater 01-12-2024 04:00  
+
+
+Reconect Pending Updater 01-12-2024 06:00  
+
+
+Reconect Pending Updater 01-12-2024 08:00  
+
+
+Reconect Pending Updater 01-12-2024 10:00  
+
+
+Reconect Pending Updater 01-12-2024 12:00  
+
+
+Reconect Pending Updater 01-12-2024 14:00  
+
+
+Reconect Pending Updater 01-12-2024 16:00  
+
+
+Reconect Pending Updater 01-12-2024 18:00  
+
+
+Reconect Pending Updater 01-12-2024 20:00  
+
+
+Reconect Pending Updater 01-12-2024 22:00  
+
+
+Reconect Pending Updater 02-12-2024 00:00  
+
+
+Reconect Pending Updater 02-12-2024 02:00  
+
+
+Reconect Pending Updater 02-12-2024 04:00  
+
+
+Reconect Pending Updater 02-12-2024 06:00  
+
+
+Reconect Pending Updater 02-12-2024 08:00  
+
+
+Reconect Pending Updater 02-12-2024 10:00  
+
+
+Reconect Pending Updater 02-12-2024 12:00  
+
+
+Reconect Pending Updater 02-12-2024 14:00  
+
+
+Reconect Pending Updater 02-12-2024 16:00  
+
+
+Reconect Pending Updater 02-12-2024 18:00  
+
+
+Reconect Pending Updater 02-12-2024 20:00  
+
+
+Reconect Pending Updater 02-12-2024 22:00  
+
+
+Reconect Pending Updater 03-12-2024 00:00  
+
+
+Reconect Pending Updater 03-12-2024 02:00  
+
+
+Reconect Pending Updater 03-12-2024 04:00  
+
+
+Reconect Pending Updater 03-12-2024 06:00  
+
+
+Reconect Pending Updater 03-12-2024 08:00  
+
+
+Reconect Pending Updater 03-12-2024 10:00  
+
+
+Reconect Pending Updater 03-12-2024 12:00  
+
+
+Reconect Pending Updater 03-12-2024 14:00  
+
+
+Reconect Pending Updater 03-12-2024 16:00  
+
+
+Reconect Pending Updater 03-12-2024 18:00  
+
+
+Reconect Pending Updater 03-12-2024 20:00  
+
+
+Reconect Pending Updater 03-12-2024 22:00  
+
+
+Reconect Pending Updater 04-12-2024 00:00  
+
+
+Reconect Pending Updater 04-12-2024 02:00  
+
+
+Reconect Pending Updater 04-12-2024 04:00  
+
+
+Reconect Pending Updater 04-12-2024 06:00  
+
+
+Reconect Pending Updater 04-12-2024 08:00  
+
+
+2024-12-04  10:00  client 62  Francy  Preciado ip address 192.168.26.120 server:192.168.26.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 04-12-2024 12:00  
+
+
+Reconect Pending Updater 04-12-2024 14:00  
+
+
+Reconect Pending Updater 04-12-2024 16:00  
+
+
+2024-12-04  18:00  client 1295  Liliana  Bobadilla ip address 192.168.146.168 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 04-12-2024 20:00  
+
+
+Reconect Pending Updater 04-12-2024 22:00  
+
+
+Reconect Pending Updater 05-12-2024 00:00  
+
+
+Reconect Pending Updater 05-12-2024 02:00  
+
+
+Reconect Pending Updater 05-12-2024 04:00  
+
+
+Reconect Pending Updater 05-12-2024 06:00  
+
+
+Reconect Pending Updater 05-12-2024 08:00  
+
+
+Reconect Pending Updater 05-12-2024 10:00  
+
+
+Reconect Pending Updater 05-12-2024 12:00  
+
+
+Reconect Pending Updater 05-12-2024 14:00  
+
+
+2024-12-05  16:00  client 653  Deisy  Urrego ip address 192.168.146.183 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 05-12-2024 18:00  
+
+
+Reconect Pending Updater 05-12-2024 20:00  
+
+
+Reconect Pending Updater 05-12-2024 22:00  
+
+
+Reconect Pending Updater 06-12-2024 00:00  
+
+
+Reconect Pending Updater 06-12-2024 02:00  
+
+
+Reconect Pending Updater 06-12-2024 04:00  
+
+
+Reconect Pending Updater 06-12-2024 06:00  
+
+
+Reconect Pending Updater 06-12-2024 08:00  
+
+
+Reconect Pending Updater 06-12-2024 10:00  
+
+
+Reconect Pending Updater 06-12-2024 18:00  
+
+
+Reconect Pending Updater 06-12-2024 20:00  
+
+
+Reconect Pending Updater 06-12-2024 22:00  
+
+
+Reconect Pending Updater 07-12-2024 00:00  
+
+
+Reconect Pending Updater 07-12-2024 02:00  
+
+
+Reconect Pending Updater 07-12-2024 04:00  
+
+
+2024-12-07  06:00  client 1412  Cesar  Sandoval ip address 192.168.146.210 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-12-07  08:00  client 1426  Edna  Rodriguez ip address 192.168.152.114 server:192.168.152.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 07-12-2024 10:00  
+
+
+Reconect Pending Updater 07-12-2024 12:00  
+
+
+Reconect Pending Updater 07-12-2024 14:00  
+
+
+Reconect Pending Updater 07-12-2024 16:00  
+
+
+Reconect Pending Updater 07-12-2024 18:00  
+
+
+Reconect Pending Updater 07-12-2024 20:00  
+
+
+Reconect Pending Updater 07-12-2024 22:00  
+
+
+Reconect Pending Updater 08-12-2024 00:00  
+
+
+Reconect Pending Updater 08-12-2024 02:00  
+
+
+Reconect Pending Updater 08-12-2024 04:00  
+
+
+Reconect Pending Updater 08-12-2024 06:00  
+
+
+Reconect Pending Updater 08-12-2024 08:00  
+
+
+Reconect Pending Updater 08-12-2024 10:00  
+
+
+Reconect Pending Updater 08-12-2024 12:00  
+
+
+Reconect Pending Updater 08-12-2024 14:00  
+
+
+Reconect Pending Updater 08-12-2024 16:00  
+
+
+Reconect Pending Updater 08-12-2024 18:00  
+
+
+Reconect Pending Updater 08-12-2024 20:00  
+
+
+Reconect Pending Updater 08-12-2024 22:00  
+
+
+Reconect Pending Updater 09-12-2024 00:00  
+
+
+Reconect Pending Updater 09-12-2024 02:00  
+
+
+Reconect Pending Updater 09-12-2024 04:00  
+
+
+Reconect Pending Updater 09-12-2024 06:00  
+
+
+Reconect Pending Updater 09-12-2024 08:00  
+
+
+Reconect Pending Updater 09-12-2024 10:00  
+
+
+Reconect Pending Updater 09-12-2024 12:00  
+
+
+Reconect Pending Updater 09-12-2024 14:00  
+
+
+Reconect Pending Updater 09-12-2024 16:00  
+
+
+Reconect Pending Updater 09-12-2024 18:00  
+
+
+Reconect Pending Updater 09-12-2024 20:00  
+
+
+Reconect Pending Updater 09-12-2024 22:00  
+
+
+Reconect Pending Updater 10-12-2024 00:00  
+
+
+Reconect Pending Updater 10-12-2024 02:00  
+
+
+Reconect Pending Updater 10-12-2024 04:00  
+
+
+Reconect Pending Updater 10-12-2024 06:00  
+
+
+Reconect Pending Updater 10-12-2024 08:00  
+
+
+Reconect Pending Updater 10-12-2024 10:00  
+
+
+Reconect Pending Updater 10-12-2024 12:00  
+
+
+Reconect Pending Updater 10-12-2024 14:00  
+
+
+Reconect Pending Updater 10-12-2024 16:00  
+
+
+Reconect Pending Updater 10-12-2024 18:00  
+
+
+Reconect Pending Updater 10-12-2024 20:00  
+
+
+Reconect Pending Updater 10-12-2024 22:00  
+
+
+Reconect Pending Updater 11-12-2024 00:00  
+
+
+Reconect Pending Updater 11-12-2024 02:00  
+
+
+Reconect Pending Updater 11-12-2024 04:00  
+
+
+Reconect Pending Updater 11-12-2024 06:00  
+
+
+Reconect Pending Updater 11-12-2024 08:00  
+
+
+Reconect Pending Updater 11-12-2024 10:00  
+
+
+Reconect Pending Updater 11-12-2024 12:00  
+
+
+Reconect Pending Updater 11-12-2024 14:00  
+
+
+Reconect Pending Updater 11-12-2024 16:00  
+
+
+Reconect Pending Updater 11-12-2024 18:00  
+
+
+Reconect Pending Updater 11-12-2024 20:00  
+
+
+Reconect Pending Updater 11-12-2024 22:00  
+
+
+Reconect Pending Updater 12-12-2024 00:00  
+
+
+Reconect Pending Updater 12-12-2024 02:00  
+
+
+Reconect Pending Updater 12-12-2024 04:00  
+
+
+Reconect Pending Updater 12-12-2024 06:00  
+
+
+Reconect Pending Updater 12-12-2024 08:00  
+
+
+Reconect Pending Updater 12-12-2024 10:00  
+
+
+Reconect Pending Updater 12-12-2024 12:00  
+
+
+Reconect Pending Updater 12-12-2024 14:00  
+
+
+Reconect Pending Updater 12-12-2024 16:00  
+
+
+Reconect Pending Updater 12-12-2024 18:00  
+
+
+Reconect Pending Updater 12-12-2024 20:00  
+
+
+Reconect Pending Updater 12-12-2024 22:00  
+
+
+Reconect Pending Updater 13-12-2024 00:00  
+
+
+Reconect Pending Updater 13-12-2024 02:00  
+
+
+Reconect Pending Updater 13-12-2024 04:00  
+
+
+Reconect Pending Updater 13-12-2024 06:00  
+
+
+2024-12-13  08:00  client 1369  Liz  Rozo FTTH -AHD ip address 192.168.20.63 server:192.168.21.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 13-12-2024 10:00  
+
+
+Reconect Pending Updater 13-12-2024 12:00  
+
+
+2024-12-13  14:00  client 110  Jhon   Rozo ip address 192.168.16.19 server:192.168.21.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-12-13  16:00  client 1124  Sergio  Gomez ip address 192.168.152.19 server:192.168.152.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 13-12-2024 18:00  
+
+
+Reconect Pending Updater 13-12-2024 20:00  
+
+
+Reconect Pending Updater 13-12-2024 22:00  
+
+
+Reconect Pending Updater 14-12-2024 00:00  
+
+
+Reconect Pending Updater 14-12-2024 02:00  
+
+
+Reconect Pending Updater 14-12-2024 04:00  
+
+
+Reconect Pending Updater 14-12-2024 06:00  
+
+
+Reconect Pending Updater 14-12-2024 08:00  
+
+
+Reconect Pending Updater 14-12-2024 10:00  
+
+
+Reconect Pending Updater 14-12-2024 12:00  
+
+
+Reconect Pending Updater 14-12-2024 14:00  
+
+
+Reconect Pending Updater 14-12-2024 16:00  
+
+
+Reconect Pending Updater 14-12-2024 18:00  
+
+
+Reconect Pending Updater 14-12-2024 20:00  
+
+
+Reconect Pending Updater 14-12-2024 22:00  
+
+
+Reconect Pending Updater 15-12-2024 00:00  
+
+
+Reconect Pending Updater 15-12-2024 02:00  
+
+
+Reconect Pending Updater 15-12-2024 04:00  
+
+
+Reconect Pending Updater 15-12-2024 06:00  
+
+
+Reconect Pending Updater 15-12-2024 08:00  
+
+
+Reconect Pending Updater 15-12-2024 10:00  
+
+
+Reconect Pending Updater 15-12-2024 12:00  
+
+
+Reconect Pending Updater 15-12-2024 14:00  
+
+
+Reconect Pending Updater 15-12-2024 16:00  
+
+
+Reconect Pending Updater 15-12-2024 18:00  
+
+
+Reconect Pending Updater 15-12-2024 20:00  
+
+
+Reconect Pending Updater 15-12-2024 22:00  
+
+
+Reconect Pending Updater 16-12-2024 00:00  
+
+
+Reconect Pending Updater 16-12-2024 02:00  
+
+
+Reconect Pending Updater 16-12-2024 04:00  
+
+
+Reconect Pending Updater 16-12-2024 06:00  
+
+
+Reconect Pending Updater 16-12-2024 08:00  
+
+
+Reconect Pending Updater 16-12-2024 10:00  
+
+
+2024-12-16  12:00  client 1405  Aracely  Suarez ip address 192.168.152.103 server:192.168.152.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2024-12-16  14:00  client 1399  Angela  Salazar ip address 192.168.16.34 server:192.168.21.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 16-12-2024 16:00  
+
+
+Reconect Pending Updater 16-12-2024 18:00  
+
+
+Reconect Pending Updater 16-12-2024 20:00  
+
+
+Reconect Pending Updater 16-12-2024 22:00  
+
+
+Reconect Pending Updater 17-12-2024 00:00  
+
+
+Reconect Pending Updater 17-12-2024 02:00  
+
+
+Reconect Pending Updater 17-12-2024 04:00  
+
+
+Reconect Pending Updater 17-12-2024 06:00  
+
+
+Reconect Pending Updater 17-12-2024 08:00  
+
+
+Reconect Pending Updater 17-12-2024 10:00  
+
+
+Reconect Pending Updater 17-12-2024 12:00  
+
+
+Reconect Pending Updater 17-12-2024 14:00  
+
+
+Reconect Pending Updater 17-12-2024 16:00  
+
+
+Reconect Pending Updater 17-12-2024 18:00  
+
+
+Reconect Pending Updater 17-12-2024 20:00  
+
+
+Reconect Pending Updater 17-12-2024 22:00  
+
+
+Reconect Pending Updater 18-12-2024 00:00  
+
+
+Reconect Pending Updater 18-12-2024 02:00  
+
+
+Reconect Pending Updater 18-12-2024 04:00  
+
+
+Reconect Pending Updater 18-12-2024 06:00  
+
+
+Reconect Pending Updater 18-12-2024 08:00  
+
+
+Reconect Pending Updater 18-12-2024 10:00  
+
+
+Reconect Pending Updater 18-12-2024 12:00  
+
+
+Reconect Pending Updater 18-12-2024 14:00  
+
+
+Reconect Pending Updater 18-12-2024 16:00  
+
+
+Reconect Pending Updater 18-12-2024 18:00  
+
+
+Reconect Pending Updater 18-12-2024 20:00  
+
+
+Reconect Pending Updater 18-12-2024 22:00  
+
+
+Reconect Pending Updater 19-12-2024 00:00  
+
+
+Reconect Pending Updater 19-12-2024 02:00  
+
+
+Reconect Pending Updater 19-12-2024 04:00  
+
+
+Reconect Pending Updater 19-12-2024 06:00  
+
+
+Reconect Pending Updater 19-12-2024 08:00  
+
+
+Reconect Pending Updater 19-12-2024 10:00  
+
+
+Reconect Pending Updater 19-12-2024 12:00  
+
+
+Reconect Pending Updater 19-12-2024 14:00  
+
+
+Reconect Pending Updater 19-12-2024 16:00  
+
+
+Reconect Pending Updater 19-12-2024 18:00  
+
+
+Reconect Pending Updater 19-12-2024 20:00  
+
+
+Reconect Pending Updater 19-12-2024 22:00  
+
+
+Reconect Pending Updater 20-12-2024 00:00  
+
+
+Reconect Pending Updater 20-12-2024 02:00  
+
+
+Reconect Pending Updater 20-12-2024 04:00  
+
+
+Reconect Pending Updater 20-12-2024 06:00  
+
+
+Reconect Pending Updater 20-12-2024 08:00  
+
+
+Reconect Pending Updater 20-12-2024 10:00  
+
+
+Reconect Pending Updater 20-12-2024 12:00  
+
+
+Reconect Pending Updater 20-12-2024 14:00  
+
+
+Reconect Pending Updater 20-12-2024 16:00  
+
+
+Reconect Pending Updater 20-12-2024 18:00  
+
+
+Reconect Pending Updater 20-12-2024 20:00  
+
+
+Reconect Pending Updater 20-12-2024 22:00  
+
+
+Reconect Pending Updater 21-12-2024 00:00  
+
+
+Reconect Pending Updater 21-12-2024 02:00  
+
+
+Reconect Pending Updater 21-12-2024 04:00  
+
+
+Reconect Pending Updater 21-12-2024 06:00  
+
+
+Reconect Pending Updater 21-12-2024 08:00  
+
+
+2024-12-21  10:00  client 1072  Martha  Baquero ip address 192.168.27.38 server:192.168.26.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 21-12-2024 12:00  
+
+
+Reconect Pending Updater 21-12-2024 14:00  
+
+
+Reconect Pending Updater 21-12-2024 16:00  
+
+
+Reconect Pending Updater 21-12-2024 18:00  
+
+
+Reconect Pending Updater 21-12-2024 20:00  
+
+
+Reconect Pending Updater 21-12-2024 22:00  
+
+
+Reconect Pending Updater 22-12-2024 00:00  
+
+
+Reconect Pending Updater 22-12-2024 02:00  
+
+
+Reconect Pending Updater 22-12-2024 04:00  
+
+
+Reconect Pending Updater 22-12-2024 06:00  
+
+
+Reconect Pending Updater 22-12-2024 08:00  
+
+
+Reconect Pending Updater 22-12-2024 10:00  
+
+
+Reconect Pending Updater 22-12-2024 12:00  
+
+
+Reconect Pending Updater 22-12-2024 14:00  
+
+
+Reconect Pending Updater 22-12-2024 16:00  
+
+
+Reconect Pending Updater 22-12-2024 18:00  
+
+
+Reconect Pending Updater 22-12-2024 20:00  
+
+
+Reconect Pending Updater 22-12-2024 22:00  
+
+
+Reconect Pending Updater 23-12-2024 00:00  
+
+
+Reconect Pending Updater 23-12-2024 02:00  
+
+
+Reconect Pending Updater 23-12-2024 04:00  
+
+
+Reconect Pending Updater 23-12-2024 06:00  
+
+
+Reconect Pending Updater 23-12-2024 08:00  
+
+
+Reconect Pending Updater 23-12-2024 12:00  
+
+
+Reconect Pending Updater 23-12-2024 14:00  
+
+
+Reconect Pending Updater 23-12-2024 16:00  
+
+
+Reconect Pending Updater 23-12-2024 18:00  
+
+
+Reconect Pending Updater 23-12-2024 20:00  
+
+
+Reconect Pending Updater 23-12-2024 22:00  
+
+
+Reconect Pending Updater 24-12-2024 00:00  
+
+
+Reconect Pending Updater 24-12-2024 02:00  
+
+
+Reconect Pending Updater 24-12-2024 04:00  
+
+
+Reconect Pending Updater 24-12-2024 06:00  
+
+
+Reconect Pending Updater 24-12-2024 08:00  
+
+
+Reconect Pending Updater 24-12-2024 10:00  
+
+
+2024-12-24  12:00  client 161  Pablo  Melo ip address 192.168.17.154 server:192.168.17.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 24-12-2024 14:00  
+
+
+Reconect Pending Updater 24-12-2024 16:00  
+
+
+Reconect Pending Updater 24-12-2024 18:00  
+
+
+Reconect Pending Updater 24-12-2024 20:00  
+
+
+Reconect Pending Updater 24-12-2024 22:00  
+
+
+Reconect Pending Updater 25-12-2024 00:00  
+
+
+Reconect Pending Updater 25-12-2024 02:00  
+
+
+Reconect Pending Updater 25-12-2024 04:00  
+
+
+Reconect Pending Updater 25-12-2024 06:00  
+
+
+Reconect Pending Updater 25-12-2024 08:00  
+
+
+Reconect Pending Updater 25-12-2024 10:00  
+
+
+Reconect Pending Updater 25-12-2024 12:00  
+
+
+Reconect Pending Updater 25-12-2024 14:00  
+
+
+Reconect Pending Updater 25-12-2024 16:00  
+
+
+Reconect Pending Updater 25-12-2024 18:00  
+
+
+Reconect Pending Updater 25-12-2024 20:00  
+
+
+Reconect Pending Updater 25-12-2024 22:00  
+
+
+Reconect Pending Updater 26-12-2024 00:00  
+
+
+Reconect Pending Updater 26-12-2024 02:00  
+
+
+Reconect Pending Updater 26-12-2024 04:00  
+
+
+Reconect Pending Updater 26-12-2024 06:00  
+
+
+Reconect Pending Updater 26-12-2024 08:00  
+
+
+Reconect Pending Updater 26-12-2024 10:00  
+
+
+Reconect Pending Updater 26-12-2024 12:00  
+
+
+Reconect Pending Updater 26-12-2024 14:00  
+
+
+Reconect Pending Updater 26-12-2024 16:00  
+
+
+2024-12-26  18:00  client 1282  Yulixa Alejandra  leon Henao FTTH -AHD  ip address 192.168.122.4 server:192.168.26.205 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 26-12-2024 20:00  
+
+
+2024-12-26  22:00  client 559  Luz Enid  Jaramillo Rendon ip address 192.168.30.152 server:192.168.30.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 27-12-2024 00:00  
+
+
+Reconect Pending Updater 27-12-2024 02:00  
+
+
+Reconect Pending Updater 27-12-2024 04:00  
+
+
+Reconect Pending Updater 27-12-2024 06:00  
+
+
+Reconect Pending Updater 27-12-2024 08:00  
+
+
+2024-12-27  10:00  client 1210  Carmen  Trujillo  Rivas -AHD ip address 192.168.152.85 server:192.168.152.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 27-12-2024 12:00  
+
+
+Reconect Pending Updater 27-12-2024 14:00  
+
+
+Reconect Pending Updater 27-12-2024 16:00  
+
+
+Reconect Pending Updater 27-12-2024 18:00  
+
+
+Reconect Pending Updater 27-12-2024 20:00  
+
+
+Reconect Pending Updater 27-12-2024 22:00  
+
+
+Reconect Pending Updater 28-12-2024 00:00  
+
+
+Reconect Pending Updater 28-12-2024 02:00  
+
+
+Reconect Pending Updater 28-12-2024 04:00  
+
+
+Reconect Pending Updater 28-12-2024 06:00  
+
+
+Reconect Pending Updater 28-12-2024 08:00  
+
+
+Reconect Pending Updater 28-12-2024 10:00  
+
+
+Reconect Pending Updater 28-12-2024 12:00  
+
+
+Reconect Pending Updater 28-12-2024 14:00  
+
+
+Reconect Pending Updater 28-12-2024 16:00  
+
+
+Reconect Pending Updater 28-12-2024 18:00  
+
+
+Reconect Pending Updater 28-12-2024 20:00  
+
+
+Reconect Pending Updater 28-12-2024 22:00  
+
+
+Reconect Pending Updater 29-12-2024 00:00  
+
+
+Reconect Pending Updater 29-12-2024 02:00  
+
+
+Reconect Pending Updater 29-12-2024 04:00  
+
+
+Reconect Pending Updater 29-12-2024 06:00  
+
+
+Reconect Pending Updater 29-12-2024 08:00  
+
+
+Reconect Pending Updater 29-12-2024 10:00  
+
+
+Reconect Pending Updater 29-12-2024 12:00  
+
+
+Reconect Pending Updater 29-12-2024 14:00  
+
+
+Reconect Pending Updater 29-12-2024 16:00  
+
+
+2024-12-29  18:00  client 1108  Marcela Cecilia  Rueda ip address 192.168.50.149 server:192.168.50.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 29-12-2024 20:00  
+
+
+Reconect Pending Updater 29-12-2024 22:00  
+
+
+Reconect Pending Updater 30-12-2024 00:00  
+
+
+Reconect Pending Updater 30-12-2024 02:00  
+
+
+Reconect Pending Updater 30-12-2024 04:00  
+
+
+Reconect Pending Updater 30-12-2024 06:00  
+
+
+Reconect Pending Updater 30-12-2024 08:00  
+
+
+Reconect Pending Updater 30-12-2024 10:00  
+
+
+Reconect Pending Updater 30-12-2024 12:00  
+
+
+Reconect Pending Updater 30-12-2024 14:00  
+
+
+Reconect Pending Updater 30-12-2024 16:00  
+
+
+Reconect Pending Updater 30-12-2024 18:00  
+
+
+Reconect Pending Updater 30-12-2024 20:00  
+
+
+Reconect Pending Updater 30-12-2024 22:00  
+
+
+Reconect Pending Updater 31-12-2024 00:00  
+
+
+Reconect Pending Updater 31-12-2024 02:00  
+
+
+Reconect Pending Updater 31-12-2024 04:00  
+
+
+Reconect Pending Updater 31-12-2024 06:00  
+
+
+Reconect Pending Updater 31-12-2024 08:00  
+
+
+Reconect Pending Updater 31-12-2024 10:00  
+
+
+Reconect Pending Updater 31-12-2024 12:00  
+
+
+Reconect Pending Updater 31-12-2024 14:00  
+
+
+Reconect Pending Updater 31-12-2024 16:00  
+
+
+Reconect Pending Updater 31-12-2024 18:00  
+
+
+Reconect Pending Updater 31-12-2024 20:00  
+
+
+Reconect Pending Updater 31-12-2024 22:00  
+
+
+Reconect Pending Updater 01-01-2025 00:00  
+
+
+Reconect Pending Updater 01-01-2025 02:00  
+
+
+Reconect Pending Updater 01-01-2025 04:00  
+
+
+Reconect Pending Updater 01-01-2025 06:00  
+
+
+Reconect Pending Updater 01-01-2025 08:00  
+
+
+Reconect Pending Updater 01-01-2025 10:00  
+
+
+Reconect Pending Updater 01-01-2025 12:00  
+
+
+Reconect Pending Updater 01-01-2025 14:00  
+
+
+Reconect Pending Updater 01-01-2025 16:00  
+
+
+Reconect Pending Updater 01-01-2025 18:00  
+
+
+Reconect Pending Updater 01-01-2025 20:00  
+
+
+Reconect Pending Updater 01-01-2025 22:00  
+
+
+Reconect Pending Updater 02-01-2025 00:00  
+
+
+Reconect Pending Updater 02-01-2025 02:00  
+
+
+Reconect Pending Updater 02-01-2025 04:00  
+
+
+Reconect Pending Updater 02-01-2025 06:00  
+
+
+Reconect Pending Updater 02-01-2025 08:00  
+
+
+Reconect Pending Updater 02-01-2025 10:00  
+
+
+Reconect Pending Updater 02-01-2025 12:00  
+
+
+Reconect Pending Updater 02-01-2025 14:00  
+
+
+Reconect Pending Updater 02-01-2025 16:00  
+
+
+Reconect Pending Updater 02-01-2025 18:00  
+
+
+Reconect Pending Updater 02-01-2025 20:00  
+
+
+Reconect Pending Updater 02-01-2025 22:00  
+
+
+Reconect Pending Updater 03-01-2025 00:00  
+
+
+Reconect Pending Updater 03-01-2025 02:00  
+
+
+Reconect Pending Updater 03-01-2025 04:00  
+
+
+Reconect Pending Updater 03-01-2025 06:00  
+
+
+2025-01-03  08:00  client 1024  Laura Camila  MuñOs ip address 192.168.26.213 server:192.168.26.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-03  10:00  client 667  Jose Ignacio  Abril Abril ip address 192.168.16.23 server:192.168.21.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 03-01-2025 12:00  
+
+
+Reconect Pending Updater 03-01-2025 14:00  
+
+
+Reconect Pending Updater 03-01-2025 16:00  
+
+
+Reconect Pending Updater 03-01-2025 18:00  
+
+
+Reconect Pending Updater 03-01-2025 20:00  
+
+
+Reconect Pending Updater 03-01-2025 22:00  
+
+
+Reconect Pending Updater 04-01-2025 00:00  
+
+
+Reconect Pending Updater 04-01-2025 02:00  
+
+
+Reconect Pending Updater 04-01-2025 04:00  
+
+
+Reconect Pending Updater 04-01-2025 06:00  
+
+
+Reconect Pending Updater 04-01-2025 08:00  
+
+
+Reconect Pending Updater 04-01-2025 10:00  
+
+
+2025-01-04  12:00  client 62  Francy  Preciado ip address 192.168.26.120 server:192.168.26.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 04-01-2025 14:00  
+
+
+2025-01-04  16:00  client 1412  Cesar  Sandoval ip address 192.168.146.210 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 04-01-2025 18:00  
+
+
+Reconect Pending Updater 04-01-2025 20:00  
+
+
+Reconect Pending Updater 04-01-2025 22:00  
+
+
+Reconect Pending Updater 05-01-2025 00:00  
+
+
+Reconect Pending Updater 05-01-2025 02:00  
+
+
+Reconect Pending Updater 05-01-2025 04:00  
+
+
+Reconect Pending Updater 05-01-2025 06:00  
+
+
+Reconect Pending Updater 05-01-2025 08:00  
+
+
+Reconect Pending Updater 05-01-2025 10:00  
+
+
+Reconect Pending Updater 05-01-2025 12:00  
+
+
+Reconect Pending Updater 05-01-2025 14:00  
+
+
+Reconect Pending Updater 05-01-2025 16:00  
+
+
+Reconect Pending Updater 05-01-2025 18:00  
+
+
+Reconect Pending Updater 05-01-2025 20:00  
+
+
+Reconect Pending Updater 05-01-2025 22:00  
+
+
+Reconect Pending Updater 06-01-2025 00:00  
+
+
+Reconect Pending Updater 06-01-2025 02:00  
+
+
+Reconect Pending Updater 06-01-2025 04:00  
+
+
+Reconect Pending Updater 06-01-2025 06:00  
+
+
+Reconect Pending Updater 06-01-2025 08:00  
+
+
+Reconect Pending Updater 06-01-2025 10:00  
+
+
+Reconect Pending Updater 06-01-2025 12:00  
+
+
+Reconect Pending Updater 06-01-2025 14:00  
+

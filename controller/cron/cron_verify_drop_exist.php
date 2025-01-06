@@ -1,82 +1,59 @@
-<?php 
-require '/var/www/ispexperts/PingTime.php';
-require '/var/www/ispexperts/Mkt.php';
-require '/var/www/ispexperts/CheckDevice.php';
-require("/var/www/ispexperts/VpnUtils.php");
-include("/var/www/ispexperts/login/db.php");
-include("/var/www/ispexperts/Client.php");
+<?php
+include("/var/www/ispexperts/login/db.php"); 
+require '/var/www/ispexperts/Mkt.php'; 
 $mysqli = new mysqli($server, $db_user, $db_pwd, $db_name);
 if ($mysqli->connect_errno) {
-	echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-	}	
-mysqli_set_charset($mysqli,"utf8");
-date_default_timezone_set('America/Bogota');
-$today = date("Y-m-d");   
-$convertdate= date("d-m-Y" , strtotime($today));
-$hourMin = date('H:i');
-$content .= "\nReconect Pending Updater $convertdate $hourMin  \n";
-$sqlSearch="SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1  ";
-$file = 'logs_reconect_updated.txt';
-$clientObject=new Client($server, $db_user, $db_pwd, $db_name);
-if ($result = $mysqli->query($sqlSearch)) {
-    while($row = $result->fetch_assoc()) {
-        $listStatus=0;
-        $id=$row["id"];
-        $name=$row["cliente"];
-        $lastName=$row["apellido"];
-        $address=$row["direccion"];
-        $ipAddress=$row['ip'];
-        $sqlSaldo="SELECT * FROM `factura` WHERE `cerrado`=0 AND `id-afiliado`=$id";
-        if ($resultSaldo = $mysqli->query($sqlSaldo)) {
-            if(!$rowSaldo = $resultSaldo->fetch_assoc()) {
-                $serverIp=serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress);
-                $device=new CheckDevice();
-                if($device->ping($serverIp)){
-                    $timeResponse=new PingTime($serverIp); 
-                    if($time=$timeResponse->time()){
-                        try{
-                            if($mkobj=new Mkt($serverIp,$rb_server_default_user,$rb_default_password)){
-                                if($mkobj->success){
-                                    $listStatus= $mkobj->verifyList("morosos",$ipAddress)?1:0;
-                                    if($listStatus){    
-                                        print "\nclient $id  $name  $lastName ip address $ipAddress server:$serverIp is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1\n";
-                                        $content="\n$today  $hourMin  client $id  $name  $lastName ip address $ipAddress server:$serverIp is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1";
-                                        $clientObject->updateClient($id,$param="reconectPending",1,$operator="=");
-                                        $clientObject->updateClient($id,$param="shutoffpending",0,$operator="=");
-                                        $clientObject->updateClient($id,$param="suspender",0,$operator="="); 
-                                    }
-                                    
-                                }else {
-                                    print "\t Fail connecting for $id";
-                                }
-                            }
-                            
-                        }catch (Exception $e) {
-                            echo 'Caught exception: ',  $e->getMessage(), "\n"; 
-                        } 
-                    }
-                }
-                $clientObject->updateClient($id,$param="reconectPending",1,$operator="=");
-            }
-        }
-        
-    }
+    print "Failed to connect to MySQL: " . $mysqli->connect_error;
 }
-
-
-
+mysqli_set_charset($mysqli, "utf8");
+date_default_timezone_set('America/Bogota');
+$today = date("Y-m-d");
+$convertdate = date("d-m-Y", strtotime($today));
+$hourMin = date('H:i');
+$file = '/var/www/ispexperts/controller/cron/logs_drop_morosos.txt';
+$content = "\n--- Ejecución: " . date("Y-m-d H:i:s") . " ---\n";
+$user="aws";
+$idEmpresa=1;//AG INGENIERIA GUAMAL-CASTILLA
+$groupArray=[];
+$mkobj=[];
+$sql="SELECT * FROM `vpn_targets` WHERE  `active`= 1 AND `id-empresa`= $idEmpresa ";
+if($rs=$mysqli->query($sql)){
+    while($row=$rs->fetch_assoc()){
+        $serverIp=$row["server-ip"];
+        $serverName=$row["server-name"];
+        $username=$row["username"];
+        $password=$row["password"];
+        $groupId=$row["id-repeater-subnet-group"];
+        $mkobj[$groupId]=new Mkt($serverIp,$username,$password);
+        if($mkobj[$groupId]->success){
+            // To check and create the rule if it doesn't exist
+            $result = $mkobj[$groupId]->checkOrCreateMorososRule(true);
+            if (isset($result['error'])) {
+                echo "Ocurrió un error: " . $result['error'];
+            } else {
+                if (isset($result['duplicatesRemoved'])) {
+                    echo "Se eliminaron $serverIp $serverName " . $result['duplicatesRemoved'] . " reglas duplicadas. \n";
+                }
+                
+                if ($result['exists']) {
+                    echo "La regla ya existía $serverIp $serverName. \n";
+                } elseif ($result['created']) {
+                    echo "Se creó la regla con éxito $serverIp $serverName.\n";
+                    $content .= "\n$today  $hourMin  server $serverIp $serverName $groupId  Se creó la regla drop con éxito ";
+                } else {
+                    echo "La regla no existe y no se pudo crear.\n";
+                }
+            }  
+        }else {
+            $groupArray+=array("$groupId"=>false);
+            // print "$serverIp $serverName $groupId $groupId grupo connwxion invalido! \n";
+        }
+    }
+    $rs->free();
+}
 
 $content .= PHP_EOL;
-file_put_contents($file, $content);
+file_put_contents($file, $content, FILE_APPEND | LOCK_EX);  
 
-function serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress){
-    $res="0.0.0.1";
-    if($ipAddress!="0.0.0.0"){
-        $vpnObject2=new VpnUtils($server, $db_user, $db_pwd, $db_name);  
-        $idGroup=$vpnObject2->updateGroupId($id,$ipAddress); 
-        $res= $vpnObject2->getServerIp($idGroup); 
-    }
-    return $res;
-}
-
+ 
 ?>

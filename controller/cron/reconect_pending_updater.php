@@ -14,9 +14,9 @@ date_default_timezone_set('America/Bogota');
 $today = date("Y-m-d");   
 $convertdate= date("d-m-Y" , strtotime($today));
 $hourMin = date('H:i');
-$content .= "\nReconect Pending Updater $convertdate $hourMin  \n";
 $sqlSearch="SELECT * FROM `afiliados` WHERE  `eliminar`=0 AND `activo`=1  ";
-$file = 'logs_reconect_updated.txt';
+$file = '/var/www/ispexperts/controller/cron/logs_reconect_updated.txt';
+$content .= "\nReconect Pending Updater $convertdate $hourMin  \n";
 $clientObject=new Client($server, $db_user, $db_pwd, $db_name);
 if ($result = $mysqli->query($sqlSearch)) {
     while($row = $result->fetch_assoc()) {
@@ -67,7 +67,7 @@ if ($result = $mysqli->query($sqlSearch)) {
 
 
 $content .= PHP_EOL;
-file_put_contents($file, $content);
+file_put_contents($file, $content, FILE_APPEND | LOCK_EX); 
 
 function serverIP($server, $db_user, $db_pwd, $db_name,$id,$ipAddress){
     $res="0.0.0.1";
