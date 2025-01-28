@@ -70,21 +70,55 @@ if ($result = $mysqli->query($sql)) {
 $sql_base = "SELECT * FROM `afiliados` WHERE `id-empresa` = {$_SESSION['empresa']} AND `activo` = 1 AND `eliminar` != 1 $arrayidArea";
 
 // ** Agregar búsqueda si aplica **
+// ** Agregar búsqueda si aplica **
 if (!empty($search_value)) {
-    $sql_base .= " AND (`cliente` LIKE '%$search_value%' OR `cedula` LIKE '%$search_value%' OR `direccion` LIKE '%$search_value%')";
+    $search_terms = explode(' ', $search_value);  // Dividir por espacios
+    $search_conditions = [];
+    foreach ($search_terms as $term) {
+        $term = $mysqli->real_escape_string($term);
+        $search_conditions[] = "`cliente` LIKE '%$term%' OR `apellido` LIKE '%$term%' OR `cedula` LIKE '%$term%' OR `direccion` LIKE '%$term%'  OR `ip` LIKE '%$term%' ";
+    }
+    if($search_value=="convenio")
+        $sql_base = "SELECT * FROM `afiliados` WHERE `id-empresa` = {$_SESSION['empresa']} AND `activo` = 1 AND `eliminar` != 1  AND `convenio` = 1   $arrayidArea";
+    else    
+        $sql_base .= " AND (" . implode(' OR ', $search_conditions) . ")";
 }
+
 
 // Total de registros sin paginación
 $total_query = $mysqli->query($sql_base);
 $total_records = $total_query->num_rows;
 
-// Consulta con paginación y ordenación
-$sql_paginated = $sql_base . " ORDER BY `$order_column` $order_direction LIMIT $start, $length";
+// Reemplaza la ordenación por un "score" de relevancia:
+$sql_paginated = $sql_base . " ORDER BY (CASE 
+    WHEN CONCAT(`cliente`, ' ', `apellido`) LIKE '$search_value%' THEN 1 
+    WHEN CONCAT(`cliente`, ' ', `apellido`) LIKE '%$search_value%' THEN 2 
+    ELSE 3 END), `$order_column` $order_direction 
+    LIMIT $start, $length";
+
+
+
+// Ejecutar la consulta paginada
 $result = $mysqli->query($sql_paginated);
 
-// Construir respuesta JSON
+if (!$result) {
+    error_log("Error en la consulta paginada: " . $mysqli->error);
+    echo json_encode(["error" => "Error en la consulta"]);
+    exit;
+}
+
+// Total filtrado
+$total_filtered_query = $mysqli->query($sql_base);
+$total_filtered_records = $total_filtered_query->num_rows;
+
+    // Construir respuesta JSON
 $data = [];
 while ($row = $result->fetch_assoc()) {
+    $statusText = "";  // Reiniciar el estado para cada iteración
+    $textVerified = "";  // Reiniciar verificación
+    $style = "border-primary text-success";
+
+
     // Datos del cliente
     $idCliente = $row["id"];
     $cedula = $row["cedula"];
@@ -95,6 +129,7 @@ while ($row = $result->fetch_assoc()) {
     $standby = $row["standby"];
     $reconectedDate = $row["reconected-date"];
     $ip = $row["ip"];
+    $clientWidthConvenio=$row["convenio"];
     $signal = (($row["signal-strenght"] * -1) > 0 && ($row["signal-strenght"] * -1) < 70) ? $row["signal-strenght"] . " buena" : $row["signal-strenght"] . " mala";
     if ($row["signal-strenght"] * 1 == 0) $signal = "?";
     $sshLoginType = ($signal == "?") ? $row["ssh-login-type"] . "-" : $row["ssh-login-type"];
@@ -137,10 +172,23 @@ while ($row = $result->fetch_assoc()) {
     }
 
     // Estado del cliente
-    if ($row["eliminar"] == 1) {
-        $statusText = "<p><small class='px-1 border border-dark text-secondary rounded'>Inactivo</small></p>";
-    } else {
-        $statusText = "<p><small class='px-1 border border-primary text-success rounded'>Activo</small></p>";
+    if ($row["suspender"] == 1) {
+        $today = date("Y-m-d");
+        $date1 = new DateTime($today);
+        $date2 = new DateTime($row["suspenderFecha"]);
+        $days  = $date2->diff($date1)->format('%a'); 
+        ($days==0)? $d="Hoy":$d=" hace $days dias";
+        if($row["suspender-list-status-date"]){ 
+            $date3 = new DateTime($row["suspender-list-status-date"]);
+            $verifiedDays  = $date3->diff($date1)->format('%a'); 
+            ($verifiedDays==0)? $dVerified="Hoy":$dVerified="$verifiedDays dias";
+            $styleV = "border-info text-info ";
+            $textVerified="<div><small class=\"p-1  $styleV  \">Verificado:$dVerified</small></div>";
+        }
+        else $textVerified="";
+        $style = "border-info text-danger ";
+        $statusText = 
+        "<div><small class=\"px-1 border $style rounded \">Orden es CORTAR Se cumple orden  $d. Resultado: $suspenderStatus </small>$textVerified</div>"; 
     }
 
     $reconectedBox = ($reconectedDate && $reconectedDate != "1999-01-01" && $reconectedDate != NULL) ?
@@ -149,11 +197,17 @@ while ($row = $result->fetch_assoc()) {
     // Botón de pago
     $payButton = "<a href='#' class='text-primary icon-client' data-toggle='modal' data-target='#payModal' data-id='$idCliente'><i class='icon-money h3'></i></a>";
 
+    if($clientWidthConvenio==1){
+        $textConvenio="<div class='border border-info rounded p-1 bg-white'><p class='mb-0'><small>Convenio Fernando Pardo</small></p></div>";
+    }else{
+        $textConvenio="";
+    }
+
     $data[] = [
         "{$row['cliente']} {$row['apellido']} $statusText $reconectedBox",
         "{$row['direccion']} {$row['ciudad']} - {$row['id']}",
         "C.C: {$row['cedula']} Tel: {$row['telefono']}",
-        "<small $style_cell>$$vtotal</small>$payButton",
+        "$textConvenio <small $style_cell>$$vtotal</small>$payButton",
         "<small>$registration_date</small><div class='border border-info rounded p-1 bg-white'><p class='mb-0'><small>ip: $ip</small></p><p class='mb-0'><small>$pingCurrentStatus</small></p><p class='mb-0'><small>Receptor: $sshLoginType</small></p><p class='mb-0'><small>Señal: $signal</small></p></div>",
         "C-{$row["corte"]}*$standby <p><small>$idGRoup</small></p>",
         "<input class='form-control form-control-sm' type='text' value='{$cedula}'>",
