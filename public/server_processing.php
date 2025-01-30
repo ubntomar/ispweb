@@ -76,12 +76,20 @@ if (!empty($search_value)) {
     $search_conditions = [];
     foreach ($search_terms as $term) {
         $term = $mysqli->real_escape_string($term);
-        $search_conditions[] = "`cliente` LIKE '%$term%' OR `apellido` LIKE '%$term%' OR `cedula` LIKE '%$term%' OR `direccion` LIKE '%$term%'  OR `ip` LIKE '%$term%' ";
+        $search_conditions[] = "`cliente` LIKE '%$term%' OR `apellido` LIKE '%$term%' OR `cedula` LIKE '%$term%' OR `direccion` LIKE '%$term%'  OR `ip` LIKE '%$term%' OR `pago` LIKE '%$term%' OR `telefono` LIKE '%$term%'  OR `cedula` LIKE '%$term%' OR `id` LIKE '%$term%'";
     }
-    if($search_value=="convenio")
+    $normalizedValue = preg_replace('/[^a-z]/', '', strtolower($search_value));
+    if ($normalizedValue === 'convenio') {
         $sql_base = "SELECT * FROM `afiliados` WHERE `id-empresa` = {$_SESSION['empresa']} AND `activo` = 1 AND `eliminar` != 1  AND `convenio` = 1   $arrayidArea";
+    }
+    elseif($normalizedValue=="cortado")
+        $sql_base = "SELECT * FROM `afiliados` WHERE `id-empresa` = {$_SESSION['empresa']} AND `activo` = 1 AND `eliminar` != 1  AND `suspender` = 1   $arrayidArea";
+    
+        elseif($normalizedValue=="billetera")
+        $sql_base = "SELECT * FROM `afiliados` WHERE `id-empresa` = {$_SESSION['empresa']} AND `activo` = 1 AND `eliminar` != 1  AND `suspender` = 1   $arrayidArea";
+
     else    
-        $sql_base .= " AND (" . implode(' OR ', $search_conditions) . ")";
+    $sql_base .= " AND (" . implode(' OR ', $search_conditions) . ")";
 }
 
 
@@ -206,8 +214,8 @@ while ($row = $result->fetch_assoc()) {
     $data[] = [
         "{$row['cliente']} {$row['apellido']} $statusText $reconectedBox",
         "{$row['direccion']} {$row['ciudad']} - {$row['id']}",
-        "C.C: {$row['cedula']} Tel: {$row['telefono']}",
-        "$textConvenio <small $style_cell>$$vtotal</small>$payButton",
+        "$textConvenio  $payButton   C.C: {$row['cedula']} Tel: {$row['telefono']}",
+        "<small $style_cell>$vtotal</small>",
         "<small>$registration_date</small><div class='border border-info rounded p-1 bg-white'><p class='mb-0'><small>ip: $ip</small></p><p class='mb-0'><small>$pingCurrentStatus</small></p><p class='mb-0'><small>Receptor: $sshLoginType</small></p><p class='mb-0'><small>Señal: $signal</small></p></div>",
         "C-{$row["corte"]}*$standby <p><small>$idGRoup</small></p>",
         "<input class='form-control form-control-sm' type='text' value='{$cedula}'>",

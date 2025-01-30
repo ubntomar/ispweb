@@ -4529,3 +4529,61 @@ Reconect Pending Updater 28-01-2025 04:00
 2025-01-28  06:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
 
 2025-01-28  08:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-28  10:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-28  12:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-28  14:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-28  16:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-28  18:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-28  20:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-28  22:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-29  00:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 29-01-2025 02:00  
+
+
+Reconect Pending Updater 29-01-2025 04:00  
+
+
+2025-01-29  06:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-29  08:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-29  10:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-29  12:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-29  14:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 29-01-2025 16:00  
+
+
+2025-01-29  18:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-29  20:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-29  22:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-30  00:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-30  02:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+Reconect Pending Updater 30-01-2025 04:00  
+
+
+2025-01-30  06:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-30  08:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-30  10:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-30  12:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
+
+2025-01-30  14:00  client 1013  Alberto  Doncel ip address 192.168.146.231 server:192.168.146.1 is  in list 'morosos' , saldo 0 .. vamos a generar reconnect=1
